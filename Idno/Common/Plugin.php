@@ -3,7 +3,7 @@
     /**
      * All idno plugins should extend this component.
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -21,15 +21,16 @@ namespace Idno\Common {
 
             return $result;
         }
-        
-        function registerLibraries() {
-            
+
+        function registerLibraries()
+        {
+
             $plugin = new \ReflectionClass(get_called_class());
 
             $file = $plugin->getFileName();
-            
+
             if (file_exists(dirname($file) . '/vendor/autoload.php')) {
-                include_once(dirname($file) . '/vendor/autoload.php');
+                include_once dirname($file) . '/vendor/autoload.php';
             }
         }
 
@@ -49,7 +50,8 @@ namespace Idno\Common {
 
         /**
          * Returns the bytes used by this plugin; if a user ID is included, limits to that user's uploads
-         * @param string|bool $user (By default this isn't set)
+         *
+         * @param  string|bool $user (By default this isn't set)
          * @return int
          */
         function getFileUsage($user = false)
@@ -62,8 +64,9 @@ namespace Idno\Common {
          */
         public function getManifest()
         {
-            if (!empty($this->manifest))
+            if (!empty($this->manifest)) {
                 return $this->manifest;
+            }
 
             $reflection = new \ReflectionClass(get_called_class());
 
@@ -76,6 +79,7 @@ namespace Idno\Common {
 
         /**
          * Return the version of this plugin.
+         *
          * @return type
          * @throws \Idno\Exceptions\ConfigurationException
          */
@@ -83,8 +87,9 @@ namespace Idno\Common {
         {
             $manifest = $this->getManifest();
 
-            if (empty($manifest['version']))
+            if (empty($manifest['version'])) {
                 throw new \Idno\Exceptions\ConfigurationException(\Idno\Core\Idno::site()->language()->_('Plugin %s doesn\'t have a version', [get_class($this)]));
+            }
 
             return $manifest['version'];
         }

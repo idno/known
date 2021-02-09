@@ -1,6 +1,7 @@
 <?php
 
-    if (empty($vars['class'])) $vars['class'] = "input-password";
+if (empty($vars['class'])) { $vars['class'] = "input-password";
+}
     $vars['type'] = 'password';
 
     $vars['autocomplete'] = 'off';

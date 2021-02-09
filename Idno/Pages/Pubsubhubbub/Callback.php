@@ -42,8 +42,9 @@ namespace Idno\Pages\Pubsubhubbub {
                     // Check whether the intent is valid
                     if (is_array($pending->$hub_mode) && in_array($subscription->getUUID(), $pending->$hub_mode)) {
                         $new = array();
-                        foreach ($pending->$hub_mode as $value)
+                        foreach ($pending->$hub_mode as $value) {
                             $new[] = $value;
+                        }
 
                         $subscriber->pubsub_pending = serialize($new);
                         $subscriber->save();
@@ -64,7 +65,8 @@ namespace Idno\Pages\Pubsubhubbub {
 
             // Since we've overloaded post, we need to parse the arguments
             $arguments = func_get_args();
-            if (!empty($arguments)) $this->arguments = $arguments;
+            if (!empty($arguments)) { $this->arguments = $arguments;
+            }
 
             // Find users
             if (!empty($this->arguments[0])) {
@@ -82,11 +84,13 @@ namespace Idno\Pages\Pubsubhubbub {
 
             \Idno\Core\Idno::site()->logging()->debug("Pubsub: Ping received, pinging out...");
 
-            \Idno\Core\Idno::site()->events()->triggerEvent('pubsubhubbub/ping', array(
+            \Idno\Core\Idno::site()->events()->triggerEvent(
+                'pubsubhubbub/ping', array(
                 'subscriber'   => $subscriber,
                 'subscription' => $subscription,
                 'data'         => trim(file_get_contents("php://input"))
-            ));
+                )
+            );
 
         }
 

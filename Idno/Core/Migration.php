@@ -11,6 +11,7 @@ namespace Idno\Core {
 
         /**
          * Prepares an archive containing all of this site's data.
+         *
          * @return string
          */
         static function exportToFolder($dir = false)
@@ -19,8 +20,9 @@ namespace Idno\Core {
             set_time_limit(0);  // Switch off the time limit for PHP
 
             $page = Idno::site()->currentPage();
-            if (!empty($page))
+            if (!empty($page)) {
                 Idno::site()->currentPage()->setPermalink(true);
+            }
 
             // Prepare a unique name for the archive
             $name = md5(time() . rand(0, 9999) . Idno::site()->config()->getURL());
@@ -65,13 +67,17 @@ namespace Idno\Core {
             // If we've made it here, we've created a temporary directory with the hash name
 
             // Write some details about the export
-            file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'known.json', json_encode([
-                'url' => Idno::site()->config()->getURL(),
-                'title' => Idno::site()->config()->getTitle(),
-                // Include some version info in case we change the export format
-                'version' => \Idno\Core\Version::version(),
-                'build' => \Idno\Core\Version::build(),
-            ], JSON_PRETTY_PRINT));
+            file_put_contents(
+                $dir . $name . DIRECTORY_SEPARATOR . 'known.json', json_encode(
+                    [
+                    'url' => Idno::site()->config()->getURL(),
+                    'title' => Idno::site()->config()->getTitle(),
+                    // Include some version info in case we change the export format
+                    'version' => \Idno\Core\Version::version(),
+                    'build' => \Idno\Core\Version::build(),
+                    ], JSON_PRETTY_PRINT
+                )
+            );
 
             // We now also want to output the current loaded config
             file_put_contents($dir . $name . DIRECTORY_SEPARATOR . 'config.json', json_encode(\Idno\Core\Idno::site()->config(), JSON_PRETTY_PRINT));
@@ -176,20 +182,23 @@ namespace Idno\Core {
             $offset = 0;
             $f = fopen($dir . $name . DIRECTORY_SEPARATOR . 'exported_data.' . $export_ext, 'wb');
 
-            if ($export_ext == 'json')
+            if ($export_ext == 'json') {
                 fwrite($f, '[');
+            }
 
             while ($exported_records = \Idno\Core\Idno::site()->db()->exportRecords('entities', $limit, $offset)) {
 
-                if ($export_ext == 'json')
+                if ($export_ext == 'json') {
                     fwrite($f, trim($exported_records, '[],') . ',');
-                else
+                } else {
                     fwrite($f, $exported_records);
+                }
 
                 $offset += $limit;
             }
-            if ($export_ext == 'json')
+            if ($export_ext == 'json') {
                 fwrite($f, '{}]'); // Fudge to allow json decode
+            }
             fclose($f);
 
             // As we're successful, return the unique name of the archive
@@ -201,8 +210,8 @@ namespace Idno\Core {
          * Given the path to a Known export, creates a complete .tar.gz file and returns the path to that.
          * If $save_path is false, will save to the temporary folder.
          *
-         * @param $path
-         * @param $save_path
+         * @param  $path
+         * @param  $save_path
          * @return string
          */
         static function archiveExportFolder($path, $save_path = false)
@@ -224,8 +233,9 @@ namespace Idno\Core {
             }
 
             $filename = str_replace('.', '_', Idno::site()->config()->host);
-            if (empty($filename))
+            if (empty($filename)) {
                 $filename = 'export';
+            }
 
             if (file_exists(site()->config()->getTempDir() . $filename . '.tar')) {
                 @unlink(site()->config()->getTempDir() . $filename . '.tar');
@@ -244,7 +254,8 @@ namespace Idno\Core {
 
         /**
          * Wrapper function that exports Known data and returns the path to the archive of it.
-         * @param $dir Path to export
+         *
+         * @param  $dir Path to export
          * @return bool|string
          */
         static function createCompressedArchive($dir = false)
@@ -262,6 +273,7 @@ namespace Idno\Core {
 
         /**
          * Given the path to an archive folder, recursively removes it
+         *
          * @param $path
          */
         static function cleanUpFolder($path)
@@ -278,6 +290,7 @@ namespace Idno\Core {
 
         /**
          * Given the XML source of an export, imports each post into Known.
+         *
          * @param $xml
          */
         static function importFeedXML($xml)
@@ -342,8 +355,9 @@ namespace Idno\Core {
                 }
 
                 // for now, lets assume a successful save
-                if ($imported > 0)
+                if ($imported > 0) {
                     return true;
+                }
             }
         }
 
@@ -388,6 +402,7 @@ namespace Idno\Core {
 
         /**
          * Given the XML source of a Blogger export, imports each post into Known.
+         *
          * @param $xml
          */
         static function importBloggerXML($xml)
@@ -398,6 +413,7 @@ namespace Idno\Core {
 
         /**
          * Given the XML source of a WordPress export, imports each post into Known.
+         *
          * @param $xml
          */
         static function importWordPressXML($xml)
@@ -495,7 +511,8 @@ namespace Idno\Core {
                                 }
                                 foreach ($item['wp:comment'] as $comment_obj) {
                                     $comment = (array) $comment_obj;
-                                    if ($object->addAnnotation('reply', $comment['comment_author'], $comment['comment_author_url'], '', $comment['comment_content'], null, strtotime($comment['comment_date_gmt']), null, [], false
+                                    if ($object->addAnnotation(
+                                        'reply', $comment['comment_author'], $comment['comment_author_url'], '', $comment['comment_content'], null, strtotime($comment['comment_date_gmt']), null, [], false
                                     )
                                     ) {
                                         $object->save();
@@ -506,8 +523,9 @@ namespace Idno\Core {
                     }
 
                     // For now, lets assume that everything saved ok, if something was imported
-                    if ($imported > 0)
+                    if ($imported > 0) {
                         return true;
+                    }
                 }
             }
 
@@ -521,8 +539,9 @@ namespace Idno\Core {
 
         /**
          * Retrieve all posts as an RSS feed
-         * @param bool|true $hide_private Should we hide private posts? Default: true.
-         * @param string $user_uuid User UUID to export for. Default: all users.
+         *
+         * @param  bool|true $hide_private Should we hide private posts? Default: true.
+         * @param  string    $user_uuid    User UUID to export for. Default: all users.
          * @return resource a file pointer resource on success, false on error
          */
         static function getExportRSS($hide_private = true, $user_uuid = '')
@@ -590,18 +609,24 @@ namespace Idno\Core {
             $rss_theme = new DefaultTemplate();
             $rss_theme->setTemplateType('rss');
 
-            file_put_contents($rss_path . 'template.rss.fragment', $rss_theme->__(array(
+            file_put_contents(
+                $rss_path . 'template.rss.fragment', $rss_theme->__(
+                    array(
                         'title' => $title,
                         'description' => $description,
-                        'body' => $rss_theme->__(array(
+                        'body' => $rss_theme->__(
+                            array(
                             'items' => $feed,
                             'offset' => 0,
                             'count' => sizeof($feed),
                             'subject' => [],
                             //'nocdata'  => true,
                             'base_url' => $base_url
-                        ))->draw('pages/home'),
-            ))->drawPage(false));
+                            )
+                        )->draw('pages/home'),
+                    )
+                )->drawPage(false)
+            );
 
             // Now construct full rss
             $f = fopen($rss_path . 'export.rss', 'wb');

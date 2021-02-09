@@ -129,7 +129,7 @@ namespace Tests\Data {
         {
 
             $null = \Idno\Entities\GenericDataItem::get(['variable1' => 'not']);
-            $this->assertEmpty($null,);
+            $this->assertEmpty($null);
 
             $objs = \Idno\Entities\GenericDataItem::get(['variable1' => 'test']);
             $this->assertIsArray($objs, 'Should have returned an array of objects.');
@@ -157,7 +157,7 @@ namespace Tests\Data {
 
             $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
             $this->assertIsInt($count, 'A count of entities should be an integer.');
-            $this->assertEquals($count, 1,  '1 entity should match our query.');
+            $this->assertEquals($count, 1, '1 entity should match our query.');
         }
 
         public function testGetByRangeNoResults()
@@ -169,7 +169,7 @@ namespace Tests\Data {
 
             $count = \Idno\Entities\GenericDataItem::countFromX('Idno\Entities\GenericDataItem', $search);
             $this->assertIsInt($count, 'A count of entities should be an integer.');
-            $this->assertEquals($count, 0,  'No entities should match our query.');
+            $this->assertEquals($count, 0, 'No entities should match our query.');
         }
 
         public function testSearchShort()
@@ -189,8 +189,9 @@ namespace Tests\Data {
 
         public function testSearchLong()
         {
-
-            /** Create couple of FTS objects, since MySQL FTS tables operate in natural language mode */
+            /**
+             * Create couple of FTS objects, since MySQL FTS tables operate in natural language mode
+            */
             $obj = new \Idno\Entities\GenericDataItem();
             $obj->setDatatype('UnitTestObject');
             $obj->setTitle("This is a test obj to get around MySQL natural language mode");
@@ -253,7 +254,9 @@ namespace Tests\Data {
 
         public static function tearDownAfterClass():void
         {
-            if (self::$object) self::$object->delete();
+            if (self::$object) {
+                self::$object->delete();
+            }
             if (self::$fts_objects) {
                 foreach (self::$fts_objects as $obj) {
                     $obj->delete();
@@ -264,3 +267,4 @@ namespace Tests\Data {
 }
 
 //  get by metadata, search
+

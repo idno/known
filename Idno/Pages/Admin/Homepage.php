@@ -36,7 +36,7 @@ namespace Idno\Pages\Admin {
                 $default_feed_content = false;
             }
 
-	    \Idno\Core\Idno::site()->config()->default_feed_content = $default_feed_content;
+            \Idno\Core\Idno::site()->config()->default_feed_content = $default_feed_content;
 
             if (\Idno\Core\Idno::site()->config()->save()) {
                 \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("The default homepage content types were saved."));

@@ -13,10 +13,12 @@ namespace Idno\Pages\Following {
             $this->gatekeeper();
             $subscriptions = \Idno\Core\Idno::site()->reader()->getUserSubscriptions(\Idno\Core\Idno::site()->session()->currentUserUUID());
 
-            \Idno\Core\Idno::site()->template()->__(array(
+            \Idno\Core\Idno::site()->template()->__(
+                array(
                 'title' => \Idno\Core\Idno::site()->language()->_('Following'),
                 'body'  => \Idno\Core\Idno::site()->template()->__(array('subscriptions' => $subscriptions))->draw('following/home')
-            ))->drawPage();
+                )
+            )->drawPage();
 
         }
 

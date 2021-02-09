@@ -11,7 +11,7 @@
     $mysql_name  = $vars['mysql_name'];
     $upload_path = $vars['upload_path'];
 
-    ?>
+?>
 
 <div id="form-div">
 
@@ -23,10 +23,12 @@
     <?php
 
     if (!empty($messages)) {
-        echo $this->__([
+        echo $this->__(
+            [
             'messages' => $messages
-        ])->draw('pages/elements/messages');
-        
+            ]
+        )->draw('pages/elements/messages');
+
     } else {
 
         $canary = '<p>Rewriting appears to be disabled. Usually this means "AllowOverride None" is set in apache2.conf ';
@@ -34,13 +36,15 @@
         $canary .= 'to known.min.js</p>';
         $canary .= '<p>You can usually fix this by setting <code>AllowOverride All</code> in your Apache configuration.</p>';
         $canary .= '<p>If you think this is an error, you can continue, but you might have problems later on.</p>';
-        
-        echo $this->__([
+
+        echo $this->__(
+            [
             'id' => 'canary',
             'messages' => $canary,
             'style' => 'display: none;'
-        ])->draw('pages/elements/messages');
-        
+            ]
+        )->draw('pages/elements/messages');
+
         ?>
         <div id="success-block" class="alerts success message-success-block" style="display:none;">
             <p>
@@ -69,7 +73,7 @@
             </p>
 
             <p>
-                <input type="text" name="site_title" placeholder="" value="<?= htmlspecialchars($site_title) ?>"
+                <input type="text" name="site_title" placeholder="" value="<?php echo htmlspecialchars($site_title) ?>"
                        class="profile-input" id="site_title">
             </p>
         </div>
@@ -89,7 +93,7 @@
             <p>
                 <label class="control-label">
                     MySQL database name<br>
-                    <input type="text" name="mysql_name" placeholder="" value="<?= htmlspecialchars($mysql_name) ?>"
+                    <input type="text" name="mysql_name" placeholder="" value="<?php echo htmlspecialchars($mysql_name) ?>"
                            class="profile-input" required>
                 </label>
             </p>
@@ -97,7 +101,7 @@
             <p>
                 <label class="control-label">
                     MySQL username<br>
-                    <input type="text" name="mysql_user" placeholder="" value="<?= htmlspecialchars($mysql_user) ?>"
+                    <input type="text" name="mysql_user" placeholder="" value="<?php echo htmlspecialchars($mysql_user) ?>"
                            class="profile-input" required>
                 </label>
             </p>
@@ -112,7 +116,7 @@
             <p>
                 <label class="control-label">
                     MySQL server name<br>
-                    <input type="text" name="mysql_host" placeholder="<?= htmlspecialchars($mysql_host) ?>"
+                    <input type="text" name="mysql_host" placeholder="<?php echo htmlspecialchars($mysql_host) ?>"
                            value="localhost" class="profile-input" required>
                 </label>
             </p>
@@ -133,7 +137,7 @@
 
             <p>
                 <input type="text" name="upload_path" id="upload_path" placeholder=""
-                       value="<?= htmlspecialchars($upload_path) ?>" class="profile-input" required>
+                       value="<?php echo htmlspecialchars($upload_path) ?>" class="profile-input" required>
             </p>
         </div>
         <div class="submit settings-group page-bottom">

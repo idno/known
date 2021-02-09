@@ -65,13 +65,15 @@ namespace Idno\Pages\User {
             $this->setLastModifiedHeader($last_modified);
 
             $t = \Idno\Core\Idno::site()->template();
-            $t->__(array(
+            $t->__(
+                array(
 
                 'title'       => $user->getTitle(),
                 'body'        => $t->__(array('user' => $user, 'items' => $feed, 'count' => $count, 'offset' => $offset))->draw('entity/User/profile'),
                 'description' => \Idno\Core\Idno::site()->language()->_('The %s profile for %s', [\Idno\Core\Idno::site()->config()->title, $user->getTitle()])
 
-            ))->drawPage();
+                )
+            )->drawPage();
         }
 
         // Handle POST requests to the entity
@@ -81,7 +83,8 @@ namespace Idno\Pages\User {
             if (!empty($this->arguments[0])) {
                 $user = \Idno\Entities\User::getByHandle($this->arguments[0]);
             }
-            if (empty($user)) $this->forward(); // TODO: 404
+            if (empty($user)) { $this->forward(); // TODO: 404
+            }
             if ($user->saveDataFromInput()) {
                 if ($onboarding = $this->getInput('onboarding')) {
                     $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'begin/publish');
@@ -98,7 +101,8 @@ namespace Idno\Pages\User {
             if (!empty($this->arguments[0])) {
                 $object = \Idno\Common\Entity::getByID($this->arguments[0]);
             }
-            if (empty($object)) $this->forward(); // TODO: 404
+            if (empty($object)) { $this->forward(); // TODO: 404
+            }
             if ($object->delete()) {
                 \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->esc_('%s was deleted.', [$object->getTitle()]));
             }

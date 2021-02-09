@@ -17,13 +17,15 @@ namespace Idno\Pages\Onboarding {
             $user = \Idno\Core\Idno::site()->session()->currentUser();
 
             $t = \Idno\Core\Idno::site()->template();
-            echo $t->__(array(
+            echo $t->__(
+                array(
 
                 'title'    => \Idno\Core\Idno::site()->language()->_("Create your profile"),
                 'body'     => $t->__(array('user' => $user))->draw('onboarding/profile'),
                 'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages()
 
-            ))->draw('shell/simple');
+                )
+            )->draw('shell/simple');
 
         }
 

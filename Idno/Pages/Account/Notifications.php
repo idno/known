@@ -17,25 +17,33 @@ namespace Idno\Pages\Account {
             $limit  = 25;
             $offset = $this->getInput('offset', 0);
 
-            $notifs = Notification::getFromX('Idno\Entities\Notification', [
+            $notifs = Notification::getFromX(
+                'Idno\Entities\Notification', [
                 'owner' => $user->getUUID(),
-            ], [], $limit, $offset);
+                ], [], $limit, $offset
+            );
 
-            $count = Notification::countFromX('Idno\Entities\Notification', [
+            $count = Notification::countFromX(
+                'Idno\Entities\Notification', [
                 'owner' => $user->getUUID(),
-            ]);
+                ]
+            );
 
-            $body = Idno::site()->template()->__([
+            $body = Idno::site()->template()->__(
+                [
                 'user'          => $user,
                 'items'         => $notifs,
                 'count'         => $count,
                 'items_per_page'  => $limit
-            ])->draw('account/notifications');
+                ]
+            )->draw('account/notifications');
 
-            $page = Idno::site()->template()->__([
+            $page = Idno::site()->template()->__(
+                [
                 'title' => \Idno\Core\Idno::site()->language()->_('Notifications'),
                 'body'  => $body,
-            ])->drawPage(false);
+                ]
+            )->drawPage(false);
 
             // mark all notifications as seen
             foreach ($notifs as $notif) {

@@ -3,7 +3,7 @@
     /**
      * Service discovery (via webfinger) class
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 

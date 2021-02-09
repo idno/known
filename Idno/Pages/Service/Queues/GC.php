@@ -15,8 +15,9 @@ namespace Idno\Pages\Service\Queues {
             \Idno\Core\Service::gatekeeper();
 
             $eventqueue = \Idno\Core\Idno::site()->queue();
-            if (!$eventqueue instanceof \Idno\Core\AsynchronousQueue)
+            if (!$eventqueue instanceof \Idno\Core\AsynchronousQueue) {
                 throw new \RuntimeException("You are not running an asynchronous message queue, so garbage collection is unnecessary.");
+            }
 
             $queue = $this->getInput('queue', 'default');
 
@@ -24,9 +25,11 @@ namespace Idno\Pages\Service\Queues {
 
             $eventqueue->gc(300, $queue);
 
-            Idno::site()->template()->__([
+            Idno::site()->template()->__(
+                [
                 'gc' => true
-            ])->drawPage();
+                ]
+            )->drawPage();
         }
     }
 }

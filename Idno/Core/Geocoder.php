@@ -3,7 +3,7 @@
 /**
  * Geocoding tools.
  *
- * @package idno
+ * @package    idno
  * @subpackage core
  */
 
@@ -22,6 +22,7 @@ namespace Idno\Core {
 
         /**
          * Get the endpoint for the geocoder.
+         *
          * @return string
          */
         protected function getEndpoint()
@@ -33,8 +34,8 @@ namespace Idno\Core {
          * Given a latitude and longitude, reverse geocode it into a structure including name, address,
          * city, etc
          *
-         * @param $latitude
-         * @param $longitude
+         * @param  $latitude
+         * @param  $longitude
          * @return bool|mixed
          */
         function queryLatLong($latitude, $longitude)
@@ -66,7 +67,7 @@ namespace Idno\Core {
         /**
          * Takes an address and returns OpenStreetMap data via Nominatim, including latitude and longitude
          *
-         * @param string $address
+         * @param  string $address
          * @return array|bool
          */
         function queryAddress($address)

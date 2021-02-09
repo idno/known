@@ -3,89 +3,100 @@
 namespace Idno\Caching {
 
     use Symfony\Component\Cache\Adapter\AbstractAdapter;
-    
+
     abstract class Cache
         extends \Idno\Common\Component
         implements \ArrayAccess
     {
         /// This is the cache engine underlaying the engine
         private $cache;
-        
+
         /**
          * Set the cache engine used by this.
+         *
          * @param AbstractAdapter $adapter
          */
-        protected function setCacheEngine(AbstractAdapter $adapter) {
+        protected function setCacheEngine(AbstractAdapter $adapter)
+        {
             $this->cache = $adapter;
         }
-        
+
         /**
          * Get the current cache engine.
+         *
          * @return AbstractAdapter
          */
-        public function getCacheEngine() : AbstractAdapter {
+        public function getCacheEngine() : AbstractAdapter
+        {
             return $this->cache;
         }
-        
-        
+
+
         /**
          * Return the number of keys currently stored.
+         *
          * @deprecated
          */
-        public function size() {
-            
+        public function size()
+        {
+
             $engine = $this->getCacheEngine();
-            
+
             return count($engine->getItems());
         }
 
 
         /**
          * Retrieve a value from the store.
-         * @param $key Key to retrieve
+         *
+         * @param  $key Key to retrieve
          * @return mixed|false
          */
-        public function load($key) {
-            
+        public function load($key)
+        {
+
             $engine = $this->getCacheEngine();
-            
+
             $item = $engine->getItem($key);
             if ($item->isHit()) {
                 return $item->get();
             }
-            
+
             return false;
         }
-        
+
         /**
          * Store or replace a value in the cache.
          *
-         * @param $key string Identifier for this value
-         * @param $value mixed Value to store
+         * @param  $key   string Identifier for this value
+         * @param  $value mixed Value to store
          * @return bool
          */
-        public function store($key, $value) {
-            
+        public function store($key, $value)
+        {
+
             $engine = $this->getCacheEngine();
-            
+
             $item = $engine->getItem($key);
             $item->set($value);
-            
+
             return $engine->save($item);
         }
 
         /**
          * Remove a key from the cache.
-         * @param The key
+         *
+         * @param  The key
          * @return bool
          */
-        public function delete($key) {
-            
+        public function delete($key)
+        {
+
             $engine = $this->getCacheEngine();
-            
+
             return $engine->delete($key);
         }
-        
+
         /* Object interface */
 
         public function __isset($key)
@@ -97,9 +108,9 @@ namespace Idno\Caching {
         {
             return $this->delete($key);
         }
-        
+
         /* Candy */
-        
+
         public function __get($key)
         {
             return $this->load($key);
@@ -109,7 +120,7 @@ namespace Idno\Caching {
         {
             return $this->store($key, $value);
         }
-        
+
 
         /* Array access interface */
 

@@ -16,10 +16,12 @@ if ($posse = $vars['object']->getPosseLinks()) {
         }
 
         foreach($posse_links as $element) {
-            $human_icon = $this->__([
+            $human_icon = $this->__(
+                [
                 'username' => isset($element['account_id']) ? $element['account_id'] : false,
                 'details'  => $element,
-            ])->draw('content/syndication/icon/' . $service);
+                ]
+            )->draw('content/syndication/icon/' . $service);
 
             if (empty($human_icon)) {
                 $human_icon = $this->draw('content/syndication/icon/generic');

@@ -5,7 +5,8 @@ namespace Tests\Data;
 class MutateTest extends \Tests\KnownTestCase
 {
 
-    public function testMutation() {
+    public function testMutation()
+    {
 
         $remoteuser = new \Idno\Entities\RemoteUser();
         $remoteuser->handle = 'Test Mutation User';

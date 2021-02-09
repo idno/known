@@ -12,7 +12,8 @@ namespace Idno\Entities\Reader {
 
         /**
          * Get a user's subscriptions
-         * @param $user
+         *
+         * @param  $user
          * @return array
          */
         static function getByUser($user)
@@ -22,6 +23,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Sets the URL of the feed this subscription belongs to
+         *
          * @param $url
          */
         function setFeedURL($url)
@@ -31,6 +33,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Returns the feed associated with this subscription
+         *
          * @return bool|false|Entity|Feed
          */
         function getFeedObject()
@@ -44,7 +47,8 @@ namespace Idno\Entities\Reader {
 
         /**
          * Retrieves the URL of the feed this subscription belongs to
-         * @param $url
+         *
+         * @param  $url
          * @return mixed
          */
         function getFeedURL()

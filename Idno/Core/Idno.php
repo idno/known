@@ -3,7 +3,7 @@
     /**
      * Base Idno class
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -126,25 +126,33 @@ namespace Idno\Core {
 
             // Log some page statistics
             \Idno\Stats\Timer::start('script');
-            register_shutdown_function(function () {
-                $stats = \Idno\Core\Idno::site()->statistics();
-                if (!empty($stats)) {
-                    $stats->timing('timer.script', \Idno\Stats\Timer::value('script'));
+            register_shutdown_function(
+                function () {
+                    $stats = \Idno\Core\Idno::site()->statistics();
+                    if (!empty($stats)) {
+                        $stats->timing('timer.script', \Idno\Stats\Timer::value('script'));
+                    }
                 }
-            });
+            );
 
             // Attempt to create a cache object, making use of support present on the system
             $cache_default = "Idno\\Caching\\FilesystemCache";
-            if (extension_loaded('apc') && ini_get('apc.enabled'))
+            if (extension_loaded('apc') && ini_get('apc.enabled')) {
                 $cache_default = "Idno\\Caching\\APCuCache";
+            }
             $this->cache = $this->componentFactory($this->config->cache, "Idno\\Caching\\Cache", "Idno\\Caching\\", $cache_default);
 
             // No URL is a critical error, default base fallback is now a warning (Refs #526)
             if (!defined('KNOWN_CONSOLE')) {
-                if (!$this->config->url) throw new \Idno\Exceptions\ConfigurationException('Known was unable to work out your base URL! You might try setting url="http://yourdomain.com/" in your config.ini');
-                if ($this->config->url == '/') $this->logging->warning('Base URL has defaulted to "/" because Known was unable to detect your server name. '
-                    . 'This may be because you\'re loading Known via a script. '
-                . 'Try setting url="http://yourdomain.com/" in your config.ini to remove this message');
+                if (!$this->config->url) { throw new \Idno\Exceptions\ConfigurationException('Known was unable to work out your base URL! You might try setting url="http://yourdomain.com/" in your config.ini');
+                }
+                if ($this->config->url == '/') {
+                    $this->logging->warning(
+                        'Base URL has defaulted to "/" because Known was unable to detect your server name. '
+                        . 'This may be because you\'re loading Known via a script. '
+                        . 'Try setting url="http://yourdomain.com/" in your config.ini to remove this message'
+                    );
+                }
             }
 
             // Connect to a Known hub if one is listed in the configuration file
@@ -152,10 +160,9 @@ namespace Idno\Core {
             if (empty(site()->session()->hub_connect)) {
                 site()->session()->hub_connect = 0;
             }
-            if (
-                !empty($this->config->known_hub) &&
-                !substr_count($_SERVER['REQUEST_URI'], '.') &&
-                $this->config->known_hub != $this->config->url
+            if (!empty($this->config->known_hub)
+                && !substr_count($_SERVER['REQUEST_URI'], '.')
+                && $this->config->known_hub != $this->config->url
             ) {
                 site()->session()->hub_connect     = time();
                 \Idno\Core\Idno::site()->known_hub = new \Idno\Core\Hub($this->config->known_hub);
@@ -172,14 +179,18 @@ namespace Idno\Core {
         {
             $permalink_route = \Idno\Common\Entity::getPermalinkRoute();
 
-            /** Homepage */
+            /**
+             * Homepage
+            */
             $this->routes()->addRoute('/?', '\Idno\Pages\Homepage');
             $this->routes()->addRoute('/feed\.xml', '\Idno\Pages\Feed');
             $this->routes()->addRoute('/feed/?', '\Idno\Pages\Feed');
             $this->routes()->addRoute('/rss\.xml', '\Idno\Pages\Feed');
             $this->routes()->addRoute('/content/([A-Za-z\-\/]+)+', '\Idno\Pages\Homepage');
 
-            /** Individual entities / posting / deletion */
+            /**
+             * Individual entities / posting / deletion
+            */
             $this->routes()->addRoute('/view/:id/?', '\Idno\Pages\Entity\View');
             $this->routes()->addRoute('/s/:id/?', '\Idno\Pages\Entity\Shortlink');
             $this->routes()->addRoute($permalink_route . '/?', '\Idno\Pages\Entity\View');
@@ -189,48 +200,68 @@ namespace Idno\Core {
 
             $this->routes()->addRoute('/attachment/:id/:id/?', '\Idno\Pages\Entity\Attachment\Delete');
 
-            /** Annotations */
+            /**
+             * Annotations
+            */
             $this->routes()->addRoute('/view/:id/annotations/:id?', '\Idno\Pages\Annotation\View');
             $this->routes()->addRoute($permalink_route . '/annotations/:id?', '\Idno\Pages\Annotation\View');
             $this->routes()->addRoute($permalink_route . '/annotations/:id/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation
             $this->routes()->addRoute($permalink_route .'/annotation/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation alternate
             $this->routes()->addRoute('/annotation/post/?', '\Idno\Pages\Annotation\Post');
 
-            /** Bookmarklets and sharing */
+            /**
+             * Bookmarklets and sharing
+            */
             $this->routes()->addRoute('/share/?', '\Idno\Pages\Entity\Share');
             $this->routes()->addRoute('/bookmarklet\.js', '\Idno\Pages\Entity\Bookmarklet', true);
 
-            /** Mobile integrations */
+            /**
+             * Mobile integrations
+            */
             $this->routes()->addRoute('/chrome/manifest\.json', '\Idno\Pages\Chrome\Manifest', true);
 
-            /** Service worker */
+            /**
+             * Service worker
+            */
             $this->routes()->addRoute('/service-worker(\.min)?\.js', '\Idno\Pages\Chrome\ServiceWorker', true);
 
-            /** Files */
+            /**
+             * Files
+            */
             $this->routes()->addRoute('/file/mint/?', \Idno\Pages\File\Mint::class);
             $this->routes()->addRoute('/file/upload/?', '\Idno\Pages\File\Upload', true);
             $this->routes()->addRoute('/file/picker/?', '\Idno\Pages\File\Picker', true);
             $this->routes()->addRoute('/filepicker/?', '\Idno\Pages\File\Picker', true);
             $this->routes()->addRoute('/file/(:id)(/.*)?', '\Idno\Pages\File\View', true);
 
-            /** Users */
+            /**
+             * Users
+            */
             $this->routes()->addRoute('/profile/([^\/]+)/?', '\Idno\Pages\User\View');
             $this->routes()->addRoute('/profile/([^\/]+)/edit/?', '\Idno\Pages\User\Edit');
             $this->routes()->addRoute('/profile/([^\/]+)/([A-Za-z\-\/]+)+', '\Idno\Pages\User\View');
 
-            /** Search */
+            /**
+             * Search
+            */
             $this->routes()->addRoute('/search/?', '\Idno\Pages\Search\Forward');
             $this->routes()->addRoute('/search/mentions\.json', '\Idno\Pages\Search\Mentions');
             $this->routes()->addRoute('/tag/([^\s]+)\/?', '\Idno\Pages\Search\Tags');
             $this->routes()->addRoute('/search/users/?', '\Idno\Pages\Search\User');
 
-            /** robots.txt */
+            /**
+             * robots.txt
+            */
             $this->routes()->addRoute('/robots\.txt', '\Idno\Pages\Txt\Robots');
 
-            /** Autosave / preview */
+            /**
+             * Autosave / preview
+            */
             $this->routes()->addRoute('/autosave/?', '\Idno\Pages\Entity\Autosave');
 
-            /** Installation / first use */
+            /**
+             * Installation / first use
+            */
             $this->routes()->addRoute('/begin/?', '\Idno\Pages\Onboarding\Begin', true);
             $this->routes()->addRoute('/begin/register/?', '\Idno\Pages\Onboarding\Register', true);
             $this->routes()->addRoute('/begin/profile/?', '\Idno\Pages\Onboarding\Profile');
@@ -238,7 +269,9 @@ namespace Idno\Core {
             $this->routes()->addRoute('/begin/connect\-forwarder/?', '\Idno\Pages\Onboarding\ConnectForwarder');
             $this->routes()->addRoute('/begin/publish/?', '\Idno\Pages\Onboarding\Publish');
 
-            /** Add some services */
+            /**
+             * Add some services
+            */
             $this->routes()->addRoute('/service/db/optimise/?', '\Idno\Pages\Service\Db\Optimise');
             $this->routes()->addRoute('/service/vendor/messages/?', '\Idno\Pages\Service\Vendor\Messages');
             $this->routes()->addRoute('/service/security/csrftoken/?', '\Idno\Pages\Service\Security\CSRFToken');
@@ -253,11 +286,11 @@ namespace Idno\Core {
             // These must be loaded last
             $this->plugins = new Plugins();
             $this->themes  = new Themes();
-
         }
 
         /**
          * Return the database layer loaded as part of this site
+         *
          * @return \Idno\Core\DataConcierge
          */
         function &db() : ?DataConcierge
@@ -267,6 +300,7 @@ namespace Idno\Core {
 
         /**
          * Return the event dispatcher loaded as part of this site
+         *
          * @return \Idno\Core\EventDispatcher
          */
         function &events() : ?EventDispatcher
@@ -277,6 +311,7 @@ namespace Idno\Core {
         /**
          * Access to the EventQueue for dispatching events
          * asynchronously
+         *
          * @return \Idno\Core\EventQueue
          */
         function &queue() : ?EventQueue
@@ -286,6 +321,7 @@ namespace Idno\Core {
 
         /**
          * Returns the current filesystem
+         *
          * @return \Idno\Files\FileSystem
          */
         function &filesystem() : ? \Idno\Files\FileSystem
@@ -295,6 +331,7 @@ namespace Idno\Core {
 
         /**
          * Returns the current Known hub
+         *
          * @return \Idno\Core\Hub
          */
         function &hub() : ?Hub
@@ -304,6 +341,7 @@ namespace Idno\Core {
 
         /**
          * Returns the current logging interface
+         *
          * @return \Idno\Core\Logging
          */
         function &logging() : ?Logging
@@ -313,6 +351,7 @@ namespace Idno\Core {
 
         /**
          * Return a persistent cache object.
+         *
          * @return \Idno\Caching\PersistentCache
          */
         function &cache() : ?\Idno\Caching\PersistentCache
@@ -322,6 +361,7 @@ namespace Idno\Core {
 
         /**
          * Return a statistics collector
+         *
          * @return \Idno\Stats\StatisticsCollector
          */
         function &statistics() : ?\Idno\Stats\StatisticsCollector
@@ -331,6 +371,7 @@ namespace Idno\Core {
 
         /**
          * Return page handlers
+         *
          * @return \Idno\Core\PageHandler
          */
         function &routes() : ?PageHandler
@@ -348,14 +389,16 @@ namespace Idno\Core {
          */
         function &config($setting = false)
         {
-            if ($setting === false)
+            if ($setting === false) {
                 return $this->config;
-            else
+            } else {
                 return $this->config->$setting;
+            }
         }
 
         /**
          * Helper function that returns the current syndication object for this site
+         *
          * @return \Idno\Core\Syndication
          */
         function &syndication() : ?Syndication
@@ -365,9 +408,9 @@ namespace Idno\Core {
 
         /**
          * Return the session handler associated with this site
+         *
          * @return \Idno\Core\Session
          */
-
         function &session() : ?Session
         {
             return $this->session;
@@ -375,6 +418,7 @@ namespace Idno\Core {
 
         /**
          * Return the plugin handler associated with this site
+         *
          * @return \Idno\Core\Plugins
          */
         function &plugins() : ?Plugins
@@ -384,6 +428,7 @@ namespace Idno\Core {
 
         /**
          * Return the theme handler associated with this site
+         *
          * @return \Idno\Core\Themes
          */
         function &themes() : ?Themes
@@ -393,6 +438,7 @@ namespace Idno\Core {
 
         /**
          * Return the template handler associated with this site
+         *
          * @return \Idno\Core\Template
          */
 
@@ -403,6 +449,7 @@ namespace Idno\Core {
 
         /**
          * Return the language handler associated with this site
+         *
          * @return \Idno\Core\Language
          */
         function &language() : ?Language
@@ -416,6 +463,7 @@ namespace Idno\Core {
 
         /**
          * Return the action helper associated with this site
+         *
          * @return \Idno\Core\Actions
          */
         function &actions() : ?Actions
@@ -425,6 +473,7 @@ namespace Idno\Core {
 
         /**
          * Return the reader associated with this site
+         *
          * @return \Idno\Core\Reader
          */
         function &reader() : ?Reader
@@ -463,6 +512,7 @@ namespace Idno\Core {
 
         /**
          * Sets the current page (if any) for access throughout the system
+         *
          * @param \Idno\Common\Page $page
          */
         function setCurrentPage(\Idno\Common\Page $page)
@@ -472,6 +522,7 @@ namespace Idno\Core {
 
         /**
          * Retrieve the current page
+         *
          * @return bool|\Idno\Common\Page
          */
         function currentPage()
@@ -490,14 +541,13 @@ namespace Idno\Core {
          *
          * This essentially means 'can the user edit configuration about the site', generally only admins can do this.
          *
-         * @param string $user_id
+         * @param  string $user_id
          * @return true|false
          */
-
         function canEdit($user_id = '')
         {
-
-            if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) return false;
+            if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) { return false;
+            }
 
             if (empty($user_id)) {
                 $user_id = \Idno\Core\Idno::site()->session()->currentUserUUID();
@@ -505,18 +555,20 @@ namespace Idno\Core {
 
             if ($user = \Idno\Entities\User::getByUUID($user_id)) {
 
-                return \Idno\Core\Idno::site()->events()->triggerEvent('canEdit/site', [
+                return \Idno\Core\Idno::site()->events()->triggerEvent(
+                    'canEdit/site', [
                     'object' => $this,
                     'user_id' => $user_id,
                     'user' => $user
-                ], (function () use ($user) {
+                    ], (function () use ($user) {
 
-                    if ($user->isAdmin()) {
-                        return true;
-                    }
+                        if ($user->isAdmin()) {
+                            return true;
+                        }
 
-                    return false;
-                })());
+                        return false;
+                    })()
+                );
 
             }
 
@@ -528,13 +580,13 @@ namespace Idno\Core {
          * or the currently logged-in user if this is left blank) publish
          * content on the site?
          *
-         * @param string $user_id
+         * @param  string $user_id
          * @return true|false
          */
-
         function canWrite($user_id = '')
         {
-            if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) return false;
+            if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) { return false;
+            }
 
             if (empty($user_id)) {
                 $user_id = \Idno\Core\Idno::site()->session()->currentUserUUID();
@@ -543,27 +595,29 @@ namespace Idno\Core {
             if ($user = \Idno\Entities\User::getByUUID($user_id)) {
 
                 // Make site level canWrite extensible
-                return \Idno\Core\Idno::site()->events()->triggerEvent('canWrite/site', [
+                return \Idno\Core\Idno::site()->events()->triggerEvent(
+                    'canWrite/site', [
                     'object' => $this,
                     'user_id' => $user_id,
                     'user' => $user
-                ], (function () use ($user) {
+                    ], (function () use ($user) {
 
-                    // Remote users can't ever create anything :( - for now
-                    if ($user instanceof \Idno\Entities\RemoteUser) {
-                        return false;
-                    }
-
-                    // But local users can
-                    if ($user instanceof \Idno\Entities\User) {
-                        if (empty($user->read_only)) {
-                            return true;
+                        // Remote users can't ever create anything :( - for now
+                        if ($user instanceof \Idno\Entities\RemoteUser) {
+                            return false;
                         }
-                    }
 
-                    return false;
+                        // But local users can
+                        if ($user instanceof \Idno\Entities\User) {
+                            if (empty($user->read_only)) {
+                                return true;
+                            }
+                        }
 
-                })());
+                        return false;
+
+                    })()
+                );
             }
 
             return false;
@@ -577,10 +631,9 @@ namespace Idno\Core {
          * Always returns true at the moment, but might be a good way to build
          * walled garden functionality.
          *
-         * @param string $user_id
+         * @param  string $user_id
          * @return true|false
          */
-
         function canRead($user_id = '')
         {
             return true;
@@ -629,6 +682,7 @@ namespace Idno\Core {
 
         /**
          * Is this site being run in embedded mode? Hides the navigation bar, maybe more.
+         *
          * @return bool
          */
         function embedded()
@@ -655,7 +709,6 @@ namespace Idno\Core {
          */
         function upgrade()
         {
-
             $last_update = 0;
             if (!empty($this->config()->update_version)) {
                 $last_update = $this->config()->update_version;
@@ -664,10 +717,13 @@ namespace Idno\Core {
 
             if ($last_update < $machine_version) {
 
-                if ($this->events()->triggerEvent('upgrade', [
+                if ($this->events()->triggerEvent(
+                    'upgrade', [
                     'last_update' => $last_update,
                     'new_version' => $machine_version
-                ])) {
+                    ]
+                )
+                ) {
 
                     // Save updated
                     $this->config()->update_version = $machine_version;
@@ -682,6 +738,7 @@ namespace Idno\Core {
 
         /**
          * This is a state dependant object, and so can not be serialised.
+         *
          * @return array
          */
         function __sleep()
@@ -691,6 +748,7 @@ namespace Idno\Core {
 
         /**
          * Helper method that returns the current site object
+         *
          * @return \Idno\Core\Idno $site
          */
         static function &site() : ?Idno
@@ -701,10 +759,11 @@ namespace Idno\Core {
         /**
          * Attempt to construct a component.
          * This allows for config configurable, and plugin extensible, system conponents, without the need for a lot of repeat typing.
-         * @param string $className Class name of component, either partial or full namespace
-         * @param string $expectedBaseClass Class type to verify newly created component against
+         *
+         * @param string $className            Class name of component, either partial or full namespace
+         * @param string $expectedBaseClass    Class type to verify newly created component against
          * @param string $defaultClassNameBase If a full namespace is not provided in $configValue, use this value as base class namespace
-         * @param string $defaultClass If class could not be constructed, return a new instance of this class name
+         * @param string $defaultClass         If class could not be constructed, return a new instance of this class name
          */
         public function componentFactory($className, $expectedBaseClass = "Idno\\Common\\Component" , $defaultClassNameBase = "Idno\\Core\\", $defaultClass = null)
         {
@@ -737,14 +796,16 @@ namespace Idno\Core {
 
                 if (!empty($defaultClass)) {
 
-                    if (is_string($defaultClass))
+                    if (is_string($defaultClass)) {
                         $component = new $defaultClass();
-                    else
+                    } else {
                         $component = $defaultClass;
+                    }
 
                     // validate
-                    if (!is_subclass_of($component, $expectedBaseClass))
+                    if (!is_subclass_of($component, $expectedBaseClass)) {
                             $component = null;
+                    }
                 }
             }
 
@@ -753,6 +814,7 @@ namespace Idno\Core {
 
         /**
          * Get the current version
+         *
          * @return boolean|string
          */
         public function getVersion()
@@ -763,12 +825,12 @@ namespace Idno\Core {
 
     /**
      * Helper function that returns the current site object
+     *
      * @deprecated Use \Idno\Core\Idno::site()
-     * @return \Idno\Core\Idno $site
+     * @return     \Idno\Core\Idno $site
      */
     function &site() : Idno
     {
         return \Idno\Core\Idno::site();
     }
-
 }

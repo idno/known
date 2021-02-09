@@ -1,15 +1,16 @@
 <?php
-    if (empty($vars['title']))
-        $vars['title'] = 'Welcome to Known';
+if (empty($vars['title'])) {
+    $vars['title'] = 'Welcome to Known';
+}
 ?>
 <!doctype html>
 <html>
     <head>
-        <title><?= htmlspecialchars($vars['title']); ?></title>
+        <title><?php echo htmlspecialchars($vars['title']); ?></title>
         <meta name="robots" content="noindex, nofollow">
         <link rel="stylesheet" href="../css/known-simple.min.css">
     </head>
     <body>
-        <?= $vars['body']; ?>
+        <?php echo $vars['body']; ?>
     </body>
 </html>

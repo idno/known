@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         
         <title>
-            <?= $title; ?>
+            <?php echo $title; ?>
         </title>
         
         <style>
@@ -52,22 +52,22 @@
     </head>
     <body>
         <h1 class="error-code">
-            <?= http_response_code(); ?>
+            <?php echo http_response_code(); ?>
         </h1>
         
         <h2>
 
-            <?= $heading; ?>
+            <?php echo $heading; ?>
 
         </h2>
         
         <div class="body-text">
-            <?= $body; ?>
+            <?php echo $body; ?>
         </div>
         
         <?php if (!empty($helplink)) { ?>
         <div class="link-buttons">
-            <?= $helplink; ?>
+            <?php echo $helplink; ?>
         </div>
         <?php } ?>
     </body>

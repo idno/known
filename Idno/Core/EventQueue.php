@@ -13,30 +13,34 @@ abstract class EventQueue extends \Idno\Common\Component
 
     /**
      * Enqueue an event for processing.
-     * @param string $queueName the named queue to put this event on (currently unused)
-     * @param string $eventName the name of the event, e.g. "webmention/send"
-     * @param array $eventData the data sent to the event when it is triggered.
+     *
+     * @param  string $queueName the named queue to put this event on (currently unused)
+     * @param  string $eventName the name of the event, e.g. "webmention/send"
+     * @param  array  $eventData the data sent to the event when it is triggered.
      * @return string an ID that can be used to query the job status
      */
     abstract function enqueue($queueName, $eventName, array $eventData);
 
     /**
      * Check whether a previously enqueued job has completed.
-     * @param string $jobId the ID of the job returned from enqueue()
+     *
+     * @param  string $jobId the ID of the job returned from enqueue()
      * @return boolean
      */
     abstract function isComplete($jobId);
 
     /**
      * Retrieve the result of a completed job by its ID.
-     * @param string $jobId the ID of the job returned from enqueue()
+     *
+     * @param  string $jobId the ID of the job returned from enqueue()
      * @return mixed
      */
     abstract function getResult($jobId);
 
     /**
      * Convert a JSON object to a string, replacing any Entity with its UUID.
-     * @param array $args
+     *
+     * @param  array $args
      * @return string
      */
     function serialize($args)
@@ -46,7 +50,8 @@ abstract class EventQueue extends \Idno\Common\Component
 
     /**
      * Convert a string back to a JSON object, restoring Entities from their UUIDs.
-     * @param string $str
+     *
+     * @param  string $str
      * @return array
      */
     function deserialize($str)

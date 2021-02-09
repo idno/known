@@ -44,7 +44,7 @@ if ($user instanceof \Idno\Entities\User) {
                 ?>
                 <?php echo \Idno\Core\Idno::site()->language()->_('Never'); ?>
             <?php }
-?>
+            ?>
             </small>
         </p>
         </div>

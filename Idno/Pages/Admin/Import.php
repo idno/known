@@ -14,10 +14,12 @@ namespace Idno\Pages\Admin {
             $this->adminGatekeeper();
 
             $t = \Idno\Core\Idno::site()->template();
-            $t->__(array(
+            $t->__(
+                array(
                 'title' => \Idno\Core\Idno::site()->language()->_('Import data'),
                 'body'  => $t->draw('admin/import'),
-            ))->drawPage();
+                )
+            )->drawPage();
 
         }
 

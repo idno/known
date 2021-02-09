@@ -13,9 +13,9 @@ namespace Idno\Core\Deprecated {
          * page handling syntax
          *
          * @deprecated
-         * @param string $pattern The pattern to match
-         * @param string $handler The name of the Page class that will serve this route
-         * @param bool $public If set to true, this page is always public, even on non-public sites
+         * @param      string $pattern The pattern to match
+         * @param      string $handler The name of the Page class that will serve this route
+         * @param      bool   $public  If set to true, this page is always public, even on non-public sites
          */
         function addPageHandler($pattern, $handler, $public = false)
         {
@@ -29,9 +29,9 @@ namespace Idno\Core\Deprecated {
          * page handling syntax - and ensures it will be handled first
          *
          * @deprecated
-         * @param string $pattern The pattern to match
-         * @param string $handler The name of the Page class that will serve this route
-         * @param bool $public If set to true, this page is always public, even on non-public sites
+         * @param      string $pattern The pattern to match
+         * @param      string $handler The name of the Page class that will serve this route
+         * @param      bool   $public  If set to true, this page is always public, even on non-public sites
          */
         function hijackPageHandler($pattern, $handler, $public = false)
         {
@@ -42,8 +42,9 @@ namespace Idno\Core\Deprecated {
 
         /**
          * Mark a page handler class as offering public content even on walled garden sites
+         *
          * @deprecated
-         * @param $class
+         * @param      $class
          */
         function addPublicPageHandler($class)
         {
@@ -54,8 +55,9 @@ namespace Idno\Core\Deprecated {
 
         /**
          * Retrieve an array of walled garden page handlers
+         *
          * @deprecated
-         * @return array
+         * @return     array
          */
         function getPublicPageHandlers()
         {
@@ -66,9 +68,10 @@ namespace Idno\Core\Deprecated {
 
         /**
          * Does the specified page handler class represent a public page, even on walled gardens?
+         *
          * @deprecated
-         * @param $class
-         * @return bool
+         * @param      $class
+         * @return     bool
          */
         function isPageHandlerPublic($class)
         {
@@ -82,8 +85,8 @@ namespace Idno\Core\Deprecated {
          * a particular page (if any). May also be a whole URL.
          *
          * @deprecated
-         * @param string $path_info The path, including the initial /, or the URL
-         * @return bool|\Idno\Common\Page
+         * @param      string $path_info The path, including the initial /, or the URL
+         * @return     bool|\Idno\Common\Page
          */
         function getPageHandler($path_info)
         {
@@ -97,11 +100,11 @@ namespace Idno\Core\Deprecated {
          * Shortcut to trigger an event: supply the event name and
          * (optionally) an array of data, and get a variable back.
          *
-         * @param string $eventName The name of the event to trigger
-         * @param array $data Data to pass to the event
-         * @param mixed $default Default response (if not forwarding)
+         * @param      string $eventName The name of the event to trigger
+         * @param      array  $data      Data to pass to the event
+         * @param      mixed  $default   Default response (if not forwarding)
          * @deprecated
-         * @return mixed
+         * @return     mixed
          */
 
         function triggerEvent($eventName, $data = array(), $default = true)
@@ -117,9 +120,9 @@ namespace Idno\Core\Deprecated {
          * that specifies order priority; the higher the number, the earlier
          * in the chain $listener will be notified.
          *
-         * @param string $event
-         * @param callable $listener
-         * @param int $priority
+         * @param      string   $event
+         * @param      callable $listener
+         * @param      int      $priority
          * @deprecated
          */
         function addEventHook($event, $listener, $priority = 0)

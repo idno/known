@@ -3,7 +3,7 @@
     /**
      * Plugin management class
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -13,7 +13,6 @@ namespace Idno\Core {
 
     class Plugins extends \Idno\Common\Component
     {
-
         public $plugins = array(); // Property containing instantiated plugin classes
 
         /**
@@ -23,7 +22,7 @@ namespace Idno\Core {
          */
         public function init()
         {
-            
+
             if (!empty(\Idno\Core\Idno::site()->config()->directloadplugins)) {
                 foreach (\Idno\Core\Idno::site()->config()->directloadplugins as $plugin => $folder) {
                     @include $folder . '/Main.php';
@@ -42,7 +41,8 @@ namespace Idno\Core {
                 }
             }
             if (!empty(\Idno\Core\Idno::site()->config()->alwaysplugins)) {
-                if (empty(\Idno\Core\Idno::site()->config()->plugins)) \Idno\Core\Idno::site()->config()->plugins = [];
+                if (empty(\Idno\Core\Idno::site()->config()->plugins)) { \Idno\Core\Idno::site()->config()->plugins = [];
+                }
                 \Idno\Core\Idno::site()->config()->plugins = array_merge(\Idno\Core\Idno::site()->config()->plugins, \Idno\Core\Idno::site()->config()->alwaysplugins);
             }
             if (!empty(\Idno\Core\Idno::site()->config()->plugins)) {
@@ -65,12 +65,14 @@ namespace Idno\Core {
         /**
          * Magic method to return the instantiated plugin object when
          * $Plugins->plugin_name is accessed
-         * @param $name
+         *
+         * @param  $name
          * @return mixed
          */
         public function __get($name)
         {
-            if (!empty($this->plugins[$name])) return $this->plugins[$name];
+            if (!empty($this->plugins[$name])) { return $this->plugins[$name];
+            }
 
             return null;
         }
@@ -78,18 +80,21 @@ namespace Idno\Core {
         /**
          * Magic method to check for the existence of plugin objects as properties
          * on the plugin handler object
-         * @param $name
+         *
+         * @param  $name
          * @return bool
          */
         public function __isset($name)
         {
-            if (!empty($this->plugins[$name])) return true;
+            if (!empty($this->plugins[$name])) { return true;
+            }
 
             return false;
         }
 
         /**
          * Retrieves the array of loaded plugin objects
+         *
          * @return array
          */
         public function getLoaded()
@@ -99,7 +104,8 @@ namespace Idno\Core {
 
         /**
          * Retrieve the Plugin object associated with a loaded plugin
-         * @param string $plugin Plugin name
+         *
+         * @param  string $plugin Plugin name
          * @return bool|\Idno\Common\Plugin
          */
         public function get($plugin)
@@ -113,7 +119,8 @@ namespace Idno\Core {
 
         /**
          * Is the specified plugin allowed to be displayed?
-         * @param $plugin
+         *
+         * @param  $plugin
          * @return bool
          */
         public function isVisible($plugin)
@@ -130,6 +137,7 @@ namespace Idno\Core {
 
         /**
          * Retrieves a list of stored plugins (but not necessarily loaded ones)
+         *
          * @return array
          */
         public function getStored()
@@ -189,7 +197,8 @@ namespace Idno\Core {
 
         /**
          * Is the specified plugin allowed to be loaded?
-         * @param $plugin
+         *
+         * @param  $plugin
          * @return bool
          */
         public function isAllowed($plugin)
@@ -216,6 +225,7 @@ namespace Idno\Core {
 
         /**
          * Retrieves the number of bytes stored by all plugins in the system.
+         *
          * @return int
          */
         public function getTotalFileUsage()
@@ -229,6 +239,7 @@ namespace Idno\Core {
 
         /**
          * Retrieves the file bytes stored by each plugin
+         *
          * @return array
          */
         public function getFileUsageByPlugin()
@@ -247,14 +258,16 @@ namespace Idno\Core {
 
         /**
          * Enable a specific plugin
-         * @param string $plugin
+         *
+         * @param  string $plugin
          * @return boolean
          */
         public function enable($plugin)
         {
 
-            if (!$this->exists($plugin))
+            if (!$this->exists($plugin)) {
                 return false;
+            }
 
             \Idno\Core\Idno::site()->events()->triggerEvent('plugin/load/' . $plugin);
 
@@ -271,14 +284,15 @@ namespace Idno\Core {
 
         /**
          * Disable a plugin
-         * @param string $plugin The plugin
+         *
+         * @param  string $plugin The plugin
          * @return boolean
          */
         public function disable($plugin)
         {
-
-            if (!$this->exists($plugin))
+            if (!$this->exists($plugin)) {
                 return false;
+            }
             if (($key = array_search($plugin, \Idno\Core\Idno::site()->config()->config['plugins'])) !== false) {
                 \Idno\Core\Idno::site()->events()->triggerEvent('plugin/unload/' . $plugin);
                 unset(\Idno\Core\Idno::site()->config()->config['plugins'][$key]);
@@ -293,7 +307,8 @@ namespace Idno\Core {
 
         /**
          * Returns whether the selected plugin exists.
-         * @param string $plugin
+         *
+         * @param  string $plugin
          * @return boolean
          */
         public function exists($plugin)
@@ -303,21 +318,17 @@ namespace Idno\Core {
                 $host = KNOWN_MULTITENANT_HOST;
             }
 
-            if (!preg_match('/^[a-zA-Z0-9]+$/', $plugin))
-            {
+            if (!preg_match('/^[a-zA-Z0-9]+$/', $plugin)) {
                 return false;
             }
-            if (
-                    (file_exists(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins/' . $plugin)) ||
-                    (!empty(\Idno\Core\Idno::site()->config()->external_plugin_path) && file_exists(\Idno\Core\Idno::site()->config()->external_plugin_path . '/IdnoPlugins/' . $plugin)) ||
-                    (!empty($host) && file_exists(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $plugin))
+            if ((file_exists(\Idno\Core\Idno::site()->config()->path . '/IdnoPlugins/' . $plugin))
+                || (!empty(\Idno\Core\Idno::site()->config()->external_plugin_path) && file_exists(\Idno\Core\Idno::site()->config()->external_plugin_path . '/IdnoPlugins/' . $plugin))
+                || (!empty($host) && file_exists(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/IdnoPlugins/' . $plugin))
             ) {
                  return true;
             }
 
             return false;
         }
-
     }
-
 }

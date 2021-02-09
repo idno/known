@@ -3,7 +3,7 @@
     /**
      * Configuration management class
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -89,7 +89,8 @@ namespace Idno\Core {
 
         function __isset($name)
         {
-            if (!empty($this->config[$name])) return true;
+            if (!empty($this->config[$name])) { return true;
+            }
 
             return false;
         }
@@ -100,7 +101,8 @@ namespace Idno\Core {
          */
         function load()
         {
-            if (empty($config)) $config = \Idno\Core\Idno::site()->db()->getAnyRecord('config');
+            if (empty($config)) { $config = \Idno\Core\Idno::site()->db()->getAnyRecord('config');
+            }
             if ($config) {
                 $this->default_config = false;
                 unset($config['dbname']); // Ensure we don't accidentally load protected data from db
@@ -132,8 +134,10 @@ namespace Idno\Core {
                 }
             } else {
                 // If we don't have a saved config, this is a new site. Set some plugin defaults
-                if (!is_array($this->config)) $this->config = [];
-                if (!is_array($this->config['plugins'])) $this->config['plugins'] = [];
+                if (!is_array($this->config)) { $this->config = [];
+                }
+                if (!is_array($this->config['plugins'])) { $this->config['plugins'] = [];
+                }
                 $this->config['plugins'][] = 'Status';
                 $this->config['plugins'][] = 'Text';
                 $this->config['plugins'][] = 'Photo';
@@ -246,7 +250,8 @@ namespace Idno\Core {
                 }
 
                 // Perform some sanity checks on some user contributed settings
-                if (isset($this->ini_config['uploadpath'])) $this->ini_config['uploadpath'] = rtrim($this->ini_config['uploadpath'], ' /') . '/'; // End trailing slash insanity once and for all
+                if (isset($this->ini_config['uploadpath'])) { $this->ini_config['uploadpath'] = rtrim($this->ini_config['uploadpath'], ' /') . '/'; // End trailing slash insanity once and for all
+                }
                 unset($this->ini_config['path']); // Path should always be derived
                 unset($this->ini_config['host']); // Host should always come from URL
             }
@@ -258,6 +263,7 @@ namespace Idno\Core {
 
         /**
          * Saves configuration information to the database, if possible.
+         *
          * @return true|false
          */
         function save()
@@ -399,8 +405,9 @@ namespace Idno\Core {
 
                 $url = (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $domain;
                 $port = getenv('KNOWN_PORT');
-                if (!$port)
+                if (!$port) {
                     $port = 80;
+                }
 
                 if ($port != 80 && $port != 443) {
                     $url .= ':' . $port;
@@ -422,6 +429,7 @@ namespace Idno\Core {
 
         /**
          * Return a version of the URL suitable for displaying in templates etc
+         *
          * @return string
          */
         function getDisplayURL()
@@ -445,6 +453,7 @@ namespace Idno\Core {
 
         /**
          * Retrieve the canonical URL of the site
+         *
          * @return string
          */
         function getURL()
@@ -458,6 +467,7 @@ namespace Idno\Core {
 
         /**
          * Returns the upload path for Known.
+         *
          * @return string
          */
         function getUploadPath()
@@ -467,6 +477,7 @@ namespace Idno\Core {
 
         /**
          * Returns the installation path for Known.
+         *
          * @return string
          */
         function getPath()
@@ -485,7 +496,8 @@ namespace Idno\Core {
 
         /**
          * Given a URL, ensure it fits the content standards we need
-         * @param $url
+         *
+         * @param  $url
          * @return bool
          */
         function sanitizeURL($url)
@@ -505,7 +517,8 @@ namespace Idno\Core {
 
         /**
          * Make sure attachment URL is pointing to the right place
-         * @param $url
+         *
+         * @param  $url
          * @return mixed
          */
         function sanitizeAttachmentURL($url)
@@ -521,6 +534,7 @@ namespace Idno\Core {
 
         /**
          * Get a version of the URL without URI scheme or trailing slash
+         *
          * @return string
          */
         function getSchemelessURL($preceding_slashes = false)
@@ -541,6 +555,7 @@ namespace Idno\Core {
 
         /**
          * Retrieves the URL for static assets
+         *
          * @return string
          */
         function getStaticURL()
@@ -554,7 +569,8 @@ namespace Idno\Core {
 
         /**
          * Adds an email address to the blocked list
-         * @param $email
+         *
+         * @param  $email
          * @return array|bool
          */
         function addBlockedEmail($email)
@@ -571,6 +587,7 @@ namespace Idno\Core {
 
         /**
          * Retrieve an array of email addresses that are blocked from registering on this site.
+         *
          * @return array
          */
         function getBlockedEmails()
@@ -585,7 +602,8 @@ namespace Idno\Core {
 
         /**
          * Remove an email address from the blocklist
-         * @param $email
+         *
+         * @param  $email
          * @return array|bool
          */
         function removeBlockedEmail($email)
@@ -607,7 +625,8 @@ namespace Idno\Core {
 
         /**
          * Is the specified email address blocked from registering?
-         * @param $email
+         *
+         * @param  $email
          * @return bool
          */
         function emailIsBlocked($email)
@@ -626,6 +645,7 @@ namespace Idno\Core {
 
         /**
          * Does this site have SSL?
+         *
          * @return bool
          */
         function hasSSL()
@@ -639,6 +659,7 @@ namespace Idno\Core {
 
         /**
          * Retrieve the name of this site
+         *
          * @return string
          */
         function getTitle()
@@ -652,6 +673,7 @@ namespace Idno\Core {
 
         /**
          * Retrieve the description of this site
+         *
          * @return string
          */
         function getDescription()
@@ -665,6 +687,7 @@ namespace Idno\Core {
 
         /**
          * Returns the base folder name to use when storing files (usually the site host)
+         *
          * @return mixed|string
          */
         function getFileBaseDirName()
@@ -680,6 +703,7 @@ namespace Idno\Core {
 
         /**
          * Return a normalized version of the host, for use in file paths etc
+         *
          * @return string
          */
         function pathHost()
@@ -689,6 +713,7 @@ namespace Idno\Core {
 
         /**
          * Is this site's content available to non-members?
+         *
          * @return bool
          */
         function isPublicSite()
@@ -702,6 +727,7 @@ namespace Idno\Core {
 
         /**
          * Does this site allow users to have multiple syndication accounts?
+         *
          * @return bool
          */
         function multipleSyndicationAccounts()
@@ -715,6 +741,7 @@ namespace Idno\Core {
 
         /**
          * Can new users be added to the site? Defaults to true; uses a hook to determine.
+         *
          * @return bool
          */
         function canAddUsers()
@@ -728,6 +755,7 @@ namespace Idno\Core {
 
         /**
          * Can the site administrator make this site private? Defaults to true; uses a hook to determine.
+         *
          * @return bool
          */
         function canMakeSitePrivate()
@@ -741,6 +769,7 @@ namespace Idno\Core {
 
         /**
          * Is this the default site configuration?
+         *
          * @return bool
          */
         function isDefaultConfig()
@@ -754,6 +783,7 @@ namespace Idno\Core {
 
         /**
          * Get the content types that this site should display on its homepage.
+         *
          * @return array
          */
         function getHomepageContentTypes()
@@ -774,6 +804,7 @@ namespace Idno\Core {
 
         /**
          * Attempt to get a temporary folder suitable for writing in.
+         *
          * @return string
          */
         function getTempDir()
@@ -806,8 +837,9 @@ namespace Idno\Core {
 
         /**
          * Add a trailing slash to the ends of paths
-         * @todo Further sanitization tasks
-         * @param $path
+         *
+         * @todo   Further sanitization tasks
+         * @param  $path
          * @return string
          */
         function sanitizePath($path)
@@ -822,6 +854,7 @@ namespace Idno\Core {
         /**
          * Get the configured permalink structure for posts in the
          * format /:tag1/:tag2
+         *
          * @return string
          */
         function getPermalinkStructure()

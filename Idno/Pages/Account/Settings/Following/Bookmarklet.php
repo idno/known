@@ -52,18 +52,21 @@ namespace Idno\Pages\Account\Settings\Following {
 
                         }
 
-                        foreach ($hcard as $card)
+                        foreach ($hcard as $card) {
                             $body .= $t->__(array('mf2' => $card))->draw('account/settings/following/mf2user');
+                        }
 
                         // List user
                         $t->body  = $body;
                         $t->title = \Idno\Core\Idno::site()->language()->_('Found users');
                         $t->drawPage();
                     }
-                } else
+                } else {
                     throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Sorry, there was a problem parsing the page!"));
-            } else
+                }
+            } else {
                 throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Sorry, %s could not be retrieved!", [$u]));
+            }
 
             // forward back
             $this->forward($_SERVER['HTTP_REFERER']);
@@ -71,6 +74,7 @@ namespace Idno\Pages\Account\Settings\Following {
 
         /**
          * When passed an array of MF2 data, recursively find hcard entries.
+         *
          * @param array $mf2
          * @param array $out
          */
@@ -78,16 +82,19 @@ namespace Idno\Pages\Account\Settings\Following {
         {
             foreach ($mf2 as $item) {
                 // Find h-card
-                if (in_array('h-card', $item['type']))
+                if (in_array('h-card', $item['type'])) {
                     $out[] = $item;
-                if (isset($item['children']))
+                }
+                if (isset($item['children'])) {
                     $this->findHcard($item['children'], $out);
+                }
             }
         }
 
         /**
          * Go through the list of found hcards and remove duplicates (based on unique profile urls)
-         * @param array $hcards
+         *
+         * @param  array $hcards
          * @return array
          */
         private function removeDuplicateProfiles(array $hcards)
@@ -96,8 +103,9 @@ namespace Idno\Pages\Account\Settings\Following {
 
             foreach ($hcards as $card) {
                 $key = serialize($card['properties']['url']);
-                if (!isset($cards[$key]))
+                if (!isset($cards[$key])) {
                     $cards[$key] = $card;
+                }
             }
 
             return $cards;
@@ -105,13 +113,15 @@ namespace Idno\Pages\Account\Settings\Following {
 
         /**
          * Quickly find a title from a HTML page.
+         *
          * @return string|false
-         * @param type $content
+         * @param  type $content
          */
         private function findPageTitle($content)
         {
-            if (!preg_match("/<title>(.*)<\/title>/siU", $content, $matches))
+            if (!preg_match("/<title>(.*)<\/title>/siU", $content, $matches)) {
                 return false;
+            }
 
             return trim($matches[1], " \n");
         }
@@ -123,12 +133,11 @@ namespace Idno\Pages\Account\Settings\Following {
 
             if ($uuid = $this->getInput('uuid')) {
 
-                if (
-                    // TODO: Do this better, perhaps support late bindings
-                    (!$new_user = \Idno\Entities\User::getByUUID($uuid)) &&
-                    (!$new_user = \Idno\Entities\User::getByProfileURL($uuid)) &&
-                    (!$new_user = \Idno\Entities\RemoteUser::getByUUID($uuid)) &&
-                    (!$new_user = \Idno\Entities\RemoteUser::getByProfileURL($uuid))
+                if (// TODO: Do this better, perhaps support late bindings
+                    (!$new_user = \Idno\Entities\User::getByUUID($uuid))
+                    && (!$new_user = \Idno\Entities\User::getByProfileURL($uuid))
+                    && (!$new_user = \Idno\Entities\RemoteUser::getByUUID($uuid))
+                    && (!$new_user = \Idno\Entities\RemoteUser::getByProfileURL($uuid))
                 ) {
 
                     // No user found, so create it if it's remote
@@ -145,12 +154,14 @@ namespace Idno\Pages\Account\Settings\Following {
 
                         // TODO: Get a profile URL - get it from passed photo variable, upload to local and treat as avatar.
 
-                        if (!$new_user->save())
+                        if (!$new_user->save()) {
                             throw new \Exception(\Idno\Core\Idno::site()->language()->_("There was a problem saving the new remote user."));
+                        }
 
                     }
-                } else
+                } else {
                     \Idno\Core\Idno::site()->logging()->debug("New user found as " . $new_user->uuid);
+                }
 
                 if ($new_user) {
 
@@ -179,10 +190,12 @@ namespace Idno\Pages\Account\Settings\Following {
                         \Idno\Core\Idno::site()->logging()->debug('Could not follow user for some reason (probably already following)');
                         \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->esc_('You\'re already following %s', [$this->getInput('name')]));
                     }
-                } else
+                } else {
                     throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Sorry, that user doesn\'t exist!'));
-            } else
+                }
+            } else {
                 throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("No UUID, please try that again!"));
+            }
         }
 
     }

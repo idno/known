@@ -109,8 +109,8 @@
                         <div class="radio">
                             <label>
                                 <input type="radio" name="permalink_structure" value="<?php echo $value?>"
-                                  <?php echo \Idno\Core\Idno::site()->config()->getPermalinkStructure() == $value ? 'checked' : ''?> />
-                                <?php echo $label?>
+                                                                                          <?php echo \Idno\Core\Idno::site()->config()->getPermalinkStructure() == $value ? 'checked' : ''?> />
+                                                                                          <?php echo $label?>
                             </label>
                         </div>
                     <?php } ?>

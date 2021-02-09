@@ -6,13 +6,13 @@
      * implement the functions, and set Idno\Core\Idno->$db to be its
      * replacement.
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
 namespace Idno\Core {
 
-    use Ramsey\Uuid\Uuid; 
+    use Ramsey\Uuid\Uuid;
 
     abstract class DataConcierge extends \Idno\Common\Component
     {
@@ -23,6 +23,7 @@ namespace Idno\Core {
 
         /**
          * Performs database optimizations, depending on engine
+         *
          * @return bool
          */
         function optimize()
@@ -32,6 +33,7 @@ namespace Idno\Core {
 
         /**
          * Returns an instance of the database client reference variable
+         *
          * @return \Mongo
          */
         function getClient()
@@ -64,7 +66,7 @@ namespace Idno\Core {
          * Retrieves an Idno entity object by its UUID, casting it to the
          * correct class
          *
-         * @param string $id
+         * @param  string $id
          * @return \Idno\Common\Entity | false
          */
 
@@ -85,7 +87,7 @@ namespace Idno\Core {
         /**
          * Retrieves ANY object from a collection.
          *
-         * @param string $collection
+         * @param  string $collection
          * @return \Idno\Common\Entity | false
          */
         function getAnyObject($collection = 'entities')
@@ -100,7 +102,8 @@ namespace Idno\Core {
 
         /**
          * Temporarily set the ability to disable access controls.
-         * @param bool $value True to ignore
+         *
+         * @param  bool $value True to ignore
          * @return bool The previous value
          */
         function setIgnoreAccess($value = true)
@@ -123,8 +126,8 @@ namespace Idno\Core {
         /**
          * Saves a record to the specified database collection
          *
-         * @param string $collection
-         * @param array $array
+         * @param  string $collection
+         * @param  array  $array
          * @return id | false
          */
         abstract function saveRecord($collection, $array);
@@ -133,8 +136,8 @@ namespace Idno\Core {
         /**
          * Retrieves a record from the database by its UUID
          *
-         * @param string $id
-         * @param string $collection The collection to retrieve from (default: entities)
+         * @param  string $id
+         * @param  string $collection The collection to retrieve from (default: entities)
          * @return array
          */
 
@@ -144,7 +147,7 @@ namespace Idno\Core {
         /**
          * Converts a database row into an Idno entity
          *
-         * @param array $row
+         * @param  array $row
          * @return \Idno\Common\Entity | false
          */
         function rowToEntity($row)
@@ -167,7 +170,8 @@ namespace Idno\Core {
 
         /**
          * Process the ID appropriately
-         * @param $id
+         *
+         * @param  $id
          * @return \MongoId
          */
         abstract function processID($id);
@@ -175,7 +179,7 @@ namespace Idno\Core {
         /**
          * Return an ID
          */
-        function generateID() : string 
+        function generateID() : string
         {
             return Uuid::uuid4();
         }
@@ -183,8 +187,8 @@ namespace Idno\Core {
         /**
          * Retrieves a record from the database by ID
          *
-         * @param string $id
-         * @param string $entities The collection name to retrieve from (default: 'entities')
+         * @param  string $id
+         * @param  string $entities The collection name to retrieve from (default: 'entities')
          * @return array
          */
 
@@ -193,7 +197,7 @@ namespace Idno\Core {
         /**
          * Retrieves ANY record from a collection
          *
-         * @param string $collection
+         * @param  string $collection
          * @return array
          */
         abstract function getAnyRecord($collection = 'entities');
@@ -203,13 +207,13 @@ namespace Idno\Core {
          * (or excluding kinds that we don't want to see),
          * in reverse chronological order
          *
-         * @param string|array $subtypes String or array of subtypes we're allowed to see
-         * @param array $search Any extra search terms in array format (eg array('foo' => 'bar')) (default: empty)
-         * @param array $fields An array of fieldnames to return (leave empty for all; default: all)
-         * @param int $limit Maximum number of records to return (default: 10)
-         * @param int $offset Number of records to skip (default: 0)
-         * @param string $collection Collection to query; default: entities
-         * @param array $readGroups Which ACL groups should we check? (default: everything the user can see)
+         * @param  string|array $subtypes   String or array of subtypes we're allowed to see
+         * @param  array        $search     Any extra search terms in array format (eg array('foo' => 'bar')) (default: empty)
+         * @param  array        $fields     An array of fieldnames to return (leave empty for all; default: all)
+         * @param  int          $limit      Maximum number of records to return (default: 10)
+         * @param  int          $offset     Number of records to skip (default: 0)
+         * @param  string       $collection Collection to query; default: entities
+         * @param  array        $readGroups Which ACL groups should we check? (default: everything the user can see)
          * @return array|false Array of elements or false, depending on success
          */
 
@@ -219,10 +223,10 @@ namespace Idno\Core {
          * Retrieves a set of records from the database with given parameters, in
          * reverse chronological order
          *
-         * @param array $parameters Query parameters in MongoDB format
-         * @param int $limit Maximum number of records to return
-         * @param int $offset Number of records to skip
-         * @param string $collection The collection to interrogate (default: 'entities')
+         * @param  array  $parameters Query parameters in MongoDB format
+         * @param  int    $limit      Maximum number of records to return
+         * @param  int    $offset     Number of records to skip
+         * @param  string $collection The collection to interrogate (default: 'entities')
          * @return iterator|false Iterator or false, depending on success
          */
 
@@ -230,9 +234,10 @@ namespace Idno\Core {
 
         /**
          * Export a collection to JSON.
-         * @param string $collection
-         * @param int $limit
-         * @param int $offset
+         *
+         * @param  string $collection
+         * @param  int    $limit
+         * @param  int    $offset
          * @return bool|string
          */
         abstract function exportRecords($collection = 'entities', $limit = 10, $offset = 0);
@@ -240,30 +245,33 @@ namespace Idno\Core {
         /**
          * Count objects of a certain kind that we're allowed to see
          *
-         * @param string|array $subtypes String or array of subtypes we're allowed to see
-         * @param array $search Any extra search terms in array format (eg array('foo' => 'bar')) (default: empty)
-         * @param string $collection Collection to query; default: entities
+         * @param string|array $subtypes   String or array of subtypes we're allowed to see
+         * @param array        $search     Any extra search terms in array format (eg array('foo' => 'bar')) (default: empty)
+         * @param string       $collection Collection to query; default: entities
          */
         abstract function countObjects($subtypes = '', $search = array(), $collection = 'entities');
 
         /**
          * Count the number of records that match the given parameters
-         * @param array $parameters
-         * @param string $collection The collection to interrogate (default: 'entities')
+         *
+         * @param  array  $parameters
+         * @param  string $collection The collection to interrogate (default: 'entities')
          * @return int
          */
         abstract function countRecords($parameters, $collection = 'entities');
 
         /**
          * Remove an entity from the database
-         * @param string $id
+         *
+         * @param  string $id
          * @return true|false
          */
         abstract function deleteRecord($id, $collection = 'entities');
 
         /**
          * Remove all entities from the database
-         * @param string $collection
+         *
+         * @param  string $collection
          * @return mixed
          */
         abstract function deleteAllRecords($collection);
@@ -271,13 +279,15 @@ namespace Idno\Core {
         /**
          * Retrieve the filesystem associated with the current db, suitable for saving
          * and retrieving files
+         *
          * @return bool|filesystem
          */
         abstract function getFilesystem();
 
         /**
          * Given a text query, return an array suitable for adding into getFromX calls
-         * @param $query
+         *
+         * @param  $query
          * @return array
          */
         abstract function createSearchArray($query);
@@ -285,6 +295,7 @@ namespace Idno\Core {
 
         /**
          * Internal function which ensures collections are sanitised.
+         *
          * @return string Contents of $collection stripped of invalid characters.
          */
         protected function sanitiseCollection($collection)
@@ -295,15 +306,18 @@ namespace Idno\Core {
         /**
          * Utility function which normalises a variable into an array.
          * Sometimes you want to be sure you always have an array, but sometimes array values are saved as a single value if they e.g. contain only one value.
+         *
          * @param mixed $variable
          */
         public static function normaliseArray($variable)
         {
 
             $return = $variable;
-            if (empty($return)) $return = [];
-            if (!empty($return) && !is_array($return))
+            if (empty($return)) { $return = [];
+            }
+            if (!empty($return) && !is_array($return)) {
                 $return = [$return];
+            }
 
             return $return;
         }
@@ -311,6 +325,7 @@ namespace Idno\Core {
 
     /**
      * Helper function that returns the current database object
+     *
      * @return \Idno\Core\DataConcierge
      */
     function db()

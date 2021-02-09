@@ -10,7 +10,7 @@
  * Project homepage:    https://withknown.com/
  * Project repo:        https://github.com/idno/known
  *
- * @package idno
+ * @package    idno
  * @subpackage core
  */
 
@@ -20,14 +20,14 @@ if (version_compare(phpversion(), '7.2', '<')) {
     $body = "Sorry, this version of PHP (".phpversion().") is not supported. This probably means that you should update your server to the latest stable PHP release.";
     $heading = "PHP Version not supported";
     $helplink = '<a href="http://docs.withknown.com/en/latest/install/requirements/" target="_blank">Read system requirements</a>';
-    
-    require(dirname(__FILE__) . '/statics/error-page.php');
+
+    include dirname(__FILE__) . '/statics/error-page.php';
     exit;
 }
 
 // Load the idno framework
 
-require_once(dirname(__FILE__) . '/Idno/start.php');
+require_once dirname(__FILE__) . '/Idno/start.php';
 
 // Get page routes
 
@@ -48,13 +48,15 @@ if (!empty($path)) {
 
 // Manage routing
 
-\Idno\Core\PageHandler::hook('404', function ($params = array()) {
-    http_response_code(404);
-    $t = \Idno\Core\Idno::site()->template();
+\Idno\Core\PageHandler::hook(
+    '404', function ($params = array()) {
+        http_response_code(404);
+        $t = \Idno\Core\Idno::site()->template();
 
-    // Take over page detection
-    \Idno\Core\Idno::site()->template()->autodetectTemplateType();
+        // Take over page detection
+        \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
-    (new \Idno\Pages\Homepage())->noContent();
-});
+        (new \Idno\Pages\Homepage())->noContent();
+    }
+);
 \Idno\Core\PageHandler::serve($routes);

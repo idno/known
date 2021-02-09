@@ -2,13 +2,15 @@
 
 
 namespace Idno\Core\Templating {
-    
-    trait SampleText {
-        
+
+    trait SampleText
+    {
+
         /**
          * Given HTML text, attempts to return text from the first $paras paragraphs
-         * @param $html_text
-         * @param int $paras Number of paragraphs to return; defaults to 1
+         *
+         * @param  $html_text
+         * @param  int $paras     Number of paragraphs to return; defaults to 1
          * @return string
          */
         function sampleParagraph($html_text, $paras = 1)
@@ -27,8 +29,9 @@ namespace Idno\Core\Templating {
 
         /**
          * Returns a snippet of plain text
-         * @param $text
-         * @param int $words
+         *
+         * @param  $text
+         * @param  int $words
          * @return array|string
          */
         function sampleText($text, $words = 32)
@@ -37,12 +40,14 @@ namespace Idno\Core\Templating {
             $formatted_text = explode(' ', $formatted_text);
             $formatted_text = array_slice($formatted_text, 0, $words);
             $formatted_text = implode(' ', $formatted_text);
-            if (strlen($formatted_text) < strlen($text)) $formatted_text .= ' ...';
+            if (strlen($formatted_text) < strlen($text)) { $formatted_text .= ' ...';
+            }
             return $formatted_text;
         }
 
         /**
          * Return a snippet of plain text based on a number of characters.
+         *
          * @param type $text
          * @param type $chars
          */
@@ -52,23 +57,26 @@ namespace Idno\Core\Templating {
             $length = strlen($text);
 
             // Short circuit if number of text is less than max chars
-            if ($length <= $chars)
+            if ($length <= $chars) {
                 return $text;
+            }
 
             $formatted_text = substr($text, 0, $chars);
             $space = strrpos($formatted_text, ' ', 0);
 
             // No space, don't crop
-            if ($space === false)
+            if ($space === false) {
                 $space = $chars;
+            }
 
             $formatted_text = trim(substr($formatted_text, 0, $space));
 
-            if ($length != strlen($formatted_text))
+            if ($length != strlen($formatted_text)) {
                 $formatted_text .= $dots;
+            }
 
             return $formatted_text;
         }
-        
+
     }
 }

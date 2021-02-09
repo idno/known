@@ -3,7 +3,7 @@
     /**
      * Event class to handle data transport during event triggering
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -25,6 +25,7 @@ namespace Idno\Core {
 
         /**
          * Retrieve data associated with an event
+         *
          * @return mixed
          */
         function &data()
@@ -34,6 +35,7 @@ namespace Idno\Core {
 
         /**
          * Retrieve the response variable associated with this event
+         *
          * @return type
          */
         function &response()
@@ -43,7 +45,8 @@ namespace Idno\Core {
 
         /**
          * Set the response variable associated with this event
-         * @param $value
+         *
+         * @param  $value
          * @return true|false
          */
         function setResponse($value)
@@ -54,6 +57,7 @@ namespace Idno\Core {
         /**
          * Retrieve the variable associated with the URL to forward to
          * (if any) after this event
+         *
          * @return type
          */
         function &forward()
@@ -69,7 +73,8 @@ namespace Idno\Core {
 
         function __isset($name)
         {
-            if (!empty($this->attributes[$name])) return true;
+            if (!empty($this->attributes[$name])) { return true;
+            }
 
             return false;
         }

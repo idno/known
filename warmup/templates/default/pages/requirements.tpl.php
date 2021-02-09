@@ -33,11 +33,11 @@
             }
 
             ?>
-            <div class="component <?=$class?>">
+            <div class="component <?php echo $class?>">
 
                 <h3>PHP version</h3>
                 <p>
-                    <?=$text?>
+                    <?php echo $text?>
                 </p>
 
             </div>
@@ -57,10 +57,10 @@
                 $text = 'Your site doesn\'t seem to be loaded over HTTPS. We strongly recommend using HTTPS to make your site secure and protect your privacy.';
             }
             ?>
-            <div class="component <?= $class ?>">
+            <div class="component <?php echo $class ?>">
                 <h3>Secure site</h3>
                 <p>
-                    <?=$text?>
+                    <?php echo $text?>
                 </p>
             </div>
 
@@ -76,11 +76,11 @@
                     $ok = false;
                 }
                 ?>
-                <div class="component <?=$class?>">
+                <div class="component <?php echo $class?>">
 
                     <h3>Apache mod_rewrite</h3>
                     <p>
-                        <?=$text?>
+                        <?php echo $text?>
                     </p>
 
                     </div>
@@ -110,11 +110,11 @@
                     $ok = false;
                 }
                 ?>
-                <div class="component <?=$class?>">
+                <div class="component <?php echo $class?>">
 
-                    <h3><?=$extension?> for PHP</h3>
+                    <h3><?php echo $extension?> for PHP</h3>
                     <p>
-                        <?=$text?>
+                        <?php echo $text?>
                     </p>
 
                     </div>

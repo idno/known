@@ -2,13 +2,13 @@
 <?php
 
     define('KNOWN_CONSOLE', 'true');
-    
+
     // Load external libraries
-    if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
-        require_once(dirname(__FILE__) . '/vendor/autoload.php');
-    } else {
-        die('Could not find autoload.php, did you run "composer install" ..?');
-    }
+if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
+    include_once dirname(__FILE__) . '/vendor/autoload.php';
+} else {
+    die('Could not find autoload.php, did you run "composer install" ..?');
+}
 
     // Register console namespace
     use Symfony\Component\Console\Application;
@@ -47,9 +47,9 @@ if ($scanned_directory = array_diff(scandir($directory), array('..', '.'))) {
                 $c = new $class();
                 if ($c instanceof \Idno\Common\ConsolePlugin) {
                     $console->register($c->getCommand())
-                            ->setDescription($c->getDescription())
-                            ->setDefinition($c->getParameters())
-                            ->setCode([$c, 'execute']);
+                        ->setDescription($c->getDescription())
+                        ->setDefinition($c->getParameters())
+                        ->setCode([$c, 'execute']);
                 }
             }
         } else {
@@ -59,9 +59,9 @@ if ($scanned_directory = array_diff(scandir($directory), array('..', '.'))) {
                 $c = new $stubclass();
                 if ($c instanceof \Idno\Common\ConsolePlugin) {
                     $console->register($c->getCommand())
-                            ->setDescription($c->getDescription())
-                            ->setDefinition($c->getParameters())
-                            ->setCode([$c, 'execute']);
+                        ->setDescription($c->getDescription())
+                        ->setDefinition($c->getParameters())
+                        ->setCode([$c, 'execute']);
                 }
             }
         }
@@ -78,9 +78,9 @@ if ($scanned_directory = array_diff(scandir($directory), array('..', '.'))) {
                 $c = new $class();
                 if ($c instanceof \Idno\Common\ConsolePlugin) {
                     $console->register($c->getCommand())
-                            ->setDescription($c->getDescription())
-                            ->setDefinition($c->getParameters())
-                            ->setCode([$c, 'execute']);
+                        ->setDescription($c->getDescription())
+                        ->setDefinition($c->getParameters())
+                        ->setCode([$c, 'execute']);
                 }
             }
 
@@ -94,9 +94,9 @@ if ($scanned_directory = array_diff(scandir($directory), array('..', '.'))) {
                         $c = new $class2();
                         if ($c instanceof \Idno\Common\ConsolePlugin) {
                             $console->register($c->getCommand())
-                                    ->setDescription($c->getDescription())
-                                    ->setDefinition($c->getParameters())
-                                    ->setCode([$c, 'execute']);
+                                ->setDescription($c->getDescription())
+                                ->setDefinition($c->getParameters())
+                                ->setCode([$c, 'execute']);
                         }
                     }
                 }
@@ -109,15 +109,17 @@ if ($scanned_directory = array_diff(scandir($directory), array('..', '.'))) {
         ->register('version')
         ->setDescription(\Idno\Core\Idno::site()->language()->_('Returns the current Known version as defined in version.known'))
         ->setDefinition([])
-        ->setCode(function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
-            $output->writeln(file_get_contents(dirname(__FILE__) . '/version.known'));
+        ->setCode(
+            function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
+                $output->writeln(file_get_contents(dirname(__FILE__) . '/version.known'));
 
-            $remoteVersion = \Idno\Core\RemoteVersion::build();
-            if (\Idno\Core\Version::build() < $remoteVersion) {
-                $version = \Idno\Core\RemoteVersion::version();
-                $output->writeln(\Idno\Core\Idno::site()->language()->_("WARNING: Your build of Known is behind the latest version from Github (%s - %s). If you're having problems, you may want to try updating to the latest version.\nUpdate now: https://github.com/idno/Known\n", [$version, $remoteVersion]));
+                $remoteVersion = \Idno\Core\RemoteVersion::build();
+                if (\Idno\Core\Version::build() < $remoteVersion) {
+                    $version = \Idno\Core\RemoteVersion::version();
+                    $output->writeln(\Idno\Core\Idno::site()->language()->_("WARNING: Your build of Known is behind the latest version from Github (%s - %s). If you're having problems, you may want to try updating to the latest version.\nUpdate now: https://github.com/idno/Known\n", [$version, $remoteVersion]));
+                }
             }
-        });
+        );
 
 
     // Run the application

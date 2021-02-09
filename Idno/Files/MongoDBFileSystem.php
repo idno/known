@@ -81,9 +81,11 @@ namespace Idno\Files {
 
                 if ($source = fopen($file_path, 'rb')) {
 
-                    $id = $bucket->uploadFromStream($metadata['filename'], $source, [
+                    $id = $bucket->uploadFromStream(
+                        $metadata['filename'], $source, [
                         'metadata' => $metadata//new \MongoDB\Model\BSONDocument($metadata)
-                    ]);
+                        ]
+                    );
 
                     fclose($source);
 
@@ -107,9 +109,11 @@ namespace Idno\Files {
                     fwrite($source, $content);
                     rewind($source);
 
-                    $id = $bucket->uploadFromStream($metadata['filename'], $source, [
+                    $id = $bucket->uploadFromStream(
+                        $metadata['filename'], $source, [
                         'metadata' => $metadata//new \MongoDB\Model\BSONDocument($metadata)
-                    ]);
+                        ]
+                    );
 
                     fclose($source);
 

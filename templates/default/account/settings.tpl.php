@@ -65,14 +65,16 @@
                     </label>
                 </div>
                 <div class="col-md-4">
-                    <?php echo $this->__([
+                    <?php echo $this->__(
+                        [
                         'id' => 'inputTimezone',
                         'class' => 'input-timezone input col-md-4 form-control',
                         'blank-default' => true,
                         'name' => 'timezone',
                         'placeholder' => \Idno\Core\Idno::site()->language()->_('Timezone'),
                         'value' => $user->timezone
-                    ])->draw('forms/input/timezones'); ?>
+                        ]
+                    )->draw('forms/input/timezones'); ?>
                 </div>
                 <div class="col-md-5 config-desc">
                     <?php echo \Idno\Core\Idno::site()->language()->_('Specify your timezone.'); ?>

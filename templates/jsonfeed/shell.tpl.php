@@ -83,7 +83,8 @@ if (!empty($vars['items'])) {
             $feedItem['external_url'] = $item->inreplyto;
         } else if ($item instanceof \IdnoPlugins\Status\Status) {
             $feedItem['content_text'] = $feedItem['title'];
-            if ($item->inreplyto) $feedItem['external_url'] = $item->inreplyto;
+            if ($item->inreplyto) { $feedItem['external_url'] = $item->inreplyto;
+            }
             unset($feedItem['content_html']);
             unset($feedItem['title']);
         } else if ($item instanceof \IdnoPlugins\Checkin\Checkin) {

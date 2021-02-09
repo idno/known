@@ -3,7 +3,7 @@
 
 // Load external libraries
 if (file_exists(dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php')) {
-    require_once(dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php');
+    include_once dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
 } else {
     die('Could not find autoload.php, did you run "composer install" ..?');
 }
@@ -74,161 +74,183 @@ class CLIInstaller extends \Idno\Core\Installer
         $this->application
             ->register('check-requirements')
             ->setDescription('Check system requirements')
-            ->setDefinition([
-            ])
-            ->setCode(function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
+            ->setDefinition(
+                [
+                ]
+            )
+            ->setCode(
+                function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
 
-                $this->requirements($input, $output);
+                    $this->requirements($input, $output);
 
-            });
+                }
+            );
 
         $this->application
             ->register('makeconfig')
             ->setDescription('Write a configuration file from a manifest')
-            ->setDefinition([
+            ->setDefinition(
+                [
                 new \Symfony\Component\Console\Input\InputArgument('manifest', \Symfony\Component\Console\Input\InputArgument::REQUIRED, 'Manifest to use as a template'),
-            ])
-            ->setCode(function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
+                ]
+            )
+            ->setCode(
+                function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
 
-                if ($filename = $input->getArgument('manifest')) {
-                    if (file_exists($filename)) {
-                        $this->config = @parse_ini_file($filename);
+                    if ($filename = $input->getArgument('manifest')) {
+                        if (file_exists($filename)) {
+                            $this->config = @parse_ini_file($filename);
+                        }
                     }
+
+                    echo $this->buildConfig(
+                        [
+                        'dbname' => $this->config['mysql_name'],
+                        'dbpass' => $this->config['mysql_pass'],
+                        'dbuser' => $this->config['mysql_user'],
+                        'dbhost' => $this->config['mysql_host'],
+                        'uploadpath' => $this->config['upload_path'],
+                        'database' => $this->config['database'],
+                        ]
+                    );
+
                 }
-
-                echo $this->buildConfig([
-                    'dbname' => $this->config['mysql_name'],
-                    'dbpass' => $this->config['mysql_pass'],
-                    'dbuser' => $this->config['mysql_user'],
-                    'dbhost' => $this->config['mysql_host'],
-                    'uploadpath' => $this->config['upload_path'],
-                    'database' => $this->config['database'],
-                ]);
-
-            });
+            );
 
         $this->application
             ->register('generate-manifest')
             ->setDescription('Generate a template install manifest')
-            ->setDefinition([
+            ->setDefinition(
+                [
                 new \Symfony\Component\Console\Input\InputArgument('manifest', \Symfony\Component\Console\Input\InputArgument::REQUIRED, 'File to write the template to'),
-            ])
-            ->setCode(function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
+                ]
+            )
+            ->setCode(
+                function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
 
-                if ($fp = fopen($input->getArgument('manifest'), 'w')) {
+                    if ($fp = fopen($input->getArgument('manifest'), 'w')) {
 
-                    foreach($this->expected_manifest as $key => $value) {
-                        fwrite($fp, "$key = $value\n");
+                        foreach($this->expected_manifest as $key => $value) {
+                            fwrite($fp, "$key = $value\n");
+                        }
+                        fclose($fp);
+
+                    } else {
+
+                        $output->writeln("Couldn't open " . $input->getArgument('filename'));
+
                     }
-                    fclose($fp);
-
-                } else {
-
-                    $output->writeln("Couldn't open " . $input->getArgument('filename'));
-
                 }
-            });
+            );
 
         $this->application
             ->register('install')
             ->setDescription('Install Known')
-            ->setDefinition([
+            ->setDefinition(
+                [
                 new \Symfony\Component\Console\Input\InputArgument('config', \Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'Specify the output config to write, this could be config.ini (default) or my.domain.ini for a domain specific config.', 'config.ini'),
                 new \Symfony\Component\Console\Input\InputArgument('manifest', \Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'Configuration manifest. If not provided, you will be prompted for settings.', ''),
-            ])
-            ->setCode(function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
+                ]
+            )
+            ->setCode(
+                function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
 
-                $helper = new Symfony\Component\Console\Helper\QuestionHelper();
+                    $helper = new Symfony\Component\Console\Helper\QuestionHelper();
 
-                if ($this->isInstalled())
-                    throw new \Exception("Known is already installed.");
-
-                // Check requirements
-                $this->requirements($input, $output);
-
-                // Load manifest if given
-                if ($filename = $input->getArgument('manifest')) {
-                    if (file_exists($filename)) {
-                        $this->config = @parse_ini_file($filename);
+                    if ($this->isInstalled()) {
+                        throw new \Exception("Known is already installed.");
                     }
+
+                    // Check requirements
+                    $this->requirements($input, $output);
+
+                    // Load manifest if given
+                    if ($filename = $input->getArgument('manifest')) {
+                        if (file_exists($filename)) {
+                            $this->config = @parse_ini_file($filename);
+                        }
+                    }
+
+                    // Load config name
+                    $config_name = $input->getArgument('config');
+                    if (empty($config_name)) {
+                        $config_name = 'config.ini';
+                    }
+
+                    // Gather settings
+                    if (empty($this->config['site_title'])) {
+                        $question = new Symfony\Component\Console\Question\Question('Please enter the name of the site: ');
+
+                        $this->config['site_title'] = $helper->ask($input, $output, $question);
+                    }
+
+                    if (empty($this->config['database'])) {
+                        $question = new Symfony\Component\Console\Question\Question('Please enter the database type: ', 'MySQL');
+
+                        $this->config['database'] = $helper->ask($input, $output, $question);
+                    }
+
+                    if (empty($this->config['mysql_name'])) {
+                        $question = new Symfony\Component\Console\Question\Question('Please enter the name of the database: ', 'known');
+
+                        $this->config['mysql_name'] = $helper->ask($input, $output, $question);
+                    }
+                    if (empty($this->config['mysql_user'])) {
+                        $question = new Symfony\Component\Console\Question\Question('Please enter the username: ');
+
+                        $this->config['mysql_user'] = $helper->ask($input, $output, $question);
+                    }
+                    if (empty($this->config['mysql_pass'])) {
+                        $question = new Symfony\Component\Console\Question\Question('Please enter the database password: ');
+                        $question->setHidden(true);
+
+                        $this->config['mysql_pass'] = $helper->ask($input, $output, $question);
+                    }
+                    if (empty($this->config['mysql_host'])) {
+                        $question = new Symfony\Component\Console\Question\Question('Please enter the database hostname: ', 'localhost');
+
+                        $this->config['mysql_host'] = $helper->ask($input, $output, $question);
+                    }
+                    if (empty($this->config['upload_path'])) {
+                        $question = new Symfony\Component\Console\Question\Question('Please enter the upload path: ', $this->root_path . '/Uploads/');
+
+                        $this->config['upload_path'] = $helper->ask($input, $output, $question);
+                        if (empty($this->config['upload_path'])) {
+                            $this->config['upload_path'] = $this->root_path . '/Uploads/';
+                        }
+                    }
+
+                    // Check upload path
+                    if (!empty($this->config['upload_path'])) {
+                        $this->checkUploadDirectory($this->config['upload_path']);
+                    }
+
+                    $this->installSchema(
+                        $this->config['mysql_host'],
+                        $this->config['mysql_name'],
+                        $this->config['mysql_user'],
+                        $this->config['mysql_pass'],
+                        $this->config['database']
+                    );
+
+                    $this->writeApacheConfig();
+
+                    $ini_file = $this->buildConfig(
+                        [
+                        'dbname' => $this->config['mysql_name'],
+                        'dbpass' => $this->config['mysql_pass'],
+                        'dbuser' => $this->config['mysql_user'],
+                        'dbhost' => $this->config['mysql_host'],
+                        'uploadpath' => $this->config['upload_path'],
+                        'database' => $this->config['database'],
+                        ]
+                    );
+
+                    $this->writeConfig($ini_file, $config_name);
+
+                    $output->writeln("Your site should now be installed. Visit your site to create your first user!");
                 }
-
-                // Load config name
-                $config_name = $input->getArgument('config');
-                if (empty($config_name)) {
-                    $config_name = 'config.ini';
-                }
-
-                // Gather settings
-                if (empty($this->config['site_title'])) {
-                    $question = new Symfony\Component\Console\Question\Question('Please enter the name of the site: ');
-
-                    $this->config['site_title'] = $helper->ask($input, $output, $question);
-                }
-
-                if (empty($this->config['database'])) {
-                    $question = new Symfony\Component\Console\Question\Question('Please enter the database type: ', 'MySQL');
-
-                    $this->config['database'] = $helper->ask($input, $output, $question);
-                }
-
-                if (empty($this->config['mysql_name'])) {
-                    $question = new Symfony\Component\Console\Question\Question('Please enter the name of the database: ', 'known');
-
-                    $this->config['mysql_name'] = $helper->ask($input, $output, $question);
-                }
-                if (empty($this->config['mysql_user'])) {
-                    $question = new Symfony\Component\Console\Question\Question('Please enter the username: ');
-
-                    $this->config['mysql_user'] = $helper->ask($input, $output, $question);
-                }
-                if (empty($this->config['mysql_pass'])) {
-                    $question = new Symfony\Component\Console\Question\Question('Please enter the database password: ');
-                    $question->setHidden(true);
-
-                    $this->config['mysql_pass'] = $helper->ask($input, $output, $question);
-                }
-                if (empty($this->config['mysql_host'])) {
-                    $question = new Symfony\Component\Console\Question\Question('Please enter the database hostname: ', 'localhost');
-
-                    $this->config['mysql_host'] = $helper->ask($input, $output, $question);
-                }
-                if (empty($this->config['upload_path'])) {
-                    $question = new Symfony\Component\Console\Question\Question('Please enter the upload path: ', $this->root_path . '/Uploads/');
-
-                    $this->config['upload_path'] = $helper->ask($input, $output, $question);
-                    if (empty($this->config['upload_path']))
-                        $this->config['upload_path'] = $this->root_path . '/Uploads/';
-                }
-
-                // Check upload path
-                if (!empty($this->config['upload_path'])){
-                    $this->checkUploadDirectory($this->config['upload_path']);
-                }
-
-                $this->installSchema(
-                    $this->config['mysql_host'],
-                    $this->config['mysql_name'],
-                    $this->config['mysql_user'],
-                    $this->config['mysql_pass'],
-                    $this->config['database']
-                );
-
-                $this->writeApacheConfig();
-
-                $ini_file = $this->buildConfig([
-                    'dbname' => $this->config['mysql_name'],
-                    'dbpass' => $this->config['mysql_pass'],
-                    'dbuser' => $this->config['mysql_user'],
-                    'dbhost' => $this->config['mysql_host'],
-                    'uploadpath' => $this->config['upload_path'],
-                    'database' => $this->config['database'],
-                ]);
-
-                $this->writeConfig($ini_file, $config_name);
-
-                $output->writeln("Your site should now be installed. Visit your site to create your first user!");
-            });
+            );
 
         $this->application->run();
     }

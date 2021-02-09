@@ -30,7 +30,7 @@ if (empty($user->notifications['email'])) {
                             <input type="radio" name="notifications[email]" id="optionsRadios1"
                                    value="all" <?php if ($user->notifications['email'] == 'all') {
                                         echo 'checked';
-                                  } ?>>
+} ?>>
                             <?php echo \Idno\Core\Idno::site()->language()->_('Whenever someone interacts with my content'); ?>
                         </label>
                     </div>
@@ -40,7 +40,7 @@ if (empty($user->notifications['email'])) {
                             <input type="radio" name="notifications[email]" id="optionsRadios2"
                                    value="comments" <?php if ($user->notifications['email'] == 'comments') {
                                         echo 'checked';
-                                  } ?>>
+} ?>>
                             <?php echo \Idno\Core\Idno::site()->language()->_('Only when someone comments on my content'); ?>
                         </label>
                     </div>
@@ -50,7 +50,7 @@ if (empty($user->notifications['email'])) {
                             <input type="radio" name="notifications[email]" id="optionsRadios3"
                                    value="none" <?php if ($user->notifications['email'] == 'none') {
                                         echo 'checked';
-                                  } ?>>
+} ?>>
                             <?php echo \Idno\Core\Idno::site()->language()->_('Never'); ?>
                         </label>
                     </div>

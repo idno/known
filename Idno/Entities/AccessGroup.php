@@ -3,7 +3,7 @@
     /**
      * Access group representation
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -14,6 +14,7 @@ namespace Idno\Entities {
 
         /**
          * On initial creation, make sure access groups have a members property
+         *
          * @return mixed
          */
         function __construct()
@@ -35,15 +36,19 @@ namespace Idno\Entities {
          * Can the specified user (or the currently logged-in user) access
          * content in this access group?
          *
-         * @param string $user_id The user ID (optional)
+         * @param  string $user_id The user ID (optional)
          * @return true|false
          */
         function canRead($user_id = '')
         {
-            if (empty($user_id)) $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
-            if ($this->getOwnerID() == $user_id) return true;
-            if ($this->isMember($user_id)) return true;
-            if ($this->access == 'PUBLIC') return true;
+            if (empty($user_id)) { $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
+            }
+            if ($this->getOwnerID() == $user_id) { return true;
+            }
+            if ($this->isMember($user_id)) { return true;
+            }
+            if ($this->access == 'PUBLIC') { return true;
+            }
 
             return false;
         }
@@ -52,12 +57,13 @@ namespace Idno\Entities {
          * Is the specified user (or the currently logged-in user) a member
          * of this access group?
          *
-         * @param type $user_id
+         * @param  type $user_id
          * @return type
          */
         function isMember($user_id = '', $access = 'read')
         {
-            if (empty($user_id)) $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
+            if (empty($user_id)) { $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
+            }
             if (!empty($this->$access) && is_array($this->$access) && (array_search($user_id, $this->$access) !== false)) {
                 return true;
             }
@@ -69,14 +75,17 @@ namespace Idno\Entities {
          * Can the specified user (or the currently logged-in user) publish
          * content to this access group?
          *
-         * @param string $user_id The user ID (optional)
+         * @param  string $user_id The user ID (optional)
          * @return true|false
          */
         function canPublish($user_id = '')
         {
-            if (empty($user_id)) $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
-            if ($this->getOwnerID() == $user_id) return true;
-            if ($this->isMember($user_id, 'write')) return true;
+            if (empty($user_id)) { $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
+            }
+            if ($this->getOwnerID() == $user_id) { return true;
+            }
+            if ($this->isMember($user_id, 'write')) { return true;
+            }
 
             return false;
         }
@@ -84,7 +93,7 @@ namespace Idno\Entities {
         /**
          * Adds a specified user to the access group
          *
-         * @param string $user_id The user UUID
+         * @param  string $user_id The user UUID
          * @return true|false
          */
         function addMember($user_id, $access = 'read')
@@ -104,14 +113,17 @@ namespace Idno\Entities {
          * Can the specified user (or the currently logged-in user) administer
          * this access group?
          *
-         * @param string $user_id The user ID (optional)
+         * @param  string $user_id The user ID (optional)
          * @return true|false
          */
         function canEdit($user_id = '')
         {
-            if (empty($user_id)) $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
-            if ($this->getOwnerID() == $user_id) return true;
-            if ($this->isMember($user_id, 'admin')) return true;
+            if (empty($user_id)) { $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
+            }
+            if ($this->getOwnerID() == $user_id) { return true;
+            }
+            if ($this->isMember($user_id, 'admin')) { return true;
+            }
 
             return false;
         }
@@ -119,7 +131,7 @@ namespace Idno\Entities {
         /**
          * Removes a specified user from the access group
          *
-         * @param string $user_id The user UUID
+         * @param  string $user_id The user UUID
          * @return true|false
          */
         function removeMember($user_id, $access = 'read')
@@ -137,11 +149,12 @@ namespace Idno\Entities {
 
         /**
          * Get entities by access group.
-         * @param mixed $access_group
-         * @param type $search
-         * @param type $fields
-         * @param type $limit
-         * @param type $offset
+         *
+         * @param  mixed $access_group
+         * @param  type  $search
+         * @param  type  $fields
+         * @param  type  $limit
+         * @param  type  $offset
          * @return boolean
          */
         static function getByAccessGroup($access_group, $search = array(), $fields = array(), $limit = 10, $offset = 0)

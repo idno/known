@@ -12,6 +12,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Sets the URL of the feed this item belongs to
+         *
          * @param $url
          */
         function setFeedURL($url)
@@ -21,7 +22,8 @@ namespace Idno\Entities\Reader {
 
         /**
          * Retrieves the URL of the feed this item belongs to
-         * @param $url
+         *
+         * @param  $url
          * @return mixed
          */
         function getFeedURL()
@@ -31,6 +33,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Retrieves the body of this item
+         *
          * @return string
          */
         function getBody()
@@ -40,6 +43,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Sets the non-HTML value of this item
+         *
          * @param $content
          */
         function setValue($content)
@@ -49,6 +53,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Retrieves the non-HTML value of this item
+         *
          * @return mixed
          */
         function getValue()
@@ -58,7 +63,8 @@ namespace Idno\Entities\Reader {
 
         /**
          * Retrieves the URL of a photo associated with this item
-         * @param $photo
+         *
+         * @param  $photo
          * @return mixed
          */
         function getPhoto($photo)
@@ -68,6 +74,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Retrieves the name of the author of this item
+         *
          * @return mixed
          */
         function getAuthorName()
@@ -77,7 +84,8 @@ namespace Idno\Entities\Reader {
 
         /**
          * Retrieves the URL of the author photo associated with this piece
-         * @param $author_photo
+         *
+         * @param  $author_photo
          * @return mixed
          */
         function getAuthorPhoto()
@@ -93,6 +101,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Retrieves the URL of the author of this item
+         *
          * @return mixed
          */
         function getAuthorURL()
@@ -102,6 +111,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Retrieves the URLs to syndicated versions of this item
+         *
          * @return array
          */
         function getSyndication()
@@ -115,6 +125,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Given a parsed microformats 2 structure for this item, populates this object
+         *
          * @param $item
          * @param $url
          */
@@ -133,34 +144,40 @@ namespace Idno\Entities\Reader {
 
         function mfpath($mf, $path)
         {
-            $elts = array_filter(explode("/", $path), function ($e) {
-                return $e != "";
-            });
+            $elts = array_filter(
+                explode("/", $path), function ($e) {
+                    return $e != "";
+                }
+            );
 
-            return array_reduce($elts, function ($result, $elt) {
-                return $this->mfprop($result, $elt);
-            }, $mf);
+            return array_reduce(
+                $elts, function ($result, $elt) {
+                    return $this->mfprop($result, $elt);
+                }, $mf
+            );
         }
 
         function mfprop($mfs, $prop)
         {
             $props = array();
             if ($prop == "1") {
-                if (isset($mfs[0])) return $mfs[0];
+                if (isset($mfs[0])) { return $mfs[0];
+                }
 
                 return null;
             }
             foreach ($mfs as $mf) {
-                if (isset($mf["properties"][$prop]))
+                if (isset($mf["properties"][$prop])) {
                     $thisprops = $this->scrubstrings($mf["properties"][$prop]);
-                else if ($prop == "children" && isset($mf[$prop]))
+                } else if ($prop == "children" && isset($mf[$prop])) {
                     $thisprops = $mf[$prop];
-                else if (($prop == "html") && isset($mf[$prop]))
+                } else if (($prop == "html") && isset($mf[$prop])) {
                     $thisprops = array($mf[$prop]);
-                else if (($prop == "value") && isset($mf[$prop]))
+                } else if (($prop == "value") && isset($mf[$prop])) {
                     $thisprops = $this->scrubstrings(array($mf[$prop]));
-                else
+                } else {
                     continue;
+                }
                 $props = array_merge($props, $thisprops);
             }
 
@@ -169,16 +186,20 @@ namespace Idno\Entities\Reader {
 
         function scrubstrings($arr)
         {
-            return array_map(function ($elt) {
-                if (gettype($elt) == "string")
-                    return htmlspecialchars($elt);
+            return array_map(
+                function ($elt) {
+                    if (gettype($elt) == "string") {
+                        return htmlspecialchars($elt);
+                    }
 
-                return $elt;
-            }, $arr);
+                    return $elt;
+                }, $arr
+            );
         }
 
         /**
          * Sets the time that this item was published
+         *
          * @param $time
          */
         function setPublishDate($time)
@@ -188,6 +209,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Sets the body of this item to the given content string
+         *
          * @param $content
          */
         function setBody($content)
@@ -197,6 +219,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Sets the URL of a photo associated with this item
+         *
          * @param $photo
          */
         function setPhoto($photo)
@@ -206,6 +229,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Sets the URL of this feed item
+         *
          * @param $url
          */
         function setURL($url)
@@ -215,6 +239,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Sets the name of the author of this item
+         *
          * @param $author_name
          */
         function setAuthorName($author_name)
@@ -224,6 +249,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Sets the URL of the author photo associated with this piece
+         *
          * @param $author_photo
          */
         function setAuthorPhoto($author_photo)
@@ -233,6 +259,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Sets the URL of the author of this item
+         *
          * @param $url
          */
         function setAuthorURL($url)
@@ -242,6 +269,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Sets an array containing the syndication points of this item
+         *
          * @param $syndication
          */
         function setSyndication($syndication)
@@ -251,6 +279,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Given a SimplePie-parsed XML item, populates this object
+         *
          * @param $item
          */
         function loadFromXMLItem($item)
@@ -268,13 +297,16 @@ namespace Idno\Entities\Reader {
 
         function mftype($parsed, $type)
         {
-            return array_filter($parsed["items"], function ($elt) use ($type) {
-                return in_array($type, $elt["type"]);
-            });
+            return array_filter(
+                $parsed["items"], function ($elt) use ($type) {
+                    return in_array($type, $elt["type"]);
+                }
+            );
         }
 
         /**
          * Saves this item if it hasn't been saved yet
+         *
          * @return $this|bool|false|Entity
          */
         function saveIfNotSaved()

@@ -15,10 +15,12 @@ namespace Idno\Pages\Admin {
         {
             $this->adminGatekeeper(); // Admins only
             $t        = \Idno\Core\Idno::site()->template();
-            $t->body  = $t->__(array(
+            $t->body  = $t->__(
+                array(
                 'themes_stored' => \Idno\Core\Idno::site()->themes()->getStored(),
                 'theme'         => \Idno\Core\Idno::site()->themes()->get(),
-            ))->draw('admin/themes');
+                )
+            )->draw('admin/themes');
             $t->title = \Idno\Core\Idno::site()->language()->_('Themes');
             $t->drawPage();
         }
@@ -31,18 +33,9 @@ namespace Idno\Pages\Admin {
             if (defined('KNOWN_MULTITENANT_HOST')) {
                 $host = KNOWN_MULTITENANT_HOST;
             }
-            if (
-                (
-                    preg_match('/^[a-zA-Z0-9]+$/', $theme) &&
-                    (
-                        file_exists(\Idno\Core\Idno::site()->config()->path . '/Themes/' . $theme) ||
-                        (
-                            !empty($host) && (
-                            file_exists(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/Themes/' . $theme)
-                            )
-                        )
-                    )
-                )
+            if ((                preg_match('/^[a-zA-Z0-9]+$/', $theme)
+                && (                file_exists(\Idno\Core\Idno::site()->config()->path . '/Themes/' . $theme)
+                || (                !empty($host) && (                file_exists(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/Themes/' . $theme)                )                )                ))
                 || $theme == 'default' || $theme == ''
             ) {
                 switch ($action) {

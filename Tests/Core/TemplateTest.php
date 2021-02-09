@@ -6,7 +6,8 @@ namespace Tests\Core {
 
     class TemplateTest extends \Tests\KnownTestCase
     {
-        function parseURLsProvider() {
+        function parseURLsProvider()
+        {
             return [
                 'first' => [
                     "This links to a weird domain <a href=\"http://deals.blackfriday\" target=\"_blank\" >http://<wbr />deals.blackfriday</a>.",
@@ -24,8 +25,8 @@ namespace Tests\Core {
         }
 
         /**
-         * @param type $expected
-         * @param type $text
+         * @param        type $expected
+         * @param        type $text
          * @dataProvider parseURLsProvider
          */
         function testParseURLs($expected, $text)
@@ -34,7 +35,6 @@ namespace Tests\Core {
             $t = new DefaultTemplate();
 
             $this->assertEquals($expected, $t->parseURLs($text), 'URLs should parse from supplied post body.');
-
 
         }
 

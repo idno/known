@@ -20,7 +20,8 @@ if (empty($photo)) {
 }
 
 $email =  $properties['email'][0];
-if (strpos('mailto:', 'mailto:')!==false) $email = substr($email, 7); // Sanitise email
+if (strpos('mailto:', 'mailto:')!==false) { $email = substr($email, 7); // Sanitise email
+}
 
 $nickname =  $properties['nickname'][0];
 

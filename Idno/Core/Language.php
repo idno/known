@@ -9,18 +9,21 @@ namespace Idno\Core {
 
         /**
          * Language associated array of translation objects.
+         *
          * @var type
          */
         private $translations = [];
 
         /**
          * Current language
+         *
          * @var type
          */
         private $language;
 
         /**
          * Construct a language object
+         *
          * @param type $language
          */
         public function __construct($language = null)
@@ -28,16 +31,19 @@ namespace Idno\Core {
             $session = \Idno\Core\Idno::site()->session();
             if (!empty($session)) {
                 if ($user = \Idno\Core\Idno::site()->session()->currentUser()) {
-                    if (!empty($user->language))
+                    if (!empty($user->language)) {
                         return $user->language;
+                    }
                 }
             }
 
-            if (empty($language))
+            if (empty($language)) {
                 $language = self::detectBrowserLanguage();
+            }
 
-            if (empty($language))
+            if (empty($language)) {
                 $language = 'en_US';
+            }
 
             $this->language = $language;
 
@@ -60,8 +66,9 @@ namespace Idno\Core {
 
         /**
          * Return a translated string, substituting variables in subs in the format of sprintf.
-         * @param type $string String to translate
-         * @param array $subs List of substitution variables to be used in the translated string
+         *
+         * @param  type  $string String to translate
+         * @param  array $subs   List of substitution variables to be used in the translated string
          * @return string
          */
         public function _($string, array $subs = [])
@@ -71,8 +78,9 @@ namespace Idno\Core {
 
         /**
          * Return an ESCAPED translated string, substituting variables in subs in the format of sprintf.
-         * @param type $string String to translate
-         * @param array $subs List of substitution variables to be used in the translated string
+         *
+         * @param  type  $string String to translate
+         * @param  array $subs   List of substitution variables to be used in the translated string
          * @return string
          */
         public function esc_($string, array $subs = [])
@@ -84,6 +92,7 @@ namespace Idno\Core {
          * Register a translation.
          * Register translation strings. It is safe to provide Translation objects for multiple languages, only translations for
          * $this->getLanguage() will be loaded.
+         *
          * @param \Idno\Core\Translation $translation
          */
         public function register(Translation $translation)
@@ -96,8 +105,9 @@ namespace Idno\Core {
 
         /**
          * Shortcut for getTranslation.
-         * @param $string
-         * @param bool|true $failover
+         *
+         * @param  $string
+         * @param  bool|true $failover
          * @return bool|string
          */
         function get($string, $failover = true)
@@ -108,8 +118,9 @@ namespace Idno\Core {
         /**
          * Retrieves a translation for a given string. If $failover is true (as set by default), the function will
          * return the original string if no translation exists. Otherwise it will return false.
-         * @param $string
-         * @param bool|true $failover
+         *
+         * @param  $string
+         * @param  bool|true $failover
          * @return string|bool
          */
         function getTranslation($string, $failover = true)
@@ -118,16 +129,19 @@ namespace Idno\Core {
             // Look through translation objects
             foreach ($this->translations as $translation) {
                 $value = $translation->getString($string);
-                if (!empty($value) && ($value != $string))
+                if (!empty($value) && ($value != $string)) {
                     return $value;
+                }
             }
 
             // If we're in lang_debug mode, lets flag untranslated strings
             if (!empty(\Idno\Core\Idno::site()->config()->lang_debug)) {
-                \Idno\Core\Idno::site()->events()->triggerEvent('language/translation/missing-string', [
+                \Idno\Core\Idno::site()->events()->triggerEvent(
+                    'language/translation/missing-string', [
                     'string' => $string,
                     'language' => $this->language
-                ]);
+                    ]
+                );
             }
 
             if ($failover) {
@@ -147,7 +161,8 @@ namespace Idno\Core {
 
         /**
          * Replace curly quotes with uncurly quotes
-         * @param $string
+         *
+         * @param  $string
          * @return mixed
          */
         function uncurlQuotes($string)
@@ -188,18 +203,20 @@ namespace Idno\Core {
          * Detect current language from browser string.
          *
          * TODO: Put more logic here, with better fallbacks.
+         *
          * @param bool $full if true, the full locale is returned, e.g. en_GB
          */
         public static function detectBrowserLanguage($full = true)
         {
 
             $length = 2; // Short form
-            
+
             $lang = "";
 
             if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
-                if ($full)
+                if ($full) {
                     $length = strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], ',');
+                }
 
                 $lang = preg_replace("/[^a-zA-Z\-_\s]/", "", substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, $length));
                 $lang = str_replace('-', '_', $lang);
@@ -209,13 +226,15 @@ namespace Idno\Core {
             if (defined('KNOWN_CONSOLE')) {
 
                 $lang = getenv('LANGUAGE');
-                if (empty($lang))
+                if (empty($lang)) {
                     $lang = getenv('LANG');
+                }
 
                 if (preg_match('/[a-z]{2}_[A-Z]{2}/', $lang, $matches)) {
                     $lang = $matches[0];
-                    if (!$full)
+                    if (!$full) {
                         $lang = explode('_', $lang)[0];
+                    }
 
                 }
             }

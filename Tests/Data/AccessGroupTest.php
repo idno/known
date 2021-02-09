@@ -78,7 +78,7 @@ namespace Tests\Data {
 
             // Test objects in this UUID
             $objs = \Idno\Entities\AccessGroup::getByAccessGroup(self::$acl->getUUID());
-            $this->assertEquals(count($objs), 1,  'Exactly 1 entity with the specified UUID should have been retrieved.');
+            $this->assertEquals(count($objs), 1, 'Exactly 1 entity with the specified UUID should have been retrieved.');
 
             $obj->delete();
 

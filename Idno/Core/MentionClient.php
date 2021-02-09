@@ -6,7 +6,7 @@
      * This class extends the IndieWeb webmention client and better integrates it
      * with Known core.
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 

@@ -23,10 +23,10 @@ if (!empty($post)) {
                 class="col-md-8 idno-notification-reply idno-object idno-content">
             <?php if (empty($vars['hide-body'])) { ?>
                     <div class="e-content entry-content">
-                        <?php 
+                        <?php
                         if (!empty($content)) {
                             $this->autop($this->parseURLs($this->parseHashtags($this->parseUsers(htmlentities($content, ENT_QUOTES, 'UTF-8')))));
-                        } 
+                        }
                         ?>
                     </div>
             <?php } ?>

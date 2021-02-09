@@ -21,7 +21,8 @@ namespace Idno\Common {
 
         /**
          * Given a content type category slug, retrieves its namespaced class name
-         * @param $friendly_name
+         *
+         * @param  $friendly_name
          * @return bool|string
          */
         static function categoryTitleSlugToClass($slug)
@@ -42,6 +43,7 @@ namespace Idno\Common {
 
         /**
          * Get all ContentType objects registered in the system.
+         *
          * @return array
          */
         static function getRegistered()
@@ -51,6 +53,7 @@ namespace Idno\Common {
 
         /**
          * Returns a version of this content type's category title suitable for including in a URL
+         *
          * @return string
          */
         function getCategoryTitleSlug()
@@ -60,6 +63,7 @@ namespace Idno\Common {
 
         /**
          * Describes this content type as a category (eg "photos")
+         *
          * @return string
          */
         function getCategoryTitle()
@@ -73,6 +77,7 @@ namespace Idno\Common {
 
         /**
          * Return the name of this content type
+         *
          * @return string
          */
         function getTitle()
@@ -82,7 +87,8 @@ namespace Idno\Common {
 
         /**
          * Retrieves the name of the entity class associated with this content type
-         * @param bool $convert_slashes If set to true, converts \ slashes to / (false by default)
+         *
+         * @param  bool $convert_slashes If set to true, converts \ slashes to / (false by default)
          * @return string
          */
         function getEntityClass($convert_slashes = false)
@@ -97,7 +103,8 @@ namespace Idno\Common {
 
         /**
          * Given a class name, retrieves a content type object
-         * @param $class
+         *
+         * @param  $class
          * @return bool|ContentType
          */
         static function getContentTypeObjectFromClass($class)
@@ -117,7 +124,8 @@ namespace Idno\Common {
 
         /**
          * Given multiple content types, creates a friendly string describing all of them
-         * @param $slugs
+         *
+         * @param  $slugs
          * @return string
          */
         static function categoryTitleSlugsToFriendlyName($slugs)
@@ -135,7 +143,8 @@ namespace Idno\Common {
 
         /**
          * Given a content type category slug, retrieves its friendly name
-         * @param $slug
+         *
+         * @param  $slug
          * @return bool|string
          */
         static function categoryTitleSlugToFriendlyName($slug)
@@ -159,7 +168,8 @@ namespace Idno\Common {
 
         /**
          * Given a content type category name, retrieves its namespaced class name
-         * @param $friendly_name
+         *
+         * @param  $friendly_name
          * @return bool|string
          */
         static function categoryTitleToClass($friendly_name)
@@ -181,7 +191,7 @@ namespace Idno\Common {
         /**
          * Register a content type as being available to create / edit
          *
-         * @param $class The string name of a class that extends Idno\Common\ContentType.
+         * @param  $class The string name of a class that extends Idno\Common\ContentType.
          * @return bool
          */
         static function register($class)
@@ -200,6 +210,7 @@ namespace Idno\Common {
 
         /**
          * Get the classes of all entities supplied by ContentType objects registered in the system.
+         *
          * @return array
          */
         static function getRegisteredClasses()
@@ -218,6 +229,7 @@ namespace Idno\Common {
 
         /**
          * Get the category title slugs of all entities supplied by ContentType objects registered in the system.
+         *
          * @return array
          */
         static function getRegisteredCategorySlugs()
@@ -238,7 +250,7 @@ namespace Idno\Common {
          * Given an IndieWeb content type ('note', 'reply', 'rsvp', etc),
          * retrieves the first registered plugin content type that maps to it
          *
-         * @param $type
+         * @param  $type
          * @return \Idno\Common\ContentType
          */
         static function getRegisteredForIndieWebPostType($type)
@@ -256,7 +268,8 @@ namespace Idno\Common {
 
         /**
          * Retrieves the icon associated with this content type
-         * @param int $width The width of the icon to be returned. (Returned icon may not be the exact width.)
+         *
+         * @param  int $width The width of the icon to be returned. (Returned icon may not be the exact width.)
          * @return string The public URL to the content type.
          */
         function getIcon()
@@ -272,6 +285,7 @@ namespace Idno\Common {
 
         /**
          * Returns the namespace-free entity class associated with this content type
+         *
          * @return string
          */
         function getEntityClassName()
@@ -283,6 +297,7 @@ namespace Idno\Common {
 
         /**
          * Create an object with the entity class associated with this content type
+         *
          * @return \Idno\Common\Entity
          */
         function createEntity()
@@ -298,6 +313,7 @@ namespace Idno\Common {
 
         /**
          * Retrieves the URL to the form to create a new object related to this content type
+         *
          * @return string
          */
         function getEditURL()

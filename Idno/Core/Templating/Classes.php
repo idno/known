@@ -2,11 +2,13 @@
 
 
 namespace Idno\Core\Templating {
-    
-    trait Classes {
-        
+
+    trait Classes
+    {
+
         /**
          * Retrieves a set of contextual body classes suitable for including in a shell template
+         *
          * @return string
          */
         function getBodyClasses()

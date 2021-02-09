@@ -24,7 +24,8 @@ namespace Idno\Core {
 
         /**
          * Gather statistics.
-         * @param $report string Named report to gather, or empty for all.
+         *
+         * @param  $report string Named report to gather, or empty for all.
          * @return array
          */
         public static function gather($report = null)
@@ -37,9 +38,11 @@ namespace Idno\Core {
                 $stats['Basic'] = static::basic();
             }
 
-            return \Idno\Core\Idno::site()->events()->triggerEvent('statistics/gather', [
+            return \Idno\Core\Idno::site()->events()->triggerEvent(
+                'statistics/gather', [
                 'report' => $report
-            ], $stats);
+                ], $stats
+            );
         }
 
     }

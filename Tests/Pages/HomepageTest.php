@@ -31,10 +31,12 @@ namespace Tests\Pages {
         private function doWebmentionContent($source, $target)
         {
             $notification = false;
-            Idno::site()->events()->addListener('notify', function (Event $event) use (&$notification) {
-                $eventdata    = $event->data();
-                $notification = $eventdata['notification'];
-            });
+            Idno::site()->events()->addListener(
+                'notify', function (Event $event) use (&$notification) {
+                    $eventdata    = $event->data();
+                    $notification = $eventdata['notification'];
+                }
+            );
 
             $sourceContent = <<<EOD
 <div class="h-entry">

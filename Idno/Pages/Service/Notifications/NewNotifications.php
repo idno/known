@@ -21,48 +21,59 @@ namespace Idno\Pages\Service\Notifications {
                 $last_time = 0;
             }
 
-            $notifs = Notification::getFromX('Idno\Entities\Notification', [
+            $notifs = Notification::getFromX(
+                'Idno\Entities\Notification', [
                         'owner' => $user->getUUID(),
                         'created' => ['$gt' => $last_time]
-            ]);
+                ]
+            );
 
             if ($notifs) {
-                $notifs = array_filter($notifs, function ($notif) use ($last_time) {
-                    return $notif->created > $last_time;
-                });
+                $notifs = array_filter(
+                    $notifs, function ($notif) use ($last_time) {
+                        return $notif->created > $last_time;
+                    }
+                );
 
-                if (!empty($notifs[0]->created))
+                if (!empty($notifs[0]->created)) {
                     $user->last_notification_time = $notifs[0]->created;
+                }
                 $user->save();
 
-                $arr = array_filter(array_map(function ($notif) {
+                $arr = array_filter(
+                    array_map(
+                        function ($notif) {
 
-                    $target = $notif->getTarget();
+                            $target = $notif->getTarget();
 
-                    if (!empty($target)) { // Ensure that notifications on unavailable targets are not rendered
+                            if (!empty($target)) { // Ensure that notifications on unavailable targets are not rendered
 
-                        Idno::site()->template()->setTemplateType('email-text');
-                        $body = Idno::site()->template()->__(['notification' => $notif])->draw($notif->getMessageTemplate());
-                        $annotation = $notif->getObject();
+                                Idno::site()->template()->setTemplateType('email-text');
+                                $body = Idno::site()->template()->__(['notification' => $notif])->draw($notif->getMessageTemplate());
+                                $annotation = $notif->getObject();
 
-                        return [
-                            'title' => $notif->getMessage(),
-                            'body' => $body,
-                            'icon' => $annotation['owner_image'],
-                            'created' => date('c', $notif->created),
-                            'link' => (empty($notif->url)) ? \Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/notifications' : $notif->link
-                        ];
+                                return [
+                                'title' => $notif->getMessage(),
+                                'body' => $body,
+                                'icon' => $annotation['owner_image'],
+                                'created' => date('c', $notif->created),
+                                'link' => (empty($notif->url)) ? \Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/notifications' : $notif->link
+                                ];
 
-                    }
-                }, $notifs));
+                            }
+                        }, $notifs
+                    )
+                );
             } else {
                 $arr = [];
             }
 
             Idno::site()->template()->setTemplateType('json');
-            Idno::site()->template()->__([
+            Idno::site()->template()->__(
+                [
                 'notifications' => $arr,
-            ])->drawPage();
+                ]
+            )->drawPage();
         }
 
     }

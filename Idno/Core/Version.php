@@ -13,13 +13,15 @@ namespace Idno\Core {
         protected static function parse()
         {
 
-            if (!empty(static::$details))
+            if (!empty(static::$details)) {
                 return static::$details;
+            }
 
             $versionfile = dirname(dirname(dirname(__FILE__))) . '/version.known';
 
-            if (!file_exists($versionfile))
+            if (!file_exists($versionfile)) {
                 throw new \Idno\Exceptions\ConfigurationException("Version file $versionfile could not be found, Known doesn't appear to be installed correctly.");
+            }
 
             static::$details = @parse_ini_file($versionfile);
 
@@ -28,7 +30,8 @@ namespace Idno\Core {
 
         /**
          * Retrieve a field from the version file.
-         * @param string $field
+         *
+         * @param  string $field
          * @return boolean|string
          */
         public static function get($field)
@@ -36,14 +39,16 @@ namespace Idno\Core {
 
             $version = static::parse();
 
-            if (isset($version[$field]))
+            if (isset($version[$field])) {
                 return $version[$field];
+            }
 
             return false;
         }
 
         /**
          * Return the human readable version.
+         *
          * @return boolean|string
          */
         public static function version()
@@ -53,6 +58,7 @@ namespace Idno\Core {
 
         /**
          * Return the machine version.
+         *
          * @return type
          */
         public static function build()

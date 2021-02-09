@@ -13,33 +13,37 @@ namespace Idno\Files {
 
         /**
          * Find a file.
-         * @param $_id
+         *
+         * @param  $_id
          * @return mixed
          */
         abstract function findOne($_id);
 
         /**
          * Store the file at $file_path with $metadata and $options
-         * @param $file_path
-         * @param $metadata
-         * @param $options
+         *
+         * @param  $file_path
+         * @param  $metadata
+         * @param  $options
          * @return id of file
          */
         abstract function storeFile($file_path, $metadata, $options = []);
 
         /**
          * Store file from contents already loaded.
-         * @param $contents
-         * @param $metadata
-         * @param $options
+         *
+         * @param  $contents
+         * @param  $metadata
+         * @param  $options
          * @return id of file
          */
         abstract function storeContent($content, $metadata, $options = []);
 
         /**
          * Get a translated error message for PHP Upload errors.
+         *
          * @param int $code
-         * @see http://php.net/manual/en/features.file-upload.errors.php
+         * @see   http://php.net/manual/en/features.file-upload.errors.php
          */
         public static function getUploadErrorCodeMessage($code)
         {

@@ -19,7 +19,7 @@ namespace Idno\Entities {
          *
          * This affects the result of getURL()
          *
-         * @param array $params
+         * @param  array $params
          * @return true if the notification key represents a
          * unique notification, false if we've seen this one
          * before.
@@ -34,6 +34,7 @@ namespace Idno\Entities {
         /**
          * The short text message to notify the user with. (eg, a
          * subject line.)
+         *
          * @param string $message
          */
         function setMessage($message)
@@ -50,8 +51,8 @@ namespace Idno\Entities {
         /**
          * A template name pointing to a longer version of the
          * message with more detail.
-         * @param string $template
          *
+         * @param string $template
          */
         function setMessageTemplate($template)
         {
@@ -65,7 +66,7 @@ namespace Idno\Entities {
 
         /**
          * @param string $actor URL (or UUID if local) of the
-         * person who initiated the action
+         *                      person who initiated the action
          */
         function setActor($actor)
         {
@@ -88,14 +89,15 @@ namespace Idno\Entities {
         /**
          * Optionally, a string describing the kind of action. eg,
          * "comment", "like", "share", or "follow".
+         *
          * @param string $verb
          */
         function setVerb($verb)
         {
             $this->verb = $verb;
         }
-        
-        function getVerb() 
+
+        function getVerb()
         {
             return $this->verb;
         }
@@ -105,6 +107,7 @@ namespace Idno\Entities {
          * action. eg, if this is a comment, the object will be
          * the array that represents the annotation.
          * Note: unlike ActivityStreamsPost, object is not usually an Entity.
+         *
          * @param array|false $object
          */
         function setObject($object)
@@ -140,6 +143,7 @@ namespace Idno\Entities {
 
         /**
          * Retrieve the indirect object of the action
+         *
          * @return bool|Entity
          */
         function getTarget()
@@ -153,6 +157,7 @@ namespace Idno\Entities {
 
         /**
          * Has this notification been read?
+         *
          * @return bool
          */
         function isRead()
@@ -211,18 +216,22 @@ namespace Idno\Entities {
         /**
          * Count the number of unread notifications for the specified user
          *
-         * @param bool $user Optionally, a user to check for; otherwise checks current user
+         * @param  bool $user Optionally, a user to check for; otherwise checks current user
          * @return int
          */
         static function countUnread($user = false)
         {
-            if (!$user) $user = Idno::site()->session()->currentUser();
-            if (!($user instanceof User)) return 0;
+            if (!$user) { $user = Idno::site()->session()->currentUser();
+            }
+            if (!($user instanceof User)) { return 0;
+            }
 
-            return self::countFromX('Idno\Entities\Notification', [
+            return self::countFromX(
+                'Idno\Entities\Notification', [
                 'owner' => $user->getUUID(),
                 'read' => ['$not' => true]
-            ]);
+                ]
+            );
         }
 
     }
