@@ -3,7 +3,7 @@
 /**
  * Describe an interface for outputting something as an RSS compatible DOM.
  *
- * @package idno
+ * @package    idno
  * @subpackage core
  */
 
@@ -14,7 +14,8 @@ namespace Idno\Common {
 
         /**
          * Serialise an item into a rss compatible DOMElement.
-         * @param array $params Optional params
+         *
+         * @param  array $params Optional params
          * @return \DOMElement
          */
         public function rssSerialise(array $params = []);

@@ -12,10 +12,12 @@ namespace Tests\Pages\User {
             $user = $this->user();
 
             $notification = false;
-            Idno::site()->events()->addListener('notify', function (Event $event) use (&$notification) {
-                $eventdata    = $event->data();
-                $notification = $eventdata['notification'];
-            });
+            Idno::site()->events()->addListener(
+                'notify', function (Event $event) use (&$notification) {
+                    $eventdata    = $event->data();
+                    $notification = $eventdata['notification'];
+                }
+            );
 
             $source = 'http://karenpage.dummy/looking-for-information-' . md5(time() . rand(0, 9999));
             $target = $user->getURL();

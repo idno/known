@@ -2,21 +2,24 @@
 
 namespace Tests\Core {
 
-    class FilesystemTest extends \Tests\KnownTestCase {
+    class FilesystemTest extends \Tests\KnownTestCase
+    {
 
 
-        function testStoreContent() {
+        function testStoreContent()
+        {
 
             $content = "this is test content";
             $filename = get_class($this) . '_' . time();
 
             $filesystem = \Idno\Core\Idno::site()->filesystem();
 
-            $id = $filesystem->storeContent($content, [
+            $id = $filesystem->storeContent(
+                $content, [
                 'filename' => $filename,
                 'meta_type' => 'text/plain'
-            ]);
-
+                ]
+            );
 
             $loaded = $filesystem->findOne($id);
 

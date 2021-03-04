@@ -3,7 +3,7 @@
 /**
  * Event dispatcher class
  *
- * @package idno
+ * @package    idno
  * @subpackage core
  */
 
@@ -29,9 +29,9 @@ namespace Idno\Core {
          * that specifies order priority; the higher the number, the earlier
          * in the chain $listener will be notified.
          *
-         * @param string $event
+         * @param string   $event
          * @param callable $listener
-         * @param int $priority
+         * @param int      $priority
          */
         function addListener($event, $listener, $priority = 0)
         {
@@ -44,9 +44,9 @@ namespace Idno\Core {
          * Shortcut to trigger an event: supply the event name and
          * (optionally) an array of data, and get a variable back.
          *
-         * @param string $eventName The name of the event to trigger
-         * @param array $data Data to pass to the event
-         * @param mixed $default Default response (if not forwarding)
+         * @param  string $eventName The name of the event to trigger
+         * @param  array  $data      Data to pass to the event
+         * @param  mixed  $default   Default response (if not forwarding)
          * @return mixed
          */
         function triggerEvent($eventName, $data = array(), $default = true)
@@ -69,7 +69,8 @@ namespace Idno\Core {
 
         /**
          * Low level event dispatcher for an already existing Event
-         * @param string $eventName
+         *
+         * @param string           $eventName
          * @param \Idno\Core\Event $event
          */
         function dispatch(string $eventName, Event $event = null)

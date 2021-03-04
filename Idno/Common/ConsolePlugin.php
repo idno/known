@@ -3,7 +3,7 @@
 /**
  * All known console plugins should extend this component.
  *
- * @package idno
+ * @package    idno
  * @subpackage core
  */
 

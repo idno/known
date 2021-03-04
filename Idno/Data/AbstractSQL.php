@@ -3,12 +3,12 @@
     /**
      * MySQL back-end for Known data.
      *
-     * @package idno
+     * @package    idno
      * @subpackage data
      */
 
 namespace Idno\Data {
-    
+
     use Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler;
     use Symfony\Component\HttpFoundation\Session\Session;
 
@@ -51,6 +51,7 @@ namespace Idno\Data {
 
         /**
          * Retrieve built-in fields that shouldn't be searched using metadata
+         *
          * @return array
          */
         function getSchemaFields()
@@ -60,6 +61,7 @@ namespace Idno\Data {
 
         /**
          * Retrieve version information from the schema
+         *
          * @return array|bool
          */
         function getVersions()
@@ -84,9 +86,9 @@ namespace Idno\Data {
         function handleSession()
         {
             session_set_save_handler(
-                    new PdoSessionHandler(
-                        $this->client,
-                        [
+                new PdoSessionHandler(
+                    $this->client,
+                    [
                             'db_table'    => 'session',
                             'db_id_col'   => 'session_id',
                             'db_data_col' => 'session_value',
@@ -94,12 +96,13 @@ namespace Idno\Data {
                             'db_lifetime_col' => 'session_lifetime',
                             'lock_mode' => PdoSessionHandler::LOCK_ADVISORY
                         ]
-                    ), true
+                ), true
             );
         }
 
         /**
          * Returns an instance of the database reference variable
+         *
          * @return string;
          */
         function getDatabase()
@@ -109,6 +112,7 @@ namespace Idno\Data {
 
         /**
          * Returns an instance of the database client reference variable
+         *
          * @return \PDO
          */
         function getClient()
@@ -118,7 +122,8 @@ namespace Idno\Data {
 
         /**
          * SQL doesn't need the ID to be processed.
-         * @param $id
+         *
+         * @param  $id
          * @return string
          */
         function processID($id)
@@ -131,19 +136,18 @@ namespace Idno\Data {
          * (or excluding kinds that we don't want to see),
          * in reverse chronological order
          *
-         * @param string|array $subtypes String or array of subtypes we're allowed to see
-         * @param array $search Any extra search terms in array format (eg array('foo' => 'bar')) (default: empty)
-         * @param array $fields An array of fieldnames to return (leave empty for all; default: all)
-         * @param int $limit Maximum number of records to return (default: 10)
-         * @param int $offset Number of records to skip (default: 0)
-         * @param string $collection Collection to query; default: entities
-         * @param array $readGroups Which ACL groups should we check? (default: everything the user can see)
+         * @param  string|array $subtypes   String or array of subtypes we're allowed to see
+         * @param  array        $search     Any extra search terms in array format (eg array('foo' => 'bar')) (default: empty)
+         * @param  array        $fields     An array of fieldnames to return (leave empty for all; default: all)
+         * @param  int          $limit      Maximum number of records to return (default: 10)
+         * @param  int          $offset     Number of records to skip (default: 0)
+         * @param  string       $collection Collection to query; default: entities
+         * @param  array        $readGroups Which ACL groups should we check? (default: everything the user can see)
          * @return array|false Array of elements or false, depending on success
          */
 
         function getObjects($subtypes = '', $search = array(), $fields = array(), $limit = 10, $offset = 0, $collection = 'entities', $readGroups = [])
         {
-
             // Initialize query parameters to be an empty array
             $query_parameters = array();
 
@@ -186,8 +190,9 @@ namespace Idno\Data {
                 $query_parameters['access'] = array('$in' => $readGroups);
             }
 
-            if ($this->getIgnoreAccess())
+            if ($this->getIgnoreAccess()) {
                 unset($query_parameters['access']);
+            }
 
             // Join the rest of the search query elements to this search
             $query_parameters = array_merge($query_parameters, $search);
@@ -218,13 +223,12 @@ namespace Idno\Data {
         /**
          * Count objects of a certain kind that we're allowed to see
          *
-         * @param string|array $subtypes String or array of subtypes we're allowed to see
-         * @param array $search Any extra search terms in array format (eg array('foo' => 'bar')) (default: empty)
-         * @param string $collection Collection to query; default: entities
+         * @param string|array $subtypes   String or array of subtypes we're allowed to see
+         * @param array        $search     Any extra search terms in array format (eg array('foo' => 'bar')) (default: empty)
+         * @param string       $collection Collection to query; default: entities
          */
         function countObjects($subtypes = '', $search = array(), $collection = 'entities')
         {
-
             // Initialize query parameters to be an empty array
             $query_parameters = array();
 
@@ -270,11 +274,11 @@ namespace Idno\Data {
             $query_parameters = array_merge($query_parameters, $search);
 
             return $this->countRecords($query_parameters, $collection);
-
         }
 
         /**
          * Get database errors
+         *
          * @return mixed
          */
         function getErrors()
@@ -289,6 +293,7 @@ namespace Idno\Data {
         /**
          * Retrieve the filesystem associated with the current db, suitable for saving
          * and retrieving files
+         *
          * @return bool
          */
         function getFilesystem()
@@ -299,14 +304,13 @@ namespace Idno\Data {
 
         /**
          * Given a text query, return an array suitable for adding into getFromX calls
-         * @param $query
+         *
+         * @param  $query
          * @return array
          */
         function createSearchArray($query)
         {
             return array('$search' => array($query));
         }
-
     }
-
 }

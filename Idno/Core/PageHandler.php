@@ -3,7 +3,7 @@
 /**
  * Page handler class
  *
- * @package idno
+ * @package    idno
  * @subpackage core
  */
 
@@ -34,7 +34,7 @@ namespace Idno\Core {
          *
          * @param string $pattern The pattern to match
          * @param string $handler The name of the Page class that will serve this route
-         * @param bool $public If set to true, this page is always public, even on non-public sites
+         * @param bool   $public  If set to true, this page is always public, even on non-public sites
          */
         function addRoute(string $pattern, string $handler, bool $public = false)
         {
@@ -61,7 +61,7 @@ namespace Idno\Core {
          *
          * @param string $pattern The pattern to match
          * @param string $handler The name of the Page class that will serve this route
-         * @param bool $public If set to true, this page is always public, even on non-public sites
+         * @param bool   $public  If set to true, this page is always public, even on non-public sites
          */
         function hijackRoute(string $pattern, string $handler, bool $public = false)
         {
@@ -78,6 +78,7 @@ namespace Idno\Core {
 
         /**
          * Mark a page handler class as offering public content even on walled garden sites
+         *
          * @param $class
          */
         function addPublicRoute(string $class)
@@ -89,6 +90,7 @@ namespace Idno\Core {
 
         /**
          * Retrieve an array of walled garden page handlers
+         *
          * @return array
          */
         function getPublicRoute()
@@ -102,7 +104,8 @@ namespace Idno\Core {
 
         /**
          * Does the specified page handler class represent a public page, even on walled gardens?
-         * @param $class
+         *
+         * @param  $class
          * @return bool
          */
         function isRoutePublic(string $class) : bool
@@ -126,7 +129,7 @@ namespace Idno\Core {
          * Retrieves an instantiated version of the page handler class responsible for
          * a particular page (if any). May also be a whole URL.
          *
-         * @param string $path_info The path, including the initial /, or the URL
+         * @param  string $path_info The path, including the initial /, or the URL
          * @return bool|\Idno\Common\Page
          */
         function getRoute(string $path_info)
@@ -163,7 +166,7 @@ namespace Idno\Core {
          *
          * @see ToroHook
          *
-         * @param string $hookName Name of hook
+         * @param string   $hookName Name of hook
          * @param callable $callable
          */
         static function hook(string $hookName, callable $callable)

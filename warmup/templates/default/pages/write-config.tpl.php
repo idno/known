@@ -23,6 +23,6 @@
         Once you've saved your <code>config.ini</code> file, just reload this page to continue.
     </p>
 
-    <textarea class="installation"><?= htmlspecialchars($vars['ini_file']); ?></textarea>
+    <textarea class="installation"><?php echo htmlspecialchars($vars['ini_file']); ?></textarea>
 
 </div>

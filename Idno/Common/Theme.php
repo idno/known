@@ -3,7 +3,7 @@
     /**
      * All Known theme controllers should extend this component.
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -19,14 +19,15 @@ namespace Idno\Common {
             return $result;
         }
 
-        function registerLibraries() {
-            
+        function registerLibraries()
+        {
+
             $plugin = new \ReflectionClass(get_called_class());
 
             $file = $plugin->getFileName();
-            
+
             if (file_exists(dirname($file) . '/vendor/autoload.php')) {
-                include_once(dirname($file) . '/vendor/autoload.php');
+                include_once dirname($file) . '/vendor/autoload.php';
             }
         }
     }

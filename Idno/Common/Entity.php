@@ -18,7 +18,6 @@ namespace Idno\Common {
 
     abstract class Entity extends Component implements EntityInterface
     {
-
         // Which collection should this be stored in?
         private $collection = 'entities';
         static $retrieve_collection = 'entities';
@@ -174,9 +173,10 @@ namespace Idno\Common {
 
         static function getOne($search = array(), $fields = array())
         {
-            if ($records = static::get($search, $fields, 1))
+            if ($records = static::get($search, $fields, 1)) {
                 foreach ($records as $record)
                     return $record;
+            }
 
             return false;
         }
@@ -209,17 +209,21 @@ namespace Idno\Common {
 
             $object = null;
 
-            if (empty($object))
+            if (empty($object)) {
                 $object = static::getByID($identifier);
+            }
 
-            if (empty($object))
+            if (empty($object)) {
                 $object = static::getByUUID($identifier);
+            }
 
-            if (empty($object))
+            if (empty($object)) {
                 $object = static::getBySlug($identifier);
+            }
 
-            if (empty($object))
+            if (empty($object)) {
                 $object = static::getByShortURL($identifier);
+            }
 
             return $object;
         }
@@ -250,10 +254,10 @@ namespace Idno\Common {
 
         static function getOneFromAll($search = array(), $fields = array())
         {
-            if ($records = static::getFromAll($search, $fields, 1))
+            if ($records = static::getFromAll($search, $fields, 1)) {
                 foreach ($records as $record)
                     return $record;
-
+            }
             return false;
         }
 
@@ -331,15 +335,17 @@ namespace Idno\Common {
         {
             if (isset(self::$entity_cache[$url]) && $cached) return self::$entity_cache[$url];
 
-            if (!self::isLocalUUID($url))
+            if (!self::isLocalUUID($url)) {
                 return false;
+            }
 
             $return = \Idno\Core\Idno::site()->events()->triggerEvent('object/getbyurl', [
                 'url' => $url
             ], false);
 
-            if (!empty($return))
+            if (!empty($return)) {
                 self::$entity_cache[$url] = $return;
+            }
 
             return $return;
         }
@@ -554,11 +560,8 @@ namespace Idno\Common {
          */
         public function setPublishStatus($status = 'published')
         {
-
             $status = trim($status);
-
             $this->publish_status = $status;
-
         }
 
         /**
@@ -567,9 +570,7 @@ namespace Idno\Common {
          */
         public function getPublishStatus()
         {
-
             return $this->publish_status;
-
         }
 
         /**
@@ -2487,8 +2488,9 @@ namespace Idno\Common {
         {
             if (!empty($this->annotations) && is_array($this->annotations)) {
                 foreach ($this->annotations as $subtype => $array) {
-                    if (isset($array[$uuid]))
+                    if (isset($array[$uuid])) {
                         return $array[$uuid];
+                    }
                 }
             }
 

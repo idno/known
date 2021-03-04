@@ -38,22 +38,27 @@ namespace Idno\Core {
 
         function registerEventHooks()
         {
-            \Idno\Core\Idno::site()->events()->addListener('text/filter', function (\Idno\Core\Event $event) {
-                $text = $event->response();
-                $text = $this->purify($text);
-                $event->setResponse($text);
-            });
-            \Idno\Core\Idno::site()->events()->addListener('text/filter/basic', function (\Idno\Core\Event $event) {
-                $text = $event->response();
-                $text = $this->purify($text, true);
-                $event->setResponse($text);
-            });
+            \Idno\Core\Idno::site()->events()->addListener(
+                'text/filter', function (\Idno\Core\Event $event) {
+                    $text = $event->response();
+                    $text = $this->purify($text);
+                    $event->setResponse($text);
+                }
+            );
+            \Idno\Core\Idno::site()->events()->addListener(
+                'text/filter/basic', function (\Idno\Core\Event $event) {
+                    $text = $event->response();
+                    $text = $this->purify($text, true);
+                    $event->setResponse($text);
+                }
+            );
         }
 
         /**
          * Purifies HTML code
-         * @param $html
-         * @param $basic_html Should the purifier strip out inline styles and similar attributes? Defaults to false.
+         *
+         * @param  $html
+         * @param  $basic_html Should the purifier strip out inline styles and similar attributes? Defaults to false.
          * @return string Purified HTML
          */
         function purify($html, $basic_html = false)

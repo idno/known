@@ -1,6 +1,7 @@
 <?php
-if (empty($vars['name']))
+if (empty($vars['name'])) {
     $vars['name'] = 'user-search';
+}
 
 global $input_id;
 if (!isset($vars['id'])) {
@@ -8,15 +9,18 @@ if (!isset($vars['id'])) {
     $vars['id'] = $vars['name'] . "_$input_id";
 }
 
-if (empty($vars['source-url']))
+if (empty($vars['source-url'])) {
     $vars['source-url'] = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'search/users/';
+}
 
-if (empty($vars['render-template']))
+if (empty($vars['render-template'])) {
     $vars['render-template'] = 'forms/components/usersearch/user';
+}
 ?>
 <div id="<?php echo $vars['id']; ?>" class="users-search <?php
-if (!empty($vars['class']))
+if (!empty($vars['class'])) {
     echo $vars['class'];
+}
 ?>"> 
     <form action="<?php echo $vars['source-url']; ?>">
         <div class="search-controls">
@@ -28,44 +32,56 @@ if (!empty($vars['class']))
                 
                 
                 <?php echo
-                $this->__([
+                $this->__(
+                    [
                     'name' => 'template',
                     'value' => $vars['render-template']
-                ])->draw('forms/input/hidden');
-?>
+                    ]
+                )->draw('forms/input/hidden');
+                ?>
 
             <?php echo
-            $this->__([
+            $this->__(
+                [
                 'name' => 'sort',
                 'value' => 'created'
-            ])->draw('forms/input/hidden');
-?>
+                ]
+            )->draw('forms/input/hidden');
+            ?>
 
             <?php echo
-            $this->__([
+            $this->__(
+                [
                 'name' => 'order',
                 'value' => 'desc'
-            ])->draw('forms/input/hidden');
-?>
+                ]
+            )->draw('forms/input/hidden');
+            ?>
 
             <?php echo
-            $this->__([
+            $this->__(
+                [
                 'name' => 'offset',
                 'value' => 0
-            ])->draw('forms/input/hidden');
-?>
+                ]
+            )->draw('forms/input/hidden');
+            ?>
 
             <?php echo
-            $this->__([
+            $this->__(
+                [
                 'name' => 'limit',
                 'value' => 100
-            ])->draw('forms/input/hidden');
-?>
+                ]
+            )->draw('forms/input/hidden');
+            ?>
             <?php echo
-            $this->__([
+            $this->__(
+                [
                 'name' => 'count'
-            ])->draw('forms/input/hidden');
-?>
+                ]
+            )->draw('forms/input/hidden');
+            ?>
             </div>
         </div>
     </form>

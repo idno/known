@@ -42,8 +42,9 @@ if (!empty(\Idno\Core\Idno::site()->config()->show_privacy) || $access != 'PUBLI
                         foreach ($acls as $acl) {
 
                             $icon = 'fa fa-cog';
-                            if ($acl->access_group_type == 'FOLLOWING')
+                            if ($acl->access_group_type == 'FOLLOWING') {
                                 $icon = 'fa fa-users';
+                            }
                             ?>
                                     <li><a href="#" data-acl="<?php echo $acl->getUUID(); ?>" class="acl-ctrl-option"><i
                                                 class="<?php echo $icon; ?>"> </i> <?php echo $acl->title; ?></a></li>
@@ -73,8 +74,12 @@ if (!empty(\Idno\Core\Idno::site()->config()->show_privacy) || $access != 'PUBLI
 
 }
 
-    /** Document the control for the api */
-    $this->documentFormControl('access', [
+    /**
+ * Document the control for the api
+*/
+    $this->documentFormControl(
+        'access', [
         'id' => 'access-control-id-' .$id_code,
         'description' => 'Access control',
-    ]);
+        ]
+    );

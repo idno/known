@@ -2,31 +2,36 @@
 
 
 namespace Idno\Core\Templating {
-    
+
     use Idno\Core\{ Idno, Webservice };
-    
-    trait Urls {
-        
-        
+
+    trait Urls
+    {
+
+
         /**
          * Returns a version of the current page URL with the specified variable removed from the address line
-         * @param string $variable_name
+         *
+         * @param  string $variable_name
          * @return string
          */
         function getCurrentURLWithoutVar($variable_name)
         {
             $components = parse_url($this->getCurrentURL());
             parse_str($components['query'], $url_var_array);
-            if (!empty($url_var_array[$variable_name])) unset($url_var_array[$variable_name]);
+            if (!empty($url_var_array[$variable_name])) { unset($url_var_array[$variable_name]);
+            }
             $components['query'] = http_build_query($url_var_array);
             $url                 = $components['scheme'] . '://' . $components['host'] . (!empty($components['port']) ? ':' . $components['port'] : '') . $components['path'];
-            if (!empty($components['query'])) $url .= '?' . $components['query'];
+            if (!empty($components['query'])) { $url .= '?' . $components['query'];
+            }
 
             return $url;
         }
 
         /**
          * Returns a sanitized version of the current page URL
+         *
          * @return string
          */
         function getCurrentURL()
@@ -50,7 +55,8 @@ namespace Idno\Core\Templating {
 
         /**
          * Returns a version of the current page URL with the specified variable removed from the address line
-         * @param string $variable_name
+         *
+         * @param  string $variable_name
          * @return string
          */
         function getURLWithoutVar($url, $variable_name)
@@ -60,19 +66,23 @@ namespace Idno\Core\Templating {
             }
             $components = parse_url($url);
             $url_var_array = [];
-            if (!empty($components['query'])) parse_str($components['query'], $url_var_array);
-            if (!empty($url_var_array[$variable_name])) unset($url_var_array[$variable_name]);
+            if (!empty($components['query'])) { parse_str($components['query'], $url_var_array);
+            }
+            if (!empty($url_var_array[$variable_name])) { unset($url_var_array[$variable_name]);
+            }
             $components['query'] = http_build_query($url_var_array);
             $url                 = $components['scheme'] . '://' . $components['host'] . (!empty($components['port']) ? ':' . $components['port'] : '') . $components['path'];
-            if (!empty($components['query'])) $url .= '?' . $components['query'];
+            if (!empty($components['query'])) { $url .= '?' . $components['query'];
+            }
 
             return $url;
         }
 
         /**
          * Returns a version of the current page URL with the specified URL variable set to the specified value
-         * @param $variable_name
-         * @param $value
+         *
+         * @param  $variable_name
+         * @param  $value
          * @return string
          */
         function getCurrentURLWithVar($variable_name, $value)
@@ -86,15 +96,17 @@ namespace Idno\Core\Templating {
             $url_var_array[$variable_name] = $value;
             $components['query']           = http_build_query($url_var_array);
             $url                           = $components['scheme'] . '://' . $components['host'] . (!empty($components['port']) ? ':' . $components['port'] : '') . $components['path'];
-            if (!empty($components['query'])) $url .= '?' . $components['query'];
+            if (!empty($components['query'])) { $url .= '?' . $components['query'];
+            }
 
             return $url;
         }
 
         /**
          * Returns a version of the current page URL with the specified variable added to the address line
-         * @param string $variable_name
-         * @param string $variable_value
+         *
+         * @param  string $variable_name
+         * @param  string $variable_value
          * @return string
          */
         function getURLWithVar($variable_name, $variable_value, $url = '')
@@ -116,7 +128,8 @@ namespace Idno\Core\Templating {
                 $url_var_array[$variable_name] = $variable_value;
                 $components['query']           = http_build_query($url_var_array);
                 $url                           = $components['scheme'] . '://' . $components['host'] . (!empty($components['port']) ? ':' . $components['port'] : '') . $components['path'];
-                if (!empty($components['query'])) $url .= '?' . $components['query'];
+                if (!empty($components['query'])) { $url .= '?' . $components['query'];
+                }
                 if ($blank_scheme) {
                     $url = str_replace($components['scheme'] . ':', '', $url);
                 }
@@ -127,37 +140,41 @@ namespace Idno\Core\Templating {
 
         /**
          * Convert a remote image URL into one addressing the local image proxying service.
-         * @param url $url
-         * @param int Maximum dimensions of proxied image
-         * @param string Transformations. Currently only 'square' is supported.
+         *
+         * @param  url                                     $url
+         * @param  int Maximum dimensions of proxied image
+         * @param  string Transformations. Currently only 'square' is supported.
          * @return URL
          */
         public function getProxiedImageUrl($url, $maxsize = null, $transform = null)
         {
 
             // Local urls, just relay.
-            if (\Idno\Common\Entity::isLocalUUID($url))
+            if (\Idno\Common\Entity::isLocalUUID($url)) {
                 return $url;
+            }
 
             // Map to local
             $proxied_url = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'service/web/imageproxy/' . Webservice::base64UrlEncode($url);
 
-            if (!empty($maxsize))
+            if (!empty($maxsize)) {
                 $proxied_url .= '/' . (int)$maxsize;
+            }
 
-            if (!empty($transform))
+            if (!empty($transform)) {
                 $proxied_url .= '/' . $transform;
+            }
 
             return $proxied_url;
 
         }
-        
-        
+
+
         /**
          * Return a schema-less version of the given URL
          *
-         * @param $url
-         * @param $match_host If set to true (default), only changes the URI if the host matches the site's host
+         * @param  $url
+         * @param  $match_host If set to true (default), only changes the URI if the host matches the site's host
          * @return mixed
          */
         function makeDisplayURL($url, $match_host = true)
@@ -175,10 +192,11 @@ namespace Idno\Core\Templating {
             return str_replace($scheme . ':', $newuri, $url);
         }
 
-        
+
         /**
          * Given a URL, fixes it to have a prefix if it needs one
-         * @param $url
+         *
+         * @param  $url
          * @return string
          */
         function fixURL($url)
@@ -204,9 +222,10 @@ namespace Idno\Core\Templating {
                 ? $url
                 : 'http://' . $url;
         }
-        
+
         /**
          * Checks the current URL for `tag/` and passes this down.
+         *
          * @return string
          */
         function getTag()

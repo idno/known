@@ -3,7 +3,7 @@
     <a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/notifications">
         <i class="fa fa-bell"></i><?php echo \Idno\Core\Idno::site()->language()->_('Notifications'); ?><?php
         $notifs = \Idno\Core\Idno::site()->session()->currentUser()->countUnreadNotifications();
-        
+
         if ($notifs > 0) {
             echo " <span class=\"badge\">$notifs</span>";
         }

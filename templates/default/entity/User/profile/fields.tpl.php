@@ -1,11 +1,11 @@
 <?php
 
-# Sourced from:
-# https://forkaweso.me/Fork-Awesome/icons/#brand
-# Prefer -square variants since it's easier to strip than add.
-#
-# TODO: move to config file and make rest of the code driven
-# by data in this data structure.
+// Sourced from:
+// https://forkaweso.me/Fork-Awesome/icons/#brand
+// Prefer -square variants since it's easier to strip than add.
+//
+// TODO: move to config file and make rest of the code driven
+// by data in this data structure.
 
 $host_to_icon = [
     "500px.com" => "500px",
@@ -17,10 +17,10 @@ $host_to_icon = [
     "archive.org" => "archive-org",
     "bandcamp.com" => "bandcamp",
     "behance.net" => "behance",
-    "bible.com" => "bible", # generic
+    "bible.com" => "bible", // generic
     "bitbucket.org" => "bitbucket",
     "blogspot.com" => "blogger",
-    "cash.me" => "money", # generic
+    "cash.me" => "money", // generic
     "chrome.google.com" => "chrome",
     "codepen.io" => "codepen",
     "del.icio.us" => "delicious",
@@ -31,7 +31,7 @@ $host_to_icon = [
     "dropbox.com" => "dropbox",
     "drupal.org" => "drupal",
     "eercast.com" => "eercast",
-    "ello.co" => "circle", # generic
+    "ello.co" => "circle", // generic
     "etsy.com" => "etsy",
     "fb.com" => "facebook-square",
     "facebook.com" => "facebook-square",
@@ -42,8 +42,8 @@ $host_to_icon = [
     "gitea.com" => "gitea",
     "github.com" => "github-square",
     "gitlab.com" => "gitlab",
-    "gitshowcase.com" => "git-square", # generic
-    "goodreads.com" => "book", # generic
+    "gitshowcase.com" => "git-square", // generic
+    "goodreads.com" => "book", // generic
     "google.com" => "google",
     "houzz.com" => "houzz",
     "imdb.com" => "imdb",
@@ -59,16 +59,16 @@ $host_to_icon = [
     "matrix.to" => "matrix-org",
     "medium.com" => "medium-square",
     "meetup.com" => "meetup",
-    "micro.blog" => "rss-square", # generic
+    "micro.blog" => "rss-square", // generic
     "mixcloud.com" => "mixcloud",
     "ok.ru" => "odnoklassniki",
-    "newsblur.com" => "newspaper-o", # generic
+    "newsblur.com" => "newspaper-o", // generic
     "news.ycombinator.com" => "hacker-news",
     "patreon.com" => "patreon",
     "paypal.com" => "paypal",
     "paypal.me" => "paypal",
-    "periscope.tv" => "map-marker", # generic
-    "pinboard.in" => "bookmark", # generic
+    "periscope.tv" => "map-marker", // generic
+    "pinboard.in" => "bookmark", // generic
     "pinterest.com" => "pinterest-square",
     "pixelfed.com" => "pixelfed",
     "play.google.com" => "android",
@@ -83,14 +83,14 @@ $host_to_icon = [
     "scribd.com" => "scribd",
     "slideshare.net" => "slideshare",
     "snapchat.com" => "snapchat-square",
-    "social.coop" => "mastodon-square", # instance
+    "social.coop" => "mastodon-square", // instance
     "soundcloud.com" => "soundcloud",
     "spotify.com" => "spotify",
     "stackexchange.com" => "stack-exchange",
     "stackoverflow.com" => "stack-overflow",
     "steamcommunity.com" => "steam",
     "steampowered.com" => "steam",
-    "strava.com" => "bicycle", # generic
+    "strava.com" => "bicycle", // generic
     "stumbleupon.com" => "stumbleupon",
     "telegram.me" => "telegram",
     "telegram.org" => "telegram",
@@ -100,8 +100,8 @@ $host_to_icon = [
     "twitch.tv" => "twitch",
     "twitter.com" => "twitter",
     "unsplash.com" => "unsplash",
-    "upcoming" => "calendar", # generic
-    "venmo.com" => "money", # generic
+    "upcoming" => "calendar", // generic
+    "venmo.com" => "money", // generic
     "viadeo.com" => "viadeo",
     "vimeo.com" => "vimeo-square",
     "vine.co" => "vine",
@@ -139,7 +139,8 @@ if (!empty($vars['user']->profile['url']) && is_array($vars['user']->profile['ur
 
             // Check if there is an icon for this hostname
             foreach($host_to_icon as $host_value => $host_icon) {
-                if (strpos($host, $host_value) > -1) $icon = 'fa fa-' . $host_icon;
+                if (strpos($host, $host_value) > -1) { $icon = 'fa fa-' . $host_icon;
+                }
             }
 
             // Map Schemes to Icons.  Keep in sync with fixURL code in Idno/Core/Template.php
@@ -200,10 +201,10 @@ if (!empty($vars['user']->profile['url']) && is_array($vars['user']->profile['ur
             }
 
             // Remove http / https schemas and any trailing slash
-            $url_display = rtrim(str_replace('https://', '', str_replace('http://', '', strip_tags($url_display))),'/');
+            $url_display = rtrim(str_replace('https://', '', str_replace('http://', '', strip_tags($url_display))), '/');
 
-            # TODO: find a way to integrate into a config data structure.
-            # Remove hosts where the rest of the URL is a profile identifier
+            // TODO: find a way to integrate into a config data structure.
+            // Remove hosts where the rest of the URL is a profile identifier
             switch ($host) {
                 case 'angellist.com':
                 case 'instagram.com':
@@ -217,7 +218,7 @@ if (!empty($vars['user']->profile['url']) && is_array($vars['user']->profile['ur
                 case 'strava.com':
                 case 'twitter.com':
                 case 'venmo.com':
-                    $url_display = substr(strrchr($url_display, '/'),1);
+                    $url_display = substr(strrchr($url_display, '/'), 1);
                     break;
             }
 

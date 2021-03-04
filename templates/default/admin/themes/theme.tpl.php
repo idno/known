@@ -39,10 +39,10 @@ if (!empty($vars['theme'])) {
     ?>
     <h4><?php echo $vars['theme']['Theme description']['name'] ?> <?php if (\Idno\Core\Idno::site()->themes()->get() == $vars['theme']['shortname']) {
             echo \Idno\Core\Idno::site()->language()->_('(Selected)');
-   } else {
-    echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/themes/', \Idno\Core\Idno::site()->language()->_('Enable'), array('theme' => $vars['theme']['shortname'], 'action' => 'install'), array('class' => 'pull-right btn btn-primary'));
-}
-?></h4>
+} else {
+            echo \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/themes/', \Idno\Core\Idno::site()->language()->_('Enable'), array('theme' => $vars['theme']['shortname'], 'action' => 'install'), array('class' => 'pull-right btn btn-primary'));
+        }
+        ?></h4>
 
     <p>
         <strong>Version <?php echo $vars['theme']['Theme description']['version'] ?></strong> <?php echo \Idno\Core\Idno::site()->language()->_('by'); ?>

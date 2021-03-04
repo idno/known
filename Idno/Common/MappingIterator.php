@@ -14,7 +14,7 @@ namespace Idno\Common {
 
         /**
          * @param Traversable $iterator
-         * @param callable $func
+         * @param callable    $func
          */
         function __construct($iterator, $func)
         {

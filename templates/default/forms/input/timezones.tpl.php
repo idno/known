@@ -15,7 +15,10 @@ foreach ($timezones as $timezone) {
     $tz_corrected[$timezone] = $label;
 }
 
-if (empty($vars['class'])) $vars['class'] = "input-timezone";
-echo $this->__([
+if (empty($vars['class'])) { $vars['class'] = "input-timezone";
+}
+echo $this->__(
+    [
     'options' => $tz_corrected
-])->draw('forms/input/select');
+    ]
+)->draw('forms/input/select');

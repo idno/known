@@ -15,8 +15,9 @@ namespace Idno\Core {
         protected static function parse()
         {
 
-            if (!empty(static::$remoteDetails))
+            if (!empty(static::$remoteDetails)) {
                 return static::$remoteDetails;
+            }
 
             try {
                 $versionfile = Webservice::get(static::$remoteVersion);

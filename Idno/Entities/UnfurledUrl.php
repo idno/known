@@ -9,6 +9,7 @@ namespace Idno\Entities {
 
         /**
          * Copied and modified from https://github.com/mapkyca/php-ogp, extract information from graph headers
+         *
          * @param type $content
          */
         private static function parseHeaders($content)
@@ -26,7 +27,8 @@ namespace Idno\Entities {
 
             if (!empty($host)) {
                 $host = str_replace('www.', '', $host);
-                return in_array($host, [
+                return in_array(
+                    $host, [
                     'youtube.com',
                     'youtu.be',
                     'instagram.com',
@@ -36,7 +38,8 @@ namespace Idno\Entities {
                     'amazon.com',
                     'amazon.co.uk',
                     'radiopublic.com',
-                ]);
+                    ]
+                );
             }
 
             return false;
@@ -44,6 +47,7 @@ namespace Idno\Entities {
 
         /**
          * Unfurl and unpack a url, extracting title, description, open-graph and oembed
+         *
          * @param type $url
          */
         public function unfurl($url)
@@ -52,8 +56,9 @@ namespace Idno\Entities {
             $url = trim($url);
             $unfurled = [];
 
-            if (!filter_var($url, FILTER_VALIDATE_URL))
+            if (!filter_var($url, FILTER_VALIDATE_URL)) {
                 return false;
+            }
 
             $contents = \Idno\Core\Webservice::file_get_contents($url);
             if (!empty($contents)) {
@@ -69,8 +74,9 @@ namespace Idno\Entities {
                     $parser = new \Mf2\Parser($contents, $url);
                     try {
                         $mf2 = $parser->parse();
-                        if (!empty($mf2))
+                        if (!empty($mf2)) {
                             $unfurled['mf2'] = $mf2;
+                        }
                     } catch (\Exception $e) {
                         \Idno\Core\Idno::site()->logging()->debug($e->getMessage());
                     }

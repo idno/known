@@ -29,10 +29,12 @@ namespace Idno\Pages\Webfinger {
             }
             $t = \Idno\Core\Idno::site()->template();
             $t->setTemplateType('json');
-            $t->__(array(
+            $t->__(
+                array(
                 'subject' => $acct,
                 'links'   => $links
-            ))->drawPage();
+                )
+            )->drawPage();
 
         }
 

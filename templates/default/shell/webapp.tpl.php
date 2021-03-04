@@ -24,10 +24,11 @@ if (\Idno\Common\Page::isSSL() && \Idno\Core\Idno::site()->session()->isLoggedIn
                 scope: '<?php
                     // Work out scope
                     $url = parse_url(\Idno\Core\Idno::site()->config()->getDisplayURL());
-                    if (empty($url['path']))
-                        echo '/';
-                else
+                if (empty($url['path'])) {
+                    echo '/';
+                } else {
                         echo $url['path'];
+                }
                 ?>'
             })
                 .then(function (r) {

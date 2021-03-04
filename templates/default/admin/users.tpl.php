@@ -20,8 +20,8 @@
             <?php echo \Idno\Core\Idno::site()->language()->_('Your site has'); ?> <strong><?php echo $vars['count'] ?></strong> <?php if ($vars['count'] != 1) {
                                                                                                                        echo \Idno\Core\Idno::site()->language()->_('users');
             } else {
-    echo \Idno\Core\Idno::site()->language()->_('user');
-} ?>.
+                echo \Idno\Core\Idno::site()->language()->_('user');
+            } ?>.
         </p>
     </div>
 </div>

@@ -10,6 +10,7 @@ namespace Idno\Core {
         /**
          * Generate a cryptographically secure random token, returning it as a HEX encoded string.
          * Note: Hex is two chars per byte, so $length = 16 would produce a 32 char string (same length as md5(rand()), but more secure)
+         *
          * @param int $length Length in bytes
          */
         function generateHexToken($length)
@@ -19,7 +20,8 @@ namespace Idno\Core {
 
         /**
          * Generate a cryptographically secure random token.
-         * @param type $length Length in bytes
+         *
+         * @param  type $length Length in bytes
          * @return bytes
          * @throws \Exception If cryptographic functions are not strong enough.
          */
@@ -39,7 +41,8 @@ namespace Idno\Core {
          * Helper that will return a partially redacted token for output.
          * Sometimes it is necessary to output a token, but you might not want
          * to output the whole thing since all you really want to know is if they're similar to another.
-         * @param string $token
+         *
+         * @param  string $token
          * @return retacted token
          */
         public static function truncateToken($token)

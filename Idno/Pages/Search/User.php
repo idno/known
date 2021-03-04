@@ -55,8 +55,9 @@ namespace Idno\Pages\Search {
             }
 
             global $template_postponed_link_actions;
-            if (!empty($template_postponed_link_actions))
+            if (!empty($template_postponed_link_actions)) {
                 $results['rendered'] .= $template_postponed_link_actions;
+            }
 
             echo json_encode($results); exit;
         }

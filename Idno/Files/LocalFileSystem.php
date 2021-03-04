@@ -13,7 +13,8 @@ namespace Idno\Files {
 
         /**
          * Find a file.
-         * @param $id
+         *
+         * @param  $id
          * @return mixed
          */
         public function findOne($id)
@@ -53,9 +54,10 @@ namespace Idno\Files {
 
         /**
          * Store the file at $file_path with $metadata and $options
-         * @param $file_path
-         * @param $metadata
-         * @param $options
+         *
+         * @param  $file_path
+         * @param  $metadata
+         * @param  $options
          * @return id of file
          */
         public function storeFile($file_path, $metadata, $options = [])
@@ -132,12 +134,10 @@ namespace Idno\Files {
                         }
                     }
 
-                    if (!@file_put_contents($upload_file, $content))
-                    {
+                    if (!@file_put_contents($upload_file, $content)) {
                         throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("There was a problem storing the file data."));
                     }
-                    if (!@file_put_contents($data_file, $metadata))
-                    {
+                    if (!@file_put_contents($data_file, $metadata)) {
                         throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("There was a problem saving the file's metadata"));
                     }
 

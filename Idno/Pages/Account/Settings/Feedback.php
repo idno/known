@@ -29,7 +29,8 @@ namespace Idno\Pages\Account\Settings {
 
             if (!empty($email) && !empty($message)) {
 
-                $results    = Webservice::post('https://withknown.com/vendor-services/feedback/', array(
+                $results    = Webservice::post(
+                    'https://withknown.com/vendor-services/feedback/', array(
                     'url'     => \Idno\Core\Idno::site()->config()->getURL(),
                     'title'   => \Idno\Core\Idno::site()->config()->getTitle(),
                     'version' => \Idno\Core\Version::version(),
@@ -37,7 +38,8 @@ namespace Idno\Pages\Account\Settings {
                     'hub'     => \Idno\Core\Idno::site()->config()->known_hub,
                     'email'   => $email,
                     'message' => $message
-                ));
+                    )
+                );
 
                 \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("Thanks! We received your feedback."));
 

@@ -24,18 +24,21 @@ namespace Idno\Pages\Session {
         function getContent()
         {
             $user = \Idno\Core\Idno::site()->session()->currentUser();
-            if (empty($user)) $this->noContent();
+            if (empty($user)) { $this->noContent();
+            }
 
             $this->setPermalink(); // This is a permalink
 
             $t = \Idno\Core\Idno::site()->template();
-            $t->__(array(
+            $t->__(
+                array(
 
                 'title'       => $user->getTitle(),
                 'body'        => $t->__(array('user' => $user))->draw('entity/User/profile'),
                 'description' =>  \Idno\Core\Idno::site()->language()->_('The %s profile for %s', [\Idno\Core\Idno::site()->config()->title, $user->getTitle()])
 
-            ))->drawPage();
+                )
+            )->drawPage();
         }
 
     }

@@ -16,8 +16,9 @@ class AsynchronousQueue extends EventQueue
 
     function enqueue($queueName, $eventName, array $eventData)
     {
-        if (empty($queueName))
+        if (empty($queueName)) {
             $queueName = 'default';
+        }
 
         $queuedEvent = new \Idno\Entities\AsynchronousQueuedEvent();
         $queuedEvent->queue = $queueName;
@@ -52,19 +53,23 @@ class AsynchronousQueue extends EventQueue
 
     /**
      * Dispatch event.
+     *
      * @param \Idno\Entities\AsynchronousQueuedEvent $event
      */
     function dispatch(\Idno\Entities\AsynchronousQueuedEvent &$event)
     {
 
-        if (empty($event))
+        if (empty($event)) {
             throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('No event passed'));
+        }
 
-        if (!($event instanceof \Idno\Entities\AsynchronousQueuedEvent))
+        if (!($event instanceof \Idno\Entities\AsynchronousQueuedEvent)) {
             throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Event passed is not a queued event, and so can\'t be dispatched'));
+        }
 
-        if ($event->complete)
+        if ($event->complete) {
             throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Sorry, this event has already been dispatched (but not yet cleaned up)'));
+        }
 
         try {
 
@@ -72,8 +77,9 @@ class AsynchronousQueue extends EventQueue
 
             if (!empty($event->runAsContext)) {
                 $user = \Idno\Entities\User::getByUUID($event->runAsContext);
-                if (empty($user))
+                if (empty($user)) {
                     throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Invalid user (%s) given for runAsContext, aborting", [$event->runAsContext]));
+                }
 
                 \Idno\Core\Idno::site()->session()->logUserOn($user);
 
@@ -114,8 +120,9 @@ class AsynchronousQueue extends EventQueue
             'complete' => true,
         ];
 
-        if (!empty($queue))
+        if (!empty($queue)) {
             $search['queue'] = $queue;
+        }
 
         if ($events = \Idno\Entities\AsynchronousQueuedEvent::get($search)) {
 

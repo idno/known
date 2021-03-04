@@ -1,7 +1,8 @@
 <?php
 $dataurl = "";
-if (!empty($vars['data-url']))
+if (!empty($vars['data-url'])) {
     $dataurl = htmlentities($vars['data-url']);
+}
 
 if (empty($vars['object']->hide_preview)) { ?>
 <div class="unfurl-block" data-parent-object="<?php echo $vars['object']->_id; ?>">

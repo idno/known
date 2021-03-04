@@ -39,9 +39,11 @@
                 <div role="tabpanel1"
                      class="tab-pane <?php echo (empty($vars['tab']) || $vars['tab'] == 'Basic') ? 'active' : '' ?>"
                      id="stats-<?php echo $sanitised_tab; ?>">
-                    <?php echo $this->__([
+                    <?php echo $this->__(
+                        [
                         'report' => $report
-                    ])->draw('admin/statistics/report'); ?>
+                        ]
+                    )->draw('admin/statistics/report'); ?>
                 </div>
                 <?php
             }

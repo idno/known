@@ -36,13 +36,15 @@ namespace Idno\Pages\Annotation {
 
                 $this->setPermalink(); // This is a permalink
                 $t = \Idno\Core\Idno::site()->template();
-                $t->__(array(
+                $t->__(
+                    array(
 
                     'title'       => $object->getTitle(),
                     'body'        => $t->__(array('annotation' => $annotation, 'subtype' => $subtype, 'permalink' => $permalink, 'object' => $object))->draw('entity/annotations/shell'),
                     'description' => $object->getShortDescription()
 
-                ))->drawPage();
+                    )
+                )->drawPage();
             } else {
                 // List annotations for object
 
@@ -63,23 +65,27 @@ namespace Idno\Pages\Annotation {
                         unset($t->vars['subtype']);
                         unset($t->vars['permalink']);
 
-                        if ($t->getTemplateType() == 'rss')
+                        if ($t->getTemplateType() == 'rss') {
                             unset($t->vars['object']);
+                        }
 
                         $items[] = $annotation;
                     }
                 }
 
-                if ($t->getTemplateType() == 'rss')
+                if ($t->getTemplateType() == 'rss') {
                     $t->vars['annotations'] = $items;
+                }
 
-                $t->__(array(
+                $t->__(
+                    array(
 
                     'title'       => "Annotations on: " .$object->getTitle(),
                     'body'        => $body,
                     'description' => $object->getShortDescription()
 
-                ))->drawPage();
+                    )
+                )->drawPage();
 
             }
         }

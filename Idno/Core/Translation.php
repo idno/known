@@ -14,12 +14,14 @@ namespace Idno\Core {
 
         /**
          * Language this translation is for.
+         *
          * @var type
          */
         protected $language;
 
         /**
          * Create this translation, for the defined language.
+         *
          * @param type $language Which language is this for? Default 'en_US'
          */
         public function __construct($language = 'en_US')
@@ -29,7 +31,8 @@ namespace Idno\Core {
 
         /**
          * Can this object provide the given language.
-         * @param type $language
+         *
+         * @param  type $language
          * @return bool
          */
         public function canProvide($language)

@@ -30,10 +30,9 @@ if (preg_match_all('/(youtube\.com|youtu\.be)\/watch\?v=([a-z0-9\-\_]+)/i', $bod
         $embedded .= '<div><iframe class="youtube-player auto-link figure" width="600" height="420" style="border:0" allowfullscreen="allowfullscreen" mozallowfullscreen="mozallowfullscreen" msallowfullscreen="msallowfullscreen" oallowfullscreen="oallowfullscreen" webkitallowfullscreen="webkitallowfullscreen" src="//www.youtube-nocookie.com/embed/' . $m . '" loading="lazy"></iframe></div>';
         $urls[] = $m;
     }
-} else if (
-        preg_match_all('/(youtube\.com|youtu\.be)\/c\/([a-z0-9\-\_]+)/i', $body, $matches) ||
-        preg_match_all('/(youtube\.com|youtu\.be)\/channel\/([a-z0-9\-\_]+)/i', $body, $matches)
-    ) {
+} else if (preg_match_all('/(youtube\.com|youtu\.be)\/c\/([a-z0-9\-\_]+)/i', $body, $matches)
+    || preg_match_all('/(youtube\.com|youtu\.be)\/channel\/([a-z0-9\-\_]+)/i', $body, $matches)
+) {
     foreach ($matches[2] as $m) {
         // TODO: see if there's a way to embed YouTube channels
     }
@@ -80,8 +79,9 @@ if (preg_match_all('/(?<!=)(?<!["\'])((ht|f)tps?:\/\/[^\s<>"\'\)]+)/i', $body, $
     foreach ($matches[0] as $m) {
         $found = false;
         foreach ($urls as $url) {
-            if (strpos($m, $url)!==false)
+            if (strpos($m, $url)!==false) {
                     $found = true;
+            }
         }
         if (!$found) {
             $embedded .= $this->__(['data-url' => $m])->draw('content/unfurl');//"<div class=\"unfurl col-md-12\" style=\"display:none;\" data-url=\"".htmlentities($m)."\"></div>";

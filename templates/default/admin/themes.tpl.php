@@ -15,14 +15,14 @@
             // Loop through the array to pull out active theme and draw it
             foreach($vars['themes_stored'] as $shortname => $theme) {
                 $theme['shortname'] = $shortname;
-                if($theme['shortname']==$currentTheme){
+                if($theme['shortname']==$currentTheme) {
                     echo $this->__(array('theme' => $theme))->draw('admin/themes/theme');
                 }
             }
             // Loop through one more time to draw everything else
             foreach($vars['themes_stored'] as $shortname => $theme) {
                 $theme['shortname'] = $shortname;
-                if($theme['shortname']!=$currentTheme){
+                if($theme['shortname']!=$currentTheme) {
                     echo $this->__(array('theme' => $theme))->draw('admin/themes/theme');
                 }
             }

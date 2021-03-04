@@ -123,21 +123,25 @@ namespace Idno\Pages {
             }
 
             $t = \Idno\Core\Idno::site()->template();
-            $t->__(array(
+            $t->__(
+                array(
 
                 'title'       => $title,
                 'description' => $description,
                 'content'     => $friendly_types,
-                'body'        => $t->__(array(
+                'body'        => $t->__(
+                    array(
                     'items'        => $feed,
                     'contentTypes' => $create,
                     'offset'       => $offset,
                     'count'        => $count,
                     'subject'      => $query,
                     'content'      => $friendly_types
-                ))->draw('pages/home'),
+                    )
+                )->draw('pages/home'),
 
-            ))->drawPage();
+                )
+            )->drawPage();
         }
 
         /**

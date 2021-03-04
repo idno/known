@@ -1,9 +1,11 @@
 <?php
 
 if (!empty($vars['annotations']) && is_array($vars['annotations'])) {
-    usort($vars['annotations'], function($a, $b) {
-        return ($a['time'] < $b['time']) ? -1 : 1;
-    });
+    usort(
+        $vars['annotations'], function ($a, $b) {
+            return ($a['time'] < $b['time']) ? -1 : 1;
+        }
+    );
 
     $rsvps_by_response = ['yes' => '', 'maybe' => '', 'no' => '', 'etc' => ''];
 

@@ -20,13 +20,15 @@ namespace Idno\Pages\Onboarding {
             $_SESSION['onboarding_passthrough'] = true;
 
             $t = \Idno\Core\Idno::site()->template();
-            echo $t->__(array(
+            echo $t->__(
+                array(
 
                 'title'    => \Idno\Core\Idno::site()->language()->_("Connect some networks"),
                 'body'     => $t->__(array('user' => $user))->draw('onboarding/connect'),
                 'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages()
 
-            ))->draw('shell/simple');
+                )
+            )->draw('shell/simple');
             //} else {
             //    $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'begin/publish');
             //}

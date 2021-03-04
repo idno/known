@@ -15,10 +15,12 @@ namespace Idno\Pages\Webmentions {
         function getContent()
         {
             $t = \Idno\Core\Idno::site()->template();
-            $t->__([
+            $t->__(
+                [
                 'title' => \Idno\Core\Idno::site()->language()->_('Webmention endpoint'),
                 'body' => $t->draw('pages/webmention')
-            ])->drawPage();
+                ]
+            )->drawPage();
         }
 
         function post()

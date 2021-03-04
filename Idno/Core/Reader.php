@@ -23,8 +23,9 @@ namespace Idno\Core {
 
         /**
          * Given the content of a page and its URL, returns an array of FeedItem objects (or false on failure)
-         * @param $content
-         * @param $url
+         *
+         * @param  $content
+         * @param  $url
          * @return array|bool
          */
         function parseFeed($content, $url)
@@ -80,8 +81,9 @@ namespace Idno\Core {
 
         /**
          * Given a parsed microformat feed, returns an array of FeedItem objects
-         * @param $mf2_content
-         * @param $url
+         *
+         * @param  $mf2_content
+         * @param  $url
          * @return array
          */
         function mf2FeedToFeedItems($mf2_content, $url)
@@ -105,8 +107,9 @@ namespace Idno\Core {
 
         /**
          * Given a parsed RSS or Atom feed, returns an array of FeedItem objects
-         * @param $rss_content
-         * @param $url
+         *
+         * @param  $rss_content
+         * @param  $url
          * @return array
          */
         function xmlFeedToFeedItems($xml_items, $url)
@@ -130,7 +133,7 @@ namespace Idno\Core {
 
         /**
          *
-         * @param $url
+         * @param  $url
          * @return array|bool
          */
         function fetchAndParseFeed($url)
@@ -152,7 +155,8 @@ namespace Idno\Core {
          * Given the URL of a website, returns a single linked array containing the URL and title of a feed
          * (whether Microformats or RSS / Atom). The function will attempt to discover RSS and Atom feeds in
          * the page if this is an HTML site. Returns false if there is no feed.
-         * @param $url
+         *
+         * @param  $url
          * @return array|false
          */
         function getFeedDetails($url)
@@ -217,8 +221,9 @@ namespace Idno\Core {
 
         /**
          * Retrieves a feed object for the given URL, or creates one if it's new to the system
-         * @param $url
-         * @param $update Set to true in order to refresh saved feed details. False by default.
+         *
+         * @param  $url
+         * @param  $update Set to true in order to refresh saved feed details. False by default.
          * @return bool|false|\Idno\Common\Entity|Feed
          */
         function getFeedObject($url, $update = false)
@@ -258,7 +263,8 @@ namespace Idno\Core {
 
         /**
          * Given the content of a web page, returns the URL of a linked-to RSS or Atom feed
-         * @param $content
+         *
+         * @param  $content
          * @return array|bool
          */
         function findXMLFeedURL($html)
@@ -287,7 +293,8 @@ namespace Idno\Core {
 
         /**
          * Retrieve a particular user's subscriptions
-         * @param $user
+         *
+         * @param  $user
          * @return array|bool
          */
         function getUserSubscriptions($user)

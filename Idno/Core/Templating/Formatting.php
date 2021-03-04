@@ -2,14 +2,16 @@
 
 
 namespace Idno\Core\Templating {
-    
+
     use \Idno\Core\Idno;
-        
-    trait Formatting {
-        
+
+    trait Formatting
+    {
+
         /**
          * Automatically adds paragraph tags (etc) to a given piece of unformatted or semi-formatted text.
-         * @param $html
+         *
+         * @param  $html
          * @return \false|string
          */
         function autop($html)
@@ -23,7 +25,8 @@ namespace Idno\Core\Templating {
 
         /**
          * Wrapper for those on UK spelling.
-         * @param $html
+         *
+         * @param  $html
          * @return mixed
          */
         function sanitise_html($html)
@@ -34,6 +37,7 @@ namespace Idno\Core\Templating {
         /**
          * Sanitize HTML in a large block of text, removing XSS and other vulnerabilities.
          * This works by calling the text/filter event, as well as any built-in purifier.
+         *
          * @param type $html
          */
         function sanitize_html($html)

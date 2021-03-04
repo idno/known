@@ -6,10 +6,10 @@ if (!empty($vars['rel'])) {
     $rel = '';
 }
     echo $this->autop(
-            $this->parseURLs(
-                    $this->parseHashtags(
-                            $this->purifier->purify($vars['value'])
-                    ), $rel
-                )
-            );
+        $this->parseURLs(
+            $this->parseHashtags(
+                $this->purifier->purify($vars['value'])
+            ), $rel
+        )
+    );
 

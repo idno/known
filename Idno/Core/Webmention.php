@@ -3,7 +3,7 @@
     /**
      * Content announcement (via webmention) class
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -16,6 +16,7 @@ namespace Idno\Core {
 
         /**
          * Get the MentionClient singleton (initializes on first use).
+         *
          * @return \Idno\Core\MentionClient
          */
         private static function mentionClient()
@@ -33,8 +34,9 @@ namespace Idno\Core {
 
         /**
          * Pings mentions from a given page to any linked pages
-         * @param $pageURL Page URL
-         * @param string $text The text to mine for links
+         *
+         * @param  $pageURL Page URL
+         * @param  string $text    The text to mine for links
          * @return int The number of pings that were sent out
          */
         static function pingMentions($pageURL, $text)
@@ -56,8 +58,8 @@ namespace Idno\Core {
         /**
          * Send a webmention payload to a target without parsing HTML
          *
-         * @param $sourceURL
-         * @param $targetURL
+         * @param  $sourceURL
+         * @param  $targetURL
          * @return bool
          */
         static function sendWebmentionPayload($sourceURL, $targetURL)
@@ -67,8 +69,9 @@ namespace Idno\Core {
 
         /**
          * Does the supplied page support webmentions?
-         * @param $pageURL
-         * @param bool $sourceBody
+         *
+         * @param  $pageURL
+         * @param  bool $sourceBody
          * @return mixed
          */
         static function supportsMentions($pageURL, $sourceBody = false)
@@ -80,9 +83,10 @@ namespace Idno\Core {
         /**
          * Given an array of URLs (or an empty array) and a target URL to check,
          * adds and rel="syndication" URLs in the target to the array
-         * @param $url
-         * @param array $inreplyto
-         * @param array $response (optional) response from fetching $url
+         *
+         * @param  $url
+         * @param  array $inreplyto
+         * @param  array $response  (optional) response from fetching $url
          * @return array
          */
         static function addSyndicatedReplyTargets($url, $inreplyto = array(), $response = false)
@@ -124,8 +128,9 @@ namespace Idno\Core {
 
         /**
          * Parses a given set of HTML for Microformats 2 content
-         * @param $content HTML to parse
-         * @param $url Optionally, the source URL of the content, so relative URLs can be parsed into absolute ones
+         *
+         * @param  $content HTML to parse
+         * @param  $url     Optionally, the source URL of the content, so relative URLs can be parsed into absolute ones
          * @return array
          */
         static function parseContent($content, $url = null)
@@ -144,9 +149,10 @@ namespace Idno\Core {
          * Given a microformats document, find the "primary" item of a given type or types.
          * Primary means either a) it is the only item of that type at the top level,
          * or b) it is the first item that has the current page as its u-url
-         * @param array $mf2 parsed mf2 document
-         * @param string $url the source url of the document
-         * @param array or string $types the type or types of an item to consider
+         *
+         * @param  array           $mf2   parsed mf2 document
+         * @param  string          $url   the source url of the document
+         * @param  array or string $types the type or types of an item to consider
          * @return the parsed mf2 item, or false
          */
         static function findRepresentativeHEntry($mf2, $url, $types=['h-entry'])
@@ -184,9 +190,10 @@ namespace Idno\Core {
         /**
          * Given a mf2 entry, try to find its author h-card. First check its "author"
          * property. Then check the top-level h-cards. If there is one and only one, return it.
-         * @param array $mf2 the full parsed mf2 document
-         * @param string $url the url of the document
-         * @param array $item the mf2 item in question
+         *
+         * @param  array  $mf2  the full parsed mf2 document
+         * @param  string $url  the url of the document
+         * @param  array  $item the mf2 item in question
          * @return array|false an h-card representing the author of this document
          */
         static function findAuthorHCard($mf2, $url, $item)
@@ -233,8 +240,9 @@ namespace Idno\Core {
 
         /**
          * Given a source and HTML content, return the value of the <title> tag
-         * @param string $source_content the fetched HTML content
-         * @param string $source url for the source
+         *
+         * @param  string $source_content the fetched HTML content
+         * @param  string $source         url for the source
          * @return string title of the document or its url if no title is found
          */
         static function getTitleFromContent($source_content, $source)
@@ -254,7 +262,8 @@ namespace Idno\Core {
 
         /**
          * Given content, returns the type of action you can respond with
-         * @param $content
+         *
+         * @param  $content
          * @return string
          */
         static function getActionTypeFromHTML($content)
@@ -280,7 +289,8 @@ namespace Idno\Core {
 
         /**
          * Given a URL, returns a user icon (or false)
-         * @param $url
+         *
+         * @param  $url
          * @return bool|string
          */
         static function getIconFromURL($url)
@@ -294,8 +304,9 @@ namespace Idno\Core {
 
         /**
          * Retrieve a user's icon from a given homepage
-         * @param $content The content of the page
-         * @param $url The URL of the page
+         *
+         * @param  $content The content of the page
+         * @param  $url     The URL of the page
          * @return $icon_url
          */
         static function getIconFromWebsiteContent($content, $url)
@@ -311,8 +322,10 @@ namespace Idno\Core {
                             switch ($type) {
                                 case 'h-card':
                                     if (!empty($item['properties'])) {
-                                        if (!empty($item['properties']['name'])) $mentions['owner']['name'] = $item['properties']['name'][0];
-                                        if (!empty($item['properties']['url'])) $mentions['owner']['url'] = $item['properties']['url'][0];
+                                        if (!empty($item['properties']['name'])) { $mentions['owner']['name'] = $item['properties']['name'][0];
+                                        }
+                                        if (!empty($item['properties']['url'])) { $mentions['owner']['url'] = $item['properties']['url'][0];
+                                        }
                                         if (!empty($item['properties']['photo'])) {
 
                                             return \Idno\Core\Idno::site()->template()->getProxiedImageUrl($item['properties']['photo'][0], 300, 'square');
@@ -344,25 +357,31 @@ namespace Idno\Core {
         {
 
             // Add webmention headers to the top of the page
-            Idno::site()->events()->addListener('page/head', function (Event $event) {
-                if (!empty(site()->config()->hub)) {
-                    $eventdata = $event->data();
-                    header('Link: <' . \Idno\Core\Idno::site()->config()->getURL() . 'webmention/>; rel="http://webmention.org/"', false);
-                    header('Link: <' . \Idno\Core\Idno::site()->config()->getURL() . 'webmention/>; rel="webmention"', false);
+            Idno::site()->events()->addListener(
+                'page/head', function (Event $event) {
+                    if (!empty(site()->config()->hub)) {
+                        $eventdata = $event->data();
+                        header('Link: <' . \Idno\Core\Idno::site()->config()->getURL() . 'webmention/>; rel="http://webmention.org/"', false);
+                        header('Link: <' . \Idno\Core\Idno::site()->config()->getURL() . 'webmention/>; rel="webmention"', false);
+                    }
                 }
-            });
+            );
 
-            Idno::site()->events()->addListener('webmention/sendall', function (Event $event) {
-                $data = $event->data();
-                $result = self::pingMentions($data['source'], $data['text']);
-                $event->setResponse($result);
-            });
+            Idno::site()->events()->addListener(
+                'webmention/sendall', function (Event $event) {
+                    $data = $event->data();
+                    $result = self::pingMentions($data['source'], $data['text']);
+                    $event->setResponse($result);
+                }
+            );
 
-            Idno::site()->events()->addListener('webmention/send', function (Event $event) {
-                $data = $event->data();
-                $result = self::sendWebmentionPayload($data['source'], $data['target']);
-                $event->setResponse($result);
-            });
+            Idno::site()->events()->addListener(
+                'webmention/send', function (Event $event) {
+                    $data = $event->data();
+                    $result = self::sendWebmentionPayload($data['source'], $data['target']);
+                    $event->setResponse($result);
+                }
+            );
 
         }
 

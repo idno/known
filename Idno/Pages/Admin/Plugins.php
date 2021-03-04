@@ -16,10 +16,12 @@ namespace Idno\Pages\Admin {
         {
             $this->adminGatekeeper(); // Admins only
             $t        = \Idno\Core\Idno::site()->template();
-            $t->body  = $t->__(array(
+            $t->body  = $t->__(
+                array(
                 'plugins_stored' => \Idno\Core\Idno::site()->plugins()->getStored(),
                 'plugins_loaded' => \Idno\Core\Idno::site()->plugins()->getLoaded(),
-            ))->draw('admin/plugins');
+                )
+            )->draw('admin/plugins');
             $t->title = \Idno\Core\Idno::site()->language()->_('Plugins');
             $t->drawPage();
         }
@@ -32,22 +34,21 @@ namespace Idno\Pages\Admin {
             if (defined('KNOWN_MULTITENANT_HOST')) {
                 $host = KNOWN_MULTITENANT_HOST;
             }
-            if (
-                preg_match('/^[a-zA-Z0-9]+$/', $plugin) &&
-                (
-                \Idno\Core\Idno::site()->plugins()->exists($plugin)
-                )
+            if (preg_match('/^[a-zA-Z0-9]+$/', $plugin)
+                && (\Idno\Core\Idno::site()->plugins()->exists($plugin))
             ) {
                 switch ($action) {
                     case 'install':
                         if (\Idno\Core\Idno::site()->plugins()->enable($plugin)) {
                             \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('The plugin was enabled.'));
 
-                            echo json_encode([
+                            echo json_encode(
+                                [
                                 'action' => $action,
                                 'status' => true,
                                 'message' => \Idno\Core\Idno::site()->language()->_('The plugin was enabled.')
-                            ]);
+                                ]
+                            );
                             exit;
                         }
 
@@ -57,11 +58,13 @@ namespace Idno\Pages\Admin {
                         if (\Idno\Core\Idno::site()->plugins()->disable($plugin)) {
                             \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('The plugin was disabled.'));
 
-                            echo json_encode([
+                            echo json_encode(
+                                [
                                 'action' => $action,
                                 'status' => true,
                                 'message' => \Idno\Core\Idno::site()->language()->_('The plugin was disabled.')
-                            ]);
+                                ]
+                            );
                             exit;
                         }
 
@@ -70,10 +73,12 @@ namespace Idno\Pages\Admin {
 
             }
 
-            echo json_encode([
+            echo json_encode(
+                [
                 'action' => $action,
                 'status' => false,
-            ]);
+                ]
+            );
             //$this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/plugins/');
         }
 

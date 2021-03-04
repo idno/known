@@ -14,6 +14,7 @@ namespace Idno\Common {
 
         /**
          * Offer a session handler for the current session.
+         *
          * @return bool True if the session was handled
          */
         public function handleSession();

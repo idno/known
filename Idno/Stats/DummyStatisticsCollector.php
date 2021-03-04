@@ -3,7 +3,7 @@
 /**
  * Null implementation of StatisticsCollector, so that the system always has one available.
  *
- * @package idno
+ * @package    idno
  * @subpackage core
  */
 

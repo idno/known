@@ -3,7 +3,7 @@
     /**
      * Time and time manipulation functions.
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -14,6 +14,7 @@ namespace Idno\Core {
 
         /**
          * Convert an epoch timestamp into an RFC2616 (HTTP) compatible date.
+         *
          * @param type $timestamp Optionally, an epoch timestamp. Defaults to the current time.
          */
         public static function timestampToRFC2616($timestamp = false)
@@ -27,7 +28,8 @@ namespace Idno\Core {
 
         /**
          * Get the GMT offset from a timezone.
-         * @param string $timezone E.g as returned by $user->getTimezone()
+         *
+         * @param  string $timezone E.g as returned by $user->getTimezone()
          * @return int Offset in seconds
          */
         public static function timezoneToGMTOffset($timezone)
@@ -42,7 +44,8 @@ namespace Idno\Core {
 
         /**
          * Take the offset produced by timezoneToGMTOffset() and display it as a printable version.
-         * @param int $offset
+         *
+         * @param  int $offset
          * @return string
          */
         public static function printTimezoneOffset($offset)
@@ -55,15 +58,18 @@ namespace Idno\Core {
 
         /**
          * Work out the difference between two timezones.
-         * @param type $timezone1
-         * @param type $timezone2
+         *
+         * @param  type $timezone1
+         * @param  type $timezone2
          * @return type
          */
         public static function timezoneDiff($timezone1, $timezone2)
         {
 
-            if (empty($timezone1)) return false;
-            if (empty($timezone2)) return false;
+            if (empty($timezone1)) { return false;
+            }
+            if (empty($timezone2)) { return false;
+            }
 
             $offset1 = self::timezoneToGMTOffset($timezone1);
             $offset2 = self::timezoneToGMTOffset($timezone2);
@@ -73,32 +79,38 @@ namespace Idno\Core {
 
         /**
          * Print the difference between two timezones in a human readable way.
-         * @param type $diff
+         *
+         * @param  type $diff
          * @return string
          */
         public static function printTimezoneDiff($diff)
         {
-            if ($diff == 0)
+            if ($diff == 0) {
                 return '';
+            }
 
             $hours = intval($diff / 3600);
             $minutes = abs(intval($diff % 3600 / 60));
 
             if ($hours!=0) {
-                if ($hours == 1)
+                if ($hours == 1) {
                     $hours = abs($hours) . ' ' . \Idno\Core\Idno::site()->language()->_('hour');
-                else
+                } else {
                     $hours = abs($hours) . ' ' . \Idno\Core\Idno::site()->language()->_('hours');
-            } else
+                }
+            } else {
                 $hours = '';
+            }
 
             if ($minutes!=0) {
-                if ($minutes == 1)
+                if ($minutes == 1) {
                     $minutes = abs($minutes) . ' ' . \Idno\Core\Idno::site()->language()->_('minute');
-                else
+                } else {
                     $minutes = abs($minutes) . ' ' . \Idno\Core\Idno::site()->language()->_('minutes');
-            } else
+                }
+            } else {
                 $minutes = '';
+            }
 
             $time = ($diff > 0) ? \Idno\Core\Idno::site()->language()->_('ahead') : \Idno\Core\Idno::site()->language()->_('behind');
 

@@ -4,11 +4,11 @@
 
     $underline = mb_strlen($subject);
 
-    for($u = 0; $u < $underline; $u++) {
-        echo '=';
-    }
+for($u = 0; $u < $underline; $u++) {
+    echo '=';
+}
 
- ?>
+?>
 
 
 <?php echo \Idno\Core\Idno::site()->language()->_('We heard you forgot your password. Don\'t worry. It happens to the best of us.') ?>

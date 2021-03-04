@@ -3,7 +3,8 @@
     $currentPage = \Idno\Core\Idno::site()->currentPage();
     $pageOwner = $currentPage->getOwner();
 
-    if (empty($vars['title'])) $vars['title'] = '';
+if (empty($vars['title'])) { $vars['title'] = '';
+}
 
 if (!empty($vars['object'])) {
     $objectIcon = $vars['object']->getIcon();
@@ -18,7 +19,8 @@ if (!empty($vars['object'])) {
         'og:image'     => $currentPage->getIcon()
     );
 
-    if (!empty($vars['description'])) $opengraph['og:description'] = $vars['description'];
+    if (!empty($vars['description'])) { $opengraph['og:description'] = $vars['description'];
+    }
 
     if ($currentPage->isPermalink()) {
 

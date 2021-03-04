@@ -6,16 +6,17 @@
      * This is a wrapper for DataConcierge, but begins to move mongo specific settings
      * to its own class.
      *
-     * @package idno
+     * @package    idno
      * @subpackage data
      */
 
 namespace Idno\Data {
 
-use Idno\Core\Idno;
+    use Idno\Core\Idno;
 
-/**
+    /**
      * Mongo DB support.
+     *
      * @deprecated MongoDB support is being phased out, please use MySQL.
      */
     class Mongo extends \Idno\Core\DataConcierge
@@ -67,11 +68,15 @@ use Idno\Core\Idno;
         function init()
         {
             try {
-                $this->client = new \MongoDB\Client($this->dbstring, array_filter([
-                    'authSource' => $this->dbauthsrc,
-                    'username'   => $this->dbuser,
-                    'password'   => $this->dbpass,
-                ]));
+                $this->client = new \MongoDB\Client(
+                    $this->dbstring, array_filter(
+                        [
+                        'authSource' => $this->dbauthsrc,
+                        'username'   => $this->dbuser,
+                        'password'   => $this->dbpass,
+                        ]
+                    )
+                );
             } catch (\MongoConnectionException $e) {
                 http_response_code(500);
                 $message = '<p>Unfortunately we couldn\'t connect to the database:</p><p>' . $e->getMessage() . '</p>';
@@ -89,65 +94,70 @@ use Idno\Core\Idno;
             parent::registerEventHooks();
 
             // Diagnostics
-            \Idno\Core\Idno::site()->events()->addListener('diagnostics/basics', function (\Idno\Core\Event $event) {
-                $basics = $event->response();
+            \Idno\Core\Idno::site()->events()->addListener(
+                'diagnostics/basics', function (\Idno\Core\Event $event) {
+                    $basics = $event->response();
 
-                try {
-                    // See if your mongo driver has https://github.com/mongodb/mongo-php-driver/issues/270
-                    $a = [
+                    try {
+                        // See if your mongo driver has https://github.com/mongodb/mongo-php-driver/issues/270
+                        $a = [
                         '_id' => new \MongoDB\BSON\ObjectID('000000000000000000000001'),
                         'test' => 1,
                         'aa' => [
                             'b' => 1,
                         ]
-                    ];
+                        ];
 
-                    $b = serialize($a);
-                } catch (\Exception $ex) {
-                    $basics['report']['mongo-bson']['message'] = "Your MongoDB driver doesn't support BSON serialisation, some functionality will not work correctly. You could try upgrading your driver - 'pecl install mongodb'.";
-                    $basics['report']['mongo-bson']['status'] = 'Warning';
+                        $b = serialize($a);
+                    } catch (\Exception $ex) {
+                        $basics['report']['mongo-bson']['message'] = "Your MongoDB driver doesn't support BSON serialisation, some functionality will not work correctly. You could try upgrading your driver - 'pecl install mongodb'.";
+                        $basics['report']['mongo-bson']['status'] = 'Warning';
+                    }
+
+                    $event->setResponse($basics);
                 }
+            );
 
-                $event->setResponse($basics);
-            });
+            \Idno\Core\Idno::site()->events()->addListener(
+                'upgrade', function (\Idno\Core\Event $event) {
 
-            \Idno\Core\Idno::site()->events()->addListener('upgrade', function (\Idno\Core\Event $event) {
+                    $new_version = $event->data()['new_version'];
+                    $last_update = $event->data()['last_update'];
 
-                $new_version = $event->data()['new_version'];
-                $last_update = $event->data()['last_update'];
+                    if ($last_update < 2016042301) {
 
-                if ($last_update < 2016042301) {
+                        \Idno\Core\Idno::site()->logging()->debug("Mongo: Applying mongo upgrades - adding index.");
+                        $this->database->entities->createIndex(['created' => 1]);
+                    }
+                    if ($last_update < 2016110101) {
+                        \Idno\Core\Idno::site()->logging()->debug("Mongo: Applying mongo upgrades - adding publish_status backfill.");
 
-                    \Idno\Core\Idno::site()->logging()->debug("Mongo: Applying mongo upgrades - adding index.");
-                    $this->database->entities->createIndex(['created' => 1]);
-                }
-                if ($last_update < 2016110101) {
-                    \Idno\Core\Idno::site()->logging()->debug("Mongo: Applying mongo upgrades - adding publish_status backfill.");
+                        $limit = 25;
+                        $offset = 0;
 
-                    $limit = 25;
-                    $offset = 0;
+                        set_time_limit(0);
 
-                    set_time_limit(0);
+                        while ($results = \Idno\Common\Entity::getFromAll([], [], $limit, $offset)) {
 
-                    while ($results = \Idno\Common\Entity::getFromAll([], [], $limit, $offset)) {
+                            foreach ($results as $item) {
 
-                        foreach ($results as $item) {
-
-                            if (empty($item->publish_status)) {
-                                \Idno\Core\Idno::site()->logging()->debug("Setting publish status on " . get_class($item) . " " . $item->getUUID());
-                                $item->setPublishStatus();
-                                $item->save();
+                                if (empty($item->publish_status)) {
+                                    \Idno\Core\Idno::site()->logging()->debug("Setting publish status on " . get_class($item) . " " . $item->getUUID());
+                                    $item->setPublishStatus();
+                                    $item->save();
+                                }
                             }
-                        }
 
-                        $offset += $limit;
+                            $offset += $limit;
+                        }
                     }
                 }
-            });
+            );
         }
 
         /**
          * Offer a session handler for the current session
+         *
          * @deprecated Mongo can no longer handle sessions.
          */
         function handleSession()
@@ -158,8 +168,8 @@ use Idno\Core\Idno;
         /**
          * Saves a record to the specified database collection
          *
-         * @param string $collection
-         * @param array $array
+         * @param  string $collection
+         * @param  array  $array
          * @return MongoID | false
          */
         function saveRecord($collection, $array)
@@ -180,7 +190,7 @@ use Idno\Core\Idno;
                 // Store
                 if ($result = $collection_obj->insertOne($array, array('w' => 1))) {
 
-                    if ($result->isAcknowledged() && ($result->getInsertedCount() > 0)){
+                    if ($result->isAcknowledged() && ($result->getInsertedCount() > 0)) {
 
                         $array['_id'] = $result->getInsertedId();
 
@@ -201,7 +211,7 @@ use Idno\Core\Idno;
          * Make an array safe for storage in Mongo. This means
          * %-escaping all .'s and $'s.
          *
-         * @param mixed $obj an array, scalar value, or null
+         * @param  mixed $obj an array, scalar value, or null
          * @return mixed
          */
         function sanitizeFields($obj)
@@ -241,8 +251,8 @@ use Idno\Core\Idno;
         /**
          * Retrieves a record from the database by its UUID
          *
-         * @param string $id
-         * @param string $collection The collection to retrieve from (default: entities)
+         * @param  string $id
+         * @param  string $collection The collection to retrieve from (default: entities)
          * @return array
          */
         function getRecordByUUID($uuid, $collection = 'entities')
@@ -256,7 +266,7 @@ use Idno\Core\Idno;
          * Restore an object's fields after removing it from
          * storage.
          *
-         * @param mixed $obj an array, scalar value, or null
+         * @param  mixed $obj an array, scalar value, or null
          * @return mixed
          */
         function unsanitizeFields($obj)
@@ -284,7 +294,8 @@ use Idno\Core\Idno;
                     $orig_k = $k;
                     $k          = str_replace(array_values(self::$ESCAPE_SEQUENCES), array_keys(self::$ESCAPE_SEQUENCES), $k);
                     $obj[$k] = $this->unsanitizeFields($v);
-                    if ($k!=$orig_k) unset($obj[$orig_k]);
+                    if ($k!=$orig_k) { unset($obj[$orig_k]);
+                    }
                 }
             } else if (is_array($obj)) {
                 $result = [];
@@ -292,7 +303,8 @@ use Idno\Core\Idno;
                     $orig_k = $k;
                     $k          = str_replace(array_values(self::$ESCAPE_SEQUENCES), array_keys(self::$ESCAPE_SEQUENCES), $k);
                     $result[$k] = $this->unsanitizeFields($v);
-                    if ($k!=$orig_k) unset($obj[$orig_k]);
+                    if ($k!=$orig_k) { unset($obj[$orig_k]);
+                    }
                 }
 
                 return $result;
@@ -304,7 +316,8 @@ use Idno\Core\Idno;
 
         /**
          * Process the ID appropriately
-         * @param $id
+         *
+         * @param  $id
          * @return \MongoDB\BSON\ObjectID
          */
         function processID($id)
@@ -315,7 +328,7 @@ use Idno\Core\Idno;
         /**
          * Generate an ID. Not used in Mongo
          */
-        public function generateID() : string 
+        public function generateID() : string
         {
             throw new \RuntimeException('generateID() should not be used for Mongo');
         }
@@ -323,8 +336,8 @@ use Idno\Core\Idno;
         /**
          * Retrieves a record from the database by ID
          *
-         * @param string $id
-         * @param string $entities The collection name to retrieve from (default: 'entities')
+         * @param  string $id
+         * @param  string $entities The collection name to retrieve from (default: 'entities')
          * @return array
          */
         function getRecord($id, $collection = 'entities')
@@ -337,7 +350,7 @@ use Idno\Core\Idno;
         /**
          * Retrieves ANY record from a collection
          *
-         * @param string $collection
+         * @param  string $collection
          * @return array
          */
         function getAnyRecord($collection = 'entities')
@@ -352,13 +365,13 @@ use Idno\Core\Idno;
          * (or excluding kinds that we don't want to see),
          * in reverse chronological order
          *
-         * @param string|array $subtypes String or array of subtypes we're allowed to see
-         * @param array $search Any extra search terms in array format (eg array('foo' => 'bar')) (default: empty)
-         * @param array $fields An array of fieldnames to return (leave empty for all; default: all)
-         * @param int $limit Maximum number of records to return (default: 10)
-         * @param int $offset Number of records to skip (default: 0)
-         * @param string $collection Collection to query; default: entities
-         * @param array $readGroups Which ACL groups should we check? (default: everything the user can see)
+         * @param  string|array $subtypes   String or array of subtypes we're allowed to see
+         * @param  array        $search     Any extra search terms in array format (eg array('foo' => 'bar')) (default: empty)
+         * @param  array        $fields     An array of fieldnames to return (leave empty for all; default: all)
+         * @param  int          $limit      Maximum number of records to return (default: 10)
+         * @param  int          $offset     Number of records to skip (default: 0)
+         * @param  string       $collection Collection to query; default: entities
+         * @param  array        $readGroups Which ACL groups should we check? (default: everything the user can see)
          * @return array|false Array of elements or false, depending on success
          */
         function getObjects($subtypes = '', $search = array(), $fields = array(), $limit = 10, $offset = 0, $collection = 'entities', $readGroups = [])
@@ -397,8 +410,9 @@ use Idno\Core\Idno;
                 $query_parameters['access'] = array('$in' => $readGroups);
             }
 
-            if ($this->getIgnoreAccess())
+            if ($this->getIgnoreAccess()) {
                 unset($query_parameters['access']);
+            }
 
             // Join the rest of the search query elements to this search
             $query_parameters = array_merge($query_parameters, $search);
@@ -428,10 +442,10 @@ use Idno\Core\Idno;
          * Retrieves a set of records from the database with given parameters, in
          * reverse chronological order
          *
-         * @param array $parameters Query parameters in MongoDB format
-         * @param int $limit Maximum number of records to return
-         * @param int $offset Number of records to skip
-         * @param string $collection The collection to interrogate (default: 'entities')
+         * @param  array  $parameters Query parameters in MongoDB format
+         * @param  int    $limit      Maximum number of records to return
+         * @param  int    $offset     Number of records to skip
+         * @param  string $collection The collection to interrogate (default: 'entities')
          * @return iterator|false Iterator or false, depending on success
          */
         function getRecords($fields, $parameters, $limit, $offset, $collection = 'entities')
@@ -470,14 +484,14 @@ use Idno\Core\Idno;
 
         /**
          * Export a collection to JSON.
-         * @param string $collection
+         *
+         * @param  string $collection
          * @return bool|string
          */
         function exportRecords($collection = 'entities', $limit = 10, $offset = 0)
         {
             try {
-                if ($result = $this->getRecords([], [], $limit, $offset, $collection))
-                {
+                if ($result = $this->getRecords([], [], $limit, $offset, $collection)) {
                     return json_encode($result, JSON_PRETTY_PRINT);
                 }
             } catch (\Exception $e) {
@@ -490,9 +504,9 @@ use Idno\Core\Idno;
         /**
          * Count objects of a certain kind that we're allowed to see
          *
-         * @param string|array $subtypes String or array of subtypes we're allowed to see
-         * @param array $search Any extra search terms in array format (eg array('foo' => 'bar')) (default: empty)
-         * @param string $collection Collection to query; default: entities
+         * @param string|array $subtypes   String or array of subtypes we're allowed to see
+         * @param array        $search     Any extra search terms in array format (eg array('foo' => 'bar')) (default: empty)
+         * @param string       $collection Collection to query; default: entities
          */
         function countObjects($subtypes = '', $search = array(), $collection = 'entities')
         {
@@ -536,8 +550,9 @@ use Idno\Core\Idno;
 
         /**
          * Count the number of records that match the given parameters
-         * @param array $parameters
-         * @param string $collection The collection to interrogate (default: 'entities')
+         *
+         * @param  array  $parameters
+         * @param  string $collection The collection to interrogate (default: 'entities')
          * @return int
          */
         function countRecords($parameters, $collection = 'entities')
@@ -551,7 +566,8 @@ use Idno\Core\Idno;
 
         /**
          * Remove an entity from the database
-         * @param string $id
+         *
+         * @param  string $id
          * @return true|false
          */
         function deleteRecord($id, $collection = 'entities')
@@ -561,18 +577,21 @@ use Idno\Core\Idno;
 
         /**
          * Removes all items from a collection
-         * @param string $collection
+         *
+         * @param  string $collection
          * @return bool
          */
         function deleteAllRecords($collection)
         {
-            if (empty($collection)) return false;
+            if (empty($collection)) { return false;
+            }
             return $this->database->$collection->drop();
         }
 
         /**
          * Retrieve the filesystem associated with the current db, suitable for saving
          * and retrieving files
+         *
          * @return bool|\MongoGridFS
          */
         function getFilesystem()
@@ -586,7 +605,8 @@ use Idno\Core\Idno;
 
         /**
          * Given a text query, return an array suitable for adding into getFromX calls
-         * @param $query
+         *
+         * @param  $query
          * @return array
          */
         function createSearchArray($query)

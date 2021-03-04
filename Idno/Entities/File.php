@@ -3,7 +3,7 @@
     /**
      * User-created file representation
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -15,6 +15,7 @@ namespace Idno\Entities {
         /**
          * Write data to temporary file.
          * This function writes a temporary file, returning filename on success.
+         *
          * @param type $data
          */
         public static function writeTmpFile($data)
@@ -32,10 +33,11 @@ namespace Idno\Entities {
 
         /**
          * Given a path to an image on disk, generates and saves a thumbnail with maximum dimension $max_dimension.
-         * @param string $file_path Path to the file.
-         * @param string $filename Filename that the file should have on download.
-         * @param int $max_dimension The maximum number of pixels the thumbnail image should be along its longest side.
-         * @param bool $square If this is set to true, the thumbnail will be made square.
+         *
+         * @param  string $file_path     Path to the file.
+         * @param  string $filename      Filename that the file should have on download.
+         * @param  int    $max_dimension The maximum number of pixels the thumbnail image should be along its longest side.
+         * @param  bool   $square        If this is set to true, the thumbnail will be made square.
          * @return bool|id
          */
         public static function createThumbnailFromFile($file_path, $filename, $max_dimension = 800, $square = false)
@@ -47,7 +49,8 @@ namespace Idno\Entities {
             if (is_callable('exif_read_data')) {
                 try {
                     if ($exif = exif_read_data($file_path)) {
-                        if (!empty($exif['Orientation'])) $orientation = $exif['Orientation'];
+                        if (!empty($exif['Orientation'])) { $orientation = $exif['Orientation'];
+                        }
                     }
                 } catch (\Exception $e) {
                 }
@@ -155,11 +158,11 @@ namespace Idno\Entities {
         /**
          * Save a file to the filesystem and return the ID
          *
-         * @param string $file_path Full local path to the file
-         * @param string $filename Filename to store
-         * @param string $mime_type MIME type associated with the file
-         * @param bool $return_object Return the file object? If set to false (as is default), will return the ID
-         * @param bool $destroy_exif When true, if an image is uploaded the exif data will be destroyed.
+         * @param  string $file_path     Full local path to the file
+         * @param  string $filename      Filename to store
+         * @param  string $mime_type     MIME type associated with the file
+         * @param  bool   $return_object Return the file object? If set to false (as is default), will return the ID
+         * @param  bool   $destroy_exif  When true, if an image is uploaded the exif data will be destroyed.
          * @return bool|\id Depending on success
          */
         public static function createFromFile($file_path, $filename, $mime_type = 'application/octet-stream', $return_object = false, $destroy_exif = false)
@@ -235,7 +238,8 @@ namespace Idno\Entities {
 
         /**
          * Determines whether a file is an image or not.
-         * @param string $file_path The path to a file
+         *
+         * @param  string $file_path The path to a file
          * @return bool
          */
         public static function isImage($file_path)
@@ -251,7 +255,8 @@ namespace Idno\Entities {
 
         /**
          * Retrieve a file by ID
-         * @param string $id
+         *
+         * @param  string $id
          * @return \Idno\Common\Entity|\MongoGridFSFile|null
          */
         static function getByID($id)
@@ -269,7 +274,8 @@ namespace Idno\Entities {
 
         /**
          * Given a file and an original file path, determines whether this file is an SVG
-         * @param $file_path
+         *
+         * @param  $file_path
          * @return bool
          */
         public static function isSVG($file_path, $original_file_path)
@@ -283,7 +289,8 @@ namespace Idno\Entities {
 
         /**
          * Retrieve a file by UUID
-         * @param string $uuid
+         *
+         * @param  string $uuid
          * @return bool|\Idno\Common\Entity
          */
         static function getByUUID($uuid)
@@ -298,7 +305,8 @@ namespace Idno\Entities {
         /**
          * Attempt to extract a file from a URL to it. Will fail with false if the file is external or otherwise
          * can't be retrieved.
-         * @param $url
+         *
+         * @param  $url
          * @return \Idno\Common\Entity|\MongoGridFSFile|null
          */
         static function getByURL($url)
@@ -317,7 +325,8 @@ namespace Idno\Entities {
 
         /**
          * Retrieve file data from an attachment (first trying load from local storage, then from URL)
-         * @param $attachment
+         *
+         * @param  $attachment
          * @return bool|mixed|string
          */
         static function getFileDataFromAttachment($attachment)
@@ -360,7 +369,8 @@ namespace Idno\Entities {
 
         /**
          * Retrieve file data by ID
-         * @param string $id
+         *
+         * @param  string $id
          * @return mixed
          */
         static function getFileDataByID($id)
@@ -378,6 +388,7 @@ namespace Idno\Entities {
 
         /**
          * Return the MIME type associated with this file
+         *
          * @return null|string
          */
         function getMimeType()
@@ -392,6 +403,7 @@ namespace Idno\Entities {
 
         /**
          * Get the publicly visible filename associated with this file
+         *
          * @return string
          */
         function getURL()

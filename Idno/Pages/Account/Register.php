@@ -39,11 +39,13 @@ namespace Idno\Pages\Account {
                 $t->title = \Idno\Core\Idno::site()->language()->_('Create a new account');
                 echo $t->draw('shell');
             } else {
-                $t->body  = $t->__(array(
+                $t->body  = $t->__(
+                    array(
                     'email'    => $email,
                     'code'     => $code,
                     'set_name' => $set_name,
-                'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages()))->draw('onboarding/register');
+                    'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages())
+                )->draw('onboarding/register');
                 $t->title = \Idno\Core\Idno::site()->language()->_('Create a new account');
                 echo $t->draw('shell/simple');
             }
@@ -79,22 +81,23 @@ namespace Idno\Pages\Account {
             if (empty($handle) && empty($email)) {
                 \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Please enter a username and email address."));
             } else if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                if (
-                    !(\Idno\Core\Idno::site()->config()->emailIsBlocked($email)) &&
-                    !($emailuser = \Idno\Entities\User::getByEmail($email)) &&
-                    !($handleuser = \Idno\Entities\User::getByHandle($handle)) &&
-                    !empty($handle) && strlen($handle) <= 32 &&
-                    preg_match('/^[a-zA-Z0-9_]{1,}$/', $handle) &&
-                    !substr_count($handle, '/') &&
-                    $password == $password2 &&
-                    \Idno\Entities\User::checkNewPasswordStrength($password) &&
-                    \Idno\Core\Idno::site()->events()->triggerEvent('user/register/validate', [
+                if (!(\Idno\Core\Idno::site()->config()->emailIsBlocked($email))
+                    && !($emailuser = \Idno\Entities\User::getByEmail($email))
+                    && !($handleuser = \Idno\Entities\User::getByHandle($handle))
+                    && !empty($handle) && strlen($handle) <= 32
+                    && preg_match('/^[a-zA-Z0-9_]{1,}$/', $handle)
+                    && !substr_count($handle, '/')
+                    && $password == $password2
+                    && \Idno\Entities\User::checkNewPasswordStrength($password)
+                    && \Idno\Core\Idno::site()->events()->triggerEvent(
+                        'user/register/validate', [
                         'name' => $name,
                         'handle' => $handle,
                         'email' => $email,
                         'password' => $password,
                         'password2' => $password2
-                    ], true)
+                        ], true
+                    )
                 ) {
                     $user         = new \Idno\Entities\User();
                     $user->email  = $email;

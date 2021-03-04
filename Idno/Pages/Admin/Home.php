@@ -45,14 +45,20 @@ namespace Idno\Pages\Admin {
             $single_user          = $this->getInput('single_user') === 'true';
             $permalink_structure  = $this->getInput('permalink_structure');
 
-            if (!empty($title)) \Idno\Core\Idno::site()->config()->title = $title;
+            if (!empty($title)) { \Idno\Core\Idno::site()->config()->title = $title;
+            }
             \Idno\Core\Idno::site()->config()->homepagetitle = trim($homepagetitle);
-            if (!empty($description)) \Idno\Core\Idno::site()->config()->description = $description;
-            if (!empty($url)) \Idno\Core\Idno::site()->config()->url = $url;
-            if (!empty($path)) \Idno\Core\Idno::site()->config()->path = $path;
-            if (!empty($host)) \Idno\Core\Idno::site()->config()->host = $host;
+            if (!empty($description)) { \Idno\Core\Idno::site()->config()->description = $description;
+            }
+            if (!empty($url)) { \Idno\Core\Idno::site()->config()->url = $url;
+            }
+            if (!empty($path)) { \Idno\Core\Idno::site()->config()->path = $path;
+            }
+            if (!empty($host)) { \Idno\Core\Idno::site()->config()->host = $host;
+            }
             \Idno\Core\Idno::site()->config()->hub = $hub;
-            if (!empty($items_per_page) && is_int($items_per_page)) \Idno\Core\Idno::site()->config()->items_per_page = $items_per_page;
+            if (!empty($items_per_page) && is_int($items_per_page)) { \Idno\Core\Idno::site()->config()->items_per_page = $items_per_page;
+            }
             \Idno\Core\Idno::site()->config()->open_registration    = $open_registration;
             \Idno\Core\Idno::site()->config()->walled_garden        = $walled_garden;
             \Idno\Core\Idno::site()->config()->show_privacy         = $show_privacy;

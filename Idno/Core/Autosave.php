@@ -3,7 +3,7 @@
     /**
      * Site administration
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -14,9 +14,10 @@ namespace Idno\Core {
 
         /**
          * Caches the autosave value for the element $name in the context $context.
-         * @param string $context
-         * @param string $name
-         * @param mixed $value
+         *
+         * @param  string $context
+         * @param  string $name
+         * @param  mixed  $value
          * @return bool
          */
         function setValue($context, $name, $value)
@@ -41,6 +42,7 @@ namespace Idno\Core {
 
         /**
          * Caches the autosave values for the specified elements in the associative array $elements.
+         *
          * @param $context
          * @param $elements
          */
@@ -64,9 +66,10 @@ namespace Idno\Core {
 
         /**
          * Retrieves the cached autosave value (if it exists) for $name in the context $context
-         * @param string $context
-         * @param string $name
-         * @param string $default Value to default to if the cache does not exist
+         *
+         * @param  string $context
+         * @param  string $name
+         * @param  string $default Value to default to if the cache does not exist
          * @return mixed|bool
          */
         function getValue($context, $name, $default = '')
@@ -87,7 +90,8 @@ namespace Idno\Core {
 
         /**
          * Clears the autosave cache for a particular context
-         * @param $context
+         *
+         * @param  $context
          * @return bool|false|MongoID|null
          */
         function clearContext($context)

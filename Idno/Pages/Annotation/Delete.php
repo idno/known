@@ -34,8 +34,9 @@ namespace Idno\Pages\Annotation {
             $permalink = \Idno\Core\Webservice::base64UrlDecode($this->getInput('permalink'));
 
             // Default to constructed permalink if one is not provided.
-            if (empty($permalink))
+            if (empty($permalink)) {
                 $permalink = $object->getURL() . '/annotations/' . $this->arguments[1];
+            }
 
             if ($object->canEditAnnotation($permalink)) {
                 if (($object->removeAnnotation($permalink)) && ($object->save())) {

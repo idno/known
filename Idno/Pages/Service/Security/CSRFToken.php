@@ -12,8 +12,9 @@ namespace Idno\Pages\Service\Security {
             $this->setNoCache();
 
             $action = $this->getInput('url');
-            if (empty($action))
+            if (empty($action)) {
                 throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("URL missing"));
+            }
 
             //\Idno\Core\Idno::site()->logging()->debug("Updating token for $action");
 
@@ -22,10 +23,12 @@ namespace Idno\Pages\Service\Security {
             $token = \Idno\Core\Bonita\Forms::token($action, $time);
 
             header('Content-type: application/json');
-            echo json_encode([
+            echo json_encode(
+                [
                 'time' => $time,
                 'token' => $token
-            ]);
+                ]
+            );
         }
 
     }

@@ -64,5 +64,4 @@ if ((\Idno\Core\Idno::site()->currentPage()) && $scripts = \Idno\Core\Idno::site
     }
     echo "<!-- End asset javascript -->";
 }
-?>
 

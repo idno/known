@@ -23,14 +23,16 @@ namespace Idno\Pages\Service\Web {
 
             if (strlen($content)>0) {
                 header('Content-Length: ' . strlen($content));
-                if (!empty($meta['mime']))
+                if (!empty($meta['mime'])) {
                     header("Content-Type: " . $meta['mime']);
+                }
 
                 // Break long output to avoid an Apache performance bug
                 $split_output = str_split($content, 1024);
 
-                foreach ($split_output as $chunk)
+                foreach ($split_output as $chunk) {
                     echo $chunk;
+                }
             }
         }
 
@@ -47,18 +49,23 @@ namespace Idno\Pages\Service\Web {
 
                 $proxyparams = "";
                 $maxsize = "";
-                if (!empty($this->arguments[1]))
+                if (!empty($this->arguments[1])) {
                     $maxsize = (int)$this->arguments[1];
-                if (!empty($maxsize))
+                }
+                if (!empty($maxsize)) {
                     $proxyparams .= ((strpos($proxyparams, '?')===false)? '?':'&') . "maxsize=$maxsize";
+                }
 
                 $transform = "";
-                if (!empty($this->arguments[2]))
+                if (!empty($this->arguments[2])) {
                     $transform = strtolower($this->arguments[2]);
-                if ($transform == 'none')
+                }
+                if ($transform == 'none') {
                     $transform = "";
-                if (!empty($transform))
+                }
+                if (!empty($transform)) {
                     $proxyparams .= ((strpos($proxyparams, '?')===false)? '?':'&') . "transform=$transform";
+                }
 
                 if ($url) {
 
@@ -67,10 +74,12 @@ namespace Idno\Pages\Service\Web {
                         $cache->delete(sha1("{$url}{$proxyparams}"));
                         $cache->delete(sha1("{$url}{$proxyparams}").'_meta');
 
-                        echo json_encode([
+                        echo json_encode(
+                            [
                             'url' => $url,
                             'status' => true
-                        ]);
+                            ]
+                        );
                         exit;
 
                     } else {
@@ -99,18 +108,23 @@ namespace Idno\Pages\Service\Web {
 
                 $proxyparams = "";
                 $maxsize = "";
-                if (!empty($this->arguments[1]))
+                if (!empty($this->arguments[1])) {
                     $maxsize = (int)$this->arguments[1];
-                if (!empty($maxsize))
+                }
+                if (!empty($maxsize)) {
                     $proxyparams .= ((strpos($proxyparams, '?')===false)? '?':'&') . "maxsize=$maxsize";
+                }
 
                 $transform = "";
-                if (!empty($this->arguments[2]))
+                if (!empty($this->arguments[2])) {
                     $transform = strtolower($this->arguments[2]);
-                if ($transform == 'none')
+                }
+                if ($transform == 'none') {
                     $transform = "";
-                if (!empty($transform))
+                }
+                if (!empty($transform)) {
                     $proxyparams .= ((strpos($proxyparams, '?')===false)? '?':'&') . "transform=$transform";
+                }
 
                 if (!empty($url)) {
 
@@ -219,7 +233,8 @@ namespace Idno\Pages\Service\Web {
                                     \Idno\Core\Idno::site()->logging()->debug("Transforming image: Maxsize=$maxsize, Square=" . var_export($square, true));
 
                                     $tmp = \Idno\Entities\File::writeTmpFile($result['content']);
-                                    if (!$tmp) throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Could not save temporary file"));
+                                    if (!$tmp) { throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Could not save temporary file"));
+                                    }
 
                                     if (!\Idno\Entities\File::isSVG($tmp, $tmp)) {
 
@@ -250,7 +265,8 @@ namespace Idno\Pages\Service\Web {
                         }
 
                         $size = strlen($content);
-                        if ($size == 0) throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Looks like something went wrong, image was zero bytes big!"));
+                        if ($size == 0) { throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Looks like something went wrong, image was zero bytes big!"));
+                        }
                         \Idno\Core\Idno::site()->logging()->debug("Storing " . $size . ' bytes of content.');
                         \Idno\Core\Idno::site()->logging()->debug('Meta: ' . print_r($meta, true));
 

@@ -6,7 +6,7 @@
      * This is designed to be implemented by anything that needs to be an
      * object in the idno system
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 

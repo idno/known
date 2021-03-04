@@ -3,7 +3,7 @@
     /**
      * All idno components inherit this base class
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -20,11 +20,11 @@ namespace Idno\Common {
             $this->registerPages();
             $this->registerTranslations();
         }
-        
+
         /**
          * Register any autoloaders here.
          */
-        function registerLibraries() 
+        function registerLibraries()
         {
         }
 
@@ -70,6 +70,7 @@ namespace Idno\Common {
 
         /**
          * Helper function that gets the full class name of this entity
+         *
          * @return string
          */
         function getClass()
@@ -80,6 +81,7 @@ namespace Idno\Common {
         /**
          * Helper method to retrieve the filename of the current component
          * (works with inheritance).
+         *
          * @return string
          */
         function getFilename()
@@ -91,6 +93,7 @@ namespace Idno\Common {
 
         /**
          * Returns a camelCase version of the object title, suitable for use in element IDs
+         *
          * @return string
          */
         function getIDSelector()
@@ -100,14 +103,17 @@ namespace Idno\Common {
 
         /**
          * Returns the camelCased version of a given string
-         * @param $string
+         *
+         * @param  $string
          * @return $string
          */
         function camelCase($string)
         {
-            $string = preg_replace_callback('/\s([a-z])/', function ($matches) {
-                return strtoupper($matches[0]);
-            }, strtolower($string));
+            $string = preg_replace_callback(
+                '/\s([a-z])/', function ($matches) {
+                    return strtoupper($matches[0]);
+                }, strtolower($string)
+            );
             $string = preg_replace('/\s/', '', $string);
 
             return $string;
@@ -115,6 +121,7 @@ namespace Idno\Common {
 
         /**
          * Returns a camelCase version of the object class, suitable for use in element IDs
+         *
          * @return string
          */
         function getClassSelector()
@@ -124,6 +131,7 @@ namespace Idno\Common {
 
         /**
          * Get the name of this class without its namespace
+         *
          * @return string
          */
         function getClassName()
@@ -144,7 +152,8 @@ namespace Idno\Common {
 
         /**
          * Gets the name of this class including its namespace
-         * @param bool $convert_slashes If set to true, converts \ slashes to / (false by default)
+         *
+         * @param  bool $convert_slashes If set to true, converts \ slashes to / (false by default)
          * @return string
          */
         function getFullClassName($convert_slashes = false)
