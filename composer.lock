@@ -2130,16 +2130,16 @@
         },
         {
             "name": "mapkyca/php-ogp",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mapkyca/php-ogp.git",
-                "reference": "f3bab8eb848bd19808ebea6582ee15d075095a1f"
+                "reference": "2e72fe0959c0a6dd57f13e4c8306fd3614b90734"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/php-ogp/zipball/f3bab8eb848bd19808ebea6582ee15d075095a1f",
-                "reference": "f3bab8eb848bd19808ebea6582ee15d075095a1f",
+                "url": "https://api.github.com/repos/mapkyca/php-ogp/zipball/2e72fe0959c0a6dd57f13e4c8306fd3614b90734",
+                "reference": "2e72fe0959c0a6dd57f13e4c8306fd3614b90734",
                 "shasum": ""
             },
             "require": {
@@ -2169,9 +2169,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mapkyca/php-ogp/issues",
-                "source": "https://github.com/mapkyca/php-ogp/tree/master"
+                "source": "https://github.com/mapkyca/php-ogp/tree/1.1.0"
             },
-            "time": "2019-05-18T10:54:57+00:00"
+            "time": "2021-03-06T12:07:39+00:00"
         },
         {
             "name": "masterminds/html5",
