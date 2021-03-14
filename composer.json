@@ -111,13 +111,13 @@
         }
     },
     "require-dev": {
-        "mapkyca/known-phpcs": "^1.0",
         "mapkyca/known-language-tools": "^1.0",
         "mapkyca/known-dev-scripts": "^1.0",
         "idno/apitester": "^0.9.10",
         "roave/security-advisories": "dev-master",
         "mapkyca/mapkyca-known-docker": "^1.0",
-        "codeception/aspect-mock": "*"
+        "codeception/aspect-mock": "*",
+        "squizlabs/php_codesniffer": "3.*"
     },
     "extra": {
         "unused": [
