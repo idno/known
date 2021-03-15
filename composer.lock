@@ -5515,21 +5515,21 @@
         },
         {
             "name": "mapkyca/known-phpcs",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mapkyca/known-phpcs.git",
-                "reference": "3fd5c1700d20b5eadcd3918a9e8a7c8cc6dea2d2"
+                "reference": "57203954347418acca05d75171d1cbae309d07cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/known-phpcs/zipball/3fd5c1700d20b5eadcd3918a9e8a7c8cc6dea2d2",
-                "reference": "3fd5c1700d20b5eadcd3918a9e8a7c8cc6dea2d2",
+                "url": "https://api.github.com/repos/mapkyca/known-phpcs/zipball/57203954347418acca05d75171d1cbae309d07cc",
+                "reference": "57203954347418acca05d75171d1cbae309d07cc",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0",
-                "squizlabs/php_codesniffer": "3.4.1"
+                "squizlabs/php_codesniffer": "3.5.8"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -5558,9 +5558,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mapkyca/known-phpcs/issues",
-                "source": "https://github.com/mapkyca/known-phpcs/tree/v1.0.2"
+                "source": "https://github.com/mapkyca/known-phpcs/tree/1.0.3"
             },
-            "time": "2019-05-18T10:07:20+00:00"
+            "time": "2021-03-14T08:17:40+00:00"
         },
         {
             "name": "mapkyca/mapkyca-known-docker",
@@ -7756,16 +7756,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.4.1",
+            "version": "3.5.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "5b4333b4010625d29580eb4a41f1e53251be6baa"
+                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/5b4333b4010625d29580eb4a41f1e53251be6baa",
-                "reference": "5b4333b4010625d29580eb4a41f1e53251be6baa",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/9d583721a7157ee997f235f327de038e7ea6dac4",
+                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4",
                 "shasum": ""
             },
             "require": {
@@ -7808,7 +7808,7 @@
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer",
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
-            "time": "2019-03-19T03:22:27+00:00"
+            "time": "2020-10-23T02:01:07+00:00"
         },
         {
             "name": "symfony/finder",
