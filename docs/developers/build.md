@@ -12,6 +12,8 @@ To get going, install grunt, and the other developer dependencies:
 
 ```npm install```
 
+You may also need to run `npm rebuild node-sass` if you see errors.
+
 ### Testing your changes
 
 If you've made JS changes, you can check your code using ```npm run grunt -- test``` to run linting, etc
