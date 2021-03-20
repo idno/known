@@ -19,6 +19,13 @@
     RewriteRule ^js/[0-9]+/(.*)$ %{ENV:BASE}/js/$1 [L]    
     RewriteRule ^css/[0-9]+/(.*)$ %{ENV:BASE}/css/$1 [L]    
 
+    # If serving minified js and a SourceMap file exists, send appropriate header
+    RewriteCond %{REQUEST_URI}          ^(.+[.\-]min\.js)$
+    RewriteCond %{DOCUMENT_ROOT}%1.map  -f
+    RewriteRule .                       - [L,E=SOURCE_MAP:%{REQUEST_URI}.map]
+    Header set X-SourceMap "%{SOURCE_MAP}e" env=SOURCE_MAP
+
+    # Rewrite to use index.php
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)$ %{ENV:BASE}/index.php?/$1 [L,QSA]

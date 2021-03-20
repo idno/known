@@ -71,24 +71,42 @@ module.exports = function (grunt) {
       }
     },
     babel: {
-	options: {
-	    sourceType: "module"
-	},
-	dist: {
-	    files: [
-		{
-		    expand: true,
-		    cwd: 'js/',
-		    src: ['*.es6'],
-		    dest: 'js/',
-		    ext: '.js',
-		    extDot: 'last'
-		}]
-	},
+      options: {
+	sourceType: "module",
+        sourceMaps: true,
+        "presets": [
+          [
+            "@babel/preset-env",
+            {
+              "loose": true,
+              "modules": false,
+              "targets": {
+                esmodules: true
+              }
+            },
+          ]
+        ]
+      },
+      dist: {
+	files: [
+	  {
+	    expand: true,
+	    cwd: 'js/',
+	    src: ['*.es6'],
+	    dest: 'js/',
+	    ext: '.js',
+	    extDot: 'last'
+	  }]
+      },
     },
     terser: {
 	options: {
+          sourceMap: true,
+          ecma: 2017,
 	},
+        sourceMap: {
+          url: "file.js.map"
+        },
 	dist: {
 	    files: [{
 		expand: true,
@@ -99,6 +117,20 @@ module.exports = function (grunt) {
 		extDot: 'last'
 	    }]
 	},
+    },
+    modernizr: {
+      dist: {
+        "crawl": false,
+        "minify": true,
+        "uglify": true,
+        "options": [
+          "setClasses"
+        ],
+        "tests": [
+          "inputtypes"
+        ],
+        "dest": "js/modernizr/modernizr-custom.js"
+      }
     },
     csslint: {
       options: {
@@ -158,7 +190,7 @@ module.exports = function (grunt) {
 
   });
 
-// Load the plugins
+  // Load the plugins
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-terser');
@@ -166,11 +198,13 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-csslint');
+  grunt.loadNpmTasks("grunt-modernizr");
 
-// Tests
+
+  // Tests
   grunt.registerTask('test', ['csslint', 'jshint']);
 
-// Build language pack
+  // Build language pack
   grunt.registerTask('build-lang', '', function () {
 
     /*jshint ignore:start*/
@@ -186,11 +220,10 @@ module.exports = function (grunt) {
 
     execSync('find ./Idno ./templates -type f -regex ".*\.php" | sort | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from idno core
     execSync('echo ./known.php | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from console
-
   });
 
-// Default task(s).
+  // Default task(s).
   grunt.registerTask('build-js', ['concat', 'babel', 'terser']);
   grunt.registerTask('build-css', ['sass']);
-  grunt.registerTask('default', ['build-js', 'build-css', 'build-lang', 'test']);
+  grunt.registerTask('default', ['build-js', 'build-css', 'build-lang', 'modernizr', 'test']);
 };

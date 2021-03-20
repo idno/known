@@ -19,7 +19,9 @@ node_modules
 *.log
 test.php
 /js/service-worker.js
+/js/service-worker.js.map
 /js/known.js
+/js/known.js.map
 
 /nbproject/private/nbproject/project.xml
 /nbproject/project.properties

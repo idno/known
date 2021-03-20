@@ -2,55 +2,55 @@
 msgid "No domain specified for cache"
 msgstr ""
 
-#: ./Idno/Common/Entity.php:693
+#: ./Idno/Common/Entity.php:694
 msgid "There was a problem syndicating."
 msgstr ""
 
-#: ./Idno/Common/Page.php:397
+#: ./Idno/Common/Page.php:414
 msgid "Invalid token."
 msgstr ""
 
-#: ./Idno/Common/Page.php:415
+#: ./Idno/Common/Page.php:432
 msgid "Something went wrong."
 msgstr ""
 
-#: ./Idno/Common/Page.php:499
+#: ./Idno/Common/Page.php:523
 msgid "Attempted to redirect page to a non local URL."
 msgstr ""
 
-#: ./Idno/Common/Page.php:589
+#: ./Idno/Common/Page.php:635
 msgid "The page you were on timed out."
 msgstr ""
 
-#: ./Idno/Common/Page.php:603
+#: ./Idno/Common/Page.php:649
 msgid "Couldn't say anything about execution, probably something went wrong"
 msgstr ""
 
-#: ./Idno/Common/Page.php:761
+#: ./Idno/Common/Page.php:811
 msgid "This content isn't here."
 msgstr ""
 
-#: ./Idno/Common/Page.php:777
+#: ./Idno/Common/Page.php:827
 msgid "This page can't be found."
 msgstr ""
 
-#: ./Idno/Common/Plugin.php:87
+#: ./Idno/Common/Plugin.php:91
 msgid "Plugin %s doesn't have a version"
 msgstr ""
 
-#: ./Idno/Core/AsynchronousQueue.php:61
+#: ./Idno/Core/AsynchronousQueue.php:63
 msgid "No event passed"
 msgstr ""
 
-#: ./Idno/Core/AsynchronousQueue.php:64
+#: ./Idno/Core/AsynchronousQueue.php:67
 msgid "Event passed is not a queued event, and so can't be dispatched"
 msgstr ""
 
-#: ./Idno/Core/AsynchronousQueue.php:67
+#: ./Idno/Core/AsynchronousQueue.php:71
 msgid "Sorry, this event has already been dispatched (but not yet cleaned up)"
 msgstr ""
 
-#: ./Idno/Core/AsynchronousQueue.php:76
+#: ./Idno/Core/AsynchronousQueue.php:81
 msgid "Invalid user (%s) given for runAsContext, aborting"
 msgstr ""
 
@@ -58,135 +58,135 @@ msgstr ""
 msgid "Something went wrong and we couldn't create the email message to send."
 msgstr ""
 
-#: ./Idno/Core/Idno.php:455
+#: ./Idno/Core/Idno.php:504
 msgid "Site entity for \"%s\" could not be created"
 msgstr ""
 
-#: ./Idno/Core/Service.php:24
+#: ./Idno/Core/Service.php:25
 msgid "Missing X-Known-Service-Signature, service call is not possible."
 msgstr ""
 
-#: ./Idno/Core/Service.php:27
+#: ./Idno/Core/Service.php:29
 msgid "Sorry, signature doesn't match up."
 msgstr ""
 
-#: ./Idno/Core/Service.php:44
+#: ./Idno/Core/Service.php:48
 msgid "Missing site secret"
 msgstr ""
 
-#: ./Idno/Core/Service.php:53
+#: ./Idno/Core/Service.php:58
 msgid "Url not provided to token generation."
 msgstr ""
 
-#: ./Idno/Core/Service.php:86
+#: ./Idno/Core/Service.php:98
 msgid "Response from service endpoint was not json"
 msgstr ""
 
-#: ./Idno/Core/Service.php:98
+#: ./Idno/Core/Service.php:112
 msgid "No result from endpoint."
 msgstr ""
 
-#: ./Idno/Core/Session.php:136
+#: ./Idno/Core/Session.php:144
 msgid "Session funnybusiness: "
 msgstr ""
 
-#: ./Idno/Core/Session.php:509
+#: ./Idno/Core/Session.php:543
 msgid "Warning: Access credentials were sent over a non-secured connection! To disable this warning set disable_cleartext_warning in your config.ini"
 msgstr ""
 
-#: ./Idno/Core/Time.php:89
+#: ./Idno/Core/Time.php:97
 msgid "hour"
 msgstr ""
 
-#: ./Idno/Core/Time.php:91
+#: ./Idno/Core/Time.php:99
 msgid "hours"
 msgstr ""
 
-#: ./Idno/Core/Time.php:97
+#: ./Idno/Core/Time.php:107
 msgid "minute"
 msgstr ""
 
-#: ./Idno/Core/Time.php:99
+#: ./Idno/Core/Time.php:109
 msgid "minutes"
 msgstr ""
 
-#: ./Idno/Core/Time.php:103
+#: ./Idno/Core/Time.php:115
 msgid "ahead"
 msgstr ""
 
-#: ./Idno/Core/Time.php:103
+#: ./Idno/Core/Time.php:115
 msgid "behind"
 msgstr ""
 
-#: ./Idno/Core/TokenProvider.php:32
+#: ./Idno/Core/TokenProvider.php:34
 msgid "Token was generated using an a cryptographically weak algorithm, this probably means your version of OpenSSL is broken or very old."
 msgstr ""
 
-#: ./Idno/Core/Webservice.php:431
+#: ./Idno/Core/Webservice.php:450
 msgid "Your version of PHP doesn't support CURLFile."
 msgstr ""
 
-#: ./Idno/Data/Mongo.php:40
+#: ./Idno/Data/Mongo.php:41
 msgid "It looks like you don't have the new mongodb driver installed (<a href=\"https://secure.php.net/manual/en/set.mongodb.php\">https://secure.php.net/manual/en/set.mongodb.php</a>)\n\nMake sure you have it installed and configured, e.g. by running \"pecl install mongodb;\""
 msgstr ""
 
-#: ./Idno/Entities/GenericDataItem.php:43
+#: ./Idno/Entities/GenericDataItem.php:45
 msgid "GenericDataItem classes must have a datatype label set."
 msgstr ""
 
-#: ./Idno/Entities/Invitation.php:110
+#: ./Idno/Entities/Invitation.php:115
 msgid "You've been invited to join %s"
 msgstr ""
 
-#: ./Idno/Entities/Mutate.php:20
+#: ./Idno/Entities/Mutate.php:21
 msgid "%s is not a parent or child of %s"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:63
+#: ./Idno/Files/FileSystem.php:67
 msgid "There is no error, the file uploaded with success"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:64
+#: ./Idno/Files/FileSystem.php:68
 msgid "The uploaded file exceeds the upload_max_filesize directive in php.ini"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:65
+#: ./Idno/Files/FileSystem.php:69
 msgid "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:66
+#: ./Idno/Files/FileSystem.php:70
 msgid "The uploaded file was only partially uploaded"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:67
+#: ./Idno/Files/FileSystem.php:71
 msgid "No file was uploaded"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:68
+#: ./Idno/Files/FileSystem.php:72
 msgid "Missing a temporary folder"
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:69
+#: ./Idno/Files/FileSystem.php:73
 msgid "Failed to write file to disk."
 msgstr ""
 
-#: ./Idno/Files/FileSystem.php:70
+#: ./Idno/Files/FileSystem.php:74
 msgid "A PHP extension stopped the file upload."
 msgstr ""
 
-#: ./Idno/Files/LocalFileSystem.php:86
+#: ./Idno/Files/LocalFileSystem.php:88
 msgid "There was a problem storing the file data."
 msgstr ""
 
-#: ./Idno/Files/LocalFileSystem.php:89
+#: ./Idno/Files/LocalFileSystem.php:91
 msgid "There was a problem saving the file's metadata"
 msgstr ""
 
-#: ./Idno/Files/LocalFileSystem.php:98
+#: ./Idno/Files/LocalFileSystem.php:100
 msgid "Something went wrong saving your file."
 msgstr ""
 
-#: ./Idno/Files/LocalFileSystem.php:100
+#: ./Idno/Files/LocalFileSystem.php:102
 msgid "Check that your upload directory is writeable by the web server and try again."
 msgstr ""
 
@@ -194,7 +194,7 @@ msgstr ""
 msgid "Export Data"
 msgstr ""
 
-#: ./Idno/Pages/Account/Notifications.php:36
+#: ./Idno/Pages/Account/Notifications.php:43
 msgid "Notifications"
 msgstr ""
 
@@ -238,47 +238,47 @@ msgstr ""
 msgid "Create a new account"
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:80
+#: ./Idno/Pages/Account/Register.php:82
 msgid "Please enter a username and email address."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:134
+#: ./Idno/Pages/Account/Register.php:137
 msgid "Please create a username."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:137
+#: ./Idno/Pages/Account/Register.php:140
 msgid "Your username is too long."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:140
+#: ./Idno/Pages/Account/Register.php:143
 msgid "Usernames can only have letters, numbers and underscores."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:143
+#: ./Idno/Pages/Account/Register.php:146
 msgid "Usernames can't contain a slash %s character."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:146
+#: ./Idno/Pages/Account/Register.php:149
 msgid "Unfortunately, someone is already using that username. Please choose another."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:149
+#: ./Idno/Pages/Account/Register.php:152
 msgid "Hey, it looks like there's already an account with that email address. Did you forget your login?"
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:152
+#: ./Idno/Pages/Account/Register.php:155
 msgid "Please check that your passwords match and that your password is at least 7 characters long."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:156
+#: ./Idno/Pages/Account/Register.php:159
 msgid "That doesn't seem like it's a valid email address."
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:160
+#: ./Idno/Pages/Account/Register.php:163
 msgid "You've registered! You're ready to get started. Why not add a post to say hello?"
 msgstr ""
 
-#: ./Idno/Pages/Account/Register.php:164
+#: ./Idno/Pages/Account/Register.php:167
 msgid "We couldn't register you."
 msgstr ""
 
@@ -290,7 +290,7 @@ msgstr ""
 msgid "Send feedback"
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/Feedback.php:42
+#: ./Idno/Pages/Account/Settings/Feedback.php:44
 msgid "Thanks! We received your feedback."
 msgstr ""
 
@@ -302,39 +302,39 @@ msgstr ""
 msgid "Page did not contain any <a href=\"http://microformats.org/wiki/microformats-2\">Microformats</a> markup... doing my best with what I have!"
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:60
+#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:61
 msgid "Found users"
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:64
+#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:65
 msgid "Sorry, there was a problem parsing the page!"
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:66
+#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:68
 msgid "Sorry, %s could not be retrieved!"
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:149
+#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:158
 msgid "There was a problem saving the new remote user."
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:170
+#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:181
 msgid "You are now following %s, would you like to subscribe to their feed?"
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:175
+#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:186
 msgid "You are now following %s"
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:180
+#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:191
 msgid "You're already following %s"
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:183
+#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:194
 msgid "Sorry, that user doesn't exist!"
 msgstr ""
 
-#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:185
+#: ./Idno/Pages/Account/Settings/Following/Bookmarklet.php:197
 msgid "No UUID, please try that again!"
 msgstr ""
 
@@ -398,7 +398,7 @@ msgstr ""
 msgid "There was a problem sending a test message to %s."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Export.php:17
+#: ./Idno/Pages/Admin/Export.php:18
 msgid "Export data"
 msgstr ""
 
@@ -414,19 +414,19 @@ msgstr ""
 msgid "Administration"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Import.php:18
+#: ./Idno/Pages/Admin/Import.php:19
 msgid "Import data"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Import.php:33
+#: ./Idno/Pages/Admin/Import.php:35
 msgid "You need to upload an import file to continue."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Import.php:35
+#: ./Idno/Pages/Admin/Import.php:37
 msgid "We couldn't open the file you uploaded. Please try again."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Import.php:37
+#: ./Idno/Pages/Admin/Import.php:39
 msgid "Your import has started. We'll email you when it's done."
 msgstr ""
 
@@ -434,15 +434,15 @@ msgstr ""
 msgid "Log capture"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Plugins.php:23
+#: ./Idno/Pages/Admin/Plugins.php:25
 msgid "Plugins"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Plugins.php:44
+#: ./Idno/Pages/Admin/Plugins.php:43
 msgid "The plugin was enabled."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Plugins.php:58
+#: ./Idno/Pages/Admin/Plugins.php:59
 msgid "The plugin was disabled."
 msgstr ""
 
@@ -450,15 +450,15 @@ msgstr ""
 msgid "Something went wrong, either no statistics were returned or it wasn't in the correct format."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Statistics.php:27
+#: ./Idno/Pages/Admin/Statistics.php:28
 msgid "Statistics"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Themes.php:22
+#: ./Idno/Pages/Admin/Themes.php:24
 msgid "Themes"
 msgstr ""
 
-#: ./Idno/Pages/Admin/Themes.php:52
+#: ./Idno/Pages/Admin/Themes.php:45
 msgid "The theme was enabled."
 msgstr ""
 
@@ -510,31 +510,31 @@ msgstr ""
 msgid "Please make sure your passwords match and aren't empty."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:182
+#: ./Idno/Pages/Admin/Users.php:181
 msgid "User %s was created. You may wish to email them to let them know."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:205
+#: ./Idno/Pages/Admin/Users.php:204
 msgid "%d emails were blocked."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:207
+#: ./Idno/Pages/Admin/Users.php:206
 msgid "The email address was blocked."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:209
+#: ./Idno/Pages/Admin/Users.php:208
 msgid "No email addresses were found."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:230
+#: ./Idno/Pages/Admin/Users.php:229
 msgid "%d emails were unblocked."
 msgstr ""
 
-#: ./Idno/Pages/Admin/Users.php:232
+#: ./Idno/Pages/Admin/Users.php:231
 msgid "The email address was unblocked."
 msgstr ""
 
-#: ./Idno/Pages/Annotation/Delete.php:42
+#: ./Idno/Pages/Annotation/Delete.php:43
 msgid "The annotation was deleted."
 msgstr ""
 
@@ -542,11 +542,11 @@ msgstr ""
 msgid "We couldn't find the post."
 msgstr ""
 
-#: ./Idno/Pages/Entity/Delete.php:45
+#: ./Idno/Pages/Entity/Delete.php:48
 msgid "We couldn't find the post to delete."
 msgstr ""
 
-#: ./Idno/Pages/Entity/Delete.php:52
+#: ./Idno/Pages/Entity/Delete.php:56
 msgid "%s was deleted."
 msgstr ""
 
@@ -554,19 +554,19 @@ msgstr ""
 msgid "We removed copies on all the syndicated sites."
 msgstr ""
 
-#: ./Idno/Pages/File/Mint.php:24
+#: ./Idno/Pages/File/Mint.php:26
 msgid "\"name\" (name of file) field needs to be supplied"
 msgstr ""
 
-#: ./Idno/Pages/File/Mint.php:28
+#: ./Idno/Pages/File/Mint.php:30
 msgid "\"type\" (mime type) field needs to be supplied"
 msgstr ""
 
-#: ./Idno/Pages/File/Mint.php:32
+#: ./Idno/Pages/File/Mint.php:34
 msgid "\"size\" (size in bytes) field needs to be supplied"
 msgstr ""
 
-#: ./Idno/Pages/File/Mint.php:46
+#: ./Idno/Pages/File/Mint.php:50
 msgid "There was a problem getting an upload URL for the newly minted file"
 msgstr ""
 
@@ -578,23 +578,23 @@ msgstr ""
 msgid "We couldn't find a feed at that site."
 msgstr ""
 
-#: ./Idno/Pages/Following/Confirm.php:50
+#: ./Idno/Pages/Following/Confirm.php:54
 msgid "You're following %s!"
 msgstr ""
 
-#: ./Idno/Pages/Following/Home.php:17
+#: ./Idno/Pages/Following/Home.php:18
 msgid "Following"
 msgstr ""
 
-#: ./Idno/Pages/Onboarding/Begin.php:23
+#: ./Idno/Pages/Onboarding/Begin.php:24
 msgid "Welcome to Known"
 msgstr ""
 
-#: ./Idno/Pages/Onboarding/Connect.php:25
+#: ./Idno/Pages/Onboarding/Connect.php:26
 msgid "Connect some networks"
 msgstr ""
 
-#: ./Idno/Pages/Onboarding/Profile.php:22
+#: ./Idno/Pages/Onboarding/Profile.php:23
 msgid "Create your profile"
 msgstr ""
 
@@ -610,19 +610,19 @@ msgstr ""
 msgid "URL missing"
 msgstr ""
 
-#: ./Idno/Pages/Service/Web/ImageProxy.php:77
+#: ./Idno/Pages/Service/Web/ImageProxy.php:86
 msgid "There was a problem decoding the url"
 msgstr ""
 
-#: ./Idno/Pages/Service/Web/ImageProxy.php:81
+#: ./Idno/Pages/Service/Web/ImageProxy.php:90
 msgid "No url specified"
 msgstr ""
 
-#: ./Idno/Pages/Service/Web/ImageProxy.php:222
+#: ./Idno/Pages/Service/Web/ImageProxy.php:236
 msgid "Could not save temporary file"
 msgstr ""
 
-#: ./Idno/Pages/Service/Web/ImageProxy.php:253
+#: ./Idno/Pages/Service/Web/ImageProxy.php:268
 msgid "Looks like something went wrong, image was zero bytes big!"
 msgstr ""
 
@@ -630,11 +630,11 @@ msgstr ""
 msgid "You need to specify a working URL"
 msgstr ""
 
-#: ./Idno/Pages/Service/Web/UrlUnfurl.php:69
+#: ./Idno/Pages/Service/Web/UrlUnfurl.php:74
 msgid "Url %s could not be unfurled"
 msgstr ""
 
-#: ./Idno/Pages/Session/CurrentUser.php:36
+#: ./Idno/Pages/Session/CurrentUser.php:38
 msgid "The %s profile for %s"
 msgstr ""
 
@@ -654,15 +654,15 @@ msgstr ""
 msgid "You've signed out. See you soon!"
 msgstr ""
 
-#: ./Idno/Pages/User/Edit.php:30
+#: ./Idno/Pages/User/Edit.php:32
 msgid "Edit profile: %s"
 msgstr ""
 
-#: ./Idno/Pages/Webmentions/Endpoint.php:19
+#: ./Idno/Pages/Webmentions/Endpoint.php:20
 msgid "Webmention endpoint"
 msgstr ""
 
-#: ./Idno/Stats/Timer.php:39
+#: ./Idno/Stats/Timer.php:41
 msgid "Timer %s has not been started."
 msgstr ""
 
@@ -862,19 +862,19 @@ msgstr ""
 msgid "Add as friend..."
 msgstr ""
 
-#: ./templates/default/account/settings/following/mf2user.tpl.php:55
+#: ./templates/default/account/settings/following/mf2user.tpl.php:56
 msgid "Name"
 msgstr ""
 
-#: ./templates/default/account/settings/following/mf2user.tpl.php:64
+#: ./templates/default/account/settings/following/mf2user.tpl.php:65
 msgid "Nickname"
 msgstr ""
 
-#: ./templates/default/account/settings/following/mf2user.tpl.php:67
+#: ./templates/default/account/settings/following/mf2user.tpl.php:68
 msgid "Handle (for your reference)"
 msgstr ""
 
-#: ./templates/default/account/settings/following/mf2user.tpl.php:82
+#: ./templates/default/account/settings/following/mf2user.tpl.php:83
 msgid "Profile URL"
 msgstr ""
 
@@ -1010,15 +1010,15 @@ msgstr ""
 msgid "Your timezone"
 msgstr ""
 
-#: ./templates/default/account/settings.tpl.php:73
+#: ./templates/default/account/settings.tpl.php:74
 msgid "Timezone"
 msgstr ""
 
-#: ./templates/default/account/settings.tpl.php:78
+#: ./templates/default/account/settings.tpl.php:80
 msgid "Specify your timezone."
 msgstr ""
 
-#: ./templates/default/account/settings.tpl.php:83
+#: ./templates/default/account/settings.tpl.php:85
 msgid "Save updates"
 msgstr ""
 
@@ -1042,7 +1042,7 @@ msgstr ""
 msgid "%s installed"
 msgstr ""
 
-#: ./templates/default/admin/dependencies/plugin.tpl.php:30
+#: ./templates/default/admin/dependencies/plugin.tpl.php:33
 msgid "(v%s required)"
 msgstr ""
 
@@ -1506,35 +1506,35 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: ./templates/default/admin/plugins/plugin.tpl.php:35
+#: ./templates/default/admin/plugins/plugin.tpl.php:36
 msgid "Enabled"
 msgstr ""
 
-#: ./templates/default/admin/plugins/plugin.tpl.php:37
+#: ./templates/default/admin/plugins/plugin.tpl.php:38
 msgid "Disabled"
 msgstr ""
 
-#: ./templates/default/admin/plugins/plugin.tpl.php:56
+#: ./templates/default/admin/plugins/plugin.tpl.php:58
 msgid "Known Version"
 msgstr ""
 
-#: ./templates/default/admin/plugins/plugin.tpl.php:67
+#: ./templates/default/admin/plugins/plugin.tpl.php:71
 msgid "Known Build"
 msgstr ""
 
-#: ./templates/default/admin/plugins/plugin.tpl.php:78
+#: ./templates/default/admin/plugins/plugin.tpl.php:84
 msgid "PHP Version"
 msgstr ""
 
-#: ./templates/default/admin/plugins/plugin.tpl.php:91
+#: ./templates/default/admin/plugins/plugin.tpl.php:100
 msgid "Extensions"
 msgstr ""
 
-#: ./templates/default/admin/plugins/plugin.tpl.php:134
+#: ./templates/default/admin/plugins/plugin.tpl.php:149
 msgid "Disable"
 msgstr ""
 
-#: ./templates/default/admin/plugins/plugin.tpl.php:147
+#: ./templates/default/admin/plugins/plugin.tpl.php:162
 msgid "Enable"
 msgstr ""
 
@@ -1662,35 +1662,35 @@ msgstr ""
 msgid "Also on"
 msgstr ""
 
-#: ./templates/default/content/notification/like.tpl.php:5
+#: ./templates/default/content/notification/like.tpl.php:6
 msgid "liked"
 msgstr ""
 
-#: ./templates/default/content/notification/mention.tpl.php:5
+#: ./templates/default/content/notification/mention.tpl.php:6
 msgid "mentioned"
 msgstr ""
 
-#: ./templates/default/content/notification/reply.tpl.php:5
+#: ./templates/default/content/notification/reply.tpl.php:6
 msgid "replied to"
 msgstr ""
 
-#: ./templates/default/content/notification/reply.tpl.php:7
+#: ./templates/default/content/notification/reply.tpl.php:8
 msgid "Reply"
 msgstr ""
 
-#: ./templates/default/content/notification/rsvp.tpl.php:5
+#: ./templates/default/content/notification/rsvp.tpl.php:6
 msgid "RSVPed to"
 msgstr ""
 
-#: ./templates/default/content/notification/share.tpl.php:5
+#: ./templates/default/content/notification/share.tpl.php:6
 msgid "shared"
 msgstr ""
 
-#: ./templates/default/content/unfurl.tpl.php:11
+#: ./templates/default/content/unfurl.tpl.php:12
 msgid "Refresh preview"
 msgstr ""
 
-#: ./templates/default/content/unfurl.tpl.php:12
+#: ./templates/default/content/unfurl.tpl.php:13
 msgid "Remove preview"
 msgstr ""
 
@@ -1702,31 +1702,31 @@ msgstr ""
 msgid "Leave Comment"
 msgstr ""
 
-#: ./templates/default/entity/annotations/likes.tpl.php:24
+#: ./templates/default/entity/annotations/likes.tpl.php:26
 msgid "liked this post"
 msgstr ""
 
-#: ./templates/default/entity/annotations/mentions.tpl.php:18
+#: ./templates/default/entity/annotations/mentions.tpl.php:20
 msgid "Mentioned in"
 msgstr ""
 
-#: ./templates/default/entity/annotations/rsvps.tpl.php:38
+#: ./templates/default/entity/annotations/rsvps.tpl.php:40
 msgid "Attending"
 msgstr ""
 
-#: ./templates/default/entity/annotations/rsvps.tpl.php:41
+#: ./templates/default/entity/annotations/rsvps.tpl.php:43
 msgid "Maybe attending"
 msgstr ""
 
-#: ./templates/default/entity/annotations/rsvps.tpl.php:44
+#: ./templates/default/entity/annotations/rsvps.tpl.php:46
 msgid "Not attending"
 msgstr ""
 
-#: ./templates/default/entity/annotations/rsvps.tpl.php:47
+#: ./templates/default/entity/annotations/rsvps.tpl.php:49
 msgid "Other responses"
 msgstr ""
 
-#: ./templates/default/entity/annotations/shares.tpl.php:21
+#: ./templates/default/entity/annotations/shares.tpl.php:23
 msgid "reshared this post"
 msgstr ""
 
@@ -1866,19 +1866,19 @@ msgstr ""
 msgid "Are you sure? This will delete this user and all their content."
 msgstr ""
 
-#: ./templates/default/forms/input/image-file.tpl.php:58
+#: ./templates/default/forms/input/image-file.tpl.php:61
 msgid "Are you sure you want to permanently delete this?"
 msgstr ""
 
-#: ./templates/default/forms/input/image-file.tpl.php:75
+#: ./templates/default/forms/input/image-file.tpl.php:79
 msgid "Choose different photo"
 msgstr ""
 
-#: ./templates/default/forms/input/image-file.tpl.php:78
+#: ./templates/default/forms/input/image-file.tpl.php:82
 msgid "Select a photo"
 msgstr ""
 
-#: ./templates/default/forms/input/image-file.tpl.php:83
+#: ./templates/default/forms/input/image-file.tpl.php:87
 msgid "Add photo"
 msgstr ""
 
@@ -1890,31 +1890,31 @@ msgstr ""
 msgid "Please complete this field."
 msgstr ""
 
-#: ./templates/default/forms/usersearch.tpl.php:24
+#: ./templates/default/forms/usersearch.tpl.php:28
 msgid "Search by name, email address, or username"
 msgstr ""
 
-#: ./templates/default/forms/usersearch.tpl.php:79
+#: ./templates/default/forms/usersearch.tpl.php:95
 msgid "By creation date"
 msgstr ""
 
-#: ./templates/default/forms/usersearch.tpl.php:80
+#: ./templates/default/forms/usersearch.tpl.php:96
 msgid "By name"
 msgstr ""
 
-#: ./templates/default/forms/usersearch.tpl.php:89
+#: ./templates/default/forms/usersearch.tpl.php:105
 msgid "Ascending"
 msgstr ""
 
-#: ./templates/default/forms/usersearch.tpl.php:90
+#: ./templates/default/forms/usersearch.tpl.php:106
 msgid "Descending"
 msgstr ""
 
-#: ./templates/default/forms/usersearch.tpl.php:102
+#: ./templates/default/forms/usersearch.tpl.php:118
 msgid "Prev"
 msgstr ""
 
-#: ./templates/default/forms/usersearch.tpl.php:103
+#: ./templates/default/forms/usersearch.tpl.php:119
 msgid "Next"
 msgstr ""
 
@@ -1994,19 +1994,19 @@ msgstr ""
 msgid "(at least 7 characters please)"
 msgstr ""
 
-#: ./templates/default/pages/403.tpl.php:7
+#: ./templates/default/pages/403.tpl.php:10
 msgid "Click here to log in."
 msgstr ""
 
-#: ./templates/default/pages/403.tpl.php:18
+#: ./templates/default/pages/403.tpl.php:21
 msgid "Hold on. You don't have access to this content."
 msgstr ""
 
-#: ./templates/default/pages/403.tpl.php:20
+#: ./templates/default/pages/403.tpl.php:23
 msgid "It's nothing personal. You just don't have the right permissions to see what's here."
 msgstr ""
 
-#: ./templates/default/pages/403.tpl.php:22
+#: ./templates/default/pages/403.tpl.php:25
 msgid "Find something else to view on the <a href=\"%s\">%s homepage</a>."
 msgstr ""
 
@@ -2058,35 +2058,27 @@ msgstr ""
 msgid "Check out my new @withknown site!"
 msgstr ""
 
-#: ./templates/default/robot/wizard.tpl.php:9
-msgid " That was a great update. Why not <%s>share your new website on Facebook</a> and <a href=\"%s\">Twitter</a> so your friends know about it?\n\nI bet you've got some great photos. <%s>Try posting one</a>!"
-msgstr ""
-
-#: ./templates/default/robot/wizard.tpl.php:20
-msgid "Welcome to your new Known site! I'm Aleph, your very own welcome robot. Let's get started by <%s>adding your first status update</a>!"
-msgstr ""
-
-#: ./templates/default/robot/wizard.tpl.php:28
+#: ./templates/default/robot/wizard.tpl.php:34
 msgid "Beep!"
 msgstr ""
 
-#: ./templates/default/robot/wizard.tpl.php:34
+#: ./templates/default/robot/wizard.tpl.php:42
 msgid "Zeep!"
 msgstr ""
 
-#: ./templates/default/robot/wizard.tpl.php:40
+#: ./templates/default/robot/wizard.tpl.php:50
 msgid "Beep boop!"
 msgstr ""
 
-#: ./templates/default/robot/wizard.tpl.php:47
+#: ./templates/default/robot/wizard.tpl.php:60
 msgid "Beepity boop! That was a great picture. Did you see that you can also <a href=\"{{userurl}}/edit\">update your profile</a>?"
 msgstr ""
 
-#: ./templates/default/robot/wizard.tpl.php:52
+#: ./templates/default/robot/wizard.tpl.php:67
 msgid "Boopity beep! Did you see that you can also <a href=\"{{userurl}}/edit\">update your profile</a>?"
 msgstr ""
 
-#: ./templates/default/robot/wizard.tpl.php:65
+#: ./templates/default/robot/wizard.tpl.php:83
 msgid "01011001 01101111 00100000 01111001 01101111 00100000 01111001 01101111 \n\nThat's how you say hello where I come from. I wanted to remind you that you can also <a href=\"{{baseurl}}admin/themes/\">change the theme of your site</a>. If you ever have feedback, you can <a href=\"{{baseurl}}account/settings/feedback/\">send a message to my human creators</a>."
 msgstr ""
 
@@ -2166,10 +2158,6 @@ msgstr ""
 msgid "Sign up now"
 msgstr ""
 
-#: ./templates/email/account/invite.tpl.php:16
-msgid "If you have any questions at all, please don't hesitate to contact us by sending an email to %s"
-msgstr ""
-
 #: ./templates/email/account/password.tpl.php:6
 msgid "We heard you forgot your password. Don't worry. It happens to the best of us."
 msgstr ""
@@ -2190,11 +2178,15 @@ msgstr ""
 msgid "Get started with *%s* by setting up your account"
 msgstr ""
 
+#: ./templates/email-text/account/invite.tpl.php:26
+msgid "If you have any questions at all, please don't hesitate to contact us by sending an email to %s"
+msgstr ""
+
 #: ./known.php:110
 msgid "Returns the current Known version as defined in version.known"
 msgstr ""
 
-#: ./known.php:118
+#: ./known.php:119
 msgid "WARNING: Your build of Known is behind the latest version from Github (%s - %s). If you're having problems, you may want to try updating to the latest version.\nUpdate now: https://github.com/idno/Known\n"
 msgstr ""
 
