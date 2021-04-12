@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d46f5fc94e212b456093a167d4c17e17",
+    "content-hash": "0f8cebec08b2379648a57210ecdffe8d",
     "packages": [
         {
             "name": "brick/math",
@@ -2479,10 +2479,10 @@
         },
         {
             "name": "npm-asset/underscore",
-            "version": "1.13.0-patch2",
+            "version": "1.13.0-patch3",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/underscore/-/underscore-1.13.0-2.tgz"
+                "url": "https://registry.npmjs.org/underscore/-/underscore-1.13.0-3.tgz"
             },
             "type": "npm-asset",
             "license": [
