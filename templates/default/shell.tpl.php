@@ -24,6 +24,7 @@
     echo $template->draw('shell/syndication');
     echo $template->draw('shell/identities');
     echo $template->draw('shell/head');
+    echo $template->draw('shell/monetization');
     echo $template->draw('shell/head/final');
 ?>
 
