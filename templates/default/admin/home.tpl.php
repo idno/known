@@ -119,8 +119,6 @@
                 </div>
             </div>
 
-
-
             <?php echo $this->draw('admin/home/settings/details')?>
 
             <!----------->
@@ -208,6 +206,32 @@
 
             ?>
 
+            <!----------->
+
+            <div class="row">
+                <div class="col-md-10">
+                    <h3><?php echo \Idno\Core\Idno::site()->language()->_('Web monetization'); ?></h3>
+                </div>
+            </div>
+
+            <!----------->
+
+            <div class="row">
+                <div class="col-md-2">
+                    <p><label class="control-label" for="coil"><strong><?php echo \Idno\Core\Idno::site()->language()->_('Coil web payments'); ?></strong></label></p>
+                </div>
+                <div class="col-md-4">
+                    <input type="text" id="coil" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_('Coil web payment pointer'); ?>" class="input col-md-4 form-control" name="coil"
+                           value="<?php echo htmlspecialchars(\Idno\Core\Idno::site()->config()->coil) ?>">
+                </div>
+                <div class="col-md-6">
+                    <p class="config-desc"><?php echo \Idno\Core\Idno::site()->language()->_('Receive direct payments from visitors with Coil wallets.'); ?>
+                        <a href="https://coil.com"><?php echo \Idno\Core\Idno::site()->language()->_('Set up your Coil payment pointer'); ?></a>.
+
+                    </p>
+                </div>
+            </div>
+
             <!---------->
 
             <div class="row">
@@ -249,7 +273,7 @@
                            name="user_avatar_favicons" <?php if (\Idno\Core\Idno::site()->config()->user_avatar_favicons == true) echo 'checked'; ?>>
                 </div>
                 <div class="col-md-6"><p class="config-desc">
-                        <?php echo \Idno\Core\Idno::site()->language()->_("This uses members' avatar images as the site favicon."); ?> 
+                        <?php echo \Idno\Core\Idno::site()->language()->_("This uses members' avatar images as the site favicon."); ?>
                     </p>
                 </div>
             </div>
