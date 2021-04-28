@@ -1135,16 +1135,16 @@
         },
         {
             "name": "idno/events",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/events.git",
-                "reference": "4a9cd5936d0a030dd030302a2e4723adecba3fd2"
+                "reference": "52041c90d10e96e6203859442f834ebf66c3e59c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/events/zipball/4a9cd5936d0a030dd030302a2e4723adecba3fd2",
-                "reference": "4a9cd5936d0a030dd030302a2e4723adecba3fd2",
+                "url": "https://api.github.com/repos/idno/events/zipball/52041c90d10e96e6203859442f834ebf66c3e59c",
+                "reference": "52041c90d10e96e6203859442f834ebf66c3e59c",
                 "shasum": ""
             },
             "require": {
@@ -1163,9 +1163,9 @@
             "description": "A lightweight way to post or reply to events.",
             "support": {
                 "issues": "https://github.com/idno/events/issues",
-                "source": "https://github.com/idno/events/tree/1.0.1"
+                "source": "https://github.com/idno/events/tree/1.0.2"
             },
-            "time": "2020-12-20T00:29:49+00:00"
+            "time": "2021-04-28T06:06:26+00:00"
         },
         {
             "name": "idno/indiepub",
