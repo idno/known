@@ -1203,16 +1203,16 @@
         },
         {
             "name": "idno/like",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/like.git",
-                "reference": "b670c31f2a31fc5079b572923f4022a1c4dc7cf6"
+                "reference": "87ef8678ff838389115a329dbdf8f257e2eee8a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/like/zipball/b670c31f2a31fc5079b572923f4022a1c4dc7cf6",
-                "reference": "b670c31f2a31fc5079b572923f4022a1c4dc7cf6",
+                "url": "https://api.github.com/repos/idno/like/zipball/87ef8678ff838389115a329dbdf8f257e2eee8a7",
+                "reference": "87ef8678ff838389115a329dbdf8f257e2eee8a7",
                 "shasum": ""
             },
             "require": {
@@ -1231,9 +1231,9 @@
             "description": "Bookmark a page in Known.",
             "support": {
                 "issues": "https://github.com/idno/like/issues",
-                "source": "https://github.com/idno/like/tree/1.0.1"
+                "source": "https://github.com/idno/like/tree/1.0.2"
             },
-            "time": "2020-12-20T00:34:49+00:00"
+            "time": "2021-04-28T06:09:33+00:00"
         },
         {
             "name": "idno/media",
