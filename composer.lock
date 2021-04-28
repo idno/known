@@ -1237,16 +1237,16 @@
         },
         {
             "name": "idno/media",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/media.git",
-                "reference": "e13e9165d5458c23d53cfd2265300ee3b4f35095"
+                "reference": "73882682a3f61d4bd50feda88ec28f9b24da51eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/media/zipball/e13e9165d5458c23d53cfd2265300ee3b4f35095",
-                "reference": "e13e9165d5458c23d53cfd2265300ee3b4f35095",
+                "url": "https://api.github.com/repos/idno/media/zipball/73882682a3f61d4bd50feda88ec28f9b24da51eb",
+                "reference": "73882682a3f61d4bd50feda88ec28f9b24da51eb",
                 "shasum": ""
             },
             "require": {
@@ -1265,9 +1265,9 @@
             "description": "Upload audio or music and turn your site into a podcast.",
             "support": {
                 "issues": "https://github.com/idno/media/issues",
-                "source": "https://github.com/idno/media/tree/1.0.1"
+                "source": "https://github.com/idno/media/tree/1.0.2"
             },
-            "time": "2020-12-20T00:32:47+00:00"
+            "time": "2021-04-28T06:12:04+00:00"
         },
         {
             "name": "idno/mentionjs",
