@@ -113,16 +113,16 @@
         },
         {
             "name": "composer/installers",
-            "version": "v1.10.0",
+            "version": "v1.11.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d"
+                "reference": "ae03311f45dfe194412081526be2e003960df74b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d",
-                "reference": "1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d",
+                "url": "https://api.github.com/repos/composer/installers/zipball/ae03311f45dfe194412081526be2e003960df74b",
+                "reference": "ae03311f45dfe194412081526be2e003960df74b",
                 "shasum": ""
             },
             "require": {
@@ -216,6 +216,7 @@
                 "majima",
                 "mako",
                 "mediawiki",
+                "miaoxing",
                 "modulework",
                 "modx",
                 "moodle",
@@ -233,6 +234,7 @@
                 "sydes",
                 "sylius",
                 "symfony",
+                "tastyigniter",
                 "typo3",
                 "wordpress",
                 "yawik",
@@ -241,7 +243,7 @@
             ],
             "support": {
                 "issues": "https://github.com/composer/installers/issues",
-                "source": "https://github.com/composer/installers/tree/v1.10.0"
+                "source": "https://github.com/composer/installers/tree/v1.11.0"
             },
             "funding": [
                 {
@@ -257,7 +259,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-14T11:07:16+00:00"
+            "time": "2021-04-28T06:42:17+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -900,16 +902,16 @@
         },
         {
             "name": "idno/checkin",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/checkin.git",
-                "reference": "e786897de4620b72ce2d94438db16cef8dfb4b36"
+                "reference": "0016b14086f36fdd37c1b0c6a9464060c5ec78e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/checkin/zipball/e786897de4620b72ce2d94438db16cef8dfb4b36",
-                "reference": "e786897de4620b72ce2d94438db16cef8dfb4b36",
+                "url": "https://api.github.com/repos/idno/checkin/zipball/0016b14086f36fdd37c1b0c6a9464060c5ec78e8",
+                "reference": "0016b14086f36fdd37c1b0c6a9464060c5ec78e8",
                 "shasum": ""
             },
             "require": {
@@ -928,9 +930,9 @@
             "description": "An easy way to check into a geographic location.",
             "support": {
                 "issues": "https://github.com/idno/checkin/issues",
-                "source": "https://github.com/idno/checkin/tree/1.1.2"
+                "source": "https://github.com/idno/checkin/tree/1.1.3"
             },
-            "time": "2020-12-20T00:31:01+00:00"
+            "time": "2021-04-28T06:08:02+00:00"
         },
         {
             "name": "idno/console-eventqueueservice",
