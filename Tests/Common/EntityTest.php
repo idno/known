@@ -79,14 +79,14 @@ class EntityTest extends \Tests\KnownTestCase
         $entity->setDatatype('data-slug-test');
         $entity->setSlugResilient($title);
         $this->assertEquals($slug, $entity->getSlug(), 'Slug should have matched '. $slug . '.');
-        $entity->save();
+        $entity->save(true);
         $this->toDelete[] = $entity;
 
         $entity = new GenericDataItem();
         $entity->setDatatype('data-slug-test');
         $entity->setSlugResilient($title);
         $this->assertEquals($slug . '-1', $entity->getSlug(), 'Because there was a slug collision, slug should have matched ' . $slug . '-1.');
-        $entity->save();
+        $entity->save(true);
         $this->toDelete[] = $entity;
     }
 

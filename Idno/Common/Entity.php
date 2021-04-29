@@ -608,9 +608,11 @@ namespace Idno\Common {
          * Saves this entity - either creating a new entry, or
          * overwriting the existing one.
          *
+         * @param false $overrideAccess Set this to true to avoid checking write permissions before saving
+         * @return false|\Idno\Core\id
          */
 
-        function save()
+        function save($overrideAccess = false)
         {
 
             // Adding this entity's owner (if we don't know already)
@@ -619,6 +621,9 @@ namespace Idno\Common {
             if (\Idno\Core\Idno::site()->session()->isLoggedIn() && empty($owner_id)) {
                 $this->setOwner(\Idno\Core\Idno::site()->session()->currentUser());
             }
+
+            // If you're not allowed to edit this entity, you shouldn't be able to save it
+            if (!$overrideAccess && !$this->canEdit()) return false;
 
             // Automatically add a slug (if one isn't set and this is a new entity)
 
@@ -1452,8 +1457,8 @@ namespace Idno\Common {
         function canEdit($user_id = '')
         {
 
-            if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) return false;
-            if (!\Idno\Core\Idno::site()->canWrite()) return false;
+            if (!empty($user_id) || !\Idno\Core\Idno::site()->session()->isLoggedOn()) return false;
+            if (!\Idno\Core\Idno::site()->canWrite($user_id)) return false;
 
             if (empty($user_id)) {
                 $user_id = \Idno\Core\Idno::site()->session()->currentUserUUID();
@@ -2031,7 +2036,7 @@ namespace Idno\Common {
         {
             if ($source_response['response'] == 410) {
                 $this->removeAnnotation($source);
-                $this->save();
+                $this->save(true);
 
                 return true;
             }
@@ -2086,7 +2091,7 @@ namespace Idno\Common {
                             $return = false;
                         }
                     }
-                    $this->save();
+                    $this->save(true);
 
                     if ($return && $this->isReply()) {
                         if ($reply_urls = $this->getReplyToURLs()) {
@@ -2321,7 +2326,7 @@ namespace Idno\Common {
 
             $annotations[$subtype][$local_url] = $annotation;
             $this->annotations = $annotations;
-            $this->save();
+            $this->save(true);
 
             \Idno\Core\Idno::site()->events()->triggerEvent('annotation/add/' . $subtype, array('annotation' => $annotation, 'object' => $this));
 
@@ -2404,7 +2409,7 @@ namespace Idno\Common {
                                     $notif->setObject($annotation);
                                     $notif->setTarget($this);
                                     $notif->read = false;
-                                    $notif->save();
+                                    $notif->save(true);
                                     $recipient->notify($notif);
                                 }
                             }

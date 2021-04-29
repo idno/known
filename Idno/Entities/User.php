@@ -610,7 +610,7 @@ namespace Idno\Entities {
                     }
 
                     $acl->addMember($user->getUUID());
-                    $acl->save();
+                    $acl->save(true);
 
                     \Idno\Core\Idno::site()->events()->triggerEvent('follow', array('user' => $this, 'following' => $user));
 
@@ -673,7 +673,7 @@ namespace Idno\Entities {
 
                 if (!empty($acl)) {
                     $acl->removeMember($user->getUUID());
-                    $acl->save();
+                    $acl->save(true);
                 }
 
                 \Idno\Core\Idno::site()->events()->triggerEvent('unfollow', array('user' => $this, 'following' => $user));
@@ -992,6 +992,15 @@ namespace Idno\Entities {
 
             return $this->save();
 
+        }
+
+        /**
+         * Wrapper for Entity::save()
+         * @return false|\Idno\Core\id
+         */
+        function save($overrideAccess = true)
+        {
+            return parent::save($overrideAccess);
         }
 
         /**

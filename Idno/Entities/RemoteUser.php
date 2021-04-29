@@ -14,13 +14,13 @@ namespace Idno\Entities {
 
         use Mutate;
 
-        public function save($add_to_feed = false, $feed_verb = 'post')
+        public function save()
         {
             // TODO: use a remote API to save to external sources if we have permission to
             // return false;
 
             // BUT for now, we still need to save some stub information in case we've just followed them
-            return parent::save($add_to_feed, $feed_verb);
+            return parent::save(true);
         }
 
         public function checkPassword($password)
