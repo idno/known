@@ -14,13 +14,13 @@ namespace Idno\Entities {
 
         use Mutate;
 
-        public function save()
+        public function save($overrideAccess = true)
         {
             // TODO: use a remote API to save to external sources if we have permission to
             // return false;
 
             // BUT for now, we still need to save some stub information in case we've just followed them
-            return parent::save(true);
+            return parent::save($overrideAccess);
         }
 
         public function checkPassword($password)
