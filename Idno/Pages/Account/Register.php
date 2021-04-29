@@ -125,7 +125,7 @@ namespace Idno\Pages\Account {
                     } else {
                         \Idno\Core\Idno::site()->events()->triggerEvent('site/newuser', array('user' => $user)); // Event hook for new user
                     }
-                    $user->save();
+                    $user->save(true);
                     // Now we can remove the invitation
                     if (!empty($invitation)) {
                         if ($invitation instanceof Invitation) {

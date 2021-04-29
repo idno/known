@@ -39,7 +39,7 @@ namespace Tests\API {
         {
 
             $user = \Tests\KnownTestCase::user();
-            $endpoint = \Idno\Core\Idno::site()->config()->url . 'status/edit';
+            $endpoint = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'status/edit';
 
             $result = \Idno\Core\Webservice::post(
                 $endpoint, [

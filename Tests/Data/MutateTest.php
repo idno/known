@@ -14,7 +14,7 @@ class MutateTest extends \Tests\KnownTestCase
         $remoteuser->setPassword(md5(rand())); // Set password to something random to mitigate security holes if cleanup fails
         $remoteuser->setTitle('Test Mutation');
 
-        $id = $remoteuser->save();
+        $id = $remoteuser->save(true);
 
         $this->assertNotEmpty($remoteuser->mutate(\Idno\Entities\User::class));
 

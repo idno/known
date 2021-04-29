@@ -183,7 +183,7 @@ namespace Idno\Pages\User {
                 $notif->setVerb('mention');
                 $notif->setObject($mention);
                 $notif->setTarget($user);
-                $notif->save();
+                $notif->save(true);
                 $user->notify($notif);
             } else {
                 \Idno\Core\Idno::site()->logging()->debug("ignoring duplicate notification", ['source' => $source, 'target' => $target, 'user' => $user->getHandle()]);

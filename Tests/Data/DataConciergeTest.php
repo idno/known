@@ -26,7 +26,7 @@ namespace Tests\Data {
                 $obj->rangeVariable = 'b';
 
                 //echo "\n\n\nabout to save";
-                $id = $obj->save(); //die($id);
+                $id = $obj->save(true); //die($id);
 
                 // Save for later retrieval
                 self::$id = $id;
@@ -197,14 +197,14 @@ namespace Tests\Data {
             $obj->setTitle("This is a test obj to get around MySQL natural language mode");
             $obj->variable1 = 'test';
             $obj->variable2 = 'test again';
-            $id = $obj->save();
+            $id = $obj->save(true);
 
             $obj2 = new \Idno\Entities\GenericDataItem();
             $obj2->setDatatype('UnitTestObject');
             $obj2->setTitle("This is some other text because mysql is a pain.");
             $obj2->variable1 = 'test';
             $obj2->variable2 = 'test again';
-            $id = $obj2->save();
+            $id = $obj2->save(true);
 
             self::$fts_objects = [$obj, $obj2];
 

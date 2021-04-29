@@ -54,11 +54,10 @@ namespace Idno\Pages\Account\Password {
                         /* @var \Idno\Entities\User $user */
                         $user->setPassword($password);
                         $user->clearPasswordRecoveryCode();
-                        $user->save();
+                        $user->save(true);
                         \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("Your password was reset!"));
 
                     }
-
                 }
             } else {
                 \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('Sorry, your passwords either don\'t match, or are too weak'));

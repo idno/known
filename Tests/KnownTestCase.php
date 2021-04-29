@@ -38,7 +38,7 @@ namespace Tests {
             $user->setPassword(md5(rand())); // Set password to something random to mitigate security holes if cleanup fails
             $user->setTitle('Test User');
 
-            $user->save();
+            $user->save(true);
 
             static::$testUser = $user;
 
@@ -73,7 +73,7 @@ namespace Tests {
             $user->setTitle('Test Admin User');
             $user->setAdmin(true);
 
-            $user->save();
+            $user->save(true);
 
             static::$testAdmin = $user;
 
