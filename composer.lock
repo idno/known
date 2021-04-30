@@ -465,16 +465,16 @@
         },
         {
             "name": "firebase/php-jwt",
-            "version": "v5.2.0",
+            "version": "v5.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/firebase/php-jwt.git",
-                "reference": "feb0e820b8436873675fd3aca04f3728eb2185cb"
+                "reference": "f42c9110abe98dd6cfe9053c49bc86acc70b2d23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/feb0e820b8436873675fd3aca04f3728eb2185cb",
-                "reference": "feb0e820b8436873675fd3aca04f3728eb2185cb",
+                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/f42c9110abe98dd6cfe9053c49bc86acc70b2d23",
+                "reference": "f42c9110abe98dd6cfe9053c49bc86acc70b2d23",
                 "shasum": ""
             },
             "require": {
@@ -513,9 +513,9 @@
             ],
             "support": {
                 "issues": "https://github.com/firebase/php-jwt/issues",
-                "source": "https://github.com/firebase/php-jwt/tree/master"
+                "source": "https://github.com/firebase/php-jwt/tree/v5.2.1"
             },
-            "time": "2020-03-25T18:49:23+00:00"
+            "time": "2021-02-12T00:02:00+00:00"
         },
         {
             "name": "forkawesome/fork-awesome",
@@ -2029,16 +2029,16 @@
         },
         {
             "name": "mapkyca/known-oauth2-server",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mapkyca/known-oauth2-server.git",
-                "reference": "5683bbd78d5f3cb7eb10e603c33be88c80b1c43a"
+                "reference": "528fab316bd82445595efb9deb262b6cc6f5b3ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/known-oauth2-server/zipball/5683bbd78d5f3cb7eb10e603c33be88c80b1c43a",
-                "reference": "5683bbd78d5f3cb7eb10e603c33be88c80b1c43a",
+                "url": "https://api.github.com/repos/mapkyca/known-oauth2-server/zipball/528fab316bd82445595efb9deb262b6cc6f5b3ce",
+                "reference": "528fab316bd82445595efb9deb262b6cc6f5b3ce",
                 "shasum": ""
             },
             "require": {
@@ -2073,7 +2073,7 @@
             ],
             "support": {
                 "issues": "https://github.com/mapkyca/known-oauth2-server/issues",
-                "source": "https://github.com/mapkyca/known-oauth2-server/tree/1.2.0"
+                "source": "https://github.com/mapkyca/known-oauth2-server/tree/1.2.1"
             },
             "funding": [
                 {
@@ -2081,7 +2081,7 @@
                     "type": "paypal"
                 }
             ],
-            "time": "2020-09-12T14:10:36+00:00"
+            "time": "2021-04-29T20:36:55+00:00"
         },
         {
             "name": "mapkyca/mrclay_autop_known",
