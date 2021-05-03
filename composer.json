@@ -27,7 +27,7 @@
         "ext-openssl": "*",
         "ext-gettext": "*",
         "mapkyca/php-ogp": "^1.0",
-        "psr/log": "1.1.3",
+        "psr/log": "1.1.4",
         "idno/torophp": "^3.0",
         "mf2/mf2": "0.4.6",
         "swiftmailer/swiftmailer": "6.2.7",
