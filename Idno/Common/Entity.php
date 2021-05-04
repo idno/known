@@ -1846,11 +1846,13 @@ namespace Idno\Common {
             */
             if ($attachments = $item->getAttachments()) {
                 foreach($attachments as $attachment) {
-                    $enclosureItem = $page->createElement('enclosure');
-                    $enclosureItem->setAttribute('url', $attachment['url']);
-                    $enclosureItem->setAttribute('type', $attachment['mime-type']);
-                    $enclosureItem->setAttribute('length', $attachment['length']);
-                    $rssItem->appendChild($enclosureItem);
+                    if (!empty($attachment['url'])) { // Only include attachments with set URLs
+                        $enclosureItem = $page->createElement('enclosure');
+                        $enclosureItem->setAttribute('url', $attachment['url']);
+                        $enclosureItem->setAttribute('type', $attachment['mime-type']);
+                        $enclosureItem->setAttribute('length', $attachment['length']);
+                        $rssItem->appendChild($enclosureItem);
+                    }
                 }
             }
             if ($tags = $item->getTags()) {
