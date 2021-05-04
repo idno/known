@@ -39,13 +39,13 @@ namespace Idno\Entities {
             return $this->datatype;
         }
 
-        public function save($add_to_feed = false, $feed_verb = 'post')
+        public function save($overrideAccess = false)
         {
             if (empty($this->datatype)) {
                 throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("GenericDataItem classes must have a datatype label set."));
             }
 
-            return parent::save($add_to_feed, $feed_verb);
+            return parent::save($overrideAccess);
         }
     }
 
