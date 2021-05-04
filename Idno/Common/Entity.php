@@ -367,7 +367,11 @@ namespace Idno\Common {
          */
         static function isLocalUUID($uuid)
         {
-            // TODO: improve this heuristic
+            // If $uuid is not valid, return false
+            if (empty($uuid) || !is_string($uuid)) {
+                return false;
+            }
+
             // Parse the UUID
             if (($uuid_parse = parse_url($uuid)) && ($url_parse = parse_url(\Idno\Core\Idno::site()->config()->url))) {
                 if (!empty($uuid_parse['host'])) {
