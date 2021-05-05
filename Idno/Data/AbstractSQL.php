@@ -56,7 +56,7 @@ namespace Idno\Data {
          */
         function getSchemaFields()
         {
-            return array('uuid', '_id', 'entity_subtype', 'owner', 'publish_status');
+            return array('uuid', '_id', 'entity_subtype', 'owner', 'publish_status', 'created');
         }
 
         /**
