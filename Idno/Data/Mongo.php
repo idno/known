@@ -604,6 +604,17 @@ namespace Idno\Data {
         }
 
         /**
+         * Given a UNIX timestamp, returns a date suitable for use with the current db engine
+         *
+         * @param $timestamp
+         * @return mixed
+         */
+        function formatDate($timestamp)
+        {
+            return $timestamp;
+        }
+
+        /**
          * Given a text query, return an array suitable for adding into getFromX calls
          *
          * @param  $query
