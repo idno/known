@@ -243,9 +243,9 @@ namespace Idno\Data {
             }
 
             if (empty($array['created'])) {
-                $array['created'] = date("Y-m-d H:i:s", time());
+                $array['created'] = $this->formatDate(time());
             } else {
-                $array['created'] = date("Y-m-d H:i:s", $array['created']);
+                $array['created'] = $this->formatDate($array['created']);
             }
 
             $search = str_replace("\n", " \n ", $search);
@@ -493,11 +493,6 @@ namespace Idno\Data {
                     if (!is_array($value)) {
                         if (in_array($key, $this->getSchemaFields())) {
                             $subwhere[] = "(`{$collection}`.`{$key}` = :nonmdvalue{$non_md_variables})";
-                            if ($key === 'created') {
-                                if (!is_int($value)) {
-                                    $value = strtotime($value);
-                                }
-                            }
                             $variables[":nonmdvalue{$non_md_variables}"] = $value;
                             $non_md_variables++;
                         } else {
@@ -586,11 +581,6 @@ namespace Idno\Data {
                             $val = $value['$lt'];
                             if (in_array($key, $this->getSchemaFields())) {
                                 $subwhere[] = "(`{$collection}`.`{$key}` < :nonmdvalue{$non_md_variables})";
-                                if ($key === 'created') {
-                                    if (!is_int($val)) {
-                                        $val = strtotime($val);
-                                    }
-                                }
                                 $variables[":nonmdvalue{$non_md_variables}"] = $val;
                                 $non_md_variables++;
                             } else {
@@ -604,11 +594,6 @@ namespace Idno\Data {
                             $val = $value['$gt'];
                             if (in_array($key, $this->getSchemaFields())) {
                                 $subwhere[] = "(`{$collection}`.`{$key}` > :nonmdvalue{$non_md_variables})";
-                                if ($key === 'created') {
-                                    if (!is_int($val)) {
-                                        $val = strtotime($val);
-                                    }
-                                }
                                 $variables[":nonmdvalue{$non_md_variables}"] = $val;
                                 $non_md_variables++;
                             } else {

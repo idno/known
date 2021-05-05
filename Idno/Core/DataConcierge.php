@@ -292,6 +292,13 @@ namespace Idno\Core {
          */
         abstract function createSearchArray($query);
 
+        /**
+         * Given a UNIX timestamp, returns a date suitable for use with the current db engine
+         *
+         * @param $timestamp
+         * @return mixed
+         */
+        abstract function formatDate($timestamp);
 
         /**
          * Internal function which ensures collections are sanitised.
