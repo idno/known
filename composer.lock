@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8ab708f695420ad86d8c0fb0c42ddda8",
+    "content-hash": "11b9f596669c7d948eddf93b9b90dc73",
     "packages": [
         {
             "name": "brick/math",
@@ -1170,16 +1170,16 @@
         },
         {
             "name": "idno/indiepub",
-            "version": "0.9.13",
+            "version": "0.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/indiepub.git",
-                "reference": "e91af637c067ff0ba54bfbe700147345fe417040"
+                "reference": "4dcc9f8b8fee9ffd4857dbc4b9aab9d59b8d0d4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/indiepub/zipball/e91af637c067ff0ba54bfbe700147345fe417040",
-                "reference": "e91af637c067ff0ba54bfbe700147345fe417040",
+                "url": "https://api.github.com/repos/idno/indiepub/zipball/4dcc9f8b8fee9ffd4857dbc4b9aab9d59b8d0d4e",
+                "reference": "4dcc9f8b8fee9ffd4857dbc4b9aab9d59b8d0d4e",
                 "shasum": ""
             },
             "require": {
@@ -1198,9 +1198,9 @@
             "description": "Support IndieAuth and Micropub for single-user Known sites. Must be used with a single-user theme.",
             "support": {
                 "issues": "https://github.com/idno/indiepub/issues",
-                "source": "https://github.com/idno/indiepub/tree/0.9.13"
+                "source": "https://github.com/idno/indiepub/tree/0.10"
             },
-            "time": "2021-02-03T06:27:27+00:00"
+            "time": "2021-05-13T19:21:27+00:00"
         },
         {
             "name": "idno/like",
