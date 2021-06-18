@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a2355e06a1a40bbd1d34b4c9efebe5b6",
+    "content-hash": "0c1acd42543c96bf2bb4b44a0b2269aa",
     "packages": [
         {
             "name": "brick/math",
@@ -3782,16 +3782,16 @@
         },
         {
             "name": "symfony/http-foundation",
-            "version": "v5.3.1",
+            "version": "v5.3.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/http-foundation.git",
-                "reference": "8827b90cf8806e467124ad476acd15216c2fceb6"
+                "reference": "7b6dd714d95106b831aaa7f3c9c612ab886516bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/8827b90cf8806e467124ad476acd15216c2fceb6",
-                "reference": "8827b90cf8806e467124ad476acd15216c2fceb6",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/7b6dd714d95106b831aaa7f3c9c612ab886516bd",
+                "reference": "7b6dd714d95106b831aaa7f3c9c612ab886516bd",
                 "shasum": ""
             },
             "require": {
@@ -3835,7 +3835,7 @@
             "description": "Defines an object-oriented layer for the HTTP specification",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/http-foundation/tree/v5.3.1"
+                "source": "https://github.com/symfony/http-foundation/tree/v5.3.2"
             },
             "funding": [
                 {
@@ -3851,7 +3851,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-06-02T09:32:00+00:00"
+            "time": "2021-06-12T10:15:17+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -7999,5 +7999,5 @@
         "ext-gettext": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
