@@ -92,6 +92,7 @@ $host_to_icon = [
     "steampowered.com" => "steam",
     "strava.com" => "bicycle", // generic
     "stumbleupon.com" => "stumbleupon",
+    "t.me" => "telegram",tele
     "telegram.me" => "telegram",
     "telegram.org" => "telegram",
     "tripadvisor.com" => "tripadvisor",
@@ -204,20 +205,32 @@ if (!empty($vars['user']->profile['url']) && is_array($vars['user']->profile['ur
             $url_display = rtrim(str_replace('https://', '', str_replace('http://', '', strip_tags($url_display))), '/');
 
             // TODO: find a way to integrate into a config data structure.
-            // Remove hosts where the rest of the URL is a profile identifier
+            // Remove hosts where the rest of the URL after the last slash is:
+            // - a profile identifier.
+            // - and the icon is unique and recognizable.
+            // Keep list alphabetized
             switch ($host) {
+                // keep alphabetical
                 case 'angellist.com':
-                case 'instagram.com':
+                case 'archive.org':
+                case 'bandcamp.com':
                 case 'facebook.com':
                 case 'flickr.com':
-                case 'keybase.io':
                 case 'github.com':
+                case 'instagram.com':
+                case 'keybase.io':
+                case 'last.fm':
                 case 'linkedin.com':
+                case 'matrix.to':
                 case 'medium.com':
                 case 'plus.google.com':
+                case 'reddit.com':
+                case 'slashdot.org':
+                case 'soundcloud.com':
                 case 'strava.com':
                 case 'twitter.com':
                 case 'venmo.com':
+                case 'youtube.com':
                     $url_display = substr(strrchr($url_display, '/'), 1);
                     break;
             }
