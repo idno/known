@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b18a7151160e0f3e0b6cc5d6b0d0fa3",
+    "content-hash": "2ca2792593e3419f2ba619f1599ee9f7",
     "packages": [
         {
             "name": "brick/math",
@@ -4743,16 +4743,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.8.2",
+            "version": "5.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "dbf8c9ab481e11b660a957257c73f55e2af83b20"
+                "reference": "7a479e525582d09f315c2cf2a99075d6a798b535"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/dbf8c9ab481e11b660a957257c73f55e2af83b20",
-                "reference": "dbf8c9ab481e11b660a957257c73f55e2af83b20",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/7a479e525582d09f315c2cf2a99075d6a798b535",
+                "reference": "7a479e525582d09f315c2cf2a99075d6a798b535",
                 "shasum": ""
             },
             "type": "component",
@@ -4778,19 +4778,25 @@
                 "LGPL-2.1-only"
             ],
             "description": "Web based JavaScript HTML WYSIWYG editor control.",
-            "homepage": "http://www.tinymce.com",
+            "homepage": "https://www.tiny.cloud/",
             "keywords": [
-                "editor",
+                "contenteditable",
+                "editing",
                 "html",
                 "javascript",
+                "rich editor",
+                "rich text",
+                "rich text editor",
                 "richtext",
+                "rte",
+                "text",
                 "tinymce",
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/5.8.2"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/5.9.0"
             },
-            "time": "2021-06-23T06:52:46+00:00"
+            "time": "2021-08-26T05:43:13+00:00"
         },
         {
             "name": "twbs/bootstrap",
