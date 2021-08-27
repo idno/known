@@ -31,7 +31,7 @@
         "idno/torophp": "^3.0",
         "mf2/mf2": "0.4.6",
         "swiftmailer/swiftmailer": "6.2.7",
-        "forkawesome/fork-awesome": "1.1.7",
+        "forkawesome/fork-awesome": "1.2",
         "twbs/bootstrap": "3.4.1",
         "ezyang/htmlpurifier": "4.13.0",
         "rmm5t/jquery-timeago": "1.6.7",
