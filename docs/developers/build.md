@@ -16,7 +16,7 @@ You may also need to run `npm rebuild node-sass` if you see errors.
 
 ### Testing your changes
 
-If you've made JS changes, you can check your code using ```npm run grunt -- test``` to run linting, etc
+If you've made JS or CSS changes, you can check your code using ```npm run grunt -- test``` to run linting, etc
 
 ### Minify your changes
 
@@ -25,6 +25,8 @@ To get your javascript or css changes to be used by Known, you'll need to build 
 ## Building SASS/CSS
 
 Known now uses SCSS to define the main style sheets, and as such you will need to build a new minified stylesheet using the same ```npm run grunt``` build task.
+
+The `stylelint` grunt task will report errors.  Many of these can be fixed automatically by running `node-modules/.bin/stylelint --fix` on the changed files.
 
 !!! note "Watching for changes"
     If you're doing a lot of editing, you're probably going to forget to refresh your changes. Start your development session by running ```npm run grunt -- watch``` to look for changes in your javascript and SCSS files, and to automatically build your changes!

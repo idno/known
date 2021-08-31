@@ -19,7 +19,7 @@
  */
 
 /*jshint ignore:start*/
-const sass = require('node-sass'); // Use Node SASS (wrapper around libsass)
+const sass = require('dart-sass');
 /*jshint ignore:end*/
 
 module.exports = function (grunt) {
@@ -132,12 +132,8 @@ module.exports = function (grunt) {
         "dest": "js/modernizr/modernizr-custom.js"
       }
     },
-    csslint: {
-      options: {
-        quiet: true,
-        ids: false
-      },
-      src: ['css/*.css', '!*.min.css']
+    stylelint: {
+      all: ['css/scss/*.scss', 'css/scss/known/*.scss']
     },
     jshint: {
       // define the files to lint
@@ -180,7 +176,7 @@ module.exports = function (grunt) {
         },
         sass: {
             files: 'css/scss/**/*.scss',
-            tasks:  ['build-css', 'csslint']
+            tasks:  ['build-css', 'stylelint']
         },
         js: {
             files: ['js/src/**/*.js', 'Gruntfile.js'],
@@ -197,12 +193,12 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-csslint');
+  grunt.loadNpmTasks('grunt-stylelint');
   grunt.loadNpmTasks("grunt-modernizr");
 
 
   // Tests
-  grunt.registerTask('test', ['csslint', 'jshint']);
+  grunt.registerTask('test', ['stylelint', 'jshint']);
 
   // Build language pack
   grunt.registerTask('build-lang', '', function () {
