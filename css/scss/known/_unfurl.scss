@@ -1,0 +1,51 @@
+/**
+ Skinning the Unfurled object
+ */
+div.unfurled-url {
+    margin-bottom: 10px;
+
+    .basics {
+        border: #ddd dotted 1px;
+        height: 17rem;
+        overflow: hidden;
+        padding: 1rem;
+
+        h2 {
+            font-size: 1.4em;
+            margin-top: 1rem;
+            padding-left: 0.5rem;
+        }
+
+        .byline {
+            text-transform: uppercase;
+        }
+
+        .image {
+            float: left;
+            height: 15rem;
+            margin-right: 1rem;
+            width: 15rem;
+
+            img {
+                height: 100%;
+                object-fit: cover;
+                width: 100%;
+            }
+        }
+
+        .text {
+            margin-left: 1rem;
+        }
+
+        blockquote {
+            border-left: 0;
+            height: 8rem;
+            overflow: hidden;
+            padding-left: 0;
+        }
+    }
+}
+
+.idno-entry div.unfurled-url {
+    margin-top: 30px;
+}
