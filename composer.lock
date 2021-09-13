@@ -113,16 +113,16 @@
         },
         {
             "name": "composer/installers",
-            "version": "v1.11.0",
+            "version": "v1.12.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "ae03311f45dfe194412081526be2e003960df74b"
+                "reference": "d20a64ed3c94748397ff5973488761b22f6d3f19"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/ae03311f45dfe194412081526be2e003960df74b",
-                "reference": "ae03311f45dfe194412081526be2e003960df74b",
+                "url": "https://api.github.com/repos/composer/installers/zipball/d20a64ed3c94748397ff5973488761b22f6d3f19",
+                "reference": "d20a64ed3c94748397ff5973488761b22f6d3f19",
                 "shasum": ""
             },
             "require": {
@@ -221,6 +221,7 @@
                 "modx",
                 "moodle",
                 "osclass",
+                "pantheon",
                 "phpbb",
                 "piwik",
                 "ppi",
@@ -243,7 +244,7 @@
             ],
             "support": {
                 "issues": "https://github.com/composer/installers/issues",
-                "source": "https://github.com/composer/installers/tree/v1.11.0"
+                "source": "https://github.com/composer/installers/tree/v1.12.0"
             },
             "funding": [
                 {
@@ -259,7 +260,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-04-28T06:42:17+00:00"
+            "time": "2021-09-13T08:19:44+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -1356,16 +1357,16 @@
         },
         {
             "name": "idno/status",
-            "version": "1.0.5",
+            "version": "1.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/status.git",
-                "reference": "9ef70f8a60f24f3a4e38ff34cde98fc05040fb0b"
+                "reference": "8517acf82892cc84f327bf4e0e45f693954fbeda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/status/zipball/9ef70f8a60f24f3a4e38ff34cde98fc05040fb0b",
-                "reference": "9ef70f8a60f24f3a4e38ff34cde98fc05040fb0b",
+                "url": "https://api.github.com/repos/idno/status/zipball/8517acf82892cc84f327bf4e0e45f693954fbeda",
+                "reference": "8517acf82892cc84f327bf4e0e45f693954fbeda",
                 "shasum": ""
             },
             "require": {
@@ -1384,9 +1385,9 @@
             "description": "Simple status updates for Known.",
             "support": {
                 "issues": "https://github.com/idno/status/issues",
-                "source": "https://github.com/idno/status/tree/1.0.5"
+                "source": "https://github.com/idno/status/tree/1.0.6"
             },
-            "time": "2021-02-02T06:55:10+00:00"
+            "time": "2021-09-12T20:52:27+00:00"
         },
         {
             "name": "idno/styles",
