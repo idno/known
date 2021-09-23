@@ -72,7 +72,7 @@ if (!empty($vars['label'])) {
             min_height: <?php echo $height?>,
             resize: true,
             toolbar: 'styleselect | bold italic | link image | blockquote bullist numlist | alignleft aligncenter alignright | code',
-            plugins: 'code link image autoresize <?php if (!empty($vars['wordcount'])) { echo " wordcount";
+            plugins: 'code link image autoresize lists <?php if (!empty($vars['wordcount'])) { echo " wordcount";
                                                  } ?>',
             relative_urls : false,
             remove_script_host : false,
@@ -86,7 +86,7 @@ if (!empty($vars['label'])) {
             mobile: {
                 theme: 'silver',
                 toolbar: 'styleselect | bold italic | link image | blockquote bullist numlist | alignleft aligncenter alignright | code',
-                plugins: 'code link image autoresize <?php if (!empty($vars['wordcount'])) { echo " wordcount";
+                plugins: 'code link image autoresize lists <?php if (!empty($vars['wordcount'])) { echo " wordcount";
                                                      } ?>'
             }
         });
