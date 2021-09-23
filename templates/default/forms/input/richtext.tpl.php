@@ -82,12 +82,6 @@ if (!empty($vars['label'])) {
             valid_styles : 'font-style,color,text-align,text-decoration,float,display,margin-left,margin-right',
             file_picker_callback: function (callback, value, meta) {
                 filePickerDialog(callback, value, meta);
-            },
-            mobile: {
-                theme: 'silver',
-                toolbar: 'styleselect | bold italic | link image | blockquote bullist numlist | alignleft aligncenter alignright | code',
-                plugins: 'code link image autoresize lists <?php if (!empty($vars['wordcount'])) { echo " wordcount";
-                                                     } ?>'
             }
         });
     }
