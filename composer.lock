@@ -1429,16 +1429,16 @@
         },
         {
             "name": "idno/text",
-            "version": "1.0.7",
+            "version": "1.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/text.git",
-                "reference": "07c8b29e774b3333326c1aeca25bf071ce210974"
+                "reference": "bacc6343449f6bc1dd02819add3d922e99bda777"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/text/zipball/07c8b29e774b3333326c1aeca25bf071ce210974",
-                "reference": "07c8b29e774b3333326c1aeca25bf071ce210974",
+                "url": "https://api.github.com/repos/idno/text/zipball/bacc6343449f6bc1dd02819add3d922e99bda777",
+                "reference": "bacc6343449f6bc1dd02819add3d922e99bda777",
                 "shasum": ""
             },
             "require": {
@@ -1457,9 +1457,9 @@
             "description": "A lightweight blogging engine.",
             "support": {
                 "issues": "https://github.com/idno/text/issues",
-                "source": "https://github.com/idno/text/tree/1.0.7"
+                "source": "https://github.com/idno/text/tree/1.0.8"
             },
-            "time": "2021-04-28T16:36:09+00:00"
+            "time": "2021-09-28T05:11:31+00:00"
         },
         {
             "name": "idno/theme-black",
