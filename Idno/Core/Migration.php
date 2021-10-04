@@ -293,9 +293,8 @@ namespace Idno\Core {
          *
          * @param $xml
          */
-        static function importFeedXML($xml)
+        static function importFeedXML(string $xml): bool
         {
-
             // Blogger will be imported as blog posts, so make sure we can import those ...
             if (!($text = Idno::site()->plugins()->get('Text'))) {
                 return false;
@@ -341,16 +340,20 @@ namespace Idno\Core {
                             $body .= '<p>' . implode(' ', $tags) . '</p>';
                         }
 
-                        self::importImagesFromBodyHTML($body, 'blogspot.com');
+                        $body = self::importImagesFromBodyHTML($body, 'blogspot.com');
 
                         $object = new \IdnoPlugins\Text\Entry();
                         $object->setTitle(html_entity_decode($item->get_title()));
                         $object->created = strtotime(($item->get_date("c")));
                         $object->body = ($body);
                         //$object->publish(true);
-                        $object->save();
-
-                        $imported++;
+                        $new_id = $object->save();
+                        if (!empty($new_id)) {
+                          $imported++;
+                          \Idno\Core\Idno::site()->logging()->debug("..id=$new_id");
+                        } else {
+                          \Idno\Core\Idno::site()->logging()->debug("..failed to import ");
+                        }
                     }
                 }
 
@@ -361,9 +364,8 @@ namespace Idno\Core {
             }
         }
 
-        static function importImagesFromBodyHTML($body, $src_url)
+        static function importImagesFromBodyHTML(string $body, string $src_url): string
         {
-
             $doc = new \DOMDocument();
             if (@$doc->loadHTML($body)) {
                 if ($images = $doc->getElementsByTagName('img')) {
@@ -398,6 +400,7 @@ namespace Idno\Core {
                     }
                 }
             }
+            return $body;
         }
 
         /**
@@ -405,9 +408,8 @@ namespace Idno\Core {
          *
          * @param $xml
          */
-        static function importBloggerXML($xml)
+        static function importBloggerXML(string $xml): bool
         {
-
             return self::importFeedXML($xml);
         }
 
@@ -416,9 +418,8 @@ namespace Idno\Core {
          *
          * @param $xml
          */
-        static function importWordPressXML($xml)
+        static function importWordPressXML(string $xml): bool
         {
-
             // XML will be imported as blog posts, so make sure we can import those ...
             if (!($text = \Idno\Core\Idno::site()->plugins()->get('Text'))) {
                 return false;
@@ -483,28 +484,39 @@ namespace Idno\Core {
                                 }
                             }
 
-                            self::importImagesFromBodyHTML($body, parse_url($item['link'], PHP_URL_HOST));
+                            // TODO add ability to control which images are imported from the html
+                            $body = self::importImagesFromBodyHTML($body, 'wordpress.com');
                             if (empty($item['title']) && strlen($body) < 600) {
                                 \Idno\Core\Idno::site()->logging()->debug("Creating new Status post");
                                 $object = new \IdnoPlugins\Status\Status();
                                 $object->created = $published;
                                 $object->body = ($body);
-                                $object->save();
-                                //$object->publish(true); // Pingig probably a bad idea for imports, plus it is vvvvveeeeeeeerrrrrrrrrryyyyyyy slow
-
-                                $imported++;
+                                $new_id = $object->save();
+                                //$object->publish(true); // Pinging probably a bad idea for imports, plus it is vvvvveeeeeeeerrrrrrrrrryyyyyyy slow
+                                if (!empty($new_id)) {
+                                  $imported++;
+                                  \Idno\Core\Idno::site()->logging()->debug("..id=$new_id");
+                                } else {
+                                  \Idno\Core\Idno::site()->logging()->debug("..failed to import ");
+                                }
                             } else {
                                 \Idno\Core\Idno::site()->logging()->debug("Creating new Entry from '$title'");
                                 $object = new \IdnoPlugins\Text\Entry();
                                 $object->setTitle(html_entity_decode($title));
                                 $object->created = $published;
                                 $object->body = ($body);
-                                $object->save();
-                                //$object->publish(true);
+                                $new_id = $object->save();
 
-                                $imported++;
+                                //$object->publish(true);
+                                if (!empty($new_id)) {
+                                  $imported++;
+                                  \Idno\Core\Idno::site()->logging()->debug("..id=$new_id");
+                                } else {
+                                  \Idno\Core\Idno::site()->logging()->debug("..failed to import ");
+                                }
                             }
 
+                            // TODO: should probably skip comments if failed to create post
                             if (!empty($item['wp:comment'])) {
                                 if (!is_array($item['wp:comment'])) {
                                     $item['wp:comment'] = [$item['wp:comment']];
@@ -661,4 +673,3 @@ namespace Idno\Core {
     }
 
 }
-
