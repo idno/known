@@ -54,7 +54,7 @@ If you need to use a non-standard database port, you can also select this:
 
     dbport = "Your database port"
 
-Additionally, you will need to create the database referred to in this configuration file, and ensure that it can be connected to using the user credentials you supply. For now, you will need to load the SQL schema stored in /schemas/mysql/mysql.sql.
+Additionally, you will need to create the database referred to in this configuration file, and ensure that it can be connected to using the user credentials you supply. For now, you will need to load the SQL schema stored in `/warmup/schemas/mysql/mysql.sql`.
 
 ### If you’re using Postgres
 
@@ -79,7 +79,7 @@ If you’re using MongoDB, you don’t have to do anything, and all uploaded fil
 
 Create a directory where file uploads will be stored. This must be outside of your document root. Set permissions such that the web server can read and write to it. chmod 777 will work, but is insecure and not recommended.
 
-Make a note of that full path. For example, /Users/ben/Sites/withknown.com/data/.
+Make a note of that full path. For example, `/Users/ben/Sites/withknown.com/data/`.
 
 Then, add the following to your config.ini file:
 
