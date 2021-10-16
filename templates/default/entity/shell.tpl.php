@@ -14,7 +14,7 @@ if ($object) {
                 <div class="col-md-1 col-md-offset-1 owner p-author h-card visible-md visible-lg">
                     <p>
                         <a href="<?php echo $owner->getDisplayURL() ?>" class="u-url icon-container">
-                            <img class="u-photo" src="<?php echo $owner->getIcon() ?>"/></a><br/>
+                            <img class="u-photo" src="<?php echo $owner->getIcon() ?>" alt="<?php echo htmlentities($owner->getName()); ?>"/></a><br/>
                         <a href="<?php echo $owner->getDisplayURL() ?>" class="p-name u-url fn"><?php echo htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8'); ?></a>
                     </p>
                 </div>
@@ -23,7 +23,7 @@ if ($object) {
                     <!--<div class="visible-xs">
                         <p class="p-author author h-card vcard">
                             <a href="<?php echo $owner->getDisplayURL() ?>" class="icon-container"><img
-                                    class="u-logo logo u-photo photo" src="<?php echo $owner->getIcon() ?>"/></a>
+                                    class="u-logo logo u-photo photo" src="<?php echo $owner->getIcon() ?>" alt="<?php echo htmlentities($owner->getName()); ?>"/></a>
                             <a class="p-name fn u-url url" href="<?php echo $owner->getDisplayURL() ?>"><?php echo htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8') ?></a>
                             <a class="u-url" href="<?php echo $owner->getDisplayURL() ?>">
                                 </a>
