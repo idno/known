@@ -11,7 +11,7 @@ class MutateTest extends \Tests\KnownTestCase
         $remoteuser = new \Idno\Entities\RemoteUser();
         $remoteuser->handle = 'Test Mutation User';
         $remoteuser->email = 'hello@withknown.com';
-        $remoteuser->setPassword(md5(rand())); // Set password to something random to mitigate security holes if cleanup fails
+        $remoteuser->setPassword(md5(openssl_random_pseudo_bytes(16))); // Set password to something random to mitigate security holes if cleanup fails
         $remoteuser->setTitle('Test Mutation');
 
         $id = $remoteuser->save(true);
