@@ -43,9 +43,7 @@ namespace Idno\Pages\File {
             header("Cache-Control: public");
             header('Expires: ' . date(\DateTime::RFC1123, time() + (86400 * 30))); // Cache files for 30 days!
             $this->setLastModifiedHeader($upload_ts);
-            //            if ($cache = \Idno\Core\Idno::site()->cache()) {
-            //                $cache->store("{$this->arguments[0]}_modified_ts", $upload_ts);
-            //            }
+
             if (!empty($object->file['mime_type'])) {
                 header('Content-type: ' . $object->file['mime_type']);
             } else {
