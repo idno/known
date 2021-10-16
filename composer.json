@@ -51,7 +51,7 @@
         "npm-asset/vanilla-fitvids": "1.2.0",
         "idno/mentionjs": "^1.0",
         "mapkyca/known-mongo-php-library": "1.0.3",
-        "indieweb/mention-client": "1.2.0",
+        "indieweb/mention-client": "^1.2.1",
         "twig/twig": "3.3.3",
         "masterminds/html5": "^2.7",
         "ramsey/uuid": "^4.1",
