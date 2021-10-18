@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8a5bf53e69563e0e3871752ae8d7088b",
+    "content-hash": "e1e9b303a5e6a8fa5ce521227fec2f28",
     "packages": [
         {
             "name": "brick/math",
@@ -1808,24 +1808,24 @@
         },
         {
             "name": "indieweb/mention-client",
-            "version": "1.2.0",
+            "version": "1.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/indieweb/mention-client-php.git",
-                "reference": "12e3dc4b3f8f9ae82fa7a3953792bea33f59118a"
+                "reference": "6807f4b1b96df7f47ea425eebfc7c032768652cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/indieweb/mention-client-php/zipball/12e3dc4b3f8f9ae82fa7a3953792bea33f59118a",
-                "reference": "12e3dc4b3f8f9ae82fa7a3953792bea33f59118a",
+                "url": "https://api.github.com/repos/indieweb/mention-client-php/zipball/6807f4b1b96df7f47ea425eebfc7c032768652cf",
+                "reference": "6807f4b1b96df7f47ea425eebfc7c032768652cf",
                 "shasum": ""
             },
             "require": {
                 "mf2/mf2": ">=0.2",
-                "php": ">=5.4"
+                "php": ">=5.6"
             },
             "require-dev": {
-                "phpunit/phpunit": "4.8.*"
+                "phpunit/phpunit": "^6"
             },
             "type": "library",
             "autoload": {
@@ -1848,9 +1848,9 @@
             "homepage": "https://github.com/indieweb/mention-client-php",
             "support": {
                 "issues": "https://github.com/indieweb/mention-client-php/issues",
-                "source": "https://github.com/indieweb/mention-client-php/tree/master"
+                "source": "https://github.com/indieweb/mention-client-php/tree/1.2.1"
             },
-            "time": "2018-10-27T19:41:41+00:00"
+            "time": "2021-02-02T13:13:07+00:00"
         },
         {
             "name": "league/oauth2-client",
