@@ -30,7 +30,7 @@
         "psr/log": "1.1.4",
         "idno/torophp": "^3.0",
         "mf2/mf2": "0.4.6",
-        "swiftmailer/swiftmailer": "6.2.7",
+        "swiftmailer/swiftmailer": "6.3.0",
         "forkawesome/fork-awesome": "1.2",
         "twbs/bootstrap": "3.4.1",
         "ezyang/htmlpurifier": "4.13.0",
