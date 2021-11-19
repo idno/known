@@ -1288,16 +1288,16 @@
         },
         {
             "name": "idno/photo",
-            "version": "1.0.3",
+            "version": "1.0.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/photo.git",
-                "reference": "71205eeda74625c521430a0f023bf7303ea0066a"
+                "reference": "822dfe973697b48d39a4f1345e9ec77906c3422c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/idno/photo/zipball/71205eeda74625c521430a0f023bf7303ea0066a",
-                "reference": "71205eeda74625c521430a0f023bf7303ea0066a",
+                "url": "https://api.github.com/repos/idno/photo/zipball/822dfe973697b48d39a4f1345e9ec77906c3422c",
+                "reference": "822dfe973697b48d39a4f1345e9ec77906c3422c",
                 "shasum": ""
             },
             "require": {
@@ -1316,9 +1316,9 @@
             "description": "Simple photo uploader for Known.",
             "support": {
                 "issues": "https://github.com/idno/photo/issues",
-                "source": "https://github.com/idno/photo/tree/1.0.3"
+                "source": "https://github.com/idno/photo/tree/1.0.4"
             },
-            "time": "2021-04-28T06:15:06+00:00"
+            "time": "2021-11-18T15:50:19+00:00"
         },
         {
             "name": "idno/staticpages",
