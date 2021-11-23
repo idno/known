@@ -37,7 +37,7 @@
         "rmm5t/jquery-timeago": "1.6.7",
         "tinymce/tinymce": "5.10.2",
         "symfony/event-dispatcher": "4.4.30",
-        "symfony/console": "4.4.33",
+        "symfony/console": "4.4.34",
         "symfony/http-foundation": "5.3.11",
         "symfony/cache": "5.3.10",
         "simplepie/simplepie": "1.5.6",
