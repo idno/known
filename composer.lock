@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3fbf77586142fef185b61b2c2d695f57",
+    "content-hash": "d39686ebc0eeeca8031101f31da57946",
     "packages": [
         {
             "name": "brick/math",
@@ -4852,16 +4852,16 @@
         },
         {
             "name": "twig/twig",
-            "version": "v3.3.5",
+            "version": "v3.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "a0f614a192829a4e7c597491ab0c4d276621af8a"
+                "reference": "8f168c6ffa3ce76d1786b3cd52275424a3fc675b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/a0f614a192829a4e7c597491ab0c4d276621af8a",
-                "reference": "a0f614a192829a4e7c597491ab0c4d276621af8a",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/8f168c6ffa3ce76d1786b3cd52275424a3fc675b",
+                "reference": "8f168c6ffa3ce76d1786b3cd52275424a3fc675b",
                 "shasum": ""
             },
             "require": {
@@ -4912,7 +4912,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.3.5"
+                "source": "https://github.com/twigphp/Twig/tree/v3.3.7"
             },
             "funding": [
                 {
@@ -4924,7 +4924,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-01-03T11:36:47+00:00"
+            "time": "2022-01-03T21:15:37+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
