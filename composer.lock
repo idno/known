@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1f43126702f7d62c887e452b2eb90281",
+    "content-hash": "a3be4f5470e4ab9f1b7f31d8d7f252ec",
     "packages": [
         {
             "name": "brick/math",
@@ -4746,16 +4746,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.10.2",
+            "version": "5.10.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "ef9962f1d40abbb80a4fd4f023151fd28f891a6c"
+                "reference": "dadd7f25e31680f1c6bf61d2fb0b15794f425cd1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/ef9962f1d40abbb80a4fd4f023151fd28f891a6c",
-                "reference": "ef9962f1d40abbb80a4fd4f023151fd28f891a6c",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/dadd7f25e31680f1c6bf61d2fb0b15794f425cd1",
+                "reference": "dadd7f25e31680f1c6bf61d2fb0b15794f425cd1",
                 "shasum": ""
             },
             "type": "component",
@@ -4797,9 +4797,9 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/5.10.2"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/5.10.3"
             },
-            "time": "2021-11-17T04:34:27+00:00"
+            "time": "2022-02-09T03:24:06+00:00"
         },
         {
             "name": "twbs/bootstrap",
