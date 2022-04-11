@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "379ef392effa6036cedb1260f735f818",
+    "content-hash": "b89c7a41c9f653b7b68570a7821fb271",
     "packages": [
         {
             "name": "brick/math",
@@ -4843,16 +4843,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "5.10.3",
+            "version": "6.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "dadd7f25e31680f1c6bf61d2fb0b15794f425cd1"
+                "reference": "8898185c29290f52515bbd1ce53816181ce37c0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/dadd7f25e31680f1c6bf61d2fb0b15794f425cd1",
-                "reference": "dadd7f25e31680f1c6bf61d2fb0b15794f425cd1",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/8898185c29290f52515bbd1ce53816181ce37c0f",
+                "reference": "8898185c29290f52515bbd1ce53816181ce37c0f",
                 "shasum": ""
             },
             "type": "component",
@@ -4862,12 +4862,14 @@
                         "tinymce.js",
                         "plugins/*/plugin.js",
                         "themes/*/theme.js",
-                        "themes/*/icons.js"
+                        "models/*/model.js",
+                        "icons/*/icons.js"
                     ],
                     "files": [
                         "tinymce.min.js",
                         "plugins/*/plugin.min.js",
                         "themes/*/theme.min.js",
+                        "models/*/model.min.js",
                         "skins/**",
                         "icons/*/icons.min.js"
                     ]
@@ -4875,7 +4877,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "LGPL-2.1-only"
+                "MIT-only"
             ],
             "description": "Web based JavaScript HTML WYSIWYG editor control.",
             "homepage": "https://www.tiny.cloud/",
@@ -4894,9 +4896,9 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/5.10.3"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/6.0.1"
             },
-            "time": "2022-02-09T03:24:06+00:00"
+            "time": "2022-03-23T02:04:52+00:00"
         },
         {
             "name": "twbs/bootstrap",
