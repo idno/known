@@ -9,8 +9,6 @@
 
 namespace Idno\Entities {
 
-    use PDO;
-
     class File
     {
 
