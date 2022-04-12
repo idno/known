@@ -11,7 +11,7 @@ if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
             src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/tinymce/tinymce/tinymce.min.js"
             type="text/javascript"></script>
         <script
-            src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/tinymce/tinymce/jquery.tinymce.min.js"
+            src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/npm-asset/tinymce--tinymce-jquery/dist/tinymce-jquery.min.js"
             type="text/javascript"></script>
         <?php
 
