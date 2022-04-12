@@ -35,7 +35,7 @@
         "twbs/bootstrap": "3.4.1",
         "ezyang/htmlpurifier": "4.14.0",
         "rmm5t/jquery-timeago": "1.6.7",
-        "tinymce/tinymce": "5.10.3",
+        "tinymce/tinymce": "6.0.1",
         "symfony/event-dispatcher": "4.4.37",
         "symfony/console": "4.4.40",
         "symfony/http-foundation": "5.4.6",
@@ -48,6 +48,7 @@
         "npm-asset/exif-js": "2.3.0",
         "npm-asset/jquery": "3.6.0",
         "npm-asset/mediaelement": "4.2.16",
+        "npm-asset/tinymce--tinymce-jquery": "2.0.0",
         "npm-asset/vanilla-fitvids": "1.2.0",
         "idno/mentionjs": "^1.0",
         "mapkyca/known-mongo-php-library": "1.0.3",
@@ -129,5 +130,10 @@
             "type": "opencollective",
             "url": "https://opencollective.com/known"
         }
-    ]
+    ],
+    "config": {
+        "allow-plugins": {
+            "composer/installers": true
+        }
+    }
 }
