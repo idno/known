@@ -9,6 +9,8 @@
 
 namespace Idno\Entities {
 
+    use PDO;
+
     class File
     {
 
@@ -293,7 +295,7 @@ namespace Idno\Entities {
         public static function isFileFreeFromScriptTags($file_path)
         {
             if ($contents = file_get_contents($file_path)) {
-                if (stripos($contents, '<script') || strpos($contents, '<?')) return false;
+                if (stripos($contents, '<script') || stripos($contents, '<?php')) return false;
                 return true;
             }
             return false;
