@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f9addada414f9e27f381ceb362ff2a6",
+    "content-hash": "1b4fc1b6a35c5f27ed8f650df8a53ceb",
     "packages": [
         {
             "name": "brick/math",
@@ -2496,13 +2496,14 @@
         },
         {
             "name": "npm-asset/mediaelement",
-            "version": "4.2.16",
+            "version": "5.0.4",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-4.2.16.tgz"
+                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-5.0.4.tgz"
             },
             "require": {
-                "npm-asset/global": ">=4.3.1,<5.0.0"
+                "npm-asset/global": ">=4.3.1,<5.0.0",
+                "npm-asset/svg4everybody": ">=2.1.9,<3.0.0"
             },
             "type": "npm-asset",
             "license": [
@@ -2558,6 +2559,18 @@
             "type": "npm-asset",
             "license": [
                 "MIT"
+            ]
+        },
+        {
+            "name": "npm-asset/svg4everybody",
+            "version": "2.1.9",
+            "dist": {
+                "type": "tar",
+                "url": "https://registry.npmjs.org/svg4everybody/-/svg4everybody-2.1.9.tgz"
+            },
+            "type": "npm-asset",
+            "license": [
+                "CC0-1.0"
             ]
         },
         {
