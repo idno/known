@@ -15,7 +15,9 @@ if (!empty($post)) {
             <?php if (!empty($owner_image)) { ?>
                     <p>
                         <a href="<?php echo $owner_url ?>" class="u-url icon-container">
-                            <img class="u-photo" src="<?php echo $owner_image ?>"/></a><br/>
+                            <img class="u-photo" 
+                                 src="<?php echo $owner_image ?>"
+                                 alt="<?php echo $owner_name ?>" /></a><br/>
                     </p>
             <?php } ?>
             </div>

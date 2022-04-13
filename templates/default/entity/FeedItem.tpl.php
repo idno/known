@@ -22,7 +22,8 @@ if (preg_match('@\\\\([\w]+)$@', get_class($item), $matches)) {
         <div class="visible-sm">
             <p class="p-author author h-card vcard">
                 <a href="<?php echo $item->getAuthorURL() ?>" class="icon-container"><img
-                        class="u-logo logo u-photo photo" src="<?php echo $item->getAuthorPhoto() ?>"/></a>
+                        class="u-logo logo u-photo photo" src="<?php echo $item->getAuthorPhoto() ?>"
+                        alt="<?php echo htmlspecialchars($item->getAuthorName()) ?>" /></a>
                 <a class="p-name fn u-url url" href="<?php echo $item->getAuthorURL() ?>"><?php echo $item->getAuthorName() ?></a>
             </p>
         </div>

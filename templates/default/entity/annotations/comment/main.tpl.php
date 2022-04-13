@@ -9,7 +9,8 @@ if (!empty($user) && !empty($object)) {
     <div class="row annotation-add">
         <div class="col-md-2 owner h-card visible-md visible-lg">
             <a href="<?php echo $user->getDisplayURL() ?>" class="u-url icon-container"><img class="u-photo"
-                                                                                      src="<?php echo $user->getIcon() ?>"/></a>
+                                                                                      src="<?php echo $user->getIcon() ?>"
+                                                                                      alt="<?php echo htmlspecialchars($user->getTitle()) ?>" /></a>
         </div>
         <div class="col-md-10 idno-comment-container">
             <form action="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>annotation/post" method="post">
