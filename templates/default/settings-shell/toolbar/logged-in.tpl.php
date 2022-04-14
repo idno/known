@@ -20,6 +20,6 @@
     <?php } ?>
 
 <li>
-    <a href="<?= \Idno\Core\Idno::site()->session()->currentUser()->getURL(); ?>"><img class="u-photo" src="<?php echo  \Idno\Core\Idno::site()->session()->currentUser()->getIcon(); ?>" /></a> 
+    <a href="<?php echo \Idno\Core\Idno::site()->session()->currentUser()->getURL(); ?>"><img class="u-photo" src="<?php echo  \Idno\Core\Idno::site()->session()->currentUser()->getIcon(); ?>" alt="<?php echo htmlspecialchars(\Idno\Core\Idno::site()->session()->currentUser()->getTitle()) ?>" /></a> 
 </li>
 

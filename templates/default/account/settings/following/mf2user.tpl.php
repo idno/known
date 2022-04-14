@@ -38,7 +38,7 @@ $nickname =  $properties['nickname'][0];
     <div class="col-md-8 idno-object idno-content">
         <div class="visible-sm">
         <p class="p-author author h-card vcard">
-            <img class="u-logo logo u-photo photo" src="<?php echo htmlspecialchars($photo) ?>" />
+            <img class="u-logo logo u-photo photo" src="<?php echo htmlspecialchars($photo) ?>" alt="<?php echo htmlspecialchars($name) ?>" />
             <span class="p-name fn"><?php echo $name ?></span>
         </p>
         </div>
