@@ -38,7 +38,7 @@
         "tinymce/tinymce": "6.0.1",
         "symfony/event-dispatcher": "4.4.37",
         "symfony/console": "4.4.40",
-        "symfony/http-foundation": "5.4.6",
+        "symfony/http-foundation": "6.0.8",
         "symfony/cache": "5.4.7",
         "simplepie/simplepie": "1.5.8",
         "mapkyca/mrclay_autop_known": "^1.0",
