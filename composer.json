@@ -36,7 +36,7 @@
         "ezyang/htmlpurifier": "4.14.0",
         "rmm5t/jquery-timeago": "1.6.7",
         "tinymce/tinymce": "6.0.3",
-        "symfony/event-dispatcher": "4.4.37",
+        "symfony/event-dispatcher": "4.4.42",
         "symfony/console": "4.4.42",
         "symfony/http-foundation": "5.4.9",
         "symfony/cache": "5.4.9",
