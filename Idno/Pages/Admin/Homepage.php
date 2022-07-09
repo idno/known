@@ -9,7 +9,7 @@ namespace Idno\Pages\Admin {
 
         function getContent()
         {
-            $this->createGatekeeper(); // Logged-in only please
+            $this->adminGatekeeper(); // Admins only
             $t                     = \Idno\Core\Idno::site()->template();
             $t->content_types      = \Idno\Common\ContentType::getRegistered();
             $default_content_types = \Idno\Core\Idno::site()->config()->getHomepageContentTypes(); //\Idno\Core\Idno::site()->session()->currentUser()->settings['default_feed_content'];
@@ -28,7 +28,7 @@ namespace Idno\Pages\Admin {
 
         function postContent()
         {
-            $this->createGatekeeper(); // Logged-in only please
+            $this->adminGatekeeper(); // Admins only
             $user = \Idno\Core\Idno::site()->session()->currentUser();
 
             $default_feed_content = $this->getInput('default_feed_content');
