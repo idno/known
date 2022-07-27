@@ -35,7 +35,7 @@
         "twbs/bootstrap": "3.4.1",
         "ezyang/htmlpurifier": "4.14.0",
         "rmm5t/jquery-timeago": "1.6.7",
-        "tinymce/tinymce": "6.0.3",
+        "tinymce/tinymce": "6.1.1",
         "symfony/event-dispatcher": "4.4.42",
         "symfony/console": "4.4.43",
         "symfony/http-foundation": "5.4.10",
