@@ -1511,7 +1511,7 @@
         },
         {
             "name": "idno/text",
-            "version": "1.0.8",
+            "version": "1.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/idno/text.git",
