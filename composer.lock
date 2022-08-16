@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48edef42c8979c3927ff42db56519c52",
+    "content-hash": "eb8d22ab9ba008b829fa3374b6193599",
     "packages": [
         {
             "name": "brick/math",
@@ -2386,18 +2386,6 @@
             "time": "2022-02-10T01:05:27+00:00"
         },
         {
-            "name": "npm-asset/bootstrap",
-            "version": "3.4.1",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.4.1.tgz"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
             "name": "npm-asset/bootstrap-accessibility-plugin",
             "version": "v1.0.7",
             "source": {
@@ -2438,16 +2426,16 @@
         },
         {
             "name": "npm-asset/eonasdan-bootstrap-datetimepicker",
-            "version": "4.17.49",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/eonasdan-bootstrap-datetimepicker/-/eonasdan-bootstrap-datetimepicker-4.17.49.tgz"
+            "version": "v6.0.0",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:eonasdan/bootstrap-datetimepicker.git",
+                "reference": "1a7a34b647e9724b537f69da5a4c704c93162bf8"
             },
-            "require": {
-                "npm-asset/bootstrap": ">=3.3.0,<4.0.0",
-                "npm-asset/jquery": ">=3.5.1,<4.0.0",
-                "npm-asset/moment": ">=2.10.0,<3.0.0",
-                "npm-asset/moment-timezone": ">=0.4.0,<0.5.0"
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/eonasdan/bootstrap-datetimepicker/zipball/1a7a34b647e9724b537f69da5a4c704c93162bf8",
+                "reference": "1a7a34b647e9724b537f69da5a4c704c93162bf8"
             },
             "type": "npm-asset",
             "license": [
@@ -2521,33 +2509,6 @@
                 "npm-asset/dom-walk": ">=0.1.0,<0.2.0"
             },
             "type": "npm-asset"
-        },
-        {
-            "name": "npm-asset/moment",
-            "version": "2.29.2",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/moment/-/moment-2.29.2.tgz"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
-        },
-        {
-            "name": "npm-asset/moment-timezone",
-            "version": "0.4.1",
-            "dist": {
-                "type": "tar",
-                "url": "https://registry.npmjs.org/moment-timezone/-/moment-timezone-0.4.1.tgz"
-            },
-            "require": {
-                "npm-asset/moment": ">=2.6.0"
-            },
-            "type": "npm-asset",
-            "license": [
-                "MIT"
-            ]
         },
         {
             "name": "npm-asset/process",
