@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "daa5262ce404a93b5cc3f7f2852a85ed",
+    "content-hash": "dcb852cb61e53186e45acfc503925104",
     "packages": [
         {
             "name": "brick/math",
@@ -2480,10 +2480,10 @@
         },
         {
             "name": "npm-asset/jquery",
-            "version": "3.6.0",
+            "version": "3.6.1",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/jquery/-/jquery-3.6.0.tgz"
+                "url": "https://registry.npmjs.org/jquery/-/jquery-3.6.1.tgz"
             },
             "type": "npm-asset",
             "license": [
