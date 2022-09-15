@@ -671,7 +671,7 @@ namespace Idno\Data {
                         $line .= ' values ';
                         $line .= '(' . implode(',', $object) . ');';
                         $output .= $line . "\n";
-                        $metadata_statement = $client->prepare("select * from {$collection}_metadata where `entity` = :uuid");
+                        $metadata_statement = $client->prepare("select * from {$collection}_metadata where `_id` = :uuid");
                         if ($metadata_response = $metadata_statement->execute([':uuid' => $uuid])) {
                             while ($object = $metadata_statement->fetch(\PDO::FETCH_ASSOC)) {
                                 $fields = array_keys($object);
