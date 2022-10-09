@@ -59,7 +59,7 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                             [
                             'version' => $requirements['known'],
                             ]
-                        )->draw('admin/dependencies/idno'); ?> </label>
+                                  )->draw('admin/dependencies/idno'); ?> </label>
                         </p>
                         <?php
                     }
@@ -72,7 +72,7 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                             [
                             'version' => $requirements['build'],
                             ]
-                        )->draw('admin/dependencies/build'); ?> </label>
+                                  )->draw('admin/dependencies/build'); ?> </label>
                         </p>
                         <?php
                     }
@@ -85,7 +85,7 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                             [
                             'version' => $requirements['php']
                             ]
-                        )->draw('admin/dependencies/php'); ?> </label>
+                                  )->draw('admin/dependencies/php'); ?> </label>
                         </p>
                         <?php
                     }

@@ -310,7 +310,7 @@ namespace Idno\Data {
          */
         function formatDate($timestamp)
         {
-            return date( 'Y-m-d H:i:s', $timestamp);
+            return date('Y-m-d H:i:s', $timestamp);
         }
 
         /**
