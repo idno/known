@@ -349,10 +349,10 @@ namespace Idno\Core {
                         //$object->publish(true);
                         $new_id = $object->save();
                         if (!empty($new_id)) {
-                          $imported++;
-                          \Idno\Core\Idno::site()->logging()->debug("..id=$new_id");
+                            $imported++;
+                            \Idno\Core\Idno::site()->logging()->debug("..id=$new_id");
                         } else {
-                          \Idno\Core\Idno::site()->logging()->debug("..failed to import ");
+                            \Idno\Core\Idno::site()->logging()->debug("..failed to import ");
                         }
                     }
                 }
@@ -494,10 +494,10 @@ namespace Idno\Core {
                                 $new_id = $object->save();
                                 //$object->publish(true); // Pinging probably a bad idea for imports, plus it is vvvvveeeeeeeerrrrrrrrrryyyyyyy slow
                                 if (!empty($new_id)) {
-                                  $imported++;
-                                  \Idno\Core\Idno::site()->logging()->debug("..id=$new_id");
+                                    $imported++;
+                                    \Idno\Core\Idno::site()->logging()->debug("..id=$new_id");
                                 } else {
-                                  \Idno\Core\Idno::site()->logging()->debug("..failed to import ");
+                                    \Idno\Core\Idno::site()->logging()->debug("..failed to import ");
                                 }
                             } else {
                                 \Idno\Core\Idno::site()->logging()->debug("Creating new Entry from '$title'");
@@ -509,10 +509,10 @@ namespace Idno\Core {
 
                                 //$object->publish(true);
                                 if (!empty($new_id)) {
-                                  $imported++;
-                                  \Idno\Core\Idno::site()->logging()->debug("..id=$new_id");
+                                    $imported++;
+                                    \Idno\Core\Idno::site()->logging()->debug("..id=$new_id");
                                 } else {
-                                  \Idno\Core\Idno::site()->logging()->debug("..failed to import ");
+                                    \Idno\Core\Idno::site()->logging()->debug("..failed to import ");
                                 }
                             }
 

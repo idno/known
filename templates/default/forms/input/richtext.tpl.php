@@ -81,8 +81,8 @@ if (!empty($vars['label'])) {
                 filePickerDialog(callback, value, meta);
             },
             toolbar: 'styles | bold italic | link image | blockquote bullist numlist | alignleft aligncenter alignright | emoticons | code',
-            plugins: 'code link image autoresize lists emoticons <?php 
-                if (!empty($vars['wordcount'])) { echo " wordcount";
+            plugins: 'code link image autoresize lists emoticons <?php
+            if (!empty($vars['wordcount'])) { echo " wordcount";
             } ?>',
         });
     }
