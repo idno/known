@@ -183,7 +183,7 @@ namespace Idno\Core {
 
         public function offsetGet($offset): mixed
         {
-            return isset($this->routes[$offset]) ? $this->routes[$offset] : false;
+            return isset($this->routes[$offset]) ? $this->routes[$offset] : null;
         }
 
         public function offsetSet($offset, $value): void
