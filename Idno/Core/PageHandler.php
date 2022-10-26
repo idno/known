@@ -181,7 +181,7 @@ namespace Idno\Core {
             return isset($this->routes[$offset]);
         }
 
-        public function offsetGet($offset)
+        public function offsetGet($offset): mixed
         {
             return isset($this->routes[$offset]) ? $this->routes[$offset] : null;
         }
@@ -200,27 +200,27 @@ namespace Idno\Core {
             unset($this->routes[$offset]);
         }
 
-        function rewind()
+        function rewind(): void
         {
-            return reset($this->routes);
+            reset($this->routes);
         }
 
-        function current()
+        function current(): mixed
         {
             return current($this->routes);
         }
 
-        function key()
+        function key(): mixed
         {
             return key($this->routes);
         }
 
-        function next()
+        function next(): void
         {
-            return next($this->routes);
+            next($this->routes);
         }
 
-        function valid()
+        function valid(): bool
         {
             return key($this->routes) !== null;
         }
