@@ -49,7 +49,7 @@ namespace Idno\Core {
          * @param  mixed  $default   Default response (if not forwarding)
          * @return mixed
          */
-        function triggerEvent($eventName, $data = array(), $default = true)
+        function triggerEvent(string $eventName, $data = array(), $default = true)
         {
             $stats = \Idno\Core\Idno::site()->statistics();
             if (!empty($stats)) {
@@ -58,7 +58,7 @@ namespace Idno\Core {
 
             $event = new Event($data);
             $event->setResponse($default);
-            $event = $this->dispatcher->dispatch($eventName, $event);
+            $event = $this->dispatcher->dispatch($event, $eventName);
             if (!$event->forward()) {
                 return $event->response();
             } else {
@@ -75,7 +75,7 @@ namespace Idno\Core {
          */
         function dispatch(string $eventName, Event $event = null)
         {
-            return $this->dispatcher->dispatch($eventName, $event);
+            return $this->dispatcher->dispatch($event, $eventName);
         }
     }
 }

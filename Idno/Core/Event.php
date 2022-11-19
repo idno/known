@@ -9,7 +9,7 @@
 
 namespace Idno\Core {
 
-    class Event extends \Symfony\Component\EventDispatcher\Event
+    class Event extends \Symfony\Contracts\EventDispatcher\Event
     {
 
         protected $data = array();
