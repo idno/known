@@ -26,7 +26,6 @@ namespace Idno\Caching {
             if (empty($pathbase)) {
                 $pathbase = \Idno\Core\Idno::site()->config()->getTempDir();
             }
-
             $engine = new FilesystemAdapter($domain, 0, $pathbase);
 
             $this->setCacheEngine($engine);
