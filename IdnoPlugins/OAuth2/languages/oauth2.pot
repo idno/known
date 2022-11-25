@@ -1,0 +1,188 @@
+#: ./Token.php:72
+msgid "The Application for this client id could not be found"
+msgstr ""
+
+#: ./Token.php:78
+msgid "No private key could be found"
+msgstr ""
+
+#: ./Token.php:84
+msgid "There was a problem generating a OIDC token"
+msgstr ""
+
+#: ./Main.php:151
+msgid "Token scope doesn't match that which was previously granted!"
+msgstr ""
+
+#: ./Main.php:159
+msgid "Token user could not be retrieved."
+msgstr ""
+
+#: ./Main.php:162
+msgid "Access token %s has expired."
+msgstr ""
+
+#: ./Main.php:165
+msgid "Access token %s does not match any stored token."
+msgstr ""
+
+#: ./templates/default/oauth2/forms/connect.tpl.php:4
+msgid "Authorise connection to %s"
+msgstr ""
+
+#: ./templates/default/oauth2/forms/connect.tpl.php:13
+msgid "Application has asked to connect to your account with the following privileges %s, do you want to allow it?"
+msgstr ""
+
+#: ./templates/default/oauth2/forms/connect.tpl.php:15
+msgid "Application has asked to connect to your account, do you want to allow it?"
+msgstr ""
+
+#: ./templates/default/oauth2/forms/connect.tpl.php:22
+msgid "Cancel"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:5
+msgid "Manage OAuth2 Applications"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:15
+msgid "These are your OAuth2 Applications, which you or others can use to connect third party applications to."
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:25
+msgid "Your application name"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:29
+msgid "New Application name"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:33
+msgid "Generate new keys..."
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:47
+msgid "Your Applications"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:68
+msgid "App Key"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:71
+msgid "Secret"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:76
+msgid "Public key"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:87
+msgid "Delete"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:87
+msgid "Are you sure? This will delete this application."
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:111
+msgid "Auth URL"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:123
+msgid "Token URL"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:135
+msgid "Connect URL"
+msgstr ""
+
+#: ./templates/default/account/oauth2.tpl.php:148
+msgid "Owner Resource URL"
+msgstr ""
+
+#: ./templates/default/account/oauth2/menu.tpl.php:1
+msgid "OAuth2 Applications"
+msgstr ""
+
+#: ./Pages/Token.php:25
+msgid "Required parameter grant_type is missing!"
+msgstr ""
+
+#: ./Pages/Token.php:37
+msgid "Required parameter refresh_token is missing!"
+msgstr ""
+
+#: ./Pages/Token.php:42
+msgid "Sorry, that refresh token appears to be invalid!"
+msgstr ""
+
+#: ./Pages/Token.php:49
+msgid "Invalid state given"
+msgstr ""
+
+#: ./Pages/Token.php:72
+msgid "Server problem, couldn't refresh token. Try again in a bit..."
+msgstr ""
+
+#: ./Pages/Token.php:83
+msgid "Required parameter client_id is missing!"
+msgstr ""
+
+#: ./Pages/Token.php:89
+msgid "I have no knowledge of the application identified by %s"
+msgstr ""
+
+#: ./Pages/Token.php:95
+msgid "Sorry, unknown or expired code!"
+msgstr ""
+
+#: ./Pages/Token.php:110
+msgid "Sorry, redirect_uri doesn't match the one given before!"
+msgstr ""
+
+#: ./Pages/Token.php:129
+msgid "Server problem, couldn't generate new tokens. Try again in a bit..."
+msgstr ""
+
+#: ./Pages/PublicKey.php:24
+msgid "No public key could be found"
+msgstr ""
+
+#: ./Pages/Authorisation.php:22
+msgid "Required parameter response_type is missing!"
+msgstr ""
+
+#: ./Pages/Authorisation.php:28
+msgid "Sorry, implicit grant is currently not supported."
+msgstr ""
+
+#: ./Pages/Authorisation.php:63
+msgid "Sorry, this code has been seen before!"
+msgstr ""
+
+#: ./Pages/Authorisation.php:67
+msgid "Bang, code incorrect"
+msgstr ""
+
+#: ./Pages/Connect.php:30
+msgid "Could not load client associated with %s"
+msgstr ""
+
+#: ./Pages/Account/Applications.php:32
+msgid "New application %s created!"
+msgstr ""
+
+#: ./Pages/Account/Applications.php:34
+msgid "Problem creating new application..."
+msgstr ""
+
+#: ./Pages/Account/Applications.php:41
+msgid "%s was removed."
+msgstr ""
+
+#: ./OIDCToken.php:22
+msgid "The Application for this token could not be found"
+msgstr ""
+

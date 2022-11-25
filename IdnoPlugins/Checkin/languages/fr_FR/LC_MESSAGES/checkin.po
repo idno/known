@@ -1,0 +1,68 @@
+#: ./Pages/Delete.php:18
+msgid "You don't have permission to perform this task."
+msgstr "Vous n’avez pas la permission d’effectuer cette tâche."
+
+#: ./Pages/Delete.php:23
+msgid "Your checkin was deleted."
+msgstr "Votre checkin a été supprimé."
+
+#: ./Pages/Delete.php:25
+msgid "We couldn't delete %s."
+msgstr "On n’a pas pu supprimer %s."
+
+#: ./Pages/Edit.php:32
+msgid "Where are you?"
+msgstr "Où es-tu?"
+
+#: ./Pages/Edit.php:34
+msgid "Edit checkin"
+msgstr "Modifier le checkin"
+
+#: ./templates/default/entity/Checkin/edit.tpl.php:10
+msgid "New Location"
+msgstr "Nouvel emplacement"
+
+#: ./templates/default/entity/Checkin/edit.tpl.php:12
+msgid "Edit Location"
+msgstr "Modifier l’emplacement"
+
+#: ./templates/default/entity/Checkin/edit.tpl.php:18
+msgid "Hang tight ... searching for your location."
+msgstr "Un moment s’il vous plaît ... recherche de votre emplacement."
+
+#: ./templates/default/entity/Checkin/edit.tpl.php:34
+msgid "Location"
+msgstr "Emplacement"
+
+#: ./templates/default/entity/Checkin/edit.tpl.php:53
+msgid "Address"
+msgstr "Adresse"
+
+#: ./templates/default/entity/Checkin/edit.tpl.php:54
+msgid "You can edit the address if it's wrong."
+msgstr "Vous pouvez modifier l’adresse si elle est éronnée."
+
+#: ./templates/default/entity/Checkin/edit.tpl.php:77
+msgid "Description"
+msgstr "Description"
+
+#: ./templates/default/entity/Checkin/edit.tpl.php:83
+msgid "Protect my location for 24 hours"
+msgstr "Protégez mon emplacement pendant 24 heures"
+
+#: ./templates/default/entity/Checkin/edit.tpl.php:89
+msgid "Publish"
+msgstr "Publier"
+
+#: ./templates/default/entity/Checkin/edit.tpl.php:91
+msgid "Save"
+msgstr "Enregistrer"
+
+#: ./Checkin.php:72
+msgid "Checked into %s"
+msgstr "Enregistré à %s"
+
+#: ./Checkin.php:85
+msgid "You can\\'t save an empty checkin."
+msgstr "Vous ne pouvez pas sauver un checkin vide."
+
