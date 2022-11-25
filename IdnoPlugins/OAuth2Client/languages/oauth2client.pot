@@ -1,0 +1,128 @@
+#: ./templates/default/admin/oauth2client/menu.tpl.php:2
+msgid "OAuth2 Client"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:20
+msgid "Your Callback URL"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:34
+msgid "Client Label"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:41
+msgid "Label for OAuth 2 client"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:48
+msgid "\"Sign in with\" button"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:55
+msgid "Graphic to use for the sign in with function"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:63
+msgid "Client ID"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:70
+msgid "Public key from your OAuth server"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:77
+msgid "Secret key"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:84
+msgid "Secret key from your OAuth server"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:91
+msgid "Redirect URI"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:98
+msgid "Where should we send the visitor after the OAuth2 handshake?"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:105
+msgid "Authorise URL"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:112
+msgid "Where should we send the auth request."
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:119
+msgid "Access Token URL"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:126
+msgid "Access token URL."
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:133
+msgid "Owner Resource URL"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:140
+msgid "Owner resource URL."
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:147
+msgid "Scopes (space separated)"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:154
+msgid "Scopes (space separated), e.g. openid profile email"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:161
+msgid "Public Key location"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:168
+msgid "If using OpenID Connect, the url of the public key"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client/form.tpl.php:175
+msgid "Save"
+msgstr ""
+
+#: ./templates/default/admin/oauth2client.tpl.php:16
+msgid "Configure your OAuth2 Apps here."
+msgstr ""
+
+#: ./templates/default/admin/oauth2client.tpl.php:26
+msgid "Configure client details"
+msgstr ""
+
+#: ./Pages/Admin.php:15
+msgid "OAuth2 Client Config"
+msgstr ""
+
+#: ./Pages/Admin.php:29
+msgid "Your OAuth 2 client settings were saved."
+msgstr ""
+
+#: ./Pages/Admin.php:31
+msgid "Your OAuth 2 client settings could not be saved."
+msgstr ""
+
+#: ./Pages/Authorise.php:19
+msgid "Could not find client"
+msgstr ""
+
+#: ./Pages/Authorise.php:79
+msgid "Could not validate OIDC token, as the public key is missing"
+msgstr ""
+
+#: ./Pages/Authorise.php:151
+msgid "Could not find a suitable handler for this user data."
+msgstr ""
+
+#: ./Entities/OAuth2Client.php:40
+msgid "Public key could not be retrieved from %s"
+msgstr ""
+

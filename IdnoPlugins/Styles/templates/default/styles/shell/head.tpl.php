@@ -1,0 +1,1 @@
+<link rel="stylesheet" href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>styles/site/"/>

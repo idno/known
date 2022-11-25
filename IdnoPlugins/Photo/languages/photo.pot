@@ -1,0 +1,80 @@
+#: ContentType.php:8
+msgid "Photo"
+msgstr ""
+
+#: ContentType.php:9
+msgid "Photos"
+msgstr ""
+
+#: ./Pages/Delete.php:29
+msgid "Delete %s"
+msgstr ""
+
+#: ./Pages/Delete.php:43
+msgid "You don't have permission to perform this task."
+msgstr ""
+
+#: ./Pages/Delete.php:48
+msgid "Your photo was deleted."
+msgstr ""
+
+#: ./Pages/Delete.php:50
+msgid "We couldn't delete your photo."
+msgstr ""
+
+#: ./Pages/Edit.php:34
+msgid "Upload a picture"
+msgstr ""
+
+#: ./Pages/Edit.php:36
+msgid "Edit picture details"
+msgstr ""
+
+#: ./templates/default/entity/Photo/edit.tpl.php:22
+msgid "New Photo"
+msgstr ""
+
+#: ./templates/default/entity/Photo/edit.tpl.php:24
+msgid "Edit Photo"
+msgstr ""
+
+#: ./templates/default/entity/Photo/edit.tpl.php:50
+msgid "Give it a title"
+msgstr ""
+
+#: ./templates/default/entity/Photo/edit.tpl.php:61
+msgid "Describe your photo"
+msgstr ""
+
+#: ./templates/default/entity/Photo/edit.tpl.php:62
+msgid "Description"
+msgstr ""
+
+#: ./templates/default/entity/Photo/edit.tpl.php:77
+msgid "Cancel"
+msgstr ""
+
+#: ./templates/default/entity/Photo/edit.tpl.php:78
+msgid "Publish"
+msgstr ""
+
+#: ./templates/default/entity/Photo.tpl.php:38
+msgid "%d more..."
+msgstr ""
+
+#: ./Photo.php:25
+msgid "Untitled"
+msgstr ""
+
+#: ./Photo.php:178
+msgid "Image wasn't attached."
+msgstr ""
+
+#: ./Photo.php:182
+msgid "This doesn't seem to be an image..."
+msgstr ""
+
+#: ./Photo.php:199
+msgid "We couldn't access your image for an unknown reason. Please try again."
+msgstr ""
+

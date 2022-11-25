@@ -1933,11 +1933,11 @@ namespace Idno\Common {
                         case ':slug':
                             return $this->getSlug();
                         case ':year':
-                            return strftime('%Y', $this->created);
+                            return date('%Y', $this->created);
                         case ':month':
-                            return strftime('%m', $this->created);
+                            return date('%m', $this->created);
                         case ':day':
-                            return strftime('%d', $this->created);
+                            return date('%d', $this->created);
                         default:
                             return $part;
                     }

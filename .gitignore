@@ -47,13 +47,7 @@ tests/_output/*
 
 IdnoPlugins.local/*
 
-IdnoPlugins/*
-
 ConsolePlugins/*
-
-
-Themes/*
-!Themes/index.html
 
 error_log
 
