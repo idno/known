@@ -129,21 +129,20 @@ namespace Idno\Caching {
             return $this->load($key);
         }
 
-        public function offsetSet($key, $value)
+        public function offsetSet(mixed $key, mixed $value): void
         {
             $this->store($key, $value);
         }
 
-        public function offsetExists($key)
+        public function offsetExists(mixed $key): bool
         {
             return (bool)$this->load($key);
         }
 
-        public function offsetUnset($key)
+        public function offsetUnset(mixed $key): void
         {
-            return $this->delete($key);
+            $this->delete($key);
         }
     }
 
 }
-

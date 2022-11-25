@@ -771,7 +771,7 @@ namespace Idno\Core {
             $component = null;
 
             // Try full namespace
-            if (class_exists($className)) {
+            if (!empty($className) && class_exists($className)) {
                 if (is_subclass_of($className, $expectedBaseClass)) {
                     $class = $className;
                 }
