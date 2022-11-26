@@ -71,7 +71,6 @@ if ($title == 'Untitled') {
                             'name' => 'category',
                             'id' => 'category',
                             'class' => 'selectpicker input-select form-control',
-                            'label' => \Idno\Core\Idno::site()->language()->_('Parent category'),
                             'options' => $vars['categories'],
                             'value' => $vars['category'],
                             'blank-default' => false,
@@ -87,9 +86,16 @@ if ($title == 'Untitled') {
                     <p>
                         <label for="forward_url">
                             <?php echo \Idno\Core\Idno::site()->language()->_('Forwarding URL'); ?></label>
-                        <input type="text" name="forward_url" id="forward_url"
-                                placeholder="<?php echo \Idno\Core\Idno::site()->language()->_('Website to forward users to'); ?>"
-                                value="<?php echo htmlspecialchars($forward_url) ?>" class="form-control"/>
+
+                        <?php
+                            echo $this->__([
+                                'name' => 'forward_url',
+                                'id' => 'forward_url',
+                                'class' => 'input-text form-control',
+                                'value' => $forward_url,
+                                'placeholder' => \Idno\Core\Idno::site()->language()->_('Website to forward users to')
+                            ])->draw('forms/input/url');
+                        ?>                            
                         <small><?php echo \Idno\Core\Idno::site()->language()->_('Most of the time, you should leave this blank. Include a URL here if you want users to be forwarded to an external page instead of displaying page content.'); ?></small>
                     </p>
                 </div>
