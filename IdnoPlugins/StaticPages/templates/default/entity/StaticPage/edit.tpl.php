@@ -125,9 +125,6 @@ if ($title == 'Untitled') {
                     </p>
                 </div>
 
-                <div class="page-cat">
-                </div>
-
                 <?php echo $this->draw('content/extra'); ?>
                 <?php echo $this->draw('content/access'); ?>
 
