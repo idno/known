@@ -16,7 +16,7 @@ web hosting provider.
 
 ### Installing
 
-Known is under active development and requires PHP 7.3+ with selected extensions, together with a supported database backend. You can find detailed installation instructions here: <http://docs.withknown.com/en/latest/install/index.html>
+Known is under active development and requires PHP 8.1+ with selected extensions, together with a supported database backend. You can find detailed installation instructions here: <http://docs.withknown.com/en/latest/install/index.html>
 
 #### Installing from packages
 
