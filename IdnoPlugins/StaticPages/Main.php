@@ -226,6 +226,9 @@ namespace IdnoPlugins\StaticPages {
                 $categories = str_replace("\r", '', \Idno\Core\Idno::site()->config()->staticPages['categories']);
                 $categories = explode("\n", $categories);
 
+                // Add "no category"
+                array_unshift($categories, 'No Category');
+
                 // Trim all categories first
                 array_filter($categories, function ($var) {
                     return trim($var);
@@ -233,6 +236,9 @@ namespace IdnoPlugins\StaticPages {
 
                 // Then remove any empty categories
                 array_filter($categories);
+                
+                // Set keys to equal values
+                $categories = array_combine($categories, $categories);
 
                 // Now send back the array
                 return $categories;

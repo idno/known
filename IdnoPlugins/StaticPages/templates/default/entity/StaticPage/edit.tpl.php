@@ -60,63 +60,46 @@ if ($title == 'Untitled') {
 
                 <?php echo $this->draw('entity/tags/input'); ?>
 
-                <div class="page-cat">
-                    <label>
-                        <?php echo \Idno\Core\Idno::site()->language()->_('Parent category'); ?></label><br>
-                    <select name="category" class="selectpicker">
-                        <option <?php if ($vars['category'] == 'No Category') {
-                            echo 'selected';
-} ?>><?php echo \Idno\Core\Idno::site()->language()->_('No Category'); ?>
-                        </option>
-                        <?php
+                <div class="page-cat form-group">
+                    <p>
+                    <label for="forward_url">
+                                <?php echo \Idno\Core\Idno::site()->language()->_('Page Category'); ?></label><br>
+                    <?php
+                        if (empty($vars['categories'])) $vars['categories'] = ['No category' => 'No Category'];
 
-                        if (!empty($vars['categories'])) {
-                            foreach ($vars['categories'] as $category) {
-
-                                ?>
-                                    <option <?php if ($category == $vars['category']) {
-                                        echo 'selected';
-} ?>><?php echo htmlspecialchars($category) ?></option>
-                                <?php
-
-                            }
-                        }
-
-                        ?>
-                    </select>
-
+                        echo $this->__([
+                            'name' => 'category',
+                            'id' => 'category',
+                            'class' => 'selectpicker input-select form-control',
+                            'options' => $vars['categories'],
+                            'value' => $vars['category'],
+                            'blank-default' => false,
+                        ])->draw('forms/input/select');
+                    ?>
+                        <small>
+                        <?php echo \Idno\Core\Idno::site()->language()->_('If a category is selected, this page will be placed under a drop-down menu for that category in the main menu bar.'); ?>
+                        </small>
+                    </p>
                 </div>
 
-                <p id="show-options">
-                    <small><a href="#" onclick="$('#moreoptions').toggle(); $('#show-options').hide(); return false;"><i
-                                class="fa fa-plus"></i>
-                            <?php echo \Idno\Core\Idno::site()->language()->_('Show advanced options'); ?></a></small>
-                </p>
-                <div id="moreoptions" <?php
-                if (empty($hide_title) && empty($forward_url)) {
-                    ?>
-                        style="display:none"
-                    <?php
-                }
-                ?>>
+                <div class="form-group">
+                    <p>
+                        <label for="forward_url">
+                            <?php echo \Idno\Core\Idno::site()->language()->_('Forwarding URL'); ?></label>
 
-                    <p id="hide-options">
-                        <small><a href="#"
-                                  onclick="$('#moreoptions').toggle(); $('#show-options').show(); return false;"><i
-                                    class="fa fa-minus"></i>
-                                <?php echo \Idno\Core\Idno::site()->language()->_('Hide advanced options'); ?></a></small>
+                        <?php
+                            echo $this->__([
+                                'name' => 'forward_url',
+                                'id' => 'forward_url',
+                                'class' => 'input-text form-control',
+                                'value' => $forward_url,
+                                'placeholder' => \Idno\Core\Idno::site()->language()->_('Website to forward users to')
+                            ])->draw('forms/input/url');
+                        ?>                            
+                        <small><?php echo \Idno\Core\Idno::site()->language()->_('Most of the time, you should leave this blank. Include a URL here if you want users to be forwarded to an external page instead of displaying page content.'); ?></small>
                     </p>
-
-                    <div>
-                        <p>
-                            <label for="forward_url">
-                                <?php echo \Idno\Core\Idno::site()->language()->_('Forward URL'); ?></label>
-                            <input type="text" name="forward_url" id="forward_url"
-                                   placeholder="<?php echo \Idno\Core\Idno::site()->language()->_('Website to forward users to'); ?>"
-                                   value="<?php echo htmlspecialchars($forward_url) ?>" class="form-control"/>
-                            <small><?php echo \Idno\Core\Idno::site()->language()->_('Most of the time, you should leave this blank. Include a URL here if you want users to be forwarded to an external page instead of displaying page content.'); ?></small>
-                        </p>
-                    </div>
+                </div>
+                <div class="form-group">
                     <p style="margin-bottom: 20px">
                         <strong><?php echo \Idno\Core\Idno::site()->language()->_('Show the page title as a heading?'); ?></strong><br>
                         <label class="radio-inline">
@@ -140,12 +123,6 @@ if ($title == 'Untitled') {
                             No
                         </label>
                     </p>
-
-                    <div class="page-cat">
-
-
-                    </div>
-
                 </div>
 
                 <?php echo $this->draw('content/extra'); ?>
