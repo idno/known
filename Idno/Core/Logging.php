@@ -126,10 +126,10 @@ namespace Idno\Core {
          * Write a message to the log.
          *
          * @param string $level
-         * @param string $message
+         * @param $message
          * @param array  $context
          */
-        public function log($level,string $message = LOGLEVEL_INFO, array $context = array()): void
+        public function log($level,$message = LOGLEVEL_INFO, array $context = array()): void
         {
             // backward compatibility
             if (is_string($level) && is_int($message)) {
@@ -204,12 +204,12 @@ namespace Idno\Core {
         /**
          * System is unusable.
          *
-         * @param string $message
+         * @param $message
          * @param array  $context
          *
          * @return null
          */
-        public function emergency(string $message, array $context = array()): void
+        public function emergency($message, array $context = array()): void
         {
             $this->log(LogLevel::EMERGENCY, $message, $context);
         }
@@ -220,12 +220,12 @@ namespace Idno\Core {
          * Example: Entire website down, database unavailable, etc. This should
          * trigger the SMS alerts and wake you up.
          *
-         * @param string $message
+         * @param $message
          * @param array  $context
          *
          * @return null
          */
-        public function alert(string $message, array $context = array()): void
+        public function alert($message, array $context = array()): void
         {
             $this->log(LogLevel::ALERT, $message, $context);
         }
@@ -235,12 +235,12 @@ namespace Idno\Core {
          *
          * Example: Application component unavailable, unexpected exception.
          *
-         * @param string $message
+         * @param $message
          * @param array  $context
          *
          * @return null
          */
-        public function critical(string $message, array $context = array()): void
+        public function critical($message, array $context = array()): void
         {
             $this->log(LogLevel::CRITICAL, $message, $context);
         }
@@ -249,12 +249,12 @@ namespace Idno\Core {
          * Runtime errors that do not require immediate action but should typically
          * be logged and monitored.
          *
-         * @param string $message
+         * @param $message
          * @param array  $context
          *
          * @return null
          */
-        public function error(string $message, array $context = array()): void
+        public function error($message, array $context = array()): void
         {
             $this->log(LogLevel::ERROR, $message, $context);
         }
@@ -265,12 +265,12 @@ namespace Idno\Core {
          * Example: Use of deprecated APIs, poor use of an API, undesirable things
          * that are not necessarily wrong.
          *
-         * @param string $message
+         * @param $message
          * @param array  $context
          *
          * @return null
          */
-        public function warning(string $message, array $context = array()): void
+        public function warning($message, array $context = array()): void
         {
             $this->log(LogLevel::WARNING, $message, $context);
         }
@@ -278,12 +278,12 @@ namespace Idno\Core {
         /**
          * Normal but significant events.
          *
-         * @param string $message
+         * @param $message
          * @param array  $context
          *
          * @return null
          */
-        public function notice(string $message, array $context = array()): void
+        public function notice($message, array $context = array()): void
         {
             $this->log(LogLevel::NOTICE, $message, $context);
         }
@@ -293,12 +293,12 @@ namespace Idno\Core {
          *
          * Example: User logs in, SQL logs.
          *
-         * @param string $message
+         * @param $message
          * @param array  $context
          *
          * @return null
          */
-        public function info(string $message, array $context = array()): void
+        public function info($message, array $context = array()): void
         {
             $this->log(LogLevel::INFO, $message, $context);
         }
@@ -306,12 +306,12 @@ namespace Idno\Core {
         /**
          * Detailed debug information.
          *
-         * @param string $message
+         * @param $message
          * @param array  $context
          *
          * @return null
          */
-        public function debug(string $message, array $context = array()): void
+        public function debug($message, array $context = array()): void
         {
             $this->log(LogLevel::DEBUG, $message, $context);
         }
@@ -323,7 +323,7 @@ namespace Idno\Core {
          * @param type $message
          * @param type $title
          */
-        public static function oopsAlert(string $message, $title = "")
+        public static function oopsAlert($message, $title = "")
         {
 
             $config = \Idno\Core\idno::site()->config();
