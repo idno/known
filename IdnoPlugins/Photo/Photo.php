@@ -146,8 +146,7 @@ namespace IdnoPlugins\Photo {
             }
 
             // Get photo
-            //if ($new) {
-                $files = \Idno\Core\Input::getFiles('photo');
+            $files = \Idno\Core\Input::getFiles('photo');
 
             if (!isset($files['name'])) {
                 $files = array_filter($files, function($var) {
@@ -156,11 +155,6 @@ namespace IdnoPlugins\Photo {
             } else {
                 $files = [$files]; // Handle situations where we aren't handling array of photos
             }
-
-                // Replace any existing photos
-            //                    if (!empty($files[0]['tmp_name'])) {
-            //                        $this->deleteAttachments(); // TODO: Allow edit/removal of existing photos
-            //                    }
 
             foreach ($files as $_file) {
 
@@ -185,7 +179,7 @@ namespace IdnoPlugins\Photo {
                                 $exif = false;
                             }
                         } else {
-                                    $exif = false;
+                            $exif = false;
 
                             if (!is_callable('exif_read_data')) {
                                 // Admins get a no-EXIF error

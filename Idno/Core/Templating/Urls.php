@@ -18,12 +18,18 @@ namespace Idno\Core\Templating {
         function getCurrentURLWithoutVar($variable_name)
         {
             $components = parse_url($this->getCurrentURL());
-            parse_str($components['query'], $url_var_array);
-            if (!empty($url_var_array[$variable_name])) { unset($url_var_array[$variable_name]);
+            if (!empty($components['query'])) {
+                parse_str($components['query'], $url_var_array);
+                if (!empty($url_var_array[$variable_name])) { 
+                    unset($url_var_array[$variable_name]);
+                }
+            } else {
+                $url_var_array = [];
             }
             $components['query'] = http_build_query($url_var_array);
             $url                 = $components['scheme'] . '://' . $components['host'] . (!empty($components['port']) ? ':' . $components['port'] : '') . $components['path'];
-            if (!empty($components['query'])) { $url .= '?' . $components['query'];
+            if (!empty($components['query'])) { 
+                $url .= '?' . $components['query'];
             }
 
             return $url;

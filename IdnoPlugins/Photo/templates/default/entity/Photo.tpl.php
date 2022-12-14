@@ -47,8 +47,12 @@ if (empty($vars['feed_view']) && $vars['object']->getTitle() && $vars['object']-
                     break;
                 }
             }
-            //$mainsrc= \Idno\Core\Idno::site()->config()->getDisplayURL() . 'file/' . $attachment['_id'];
-            $mainsrc = $attachment['url'];
+
+            if (!empty($attachment['url'])) {
+                $mainsrc = $attachment['url'];
+            } else {
+                $mainsrc = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'file/' . $attachment['_id'];
+            }
 
             $filename = "";
             if (!empty($attachment['filename']))
