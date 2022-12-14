@@ -129,7 +129,7 @@ namespace Idno\Core {
          * @param string $message
          * @param array  $context
          */
-        public function log($level,\Stringable|string $message = LOGLEVEL_INFO, array $context = array()): void
+        public function log($level,string $message = LOGLEVEL_INFO, array $context = array()): void
         {
             // backward compatibility
             if (is_string($level) && is_int($message)) {
@@ -209,7 +209,7 @@ namespace Idno\Core {
          *
          * @return null
          */
-        public function emergency(\Stringable|string $message, array $context = array()): void
+        public function emergency(string $message, array $context = array()): void
         {
             $this->log(LogLevel::EMERGENCY, $message, $context);
         }
@@ -225,7 +225,7 @@ namespace Idno\Core {
          *
          * @return null
          */
-        public function alert(\Stringable|string $message, array $context = array()): void
+        public function alert(string $message, array $context = array()): void
         {
             $this->log(LogLevel::ALERT, $message, $context);
         }
@@ -240,7 +240,7 @@ namespace Idno\Core {
          *
          * @return null
          */
-        public function critical(\Stringable|string $message, array $context = array()): void
+        public function critical(string $message, array $context = array()): void
         {
             $this->log(LogLevel::CRITICAL, $message, $context);
         }
@@ -254,7 +254,7 @@ namespace Idno\Core {
          *
          * @return null
          */
-        public function error(\Stringable|string $message, array $context = array()): void
+        public function error(string $message, array $context = array()): void
         {
             $this->log(LogLevel::ERROR, $message, $context);
         }
@@ -270,7 +270,7 @@ namespace Idno\Core {
          *
          * @return null
          */
-        public function warning(\Stringable|string $message, array $context = array()): void
+        public function warning(string $message, array $context = array()): void
         {
             $this->log(LogLevel::WARNING, $message, $context);
         }
@@ -283,7 +283,7 @@ namespace Idno\Core {
          *
          * @return null
          */
-        public function notice(\Stringable|string $message, array $context = array()): void
+        public function notice(string $message, array $context = array()): void
         {
             $this->log(LogLevel::NOTICE, $message, $context);
         }
@@ -298,7 +298,7 @@ namespace Idno\Core {
          *
          * @return null
          */
-        public function info(\Stringable|string $message, array $context = array()): void
+        public function info(string $message, array $context = array()): void
         {
             $this->log(LogLevel::INFO, $message, $context);
         }
@@ -311,7 +311,7 @@ namespace Idno\Core {
          *
          * @return null
          */
-        public function debug(\Stringable|string $message, array $context = array()): void
+        public function debug(string $message, array $context = array()): void
         {
             $this->log(LogLevel::DEBUG, $message, $context);
         }
@@ -323,7 +323,7 @@ namespace Idno\Core {
          * @param type $message
          * @param type $title
          */
-        public static function oopsAlert(\Stringable|string $message, $title = "")
+        public static function oopsAlert(string $message, $title = "")
         {
 
             $config = \Idno\Core\idno::site()->config();
