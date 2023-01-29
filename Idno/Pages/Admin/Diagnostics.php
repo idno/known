@@ -40,6 +40,7 @@ namespace Idno\Pages\Admin {
                 $config->config['dbpass']     = '** REDACTED **';
                 $config->ini_config['dbpass'] = '** REDACTED **';
                 $config->config['site_secret']     = '** REDACTED **';
+                $config->config['smtp_password']   = '** REDACTED **';
 
                 $report .= "\nRunning config:\n---------------\n" . var_export($config, true) . "\n\n";
                 $report .= "\$_SESSION:\n----------\n" . var_export($_SESSION, true) . "\n\n";
