@@ -58,19 +58,21 @@ namespace Idno\Pages\Entity {
             //                }
 
             $t = \Idno\Core\Idno::site()->template();
-            
+
             $description = $object->getShortDescription();
             if (empty($description)) {
                 $description = $t->sampleText($object->getDescription());
             }
-            
-            $t->__(array(
+
+            $t->__(
+                array(
 
                 'title'       => $object->getTitle(),
                 'body'        => $t->__(['object' => $object])->draw('entity/wrapper'),
                 'description' => $description
 
-            ))->drawPage();
+                )
+            )->drawPage();
         }
 
         // Get webmention content and handle it
@@ -109,7 +111,8 @@ namespace Idno\Pages\Entity {
                 }
             }
 
-            if (empty($object)) $this->forward(); // TODO: 404
+            if (empty($object)) { $this->forward(); // TODO: 404
+            }
             if ($object->saveDataFromInput()) {
                 $this->forward($object->getDisplayURL());
             }
@@ -126,7 +129,8 @@ namespace Idno\Pages\Entity {
                     $object = \Idno\Common\Entity::getBySlug($this->arguments[0]);
                 }
             }
-            if (empty($object)) $this->forward(); // TODO: 404
+            if (empty($object)) { $this->forward(); // TODO: 404
+            }
             if ($object->delete()) {
                 \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->esc_('%s was deleted.', [$object->getTitle()]));
             }

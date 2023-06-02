@@ -69,10 +69,12 @@ namespace Idno\Pages\Annotation {
                         $heart_text = 'stars';
                     }
 
-                    \Idno\Core\Idno::site()->template()->__([
+                    \Idno\Core\Idno::site()->template()->__(
+                        [
                         'number' => $likes,
                         'text' => "$likes $heart_text"
-                    ])->drawPage();
+                        ]
+                    )->drawPage();
                 }
 
                 $this->forward($object->getDisplayURL() . '#comments');

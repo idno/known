@@ -11,7 +11,7 @@
      * postContent: handles content submitted to the page (assuming that form
      * elements were correctly signed)
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -25,7 +25,7 @@ namespace Idno\Common {
         // Property that defines whether this page may forward to
         // other pages. True by default.
         private $forward = true;
-        
+
         // Where was this page forwarded from
         private $referrer = '';
 
@@ -71,21 +71,24 @@ namespace Idno\Common {
                 }
             }
             \Idno\Core\Idno::site()->setCurrentPage($this);
-            
+
             // Set referrer, and ensure it's not blank
             $this->referrer = $_SERVER['HTTP_REFERER']??'';
             $_SERVER['HTTP_REFERER'] = $_SERVER['HTTP_REFERER']??''; // Ensure that the $_SERVER['HTTP_REFERER'] is never blank
 
             // Default exception handler
-            set_exception_handler(function ($exception) {
-                $page = \Idno\Core\Idno::site()->currentPage();
-                if (!empty($page))
-                    $page->exception($exception);
+            set_exception_handler(
+                function ($exception) {
+                    $page = \Idno\Core\Idno::site()->currentPage();
+                    if (!empty($page)) {
+                        $page->exception($exception);
 
-                else
-                    \Idno\Core\site()->logging()->error($exception->getMessage());
+                    } else {
+                        \Idno\Core\site()->logging()->error($exception->getMessage());
+                    }
 
-            });
+                }
+            );
 
             \Idno\Core\Idno::site()->embedded();
 
@@ -96,11 +99,11 @@ namespace Idno\Common {
         /**
          * Retrieves input.
          *
-         * @param string $name Name of the input variable
-         * @param mixed $default A default return value if no value specified (default: null)
-         * @param boolean $filter Whether or not to filter the variable for safety (default: null), you can pass
-         *                 a callable method, function or enclosure with a definition like function($name, $value), which
-         *                 will return the filtered result.
+         * @param  string  $name    Name of the input variable
+         * @param  mixed   $default A default return value if no value specified (default: null)
+         * @param  boolean $filter  Whether or not to filter the variable for safety (default: null), you can pass
+         *                          a callable method, function or enclosure with a definition like
+         *                          function($name, $value), which will return the filtered result.
          * @return mixed
          */
         function getInput($name, $default = null, callable $filter = null)
@@ -113,8 +116,9 @@ namespace Idno\Common {
                 } else if (isset($this->data[$name])) {
                     $value = $this->data[$name];
                 }
-                if (($value===null) && ($default!==null))
+                if (($value===null) && ($default!==null)) {
                     $value = $default;
+                }
                 if (!$value!==null) {
                     if (isset($filter) && is_callable($filter) && empty($request)) {
                         $value = call_user_func($filter, $name, $value);
@@ -167,6 +171,7 @@ namespace Idno\Common {
 
         /**
          * Return the current response code for the page.
+         *
          * @return int
          */
         function response():int
@@ -181,7 +186,8 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) $this->arguments = $arguments;
+            if (!empty($arguments)) { $this->arguments = $arguments;
+            }
             $this->xhr = true;
 
             $this->head();
@@ -196,7 +202,8 @@ namespace Idno\Common {
             $this->parseJSONPayload();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) $this->arguments = $arguments;
+            if (!empty($arguments)) { $this->arguments = $arguments;
+            }
 
             \Idno\Core\Idno::site()->events()->triggerEvent('page/head', array('page_class' => get_called_class(), 'arguments' => $arguments));
 
@@ -240,6 +247,7 @@ namespace Idno\Common {
 
         /**
          * Return the arguments sent to the page via regular expression
+         *
          * @return array
          */
         function &arguments() : array
@@ -249,6 +257,7 @@ namespace Idno\Common {
 
         /**
          * Provide access to page data
+         *
          * @return array
          */
         function &data() : array
@@ -258,6 +267,7 @@ namespace Idno\Common {
 
         /**
          * Is this an XHR page or not
+         *
          * @return bool
          */
         function xhr(): bool
@@ -284,7 +294,8 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) $this->arguments = $arguments;
+            if (!empty($arguments)) { $this->arguments = $arguments;
+            }
             $this->xhr = true;
             $this->get();
         }
@@ -304,7 +315,8 @@ namespace Idno\Common {
             $this->parseJSONPayload();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) $this->arguments = $arguments;
+            if (!empty($arguments)) { $this->arguments = $arguments;
+            }
 
             \Idno\Core\Idno::site()->events()->triggerEvent('page/head', array('page' => $this));
             \Idno\Core\Idno::site()->events()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
@@ -320,22 +332,25 @@ namespace Idno\Common {
         {
 
             $ts = "";
-            if (empty($_REQUEST['__bTs']))
+            if (empty($_REQUEST['__bTs'])) {
                 \Idno\Core\Idno::site()->logging()->error("__bTs timestamp is missing");
-            else
+            } else {
                 $ts = $_REQUEST['__bTs'];
+            }
 
             $ta = "";
-            if (empty($_REQUEST['__bTa']))
+            if (empty($_REQUEST['__bTa'])) {
                 \Idno\Core\Idno::site()->logging()->warning("__bTa action is missing");
-            else
+            } else {
                 $ta = $_REQUEST['__bTa'];
+            }
 
             $tk = "";
-            if (empty($_REQUEST['__bTk']))
+            if (empty($_REQUEST['__bTk'])) {
                 \Idno\Core\Idno::site()->logging()->error("__bTk token is missing");
-            else
+            } else {
                 $tk = $_REQUEST['__bTk'];
+            }
 
             $debug = [
                 'time' => $ts,
@@ -364,7 +379,8 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) $this->arguments = $arguments;
+            if (!empty($arguments)) { $this->arguments = $arguments;
+            }
             $this->xhr     = true;
             $this->forward = false;
             $this->post();
@@ -382,7 +398,8 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) $this->arguments = $arguments;
+            if (!empty($arguments)) { $this->arguments = $arguments;
+            }
 
             \Idno\Core\Idno::site()->events()->triggerEvent('page/head', array('page' => $this));
             \Idno\Core\Idno::site()->events()->triggerEvent('page/post', array('page_class' => get_called_class(), 'arguments' => $arguments));
@@ -394,7 +411,8 @@ namespace Idno\Common {
 
                 $this->debugLogToken();
 
-                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Invalid token.'));
+                \Idno\Core\Idno::site()->logging()->error(\Idno\Core\Idno::site()->language()->_('Invalid token.'));
+                \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('Invalid token.'));
             }
 
             if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
@@ -442,31 +460,38 @@ namespace Idno\Common {
         {
             $this->setResponse(501);
         }
-        
+
         /**
          * Default handling of OPTIONS (mostly to handle CORS)
          */
-        function options() {
-            
-            header('Access-Control-Allow-Methods: ' . implode(', ', [
-                'GET',
-                'POST',
-                'HEAD',
-                'OPTIONS',
-                'PUT',
-                'DELETE'
-            ]) );
-            
+        function options()
+        {
+
+            header(
+                'Access-Control-Allow-Methods: ' . implode(
+                    ', ', [
+                    'GET',
+                    'POST',
+                    'HEAD',
+                    'OPTIONS',
+                    'PUT',
+                    'DELETE'
+                    ]
+                )
+            );
+
             header('Access-Control-Max-Age: 86400');
-            
+
             http_response_code(204);
         }
-        
+
         /**
          * Return the referrer, or an empty string
+         *
          * @return string
          */
-        function referrer() : string {
+        function referrer() : string
+        {
             return $this->referrer;
         }
 
@@ -475,7 +500,7 @@ namespace Idno\Common {
          * the browser on. Otherwise, do nothing
          *
          * @param string $location Location to forward to (eg "/foo/bar")
-         * @param bool $exit If set to true (which it is by default), execution finishes once the header is sent.
+         * @param bool   $exit     If set to true (which it is by default), execution finishes once the header is sent.
          */
         function forward(string $location = '', bool $exit = true)
         {
@@ -508,14 +533,17 @@ namespace Idno\Common {
 
                         $call_trace = "";
 
-                        if (!empty($trace[0]))
+                        if (!empty($trace[0])) {
                             $call_trace .= "Forward at {$trace[0]['file']}:{$trace[0]['line']}";
+                        }
 
                         if (!empty($trace[1])) {
                             $trace_file = 'UNKNOWN';
-                            if (!empty($trace[1]['file'])) $trace_file = $trace[1]['file'];
+                            if (!empty($trace[1]['file'])) { $trace_file = $trace[1]['file'];
+                            }
                             $trace_line = 'xxx';
-                            if (!empty($trace[1]['line'])) $trace_line = $trace[1]['line'];
+                            if (!empty($trace[1]['line'])) { $trace_line = $trace[1]['line'];
+                            }
 
                             $call_trace .= ", called by {$trace[1]['function']} in {$trace_file}:{$trace_line}";
                         }
@@ -531,11 +559,13 @@ namespace Idno\Common {
                     $location = [
                         'location' => $location
                     ];
-                    if (!empty($call_trace))
+                    if (!empty($call_trace)) {
                         $location['trace'] = $call_trace;
+                    }
                     echo json_encode($location);
                 } elseif (!\Idno\Core\Idno::site()->session()->isAPIRequest() || $this->response == 200) {
-                    if (!empty($call_trace)) header('X-Known-Forward-Trace: ' . $call_trace);
+                    if (!empty($call_trace)) { header('X-Known-Forward-Trace: ' . $call_trace);
+                    }
                     header('Location: ' . $location);
                 }
 
@@ -543,6 +573,21 @@ namespace Idno\Common {
                     exit;
                 }
             }
+        }
+
+        /**
+         * Forwards to login page with optional forward param
+         *
+         * @param string $fwd
+         * @param bool   $string If set to true, will return a string instead of forwarding
+         */
+        function forwardToLogin($fwd = '', $string = false)
+        {
+            $url = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login/?fwd=' . \Idno\Core\Webservice::encodeValue($fwd);
+            if ($string) {
+                return $url;
+            }
+            $this->forward($url);
         }
 
         /**
@@ -556,7 +601,8 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) $this->arguments = $arguments;
+            if (!empty($arguments)) { $this->arguments = $arguments;
+            }
             $this->xhr     = true;
             $this->forward = false;
             $this->put();
@@ -574,7 +620,8 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) $this->arguments = $arguments;
+            if (!empty($arguments)) { $this->arguments = $arguments;
+            }
 
             \Idno\Core\Idno::site()->events()->triggerEvent('page/head', array('page' => $this));
             \Idno\Core\Idno::site()->events()->triggerEvent('page/put', array('page_class' => get_called_class(), 'arguments' => $arguments));
@@ -619,8 +666,9 @@ namespace Idno\Common {
                 $this->forward(); // If we haven't forwarded yet, do so (if we can)
             }
 
-            if (http_response_code() != 200)
+            if (http_response_code() != 200) {
                 http_response_code($this->response);
+            }
         }
 
         /**
@@ -642,7 +690,8 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) $this->arguments = $arguments;
+            if (!empty($arguments)) { $this->arguments = $arguments;
+            }
             $this->xhr     = true;
             $this->forward = false;
             $this->delete();
@@ -660,7 +709,8 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) $this->arguments = $arguments;
+            if (!empty($arguments)) { $this->arguments = $arguments;
+            }
 
             \Idno\Core\Idno::site()->events()->triggerEvent('page/head', array('page' => $this));
             \Idno\Core\Idno::site()->events()->triggerEvent('page/delete', array('page_class' => get_called_class(), 'arguments' => $arguments));
@@ -705,8 +755,9 @@ namespace Idno\Common {
                 $this->forward(); // If we haven't forwarded yet, do so (if we can)
             }
 
-            if (http_response_code() != 200)
+            if (http_response_code() != 200) {
                 http_response_code($this->response);
+            }
         }
 
         /**
@@ -734,10 +785,10 @@ namespace Idno\Common {
          * Called when there's been a successful webmention call to the given page.
          * To be extended by developers.
          *
-         * @param string $source The source URL (i.e., third-party site URL)
-         * @param string $target The target URL (i.e., this page)
-         * @param array $source_response The Webservice response from fetching the source page
-         * @param array $source_mf2 The full, parsed Microformats 2 content of the source URL
+         * @param  string $source          The source URL (i.e., third-party site URL)
+         * @param  string $target          The target URL (i.e., this page)
+         * @param  array  $source_response The Webservice response from fetching the source page
+         * @param  array  $source_mf2      The full, parsed Microformats 2 content of the source URL
          * @return bool true if this page accepts webmentions
          */
         function webmentionContent($source, $target, $source_response, $source_mf2)
@@ -887,14 +938,17 @@ namespace Idno\Common {
 
         /**
          * Sets the entity on the page to the specified object
+         *
          * @param object $entity
          */
-        function setEntity($entity) {
+        function setEntity($entity)
+        {
             $this->entity = $entity;
         }
 
         /**
          * Returns the entity associated with this page, if it exists
+         *
          * @return \Idno\Common\Entity|null
          */
         function getEntity(): ?Entity
@@ -905,24 +959,28 @@ namespace Idno\Common {
         /**
          * Removes any entity associated with this page
          */
-        function removeEntity() {
+        function removeEntity()
+        {
             $this->entity = null;
         }
 
         /**
          * Is this page a permalink for an object? This should be set to 'true'
          * if it is. Optionally, we can also associate the page with the object here.
-         * @param bool $status Is this a permalink? Defaults to 'true'
+         *
+         * @param bool   $status Is this a permalink? Defaults to 'true'
          * @param object $entity Optionally, an entity this page is associated with
          */
         function setPermalink(bool $status = true, Entity $entity = null)
         {
             $this->isPermalinkPage = $status;
-            if ($status && $entity) $this->setEntity($entity);
+            if ($status && $entity) { $this->setEntity($entity);
+            }
         }
 
         /**
          * Is this page a permalink for an object?
+         *
          * @return bool
          */
         function isPermalink()
@@ -950,17 +1008,21 @@ namespace Idno\Common {
 
         /**
          * Has the page been requested over SSL?
+         *
          * @return boolean
          */
         static function isSSL()
         {
             if (isset($_SERVER['HTTPS'])) {
-                if ($_SERVER['HTTPS'] == '1')
+                if ($_SERVER['HTTPS'] == '1') {
                     return true;
-                if (strtolower($_SERVER['HTTPS']) == 'on')
+                }
+                if (strtolower($_SERVER['HTTPS']) == 'on') {
                     return true;
-            } else if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443'))
+                }
+            } else if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443')) {
                 return true;
+            }
 
             if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https') {
                 return true;
@@ -972,7 +1034,7 @@ namespace Idno\Common {
         /**
          * Return the full URL of the current page.
          *
-         * @param $tokenise bool If true then an exploded tokenised version is returned.
+         * @param  $tokenise bool If true then an exploded tokenised version is returned.
          * @return url|array
          */
         public function currentUrl($tokenise = false)
@@ -990,7 +1052,8 @@ namespace Idno\Common {
         /**
          * Helper function to see if the given Known base path matches the current page URL.
          * This is useful for setting active on menus in subdirectory installs.
-         * @param type $path Path, relative to the Known base
+         *
+         * @param  type $path Path, relative to the Known base
          * @return bool
          */
         public function doesPathMatch($path)
@@ -1005,36 +1068,43 @@ namespace Idno\Common {
         /**
          * Construct a URL from array components (basically an implementation of http_build_url() without PECL.
          *
-         * @param array $url
+         * @param  array $url
          * @return string
          */
         public static function buildUrl(array $url)
         {
-            if (!empty($url['scheme']))
+            if (!empty($url['scheme'])) {
                 $page = $url['scheme'] . "://";
-            else
+            } else {
                 $page = '//';
+            }
 
             // user/pass
-            if ((isset($url['user'])) && !empty($url['user']))
+            if ((isset($url['user'])) && !empty($url['user'])) {
                 $page .= $url['user'];
-            if ((isset($url['pass'])) && !empty($url['pass']))
+            }
+            if ((isset($url['pass'])) && !empty($url['pass'])) {
                 $page .= ":" . $url['pass'];
-            if (!empty($url['user']) || !empty($url['pass']))
+            }
+            if (!empty($url['user']) || !empty($url['pass'])) {
                 $page .= "@";
+            }
 
             $page .= $url['host'];
 
-            if ((isset($url['port'])) && ($url['port']))
+            if ((isset($url['port'])) && ($url['port'])) {
                 $page .= ":" . $url['port'];
+            }
 
             $page .= $url['path'];
 
-            if ((isset($url['query'])) && ($url['query']))
+            if ((isset($url['query'])) && ($url['query'])) {
                 $page .= "?" . $url['query'];
+            }
 
-            if ((isset($url['fragment'])) && ($url['fragment']))
+            if ((isset($url['fragment'])) && ($url['fragment'])) {
                 $page .= "#" . $url['fragment'];
+            }
 
             return $page;
         }
@@ -1045,7 +1115,7 @@ namespace Idno\Common {
          * variables) will still take precedence.
          *
          * @param string $name
-         * @param mixed $value
+         * @param mixed  $value
          */
         function setInput($name, $value)
         {
@@ -1071,10 +1141,12 @@ namespace Idno\Common {
 
         /**
          * Detects whether the current web browser accepts the given content type.
-         * @param string $contentType The MIME content type.
-         * @param bool $ignore_priority If true, the 'q' parameter is ignored and the method returns true if
-         *             $contentType appears anywhere in the accept header (original behaviour), otherwise it'll
-         *             return true only if it's the highest value parameter. See #1622
+         *
+         * @param  string $contentType     The MIME content type.
+         * @param  bool   $ignore_priority If true, the 'q' parameter is ignored and the method returns true if
+         *                                 $contentType appears anywhere in the accept header (original
+         *                                 behaviour), otherwise it'll return true only if it's the highest
+         *                                 value parameter. See #1622
          * @return bool
          */
         function isAcceptedContentType($contentType, $ignore_priority = false)
@@ -1085,7 +1157,8 @@ namespace Idno\Common {
 
                 if ($ignore_priority) {
                     if (!empty($headers['Accept'])) {
-                        if (substr_count($headers['Accept'], $contentType)) return true;
+                        if (substr_count($headers['Accept'], $contentType)) { return true;
+                        }
                     }
                 } else {
                     if (!empty($headers['Accept'])) {
@@ -1120,6 +1193,7 @@ namespace Idno\Common {
         /**
          * Shim for running on nginx, which doesn't provide the
          * getallheaders function
+         *
          * @return array
          */
         static function getallheaders()
@@ -1136,47 +1210,54 @@ namespace Idno\Common {
 
             return $headers;
         }
-        
+
         /**
          * Retrieve bearer token passed to this page, if any.
+         *
          * @return string|null
          */
-        public static function getBearerToken(): ?string {
-            
+        public static function getBearerToken(): ?string
+        {
+
             $headers = null;
             $serverheaders = \Idno\Common\Page::getallheaders();
-            
-            if (isset($serverheaders['Authorization']))
+
+            if (isset($serverheaders['Authorization'])) {
                 $headers = trim($serverheaders["Authorization"]);
-            else if (isset($serverheaders['HTTP_AUTHORIZATION']))
+            } else if (isset($serverheaders['HTTP_AUTHORIZATION'])) {
                 $headers = trim($serverheaders["HTTP_AUTHORIZATION"]);
-            
+            }
+
             if (!empty($headers)) {
                 if (preg_match('/Bearer\s(\S+)/', $headers, $matches)) {
                     return trim($matches[1], '\'"');
                 }
             }
-                
+
             return null;
         }
 
         /**
          * Set or add a file asset.
-         * @param type $name Name of the asset (e.g. 'idno', 'jquery')
+         *
+         * @param type $name  Name of the asset (e.g. 'idno', 'jquery')
          * @param type $class Class of asset (e.g. 'javascript', 'css')
          * @param type $value A URL or other value
          */
         public function setAsset(string $name, string $value, string $class)
         {
-            if (!isset($this->assets) || !is_array($this->assets)) $this->assets = array();
-            if (!isset($this->assets[$class]) || !is_array($this->assets)) $this->assets[$class] = array();
+            if (!isset($this->assets) || !is_array($this->assets)) { $this->assets = array();
+            }
+            if (!isset($this->assets[$class]) || !is_array($this->assets)) { $this->assets[$class] = array();
+            }
 
             $this->assets[$class][$name] = $value;
         }
 
         /**
          * Get assets of a given class.
-         * @param type $class
+         *
+         * @param  type $class
          * @return array
          */
         public function getAssets(string $class)
@@ -1208,6 +1289,7 @@ namespace Idno\Common {
 
         /**
          * Retrieves the effective owner of this page, if one has been set
+         *
          * @return bool|User
          */
         function getOwner()
@@ -1223,6 +1305,7 @@ namespace Idno\Common {
 
         /**
          * Sets the given user as owner of this page
+         *
          * @param $user
          */
         function setOwner($user)
@@ -1245,6 +1328,7 @@ namespace Idno\Common {
         /**
          * Set the last updated header for this page.
          * Takes a unix timestamp and outputs it as RFC2616 date.
+         *
          * @param int $timestamp Unix timestamp.
          */
         public function setLastModifiedHeader(int $timestamp)
@@ -1255,6 +1339,7 @@ namespace Idno\Common {
         /**
          * Simplify if modified since checks.
          * Set a 304 not modified if If-Modified-Since header is less than the given timestamp.
+         *
          * @param type $timestamp Timestamp to check
          */
         public function lastModifiedGatekeeper($timestamp)
@@ -1270,6 +1355,7 @@ namespace Idno\Common {
 
         /**
          * Return whether the current page URL matches the given regex string.
+         *
          * @param type $regex_string URL string in the same format as the page handler definition.
          */
         public function matchUrl($regex_string)
@@ -1278,11 +1364,13 @@ namespace Idno\Common {
 
             $page = $url['path'];
 
-            if ((isset($url['query'])) && ($url['query']))
+            if ((isset($url['query'])) && ($url['query'])) {
                 $page .= "?" . $url['query'];
+            }
 
-            if ((isset($url['fragment'])) && ($url['fragment']))
+            if ((isset($url['fragment'])) && ($url['fragment'])) {
                 $page .= "#" . $url['fragment'];
+            }
 
             $url = $page;
 

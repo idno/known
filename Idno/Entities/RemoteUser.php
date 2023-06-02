@@ -3,7 +3,7 @@
     /**
      * Remote user representation
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -13,14 +13,14 @@ namespace Idno\Entities {
     {
 
         use Mutate;
-        
-        public function save($add_to_feed = false, $feed_verb = 'post')
+
+        public function save($overrideAccess = true)
         {
             // TODO: use a remote API to save to external sources if we have permission to
             // return false;
 
             // BUT for now, we still need to save some stub information in case we've just followed them
-            return parent::save($add_to_feed, $feed_verb);
+            return parent::save($overrideAccess);
         }
 
         public function checkPassword($password)
@@ -32,8 +32,9 @@ namespace Idno\Entities {
         {
 
             // Remote users don't have a local profile, so we need to override the remote url
-            if (!empty($this->url))
+            if (!empty($this->url)) {
                 return $this->url;
+            }
 
             return $this->getUUID();
         }
@@ -51,6 +52,7 @@ namespace Idno\Entities {
 
         /**
          * Set this user's remote profile url.
+         *
          * @param type $url
          */
         public function setUrl($url)

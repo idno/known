@@ -3,62 +3,67 @@
 /**
  * Hybrid twig template management class
  *
- * @package idno
+ * @package    idno
  * @subpackage core
  */
 
 namespace Idno\Core {
-    
+
     use Twig\Loader\FilesystemLoader;
     use Twig\Environment;
-    
+
     /**
      * Hybrid twig template management class.
-     * 
+     *
      * This class extends the Known template to, in addition to supporting the Known php based templates, to support
      * the more standard twig templates.
      */
-    class HybridTwigTemplate extends DefaultTemplate {
-        
+    class HybridTwigTemplate extends DefaultTemplate
+    {
+
         private $twig;
-        
+
         private $loader;
-        
-        public function __construct($template = false) {
-            
+
+        public function __construct($template = false)
+        {
+
             // Create cache
             $cache = \Idno\Core\Idno::site()->config()->getUploadPath() . 'twig/';
             @mkdir($cache);
-            
+
             // Set up twig environment
             $this->loader = new FilesystemLoader(\Idno\Core\Bonita\Main::getPaths());
-            $this->twig = new Environment($this->loader, [
+            $this->twig = new Environment(
+                $this->loader, [
                 'cache' => $cache
-            ]);
-            
+                ]
+            );
+
             // Update with the parent
             return parent::__construct($template);
         }
-        
+
         /**
          * Extension-aware version of the template drawing function
          *
-         * @param string $templateName
-         * @param bool $returnBlank Should we return a blank string if the template doesn't exist? (Defaults to true)
-         * @param book $replacements Should we honor template replacements? (Defaults to true)
+         * @param  string $templateName
+         * @param  bool   $returnBlank  Should we return a blank string if the template doesn't exist? (Defaults to true)
+         * @param  book   $replacements Should we honor template replacements? (Defaults to true)
          * @return false|string
          */
         function draw($templateName, $returnBlank = true, $replacements = true)
         {
             $this->loader->setPaths(\Idno\Core\Bonita\Main::getPaths());
-            
+
             // Add template types to an array; ensure we revert to default
             $templateTypes = array($this->getTemplateType());
             if ($this->fallbackToDefault) {
-                if ($this->getTemplateType() != 'default')
+                if ($this->getTemplateType() != 'default') {
                     $templateTypes[] = 'default';
+                }
             }
-            
+
             $result = '';
             if (!empty($this->prepends[$templateName])) {
                 foreach ($this->prepends[$templateName] as $template) {
@@ -70,7 +75,7 @@ namespace Idno\Core {
                             // Ignore loading errors here
                         }
                     }
-                    
+
                 }
             }
             $replaced = false;
@@ -108,21 +113,21 @@ namespace Idno\Core {
                         //$result .= $this->twig->render("templates/{$type}/{$templateName}.html.twig", $this->vars);
                         $result .= $this->twig->render("templates/{$type}/{$templateName}.html.twig", $this->vars);
                         break;
-                    } catch (\Exception $e) { 
+                    } catch (\Exception $e) {
                         // Ignore loading errors here
-                        
+
                     }
                 }
             }
-            
+
             // We have a twig template, return it
-            if (!empty($result)) { 
+            if (!empty($result)) {
                 return $result;
             }
-                
+
             // No twig template, look for a bonita template
             return parent::draw($templateName, $returnBlank, $replacements);
         }
     }
-    
+
 }

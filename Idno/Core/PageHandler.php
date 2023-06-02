@@ -3,7 +3,7 @@
 /**
  * Page handler class
  *
- * @package idno
+ * @package    idno
  * @subpackage core
  */
 
@@ -18,13 +18,23 @@ namespace Idno\Core {
         private $routes = [];
         private $public_routes = [];
 
+        function routeTokens()
+        {
+            return array(
+                ':string' => '([a-zA-Z]+)',
+                ':number' => '([0-9]+)',
+                ':alpha'  => '([a-zA-Z0-9-_]+)',
+                ':id'     => '([A-Za-z0-9\-]+)'
+            );
+        }
+
         /**
          * Registers a page handler for a given pattern, using Toro
          * page handling syntax
          *
          * @param string $pattern The pattern to match
          * @param string $handler The name of the Page class that will serve this route
-         * @param bool $public If set to true, this page is always public, even on non-public sites
+         * @param bool   $public  If set to true, this page is always public, even on non-public sites
          */
         function addRoute(string $pattern, string $handler, bool $public = false)
         {
@@ -34,6 +44,7 @@ namespace Idno\Core {
                 }
                 $pattern = '/' . KNOWN_SUBDIRECTORY . $pattern;
             }
+            $pattern = strtr($pattern, $this->routeTokens());
             if (class_exists($handler)) {
                 $this->routes[$pattern] = $handler;
                 if ($public == true) {
@@ -50,10 +61,11 @@ namespace Idno\Core {
          *
          * @param string $pattern The pattern to match
          * @param string $handler The name of the Page class that will serve this route
-         * @param bool $public If set to true, this page is always public, even on non-public sites
+         * @param bool   $public  If set to true, this page is always public, even on non-public sites
          */
         function hijackRoute(string $pattern, string $handler, bool $public = false)
         {
+            $pattern = strtr($pattern, $this->routeTokens());
             if (class_exists($handler)) {
                 unset($this->routes[$pattern]);
                 unset($this->public_routes[$pattern]);
@@ -66,6 +78,7 @@ namespace Idno\Core {
 
         /**
          * Mark a page handler class as offering public content even on walled garden sites
+         *
          * @param $class
          */
         function addPublicRoute(string $class)
@@ -77,6 +90,7 @@ namespace Idno\Core {
 
         /**
          * Retrieve an array of walled garden page handlers
+         *
          * @return array
          */
         function getPublicRoute()
@@ -90,7 +104,8 @@ namespace Idno\Core {
 
         /**
          * Does the specified page handler class represent a public page, even on walled gardens?
-         * @param $class
+         *
+         * @param  $class
          * @return bool
          */
         function isRoutePublic(string $class) : bool
@@ -114,7 +129,7 @@ namespace Idno\Core {
          * Retrieves an instantiated version of the page handler class responsible for
          * a particular page (if any). May also be a whole URL.
          *
-         * @param string $path_info The path, including the initial /, or the URL
+         * @param  string $path_info The path, including the initial /, or the URL
          * @return bool|\Idno\Common\Page
          */
         function getRoute(string $path_info)
@@ -123,15 +138,10 @@ namespace Idno\Core {
             if ($q = strpos($path_info, '?')) {
                 $path_info = substr($path_info, 0, $q);
             }
-            $tokens = array(
-                ':string' => '([a-zA-Z]+)',
-                ':number' => '([0-9]+)',
-                ':alpha' => '([a-zA-Z0-9-_]+)'
-            );
             $discovered_handler = false;
             $matches = array();
             foreach ($this->routes as $pattern => $handler_name) {
-                $pattern = strtr($pattern, $tokens);
+                $pattern = strtr($pattern, $this->routeTokens());
                 if (preg_match('#^/?' . $pattern . '/?$#', $path_info, $matches)) {
                     $discovered_handler = $handler_name;
                     $regex_matches = $matches;
@@ -156,7 +166,7 @@ namespace Idno\Core {
          *
          * @see ToroHook
          *
-         * @param string $hookName Name of hook
+         * @param string   $hookName Name of hook
          * @param callable $callable
          */
         static function hook(string $hookName, callable $callable)
@@ -171,7 +181,7 @@ namespace Idno\Core {
             return isset($this->routes[$offset]);
         }
 
-        public function offsetGet($offset)
+        public function offsetGet($offset): mixed
         {
             return isset($this->routes[$offset]) ? $this->routes[$offset] : null;
         }
@@ -190,27 +200,27 @@ namespace Idno\Core {
             unset($this->routes[$offset]);
         }
 
-        function rewind()
+        function rewind(): void
         {
-            return reset($this->routes);
+            reset($this->routes);
         }
 
-        function current()
+        function current(): mixed
         {
             return current($this->routes);
         }
 
-        function key()
+        function key(): mixed
         {
             return key($this->routes);
         }
 
-        function next()
+        function next(): void
         {
-            return next($this->routes);
+            next($this->routes);
         }
 
-        function valid()
+        function valid(): bool
         {
             return key($this->routes) !== null;
         }

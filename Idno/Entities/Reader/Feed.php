@@ -13,6 +13,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Sets the URL of this feed
+         *
          * @param $url
          */
         function setURL($url)
@@ -22,6 +23,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Sets the URL of the feed this subscription belongs to
+         *
          * @param $url
          */
         function setFeedURL($url)
@@ -31,7 +33,8 @@ namespace Idno\Entities\Reader {
 
         /**
          * Retrieves the URL of the feed this subscription belongs to
-         * @param $url
+         *
+         * @param  $url
          * @return mixed
          */
         function getFeedURL()
@@ -41,6 +44,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Set the type of this feed
+         *
          * @param $type
          */
         function setType($type)
@@ -50,6 +54,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Get the type of this feed
+         *
          * @return mixed
          */
         function getType()
@@ -59,6 +64,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Retrieves and parses this feed
+         *
          * @return array|bool
          */
         function fetchAndParse()
@@ -68,6 +74,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Get parsed items from this feed
+         *
          * @return array|bool
          */
         function retrieveItems()
@@ -81,6 +88,7 @@ namespace Idno\Entities\Reader {
 
         /**
          * Sets the time that this item was last updated
+         *
          * @param $time
          */
         function setLastUpdated($time)

@@ -5,6 +5,7 @@ namespace Idno\Caching {
     /**
      * A version of ArrayCache which uses a shared array, this means it's safe to use "$foo = new StaticArrayCache()" and still have access
      * to values set elsewhere in the system.
+     *
      * @deprecated
      */
     class StaticArrayCache extends ArrayCache

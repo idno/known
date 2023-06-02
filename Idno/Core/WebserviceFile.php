@@ -3,7 +3,7 @@
 /**
  * Utility wrapper around files that will be used in web service calls
  *
- * @package idno
+ * @package    idno
  * @subpackage core
  */
 
@@ -25,6 +25,7 @@ namespace Idno\Core {
 
         /**
          * Return curl parameters supported by your system.
+         *
          * @return \CURLFile|string
          */
         function getCurlParameters()
@@ -39,7 +40,8 @@ namespace Idno\Core {
 
         /**
          * Converts an "@" formatted file string into a WebserviceFile
-         * @param type $fileuploadstring
+         *
+         * @param  type $fileuploadstring
          * @return WebserviceFile|false
          */
         static function createFromCurlString($fileuploadstring)

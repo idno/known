@@ -2,11 +2,13 @@
 $report = $vars['report'];
 
 $level = 1;
-if (!empty($vars['level']))
+if (!empty($vars['level'])) {
     $level = (int)$vars['level'];
+}
 
-if (empty($report))
+if (empty($report)) {
     $report = [];
+}
 
 foreach ($report as $label => $value) {
 

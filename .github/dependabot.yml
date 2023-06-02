@@ -1,0 +1,13 @@
+version: 2
+updates:
+- package-ecosystem: composer
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "13:00"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: twbs/bootstrap
+    versions:
+    - ">= 4.a"
+    - "< 5"

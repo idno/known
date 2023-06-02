@@ -4,7 +4,7 @@
  * Simple totalising timer
  * Useful for loops and calculating how much time is in each section
  *
- * @package idno
+ * @package    idno
  * @subpackage core
  */
 
@@ -20,17 +20,19 @@ namespace Idno\Stats {
 
             $value = parent::value($timer);
 
-            if (!isset(static::$timerTotals[$timer]))
+            if (!isset(static::$timerTotals[$timer])) {
                 static::$timerTotals[$timer] = $value;
-            else
+            } else {
                 static::$timerTotals[$timer] += $value;
+            }
 
             return static::$timerTotals[$timer];
         }
 
         /**
          * Return the TOTAL timer value.
-         * @param type $timer
+         *
+         * @param  type $timer
          * @return type
          * @throws \RuntimeException
          */

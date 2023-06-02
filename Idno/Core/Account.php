@@ -3,7 +3,7 @@
     /**
      * Account management class
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 

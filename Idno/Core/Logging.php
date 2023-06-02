@@ -3,7 +3,7 @@
 /**
  * Allow logging, with toggle support
  *
- * @package idno
+ * @package    idno
  * @subpackage core
  */
 
@@ -23,12 +23,13 @@ namespace Idno\Core {
          * Create a basic logger to log to the PHP log.
          *
          * @param type $loglevel_filter Log levels to show 0 - off, 1 - errors, 2 - errors & warnings, 3 - errors, warnings and info, 4 - 3 + debug
-         * @param type $identifier Identify this site in the log (defaults to current domain)
+         * @param type $identifier      Identify this site in the log (defaults to current domain)
          */
         public function __construct($loglevel_filter = 0, $identifier = null)
         {
-            if (!$identifier)
+            if (!$identifier) {
                 $identifier = Idno::site()->config()->host;
+            }
             if (isset(Idno::site()->config()->loglevel)) {
                 $loglevel_filter = Idno::site()->config()->loglevel;
             }
@@ -37,55 +38,61 @@ namespace Idno\Core {
             $this->identifier = $identifier;
 
             // Set log to handle PHP errors
-            set_error_handler(function ($errno, $errstr, $errfile, $errline, $errcontext) {
+            set_error_handler(
+                function ($errno, $errstr, $errfile, $errline, $errcontext = []) {
 
-                if (!(error_reporting() & $errno)) {
-                    // This error code is not included in error_reporting
-                    return;
+                    if (!(error_reporting() & $errno)) {
+                        // This error code is not included in error_reporting
+                        return;
+                    }
+
+                    $message = "PHP [{$errno}] {$errstr} in {$errfile}:{$errline}";
+
+                    // Pedantic mode
+                    if (\Idno\Core\Idno::site()->config()->pedantic_mode) {
+                        $this->error($message);
+                        throw new \ErrorException($message, 0, $errno, $errfile, $errline);
+                    }
+
+                    switch ($errno) {
+                        case E_PARSE:
+                        case E_ERROR:
+                        case E_CORE_ERROR:
+                        case E_COMPILE_ERROR:
+                        case E_USER_ERROR:
+                            $this->error($message);
+                            break;
+
+                        case E_WARNING:
+                        case E_CORE_WARNING:
+                        case E_COMPILE_WARNING:
+                        case E_USER_WARNING:
+                            $this->warning($message);
+                            break;
+
+                        case E_STRICT:
+                        case E_NOTICE:
+                        case E_DEPRECATED:
+                        case E_USER_DEPRECATED:
+                        case E_STRICT:
+                        case E_USER_NOTICE:
+                            $this->notice($message);
+                            break;
+
+                        default:
+                            $this->notice("Unknown error type: {$message}");
+                            break;
+                    }
+
+                    /* Don't execute PHP internal error handler */
+                    //return true;
                 }
-
-                $message = "PHP [{$errno}] {$errstr} in {$errfile}:{$errline}";
-
-                // Pedantic mode
-                if (\Idno\Core\Idno::site()->config()->pedantic_mode) {
-                    $this->error($message);
-                    throw new \ErrorException($message, 0, $errno, $errfile, $errline);
-                }
-
-                switch ($errno) {
-                    case E_PARSE:
-                    case E_ERROR:
-                    case E_CORE_ERROR:
-                    case E_COMPILE_ERROR:
-                    case E_USER_ERROR: $this->error($message);
-                        break;
-
-                    case E_WARNING:
-                    case E_CORE_WARNING:
-                    case E_COMPILE_WARNING:
-                    case E_USER_WARNING: $this->warning($message);
-                        break;
-
-                    case E_STRICT:
-                    case E_NOTICE:
-                    case E_DEPRECATED:
-                    case E_USER_DEPRECATED:
-                    case E_STRICT:
-                    case E_USER_NOTICE: $this->notice($message);
-                        break;
-
-                    default:
-                        $this->notice("Unknown error type: {$message}");
-                        break;
-                }
-
-                /* Don't execute PHP internal error handler */
-                //return true;
-            });
+            );
         }
 
         /**
          * Sets the log level
+         *
          * @param $loglevel
          */
         public function setLogLevel($loglevel)
@@ -95,6 +102,7 @@ namespace Idno\Core {
 
         /**
          * Check whether a LogLevel meets the current loglevel_filter.
+         *
          * @param  string $level
          * @return boolean true if messages at this level should be logged
          */
@@ -116,11 +124,12 @@ namespace Idno\Core {
 
         /**
          * Write a message to the log.
+         *
          * @param string $level
-         * @param string $message
+         * @param $message
          * @param array  $context
          */
-        public function log($level, $message = LOGLEVEL_INFO, array $context = array())
+        public function log($level,$message = LOGLEVEL_INFO, array $context = array()): void
         {
             // backward compatibility
             if (is_string($level) && is_int($message)) {
@@ -128,14 +137,18 @@ namespace Idno\Core {
                 // calling style is deprecated and will eventually
                 // go away.
                 $temp = $level;
-                if ($message === LOGLEVEL_ERROR)
+                if ($message === LOGLEVEL_ERROR) {
                     $level = LogLevel::ERROR;
-                if ($message === LOGLEVEL_WARNING)
+                }
+                if ($message === LOGLEVEL_WARNING) {
                     $level = LogLevel::WARNING;
-                if ($message === LOGLEVEL_INFO)
+                }
+                if ($message === LOGLEVEL_INFO) {
                     $level = LogLevel::INFO;
-                if ($message === LOGLEVEL_DEBUG)
+                }
+                if ($message === LOGLEVEL_DEBUG) {
                     $level = LogLevel::DEBUG;
+                }
                 $message = $temp;
             }
 
@@ -177,8 +190,9 @@ namespace Idno\Core {
                 foreach ($message as $log) {
                     $logline = "Known ({$this->identifier}): $level - " . rtrim($log);
 
-                    if ($lines == count($message)-1)
+                    if ($lines == count($message)-1) {
                         $logline.=$trace;
+                    }
 
                     error_log($logline);
 
@@ -190,12 +204,12 @@ namespace Idno\Core {
         /**
          * System is unusable.
          *
-         * @param string $message
+         * @param $message
          * @param array  $context
          *
          * @return null
          */
-        public function emergency($message, array $context = array())
+        public function emergency($message, array $context = array()): void
         {
             $this->log(LogLevel::EMERGENCY, $message, $context);
         }
@@ -206,12 +220,12 @@ namespace Idno\Core {
          * Example: Entire website down, database unavailable, etc. This should
          * trigger the SMS alerts and wake you up.
          *
-         * @param string $message
+         * @param $message
          * @param array  $context
          *
          * @return null
          */
-        public function alert($message, array $context = array())
+        public function alert($message, array $context = array()): void
         {
             $this->log(LogLevel::ALERT, $message, $context);
         }
@@ -221,12 +235,12 @@ namespace Idno\Core {
          *
          * Example: Application component unavailable, unexpected exception.
          *
-         * @param string $message
+         * @param $message
          * @param array  $context
          *
          * @return null
          */
-        public function critical($message, array $context = array())
+        public function critical($message, array $context = array()): void
         {
             $this->log(LogLevel::CRITICAL, $message, $context);
         }
@@ -235,12 +249,12 @@ namespace Idno\Core {
          * Runtime errors that do not require immediate action but should typically
          * be logged and monitored.
          *
-         * @param string $message
+         * @param $message
          * @param array  $context
          *
          * @return null
          */
-        public function error($message, array $context = array())
+        public function error($message, array $context = array()): void
         {
             $this->log(LogLevel::ERROR, $message, $context);
         }
@@ -251,12 +265,12 @@ namespace Idno\Core {
          * Example: Use of deprecated APIs, poor use of an API, undesirable things
          * that are not necessarily wrong.
          *
-         * @param string $message
+         * @param $message
          * @param array  $context
          *
          * @return null
          */
-        public function warning($message, array $context = array())
+        public function warning($message, array $context = array()): void
         {
             $this->log(LogLevel::WARNING, $message, $context);
         }
@@ -264,12 +278,12 @@ namespace Idno\Core {
         /**
          * Normal but significant events.
          *
-         * @param string $message
+         * @param $message
          * @param array  $context
          *
          * @return null
          */
-        public function notice($message, array $context = array())
+        public function notice($message, array $context = array()): void
         {
             $this->log(LogLevel::NOTICE, $message, $context);
         }
@@ -279,12 +293,12 @@ namespace Idno\Core {
          *
          * Example: User logs in, SQL logs.
          *
-         * @param string $message
+         * @param $message
          * @param array  $context
          *
          * @return null
          */
-        public function info($message, array $context = array())
+        public function info($message, array $context = array()): void
         {
             $this->log(LogLevel::INFO, $message, $context);
         }
@@ -292,12 +306,12 @@ namespace Idno\Core {
         /**
          * Detailed debug information.
          *
-         * @param string $message
+         * @param $message
          * @param array  $context
          *
          * @return null
          */
-        public function debug($message, array $context = array())
+        public function debug($message, array $context = array()): void
         {
             $this->log(LogLevel::DEBUG, $message, $context);
         }
@@ -305,6 +319,7 @@ namespace Idno\Core {
 
         /**
          * (attempt) to send, if configured, a message when a fatal error occurs, or an exception is caught.
+         *
          * @param type $message
          * @param type $title
          */
@@ -316,7 +331,8 @@ namespace Idno\Core {
             if (!empty($config) && !empty($config->oops_notify)) {
 
                 $notify = $config->oops_notify;
-                if (!is_array($notify)) $notify = [$notify];
+                if (!is_array($notify)) { $notify = [$notify];
+                }
 
                 $title = $config->host . ": $title";
 
@@ -334,21 +350,26 @@ namespace Idno\Core {
                         ];
 
                         $uuid = \Idno\Core\Idno::site()->session()->currentUserUUID();
-                        if (!empty($uuid))
+                        if (!empty($uuid)) {
                             $vars['user'] = \Idno\Core\Idno::site()->session()->currentUserUUID();
+                        }
 
-                        if (!empty($_SERVER['HTTP_USER_AGENT']))
+                        if (!empty($_SERVER['HTTP_USER_AGENT'])) {
                             $vars['agent'] = $_SERVER['HTTP_USER_AGENT'];
+                        }
 
-                        if (!empty($_SERVER['QUERY_STRING']))
+                        if (!empty($_SERVER['QUERY_STRING'])) {
                             $vars['qs'] = $_SERVER['QUERY_STRING'];
+                        }
 
-                        if (!empty($_SERVER['HTTP_REFERER']))
+                        if (!empty($_SERVER['HTTP_REFERER'])) {
                             $vars['referrer'] = $_SERVER['HTTP_REFERER'];
+                        }
 
                         $email = new Email();
-                        if (!empty($title))
+                        if (!empty($title)) {
                             $email->setSubject($title);
+                        }
                         $email->setHTMLBodyFromTemplate('admin/oops', $vars);
                         $email->setTextBodyFromTemplate('admin/oops', $vars);
                         $email->addTo($emailaddress);

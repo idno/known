@@ -4,7 +4,8 @@
             $vars['object']->getDisplayUrl() . '/annotation/delete?permalink=' . \Idno\Core\Webservice::base64UrlEncode($vars['annotation_permalink']), //$vars['annotation_permalink'] . '/delete/',
             \Idno\Core\Idno::site()->language()->_('Delete'),
             [],
-            ['method' => 'POST']);
-        ?>
+            ['method' => 'POST']
+        );
+?>
     </p>
 </div>

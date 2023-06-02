@@ -24,6 +24,7 @@
     echo $template->draw('shell/syndication');
     echo $template->draw('shell/identities');
     echo $template->draw('shell/head');
+    echo $template->draw('shell/monetization');
     echo $template->draw('shell/head/final');
 ?>
 
@@ -39,7 +40,8 @@
             <a name="pagecontent"></a>
             <?php
                 echo $template->draw('shell/beforecontent');
-                if (!empty($vars['body'])) echo $vars['body'];
+            if (!empty($vars['body'])) { echo $vars['body'];
+            }
                 echo $template->draw('shell/aftercontent');
             ?>
         </div>

@@ -22,7 +22,7 @@ class WebInstaller extends \Idno\Core\Installer
 
     /**
      * @deprecated This needs to be moved into the front end js to handle proxies etc
-     * @return boolean
+     * @return     boolean
      */
     public function rewriteWorking()
     {
@@ -44,7 +44,7 @@ class WebInstaller extends \Idno\Core\Installer
         } else {
             $subdir = '/' . $subdir;
         }
-                
+
         $host = strtolower($_SERVER['HTTP_HOST']);
         if (!empty(Idno\Common\Page::isSSL())) {
             $schema = 'https://';
@@ -82,14 +82,14 @@ class WebInstaller extends \Idno\Core\Installer
         $mysql_name  = \Idno\Core\Input::getInput('mysql_name');
         $upload_path = \Idno\Core\Input::getInput('upload_path', dirname(dirname(__FILE__)) . '/Uploads/');
 
-//        if (!WebInstaller::installer()->rewriteWorking()) {
-//            $messages .= '<p>Rewriting appears to be disabled. Usually this means "AllowOverride None" is set in apache2.conf ';
-//            $messages .= 'which prevents Known\'s .htaccess from doing its thing. We tried to fetch a URL that should redirect ';
-//            $messages .= 'to known.min.js</p>';
-//            $messages .= '<p>You can usually fix this by setting <code>AllowOverride All</code> in your Apache configuration.</p>';
-//            $messages .= '<p>If you think this is an error, you can continue, but you might have problems later on.</p>';
-//            $ok = false;
-//        }
+        //        if (!WebInstaller::installer()->rewriteWorking()) {
+        //            $messages .= '<p>Rewriting appears to be disabled. Usually this means "AllowOverride None" is set in apache2.conf ';
+        //            $messages .= 'which prevents Known\'s .htaccess from doing its thing. We tried to fetch a URL that should redirect ';
+        //            $messages .= 'to known.min.js</p>';
+        //            $messages .= '<p>You can usually fix this by setting <code>AllowOverride All</code> in your Apache configuration.</p>';
+        //            $messages .= '<p>If you think this is an error, you can continue, but you might have problems later on.</p>';
+        //            $ok = false;
+        //        }
 
         if (!empty($mysql_name) && !empty($mysql_host)) {
             try {
@@ -132,27 +132,33 @@ class WebInstaller extends \Idno\Core\Installer
 
             try {
 
-                $ini_file = $this->buildConfig([
+                $ini_file = $this->buildConfig(
+                    [
                     'dbname' => $mysql_name,
                     'dbpass' => $mysql_pass,
                     'dbuser' => $mysql_user,
                     'dbhost' => $mysql_host,
                     'uploadpath' => $upload_path,
-                ]);
+                    ]
+                );
 
                 $this->writeConfig($ini_file);
 
             } catch (\Exception $ex) {
                 $ok = false;
 
-                $template->__([
+                $template->__(
+                    [
                     'title' => 'Save configuration file',
-                    'body' => $template->__([
+                    'body' => $template->__(
+                        [
                         'ini_file' => $ini_file,
 
-                    ])->draw('pages/write-config'),
+                        ]
+                    )->draw('pages/write-config'),
 
-                ])->drawPage();
+                    ]
+                )->drawPage();
             }
         }
 
@@ -163,9 +169,11 @@ class WebInstaller extends \Idno\Core\Installer
             }
         }
 
-        $template->__([
+        $template->__(
+            [
             'title' => 'Settings',
-            'body' => $template->__([
+            'body' => $template->__(
+                [
 
                 'site_title' => $site_title,
                 'mysql_user' => $mysql_user,
@@ -176,9 +184,11 @@ class WebInstaller extends \Idno\Core\Installer
 
                 'messages' => $messages,
 
-            ])->draw('pages/settings'),
+                ]
+            )->draw('pages/settings'),
 
-        ])->drawPage();
+            ]
+        )->drawPage();
     }
 
     public function run()
@@ -197,33 +207,41 @@ class WebInstaller extends \Idno\Core\Installer
                 $this->pageSettings();
                 break;
             case 'requirements' :
-                $template->__([
+                $template->__(
+                    [
                     'title' => 'Requirements',
-                    'body' => $template->__([
+                    'body' => $template->__(
+                        [
                         'ssl-required' => $this->ssl_required
-                    ])->draw('pages/requirements'),
+                        ]
+                    )->draw('pages/requirements'),
 
-                ])->drawPage();
+                    ]
+                )->drawPage();
                 break;
 
             // Welcome message
             default:
-                $template->__([
+                $template->__(
+                    [
                     'body' => $template->draw('pages/begin')
-                ])->drawPage();
+                    ]
+                )->drawPage();
         }
     }
 
 
     /**
      * Return the current installer
+     *
      * @return WebInstaller
      */
     public static function installer()
     {
 
-        if (!empty(self::$installer))
+        if (!empty(self::$installer)) {
             return self::$installer;
+        }
 
         self::$installer = new WebInstaller();
 

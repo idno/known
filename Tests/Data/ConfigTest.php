@@ -14,7 +14,7 @@ namespace Tests\Data {
         public function testMultipleConfig()
         {
             $configs = \Idno\Core\Idno::site()->db()->getRecords([], [], 10, 0, 'config');
-            $this->assertCount(1, $configs);
+            $this->assertCount(1, $configs, 'Only one config element should be returned.');
         }
 
         /**
@@ -22,7 +22,7 @@ namespace Tests\Data {
          */
         public function testSave()
         {
-            $this->assertTrue(\Idno\Core\Idno::site()->config()->save()!==false);
+            $this->assertTrue(\Idno\Core\Idno::site()->config()->save()!==false, 'Configuration should save correctly.');
         }
 
 

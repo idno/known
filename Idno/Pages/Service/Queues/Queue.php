@@ -27,9 +27,11 @@ namespace Idno\Pages\Service\Queues {
                 }
             }
 
-            Idno::site()->template()->__([
+            Idno::site()->template()->__(
+                [
                 'queue' => $array,
-            ])->drawPage();
+                ]
+            )->drawPage();
         }
     }
 }

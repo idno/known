@@ -3,7 +3,7 @@
     <a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/notifications">
         <i class="fa fa-bell"></i><?php echo \Idno\Core\Idno::site()->language()->_('Notifications'); ?><?php
         $notifs = \Idno\Core\Idno::site()->session()->currentUser()->countUnreadNotifications();
-        
+
         if ($notifs > 0) {
             echo " <span class=\"badge\">$notifs</span>";
         }
@@ -20,6 +20,6 @@
     <?php } ?>
 
 <li>
-    <a href="<?= \Idno\Core\Idno::site()->session()->currentUser()->getURL(); ?>"><img class="u-photo" src="<?php echo  \Idno\Core\Idno::site()->session()->currentUser()->getIcon(); ?>" /></a> 
+    <a href="<?php echo \Idno\Core\Idno::site()->session()->currentUser()->getURL(); ?>"><img class="u-photo" src="<?php echo  \Idno\Core\Idno::site()->session()->currentUser()->getIcon(); ?>" alt="<?php echo htmlspecialchars(\Idno\Core\Idno::site()->session()->currentUser()->getTitle()) ?>" /></a> 
 </li>
 

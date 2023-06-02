@@ -10,7 +10,8 @@ interface JSONLDSerialisable
 
     /**
      * Serialise a object to a Structured Data schema.
-     * @param array $params Optional params
+     *
+     * @param  array $params Optional params
      * @return array
      */
     public function jsonLDSerialise(array $params = []);

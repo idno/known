@@ -3,7 +3,7 @@
     /**
      * Template management class
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -16,26 +16,26 @@ namespace Idno\Core {
     {
         // Require sample texts
         use Templating\SampleText;
-        
+
         // Utility URLs
         use Templating\Urls;
-        
+
         // Parsing strings
         use Templating\Parsing;
-        
+
         // Formatting functions
         use Templating\Formatting;
-        
+
         // Template variables
         use Templating\Variables;
-        
+
         // Data variables
         use Templating\Data;
-        
+
         // Class manipulations stuff
         use Templating\Classes;
-        
-        
+
+
         // We'll keep track of extensions to templates here
         public $extensions = array();
 
@@ -76,8 +76,9 @@ namespace Idno\Core {
 
         /**
          * Override a page shell based on the page root.
+         *
          * @param type $path_root Url base, e.g. 'settings'
-         * @param type $shell The shell, e.g. 'settings-shell'
+         * @param type $shell     The shell, e.g. 'settings-shell'
          */
         public function addUrlShellOverride($path_root, $shell)
         {
@@ -87,9 +88,9 @@ namespace Idno\Core {
         /**
          * Extension-aware version of the template drawing function
          *
-         * @param string $templateName
-         * @param bool $returnBlank Should we return a blank string if the template doesn't exist? (Defaults to true)
-         * @param book $replacements Should we honor template replacements? (Defaults to true)
+         * @param  string $templateName
+         * @param  bool   $returnBlank  Should we return a blank string if the template doesn't exist? (Defaults to true)
+         * @param  book   $replacements Should we honor template replacements? (Defaults to true)
          * @return \Idno\Core\Bonita\false|string
          */
         function draw($templateName, $returnBlank = true, $replacements = true)
@@ -127,16 +128,19 @@ namespace Idno\Core {
                 }
             }
 
-            if (!empty($result)) return $result;
-            if ($returnBlank) return '';
+            if (!empty($result)) { return $result;
+            }
+            if ($returnBlank) { return '';
+            }
 
             return false;
         }
 
         /**
          * Draws the page shell.
-         * @param bool $echo
-         * @param $shell Optional override of the page shell template to be used
+         *
+         * @param  bool $echo
+         * @param  $shell Optional override of the page shell template to be used
          * @return false|string
          */
         function drawPage($echo = true, $shell = 'shell')
@@ -144,8 +148,7 @@ namespace Idno\Core {
             // Detect page, and see if we need to use a different shell
             foreach ($this->url_shell_overrides as $url => $page_shell) {
 
-                if (strpos(\Idno\Core\Idno::site()->currentPage()->currentUrl(), \Idno\Core\Idno::site()->config()->getDisplayURL() . $url.'/') === 0)
-                {
+                if (strpos(\Idno\Core\Idno::site()->currentPage()->currentUrl(), \Idno\Core\Idno::site()->config()->getDisplayURL() . $url.'/') === 0) {
                     $shell = $page_shell;
                 }
 
@@ -163,28 +166,34 @@ namespace Idno\Core {
 
         /**
          * Draw syndication buttons relating to a particular content type
-         * @param $content_type
-         * @param $posse_links containing Entity::getPosseLinks()
+         *
+         * @param  $content_type
+         * @param  $posse_links  containing Entity::getPosseLinks()
          * @return \Idno\Core\Bonita\false|string
          */
         function drawSyndication($content_type, $posse_links = [])
         {
-            return $this->__(array('services'     => \Idno\Core\Idno::site()->syndication()->getServices($content_type),
+            return $this->__(
+                array('services'     => \Idno\Core\Idno::site()->syndication()->getServices($content_type),
                                    'content_type' => $content_type,
-            'posseLinks'   => $posse_links))->draw('content/syndication');
+                'posseLinks'   => $posse_links)
+            )->draw('content/syndication');
         }
 
         /**
          * Draws generic pagination suitable for placing somewhere on a page (offset is drawn from the 'offset' input variable)
-         * @param int $count Number of items in total (across all pages)
-         * @param int $items_per_page Number of items you're displaying per page
-         * @param array $vars Additional template variables
+         *
+         * @param  int   $count          Number of items in total (across all pages)
+         * @param  int   $items_per_page Number of items you're displaying per page
+         * @param  array $vars           Additional template variables
          * @return string
          */
         function drawPagination($count, $items_per_page = null, array $vars = [])
         {
-            if (empty($vars)) $vars = [];
-            if ($items_per_page == null) $items_per_page = \Idno\Core\Idno::site()->config()->items_per_page;
+            if (empty($vars)) { $vars = [];
+            }
+            if ($items_per_page == null) { $items_per_page = \Idno\Core\Idno::site()->config()->items_per_page;
+            }
             $page   = \Idno\Core\Idno::site()->currentPage();
             $offset = (int)$page->getInput('offset');
             if ($offset == 0 && $count < $items_per_page) {
@@ -203,7 +212,7 @@ namespace Idno\Core {
          *
          * @param string $templateName
          * @param string $extensionTemplateName
-         * @param bool $to_front If set, this will add the template to the beginning of the template queue
+         * @param bool   $to_front              If set, this will add the template to the beginning of the template queue
          */
         function extendTemplate($templateName, $extensionTemplateName, $to_front = false, $templateType = '*')
         {
@@ -225,7 +234,7 @@ namespace Idno\Core {
          *
          * @param string $templateName
          * @param string $prependTemplateName
-         * @param bool $to_front If set, this will add the template to the beginning of the template queue
+         * @param bool   $to_front            If set, this will add the template to the beginning of the template queue
          */
         function prependTemplate($templateName, $prependTemplateName, $to_front = false)
         {
@@ -261,6 +270,7 @@ namespace Idno\Core {
         /**
          * Extends a given template with pre-rendered content. All pre-rendered content will be drawn after
          * template-driven content.
+         *
          * @param $templateName
          * @param $content
          */

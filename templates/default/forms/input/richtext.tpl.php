@@ -64,15 +64,13 @@ if (!empty($vars['label'])) {
             <?php if (!empty($vars['wordcount'])) {
                 ?>statusbar: true, <?php
             } else {
-    ?>statusbar: false,<?php
-} ?>
+                ?>statusbar: false,<?php
+            } ?>
             branding: false,
             menubar: false,
             height: <?php echo $height?>,
             min_height: <?php echo $height?>,
             resize: true,
-            toolbar: 'styleselect | bold italic | link image | blockquote bullist numlist | alignleft aligncenter alignright | code',
-            plugins: 'code link image autoresize <?php if (!empty($vars['wordcount'])) { echo " wordcount";} ?>',
             relative_urls : false,
             remove_script_host : false,
             convert_urls : true,
@@ -82,11 +80,10 @@ if (!empty($vars['label'])) {
             file_picker_callback: function (callback, value, meta) {
                 filePickerDialog(callback, value, meta);
             },
-            mobile: {
-                theme: 'silver',
-                toolbar: 'styleselect | bold italic | link image | blockquote bullist numlist | alignleft aligncenter alignright | code',
-                plugins: 'code link image autoresize <?php if (!empty($vars['wordcount'])) { echo " wordcount"; } ?>'
-            }
+            toolbar: 'styles | bold italic | link image | blockquote bullist numlist | alignleft aligncenter alignright | emoticons | code',
+            plugins: 'code link image autoresize lists emoticons <?php
+            if (!empty($vars['wordcount'])) { echo " wordcount";
+            } ?>',
         });
     }
 

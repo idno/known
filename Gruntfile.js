@@ -19,7 +19,7 @@
  */
 
 /*jshint ignore:start*/
-const sass = require('node-sass'); // Use Node SASS (wrapper around libsass)
+const sass = require('dart-sass');
 /*jshint ignore:end*/
 
 module.exports = function (grunt) {
@@ -71,24 +71,42 @@ module.exports = function (grunt) {
       }
     },
     babel: {
-	options: {
-	    sourceType: "module"
-	},
-	dist: {
-	    files: [
-		{
-		    expand: true,
-		    cwd: 'js/',
-		    src: ['*.es6'],
-		    dest: 'js/',
-		    ext: '.js',
-		    extDot: 'last'
-		}]
-	},
+      options: {
+	sourceType: "module",
+        sourceMaps: true,
+        "presets": [
+          [
+            "@babel/preset-env",
+            {
+              "loose": true,
+              "modules": false,
+              "targets": {
+                esmodules: true
+              }
+            },
+          ]
+        ]
+      },
+      dist: {
+	files: [
+	  {
+	    expand: true,
+	    cwd: 'js/',
+	    src: ['*.es6'],
+	    dest: 'js/',
+	    ext: '.js',
+	    extDot: 'last'
+	  }]
+      },
     },
     terser: {
 	options: {
+          sourceMap: true,
+          ecma: 2017,
 	},
+        sourceMap: {
+          url: "file.js.map"
+        },
 	dist: {
 	    files: [{
 		expand: true,
@@ -100,12 +118,22 @@ module.exports = function (grunt) {
 	    }]
 	},
     },
-    csslint: {
-      options: {
-        quiet: true,
-        ids: false
-      },
-      src: ['css/*.css', '!*.min.css']
+    modernizr: {
+      dist: {
+        "crawl": false,
+        "minify": true,
+        "uglify": true,
+        "options": [
+          "setClasses"
+        ],
+        "tests": [
+          "inputtypes"
+        ],
+        "dest": "js/modernizr/modernizr-custom.js"
+      }
+    },
+    stylelint: {
+      all: ['css/scss/*.scss', 'css/scss/known/*.scss']
     },
     jshint: {
       // define the files to lint
@@ -148,7 +176,7 @@ module.exports = function (grunt) {
         },
         sass: {
             files: 'css/scss/**/*.scss',
-            tasks:  ['build-css', 'csslint']
+            tasks:  ['build-css', 'stylelint']
         },
         js: {
             files: ['js/src/**/*.js', 'Gruntfile.js'],
@@ -158,19 +186,21 @@ module.exports = function (grunt) {
 
   });
 
-// Load the plugins
+  // Load the plugins
   grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-terser');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-csslint');
+  grunt.loadNpmTasks('grunt-stylelint');
+  grunt.loadNpmTasks("grunt-modernizr");
 
-// Tests
-  grunt.registerTask('test', ['csslint', 'jshint']);
 
-// Build language pack
+  // Tests
+  grunt.registerTask('test', ['stylelint', 'jshint']);
+
+  // Build language pack
   grunt.registerTask('build-lang', '', function () {
 
     /*jshint ignore:start*/
@@ -186,11 +216,10 @@ module.exports = function (grunt) {
 
     execSync('find ./Idno ./templates -type f -regex ".*\.php" | sort | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from idno core
     execSync('echo ./known.php | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from console
-
   });
 
-// Default task(s).
+  // Default task(s).
   grunt.registerTask('build-js', ['concat', 'babel', 'terser']);
   grunt.registerTask('build-css', ['sass']);
-  grunt.registerTask('default', ['build-js', 'build-css', 'build-lang', 'test']);
+  grunt.registerTask('default', ['build-js', 'build-css', 'build-lang', 'modernizr', 'test']);
 };

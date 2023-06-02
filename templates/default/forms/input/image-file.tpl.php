@@ -1,19 +1,22 @@
 <?php
- 
-    if (empty($vars['id']))
-        $vars['id'] = 'photo-' . md5(rand());
-    
+
+if (empty($vars['id'])) {
+    $vars['id'] = 'photo-' . md5(rand());
+}
+
     $multiple = false;
-    if (strpos($vars['name'], '[]') !== false)
-        $multiple = true;
-    
+if (strpos($vars['name'], '[]') !== false) {
+    $multiple = true;
+}
+
     $hide_existing = false;
-    if (!empty($vars['hide-existing']))
-        $hide_existing = true;
+if (!empty($vars['hide-existing'])) {
+    $hide_existing = true;
+}
 ?>
 <div class="image-file-input">
     <div class="photo-preview-existing">
-        <?php 
+        <?php
         if (!empty($vars['object']->_id) && !$hide_existing) {
 
             $attachments = $vars['object']->getAttachments();
@@ -47,50 +50,54 @@
                 <div class="existing-photo">
                     <?php if ($vars['object']->canEdit() && empty($vars['hide-delete'])) { ?>
                     <span class="delete-control">
-                        <?= \Idno\Core\Idno::site()->actions()->createLink(
-                                \Idno\Core\Idno::site()->config()->getDisplayURL() . 'attachment/' . $vars['object']->getId() . '/' . $attachment['_id'] . '/', 
-                                '<i class="fa fa-trash-o"></i>',
-                                [], 
-                                [
-                                    'method' => 'POST', 
-                                    'class' => 'edit', 
-                                    'confirm' => true, 
+                        <?php echo \Idno\Core\Idno::site()->actions()->createLink(
+                            \Idno\Core\Idno::site()->config()->getDisplayURL() . 'attachment/' . $vars['object']->getId() . '/' . $attachment['_id'] . '/',
+                            '<i class="fa fa-trash-o"></i>',
+                            [],
+                            [
+                                    'method' => 'POST',
+                                    'class' => 'edit',
+                                    'confirm' => true,
                                     'confirm-text' => \Idno\Core\Idno::site()->language()->_("Are you sure you want to permanently delete this?")
-                                ]); ?>
+                            ]
+                        ); ?>
                     </span>
                     <?php } ?>
-                    <img src="<?= $this->makeDisplayURL($src) ?>" class="existing"/>
+                    <img src="<?php echo $this->makeDisplayURL($src) ?>" class="existing"/>
                 </div>
-        <?php     
+                <?php
             }
         }
         ?>
     </div>
-    <div class="photo-preview" id="<?= $vars['id']; ?>_preview">
-        <img id="<?= $vars['id']; ?>_img" src="" class="preview" style="display:none; width: 400px;" />
+    <div class="photo-preview" id="<?php echo $vars['id']; ?>_preview">
+        <img id="<?php echo $vars['id']; ?>_img" src="" class="preview" style="display:none; width: 400px;" />
     </div>
     <p>
         <span class="btn btn-primary btn-file">
             <i class="fa fa-camera"></i> 
-            <span class="photo-filename" data-nexttext="<?= \Idno\Core\Idno::site()->language()->_('Choose different photo'); ?>">
-                <?php 
-                    if (empty($vars['object']->_id)) { 
-                        echo \Idno\Core\Idno::site()->language()->_('Select a photo'); 
-                    } else { 
-                        if (!$multiple)
-                            echo \Idno\Core\Idno::site()->language()->_('Choose different photo'); 
-                        else
-                            echo \Idno\Core\Idno::site()->language()->_('Add photo'); 
-                    } 
+            <span class="photo-filename" data-nexttext="<?php echo \Idno\Core\Idno::site()->language()->_('Choose different photo'); ?>">
+                <?php
+                if (empty($vars['object']->_id)) {
+                    echo \Idno\Core\Idno::site()->language()->_('Select a photo');
+                } else {
+                    if (!$multiple) {
+                        echo \Idno\Core\Idno::site()->language()->_('Choose different photo');
+                    } else {
+                        echo \Idno\Core\Idno::site()->language()->_('Add photo');
+                    }
+                }
                 ?>
             </span> 
-            <?=
-            $this->__([
+            <?php echo
+            $this->__(
+                [
                 'name' => $vars['name'],
                 'id' => $vars['id'],
                 'accept' => 'image/*',
                 'onchange' => 'Template.activateImagePreview(this)',
-                'class' => 'input-file form-control col-md-9'])->draw('forms/input/file');
+                'class' => 'input-file form-control col-md-9']
+            )->draw('forms/input/file');
             ?>
         </span>
     </p>

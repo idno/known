@@ -3,7 +3,8 @@
     $currentPage = \Idno\Core\Idno::site()->currentPage();
     $pageOwner = $currentPage->getOwner();
 
-    if (empty($vars['title'])) $vars['title'] = '';
+if (empty($vars['title'])) { $vars['title'] = '';
+}
 
 if (!empty($vars['object'])) {
     $objectIcon = $vars['object']->getIcon();
@@ -13,12 +14,13 @@ if (!empty($vars['object'])) {
 
     $opengraph = array(
         'og:type'      => 'website',
-        'og:title'     => htmlspecialchars(strip_tags($vars['title'])),
-        'og:site_name' => htmlspecialchars(strip_tags(\Idno\Core\Idno::site()->config()->title)),
+        'og:title'     => htmlspecialchars(strip_tags($vars['title']), ENT_COMPAT, 'UTF-8'),
+        'og:site_name' => htmlspecialchars(strip_tags(\Idno\Core\Idno::site()->config()->title), ENT_COMPAT, 'UTF-8'),
         'og:image'     => $currentPage->getIcon()
     );
 
-    if (!empty($vars['description'])) $opengraph['og:description'] = $vars['description'];
+    if (!empty($vars['description'])) { $opengraph['og:description'] = $vars['description'];
+    }
 
     if ($currentPage->isPermalink()) {
 
@@ -28,8 +30,8 @@ if (!empty($vars['object'])) {
             $owner  = $vars['object']->getOwner();
             $object = $vars['object'];
 
-            $opengraph['og:title']       = htmlspecialchars(strip_tags($vars['object']->getTitle()));
-            $opengraph['og:description'] = htmlspecialchars($vars['object']->getShortDescription());
+            $opengraph['og:title']       = htmlspecialchars(strip_tags($vars['object']->getTitle()), ENT_COMPAT, 'UTF-8');
+            $opengraph['og:description'] = htmlspecialchars($vars['object']->getShortDescription(), ENT_COMPAT, 'UTF-8');
             $opengraph['og:type']        = 'article'; //htmlspecialchars($vars['object']->getActivityStreamsObjectType());
             $opengraph['og:image']       = $objectIcon; //$owner->getIcon(); //Icon, for now set to being the author profile pic
 
@@ -87,8 +89,8 @@ if (!empty($vars['object'])) {
             <!-- Twitter card -->
             <meta name="twitter:card" content="summary"/>
             <meta name="twitter:site" content="@<?php echo $twitter_account ?>"/>
-            <meta name="twitter:title" content="<?php echo htmlspecialchars($vars['title']) ?>"/>
-            <meta name="twitter:description" content="<?php echo htmlspecialchars($vars['description']) ?>"/>
+            <meta name="twitter:title" content="<?php echo htmlspecialchars($vars['title'], ENT_COMPAT, 'UTF-8') ?>"/>
+            <meta name="twitter:description" content="<?php echo htmlspecialchars($vars['description'], ENT_COMPAT, 'UTF-8') ?>"/>
 
             <?php
 

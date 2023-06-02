@@ -1,7 +1,8 @@
 <?php
 
     // Default to post
-    if (strtolower($vars['method']) != 'get') $vars['method'] = 'post';
+if (strtolower($vars['method']) != 'get') { $vars['method'] = 'post';
+}
 
 ?>
 <form method="<?php echo $vars['method']?>" action="<?php echo $vars['action']?>" enctype="multipart/form-data">

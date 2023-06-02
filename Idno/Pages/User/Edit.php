@@ -19,18 +19,21 @@ namespace Idno\Pages\User {
             if (!empty($this->arguments[0])) {
                 $user = \Idno\Entities\User::getByHandle($this->arguments[0]);
             }
-            if (empty($user)) $this->forward(); // TODO: 404
+            if (empty($user)) { $this->forward(); // TODO: 404
+            }
             if (!$user->canEdit()) {
                 $this->deniedContent();
             }
 
             $t = \Idno\Core\Idno::site()->template();
-            $t->__(array(
+            $t->__(
+                array(
 
                 'title' => \Idno\Core\Idno::site()->language()->_('Edit profile: %s', [$user->getTitle()]),
                 'body'  => $t->__(array('user' => $user))->draw('entity/User/edit')
 
-            ))->drawPage();
+                )
+            )->drawPage();
         }
 
     }

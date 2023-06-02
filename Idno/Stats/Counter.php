@@ -3,7 +3,7 @@
 /**
  * Simple stats counter
  *
- * @package idno
+ * @package    idno
  * @subpackage core
  */
 
@@ -12,13 +12,16 @@ namespace Idno\Stats {
     class Counter
     {
 
-        /** Array of counters */
+        /**
+         * Array of counters
+         */
         private static $counters = [];
 
         /**
          * Set the value of a counter.
+         *
          * @param string $counter
-         * @param int $value
+         * @param int    $value
          */
         public static function set($counter, $value)
         {
@@ -29,6 +32,7 @@ namespace Idno\Stats {
 
         /**
          * Increment a counter value.
+         *
          * @param type $counter
          */
         public static function increment($counter)
@@ -42,6 +46,7 @@ namespace Idno\Stats {
 
         /**
          * Decrement a counter value.
+         *
          * @param type $counter
          */
         public static function decrement($counter)
@@ -55,14 +60,16 @@ namespace Idno\Stats {
 
         /**
          * Retrieve the counter value
-         * @param type $counter
+         *
+         * @param  type $counter
          * @return int
          */
         public static function get($counter)
         {
 
-            if (isset(self::$counters[$counter]))
+            if (isset(self::$counters[$counter])) {
                 return self::$counters[$counter];
+            }
 
             return 0;
         }

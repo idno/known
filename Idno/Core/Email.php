@@ -19,6 +19,7 @@ namespace Idno\Core {
 
         /**
          * Set the subject of the message
+         *
          * @param $subject
          */
         function setSubject($subject)
@@ -28,8 +29,9 @@ namespace Idno\Core {
 
         /**
          * Set the "From" address of the message
-         * @param $email The email address of the account
-         * @param $name The name of the account
+         *
+         * @param  $email The email address of the account
+         * @param  $name  The name of the account
          * @return mixed
          */
         function setFrom($email, $name = '')
@@ -43,8 +45,9 @@ namespace Idno\Core {
 
         /**
          * Add a recipient
-         * @param string $email The email address of the recipient
-         * @param string $name The name of the recipient (optional)
+         *
+         * @param  string $email The email address of the recipient
+         * @param  string $name  The name of the recipient (optional)
          * @return mixed
          */
         function addTo($email, $name = '')
@@ -58,7 +61,8 @@ namespace Idno\Core {
 
         /**
          * Adds an email to the BCC list
-         * @param $email
+         *
+         * @param  $email
          * @return mixed
          */
         function addBcc($email)
@@ -68,8 +72,9 @@ namespace Idno\Core {
 
         /**
          * Add a "reply to" message
-         * @param $email
-         * @param string $name
+         *
+         * @param  $email
+         * @param  string $name
          * @return mixed
          */
         function setReplyTo($email, $name = '')
@@ -83,8 +88,9 @@ namespace Idno\Core {
 
         /**
          * Given the name of a template and a set of variables to include, generates an HTML body and adds it to the message
-         * @param $template_name
-         * @param array $vars
+         *
+         * @param  $template_name
+         * @param  array $vars
          * @return mixed
          */
         function setHTMLBodyFromTemplate($template_name, $vars = array(), array $shellVars = [])
@@ -98,9 +104,10 @@ namespace Idno\Core {
 
         /**
          * Sets the HTML body of the message (optionally setting it inside the email pageshell as defined by the email template)
-         * @param $body The formatted HTML body text of the message
-         * @param bool $shell Should the message be placed inside the pageshell? Default: true
-         * @param array $shellVars Variables to pass to the page shell template
+         *
+         * @param  $body      The formatted HTML body text of the message
+         * @param  bool  $shell     Should the message be placed inside the pageshell? Default: true
+         * @param  array $shellVars Variables to pass to the page shell template
          * @return mixed
          */
         function setHTMLBody($body, $shell = true, array $shellVars = [])
@@ -118,8 +125,9 @@ namespace Idno\Core {
 
         /**
          * Set the text only component of an email.
-         * @param type $template_name
-         * @param type $vars
+         *
+         * @param  type $template_name
+         * @param  type $vars
          * @return mixed
          */
         function setTextBodyFromTemplate($template_name, $vars = array())
@@ -133,7 +141,8 @@ namespace Idno\Core {
 
         /**
          * Sets the plain text body of the message
-         * @param string $body The body of the message
+         *
+         * @param  string $body The body of the message
          * @return mixed
          */
         function setTextBody($body)
@@ -143,6 +152,7 @@ namespace Idno\Core {
 
         /**
          * Send the message
+         *
          * @return int
          */
         function send()

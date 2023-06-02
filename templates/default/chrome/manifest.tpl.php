@@ -7,8 +7,9 @@
     // Calculate application scope, match that of service worker
     $scope = '/';
     $url = parse_url(\Idno\Core\Idno::site()->config()->getDisplayURL());
-    if (!empty($url['path']))
-        $scope = $url['path'];
+if (!empty($url['path'])) {
+    $scope = $url['path'];
+}
 
     $manifest = [
         'name' => \Idno\Core\Idno::site()->config()->getTitle(),

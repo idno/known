@@ -3,7 +3,7 @@
     /**
      * Session management class
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -96,36 +96,44 @@ namespace Idno\Core {
             Idno::site()->routes()->addRoute('/currentUser/?', '\Idno\Pages\Session\CurrentUser');
 
             // Update the session on save if we're saving the current user
-            \Idno\Core\Idno::site()->events()->addListener('save', function (\Idno\Core\Event $event) {
+            \Idno\Core\Idno::site()->events()->addListener(
+                'save', function (\Idno\Core\Event $event) {
 
-                $eventdata = $event->data();
-                $object    = $eventdata['object'];
+                    $eventdata = $event->data();
+                    $object    = $eventdata['object'];
 
-                if (empty($object) || empty($this->user) ||
-                    !($object instanceof User) || !($this->user instanceof User)
-                ) return;
+                    if (empty($object) || empty($this->user)
+                        || !($object instanceof User) || !($this->user instanceof User)
+                    ) { return;
+                    }
 
-                if ($object->getUUID() != $this->user->getUUID()) return;
+                    if ($object->getUUID() != $this->user->getUUID()) { return;
+                    }
 
-                if (!empty($_SESSION['user_uuid'])) {
-                if ($object->getUUID() != $_SESSION['user_uuid']) return;
+                    if (!empty($_SESSION['user_uuid'])) {
+                        if ($object->getUUID() != $_SESSION['user_uuid']) { return;
+                        }
+                    }
+
+                    $this->user = $this->refreshSessionUser($object);
+
                 }
-
-                $this->user = $this->refreshSessionUser($object);
-
-            });
+            );
 
             // If this is an API request, we need to destroy the session afterwards. See #1028
-            register_shutdown_function(function () {
-                $session = Idno::site()->session();
-                if ($session && $session->isAPIRequest()) {
-                    $session->logUserOff();
+            register_shutdown_function(
+                function () {
+                    $session = Idno::site()->session();
+                    if ($session && $session->isAPIRequest()) {
+                        $session->logUserOff();
+                    }
                 }
-            });
+            );
         }
 
         /**
          * Validate the session.
+         *
          * @throws \Exception if the session is invalid.
          */
         protected function validate()
@@ -163,7 +171,8 @@ namespace Idno\Core {
 
         /**
          * Wrapper function for isLoggedIn()
-         * @see Idno\Core\Session::isLoggedIn()
+         *
+         * @see    Idno\Core\Session::isLoggedIn()
          * @return true|false
          */
 
@@ -174,6 +183,7 @@ namespace Idno\Core {
 
         /**
          * Is a user logged into the current session?
+         *
          * @return true|false
          */
         function isLoggedIn()
@@ -187,6 +197,7 @@ namespace Idno\Core {
 
         /**
          * Returns true if a user is logged into the current session, and they're an admin.
+         *
          * @return bool
          */
         function isAdmin()
@@ -200,6 +211,7 @@ namespace Idno\Core {
 
         /**
          * Returns the currently logged-in user, if any
+         *
          * @return \Idno\Entities\User
          */
 
@@ -214,7 +226,8 @@ namespace Idno\Core {
 
         /**
          * Adds a message to the queue to be delivered to the user as soon as is possible
-         * @param string $message The text of the message
+         *
+         * @param string $message      The text of the message
          * @param string $message_type This type of message; this will be added to the displayed message class, or returned as data
          */
 
@@ -228,8 +241,9 @@ namespace Idno\Core {
 
         /**
          * Draw a message
-         * @param $message
-         * @param string $message_type
+         *
+         * @param  $message
+         * @param  string $message_type
          * @return string
          */
         function drawMessage($message, $message_type = 'alert-info')
@@ -241,7 +255,8 @@ namespace Idno\Core {
 
         /**
          * Draw a message from a message structure
-         * @param array $message
+         *
+         * @param  array $message
          * @return string
          */
         function drawStructuredMessage($message)
@@ -253,8 +268,9 @@ namespace Idno\Core {
 
         /**
          * Turns a string message into a message structure
-         * @param $message
-         * @param string $message_type
+         *
+         * @param  $message
+         * @param  string $message_type
          * @return array
          */
         function getStructuredMessage($message, $message_type = 'alert-info')
@@ -264,6 +280,7 @@ namespace Idno\Core {
 
         /**
          * Error message wrapper for addMessage()
+         *
          * @param string $message
          */
         function addErrorMessage($message)
@@ -273,7 +290,8 @@ namespace Idno\Core {
 
         /**
          * Adds a message to the queue to be delivered to the user as soon as is possible, ensuring it's at the beginning of the list
-         * @param string $message The text of the message
+         *
+         * @param string $message      The text of the message
          * @param string $message_type This type of message; this will be added to the displayed message class, or returned as data
          */
 
@@ -287,6 +305,7 @@ namespace Idno\Core {
 
         /**
          * Retrieve any messages from the session, remove them from the session, and return them
+         *
          * @return array
          */
         function getAndFlushMessages()
@@ -299,6 +318,7 @@ namespace Idno\Core {
 
         /**
          * Retrieve any messages waiting for the user in the session
+         *
          * @return array
          */
         function getMessages()
@@ -322,6 +342,7 @@ namespace Idno\Core {
 
         /**
          * Get access groups the current user is allowed to write to
+         *
          * @return array
          */
 
@@ -336,32 +357,37 @@ namespace Idno\Core {
 
         /**
          * Get IDs of the access groups the current user is allowed to write to
+         *
          * @return array
          */
 
         function getWriteAccessGroupIDs()
         {
-            if ($this->isLoggedOn())
+            if ($this->isLoggedOn()) {
                 return $this->currentUser()->getWriteAccessGroups();
+            }
 
             return array();
         }
 
         /**
          * Get access groups the current user (if any) is allowed to read from
+         *
          * @return array
          */
 
         function getReadAccessGroups()
         {
-            if ($this->isLoggedOn())
+            if ($this->isLoggedOn()) {
                 return $this->currentUser()->getReadAccessGroups();
+            }
 
             return array('PUBLIC');
         }
 
         /**
          * Get IDs of the access groups the current user (if any) is allowed to read from
+         *
          * @return array
          */
 
@@ -377,15 +403,18 @@ namespace Idno\Core {
 
         /**
          * Log the current session user off
+         *
          * @return true
          */
 
         function logUserOff()
         {
 
-            \Idno\Core\Idno::site()->events()->triggerEvent("user/logoff", array(
+            \Idno\Core\Idno::site()->events()->triggerEvent(
+                "user/logoff", array(
                 "user"   => !empty($this->user) ? $this->user : null,
-            ));
+                )
+            );
 
             unset($_SESSION['user_uuid']);
             unset($this->user);
@@ -399,7 +428,8 @@ namespace Idno\Core {
                 if (!$this->isAPIRequest()) { // #1365 - we need to destroy the session, but resetting cookie causes problems with the api
                     if (ini_get("session.use_cookies")) {
                         $params = session_get_cookie_params();
-                        setcookie(session_name(), '', time() - 42000,
+                        setcookie(
+                            session_name(), '', time() - 42000,
                             $params["path"], $params["domain"],
                             $params["secure"], $params["httponly"]
                         );
@@ -414,8 +444,9 @@ namespace Idno\Core {
 
         /**
          * Set a piece of session data
+         *
          * @param string $name
-         * @param mixed $value
+         * @param mixed  $value
          */
         function set($name, $value)
         {
@@ -424,7 +455,8 @@ namespace Idno\Core {
 
         /**
          * Retrieve the session data with key $name, if it exists
-         * @param string $name
+         *
+         * @param  string $name
          * @return mixed
          */
         function get($name)
@@ -438,6 +470,7 @@ namespace Idno\Core {
 
         /**
          * Remove data with key $name from the session
+         *
          * @param $name
          */
         function remove($name)
@@ -475,7 +508,8 @@ namespace Idno\Core {
                 }
 
                 $user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME']);
-                if (empty($user)) $user = \Idno\Entities\User::getByEmail($_SERVER['HTTP_X_KNOWN_USERNAME']);
+                if (empty($user)) { $user = \Idno\Entities\User::getByEmail($_SERVER['HTTP_X_KNOWN_USERNAME']);
+                }
                 if (!empty($user)) {
                     \Idno\Core\Idno::site()->logging()->debug("API auth found user by username: {$_SERVER['HTTP_X_KNOWN_USERNAME']} - " . $user->getName());
 
@@ -520,10 +554,12 @@ namespace Idno\Core {
                 }
             }
 
-            $return = \Idno\Core\Idno::site()->events()->triggerEvent($return ? "user/auth/success" : "user/auth/failure", array(
+            $return = \Idno\Core\Idno::site()->events()->triggerEvent(
+                $return ? "user/auth/success" : "user/auth/failure", array(
                 "user"   => $return,
                 "is api" => $this->isAPIRequest(),
-            ), $return);
+                ), $return
+            );
 
             return $return;
         }
@@ -531,7 +567,7 @@ namespace Idno\Core {
         /**
          * Log the specified user on (note that this is NOT the same as taking the user's auth credentials)
          *
-         * @param \Idno\Entities\User $user
+         * @param  \Idno\Entities\User $user
          * @return \Idno\Entities\User
          */
 
@@ -546,21 +582,26 @@ namespace Idno\Core {
             @session_regenerate_id(true);
 
             // user/auth/success event needs to be triggered here
-            $return = \Idno\Core\Idno::site()->events()->triggerEvent($return ? "user/auth/success" : "user/auth/failure", array(
+            $return = \Idno\Core\Idno::site()->events()->triggerEvent(
+                $return ? "user/auth/success" : "user/auth/failure", array(
                 "user"   => $return,
                 "is api" => $this->isAPIRequest(),
-            ), $return);
+                ), $return
+            );
 
-            \Idno\Core\Idno::site()->events()->triggerEvent("user/logon", array(
+            \Idno\Core\Idno::site()->events()->triggerEvent(
+                "user/logon", array(
                 "user"   => $return,
-            ));
+                )
+            );
 
             return $return;
         }
 
         /**
          * Refresh the user currently stored in the session
-         * @param \Idno\Entities\User $user
+         *
+         * @param  \Idno\Entities\User $user
          * @return \Idno\Entities\User
          */
         function refreshSessionUser(\Idno\Entities\User $user)
@@ -605,6 +646,7 @@ namespace Idno\Core {
 
         /**
          * Sets whether this session is an API request or a manual browse
+         *
          * @param boolean $is_api_request
          */
         function setIsAPIRequest($is_api_request)
@@ -615,6 +657,7 @@ namespace Idno\Core {
 
         /**
          * Is this session an API request?
+         *
          * @return bool
          */
         function isAPIRequest()
@@ -628,7 +671,7 @@ namespace Idno\Core {
 
         /**
          * If the current user isn't logged in and this isn't a public site, and this hasn't been defined as an
-         * always-public page, forward to the login page!
+         * always-public page, forward to the login page.
          */
         function publicGatekeeper()
         {
@@ -636,13 +679,8 @@ namespace Idno\Core {
             if (!\Idno\Core\Idno::site()->config()->isPublicSite()) {
                 if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) {
                     $class = get_class(Idno::site()->currentPage());
-                    if (!\Idno\Core\Idno::site()->isPageHandlerPublic($class)) {
-                        //                            \Idno\Core\Idno::site()->currentPage()->setResponse(403);
-                        //                            if (!\Idno\Core\Idno::site()->session()->isAPIRequest()) {
-                        //                                \Idno\Core\Idno::site()->currentPage()->forward(Idno::site()->config()->getURL() . 'session/login/?fwd=' . urlencode($_SERVER['REQUEST_URI']));
-                        //                            } else {
+                    if (!\Idno\Core\Idno::site()->routes()->isRoutePublic($class)) {
                         \Idno\Core\Idno::site()->currentPage()->deniedContent();
-                        //                            }
                     }
                 }
             }

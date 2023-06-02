@@ -1,12 +1,14 @@
 <?php
 
 namespace Idno\Core\Templating {
-    
-    trait Variables {
-        
+
+    trait Variables
+    {
+
         /**
          * Document a form control and make it easily discoverable by the API.
-         * @param type $name Name of the control
+         *
+         * @param type $name   Name of the control
          * @param type $values Array of form value. Common are 'type', 'description', 'id'
          */
         function documentFormControl($name, $values = [])
@@ -19,27 +21,31 @@ namespace Idno\Core\Templating {
             if (isset($vars[$name])) {
                 $vars[$name][] = $values;
             } else {
-                if (strpos($name, '[')===false)
+                if (strpos($name, '[')===false) {
                     $vars[$name] = $values;
-                else
+                } else {
                     $vars[$name][] = $values;
+                }
             }
 
             $this->__(['formFields' => $vars]);
         }
-        
+
         /**
          * Should we render as `h-feed`?
+         *
          * @return bool
          */
-        public function isHFeed() {
+        public function isHFeed()
+        {
             $classes = \Idno\Core\Idno::site()->template()->getBodyClasses();
             return (strpos($classes, "homepage") || strpos($classes, "page-content") || strpos($classes, "page-tag"));
         }
-        
+
         /**
          * Returns a version of this template with variable defaults set up for the shell
-         * @param $vars
+         *
+         * @param  $vars
          * @return \Idno\Core\Bonita\Templates
          */
         function formatShellVariables($vars)
@@ -80,12 +86,14 @@ namespace Idno\Core\Templating {
                 $vars['title_className'] = ' class="p-name"';
             }
 
-            if (empty($vars['title'])) $vars['title'] = '';
-            if (empty($vars['body'])) $vars['body'] = '';
+            if (empty($vars['title'])) { $vars['title'] = '';
+            }
+            if (empty($vars['body'])) { $vars['body'] = '';
+            }
 
             return $this->__($vars);
         }
-        
-        
+
+
     }
 }

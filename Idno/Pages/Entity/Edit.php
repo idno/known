@@ -19,8 +19,10 @@ namespace Idno\Pages\Entity {
             if (!empty($this->arguments[0])) {
                 $object = \Idno\Common\Entity::getByID($this->arguments[0]);
             }
-            if (empty($object)) $this->forward(); // TODO: 404
-            if (!$object->canEdit()) $this->forward($object->getDisplayURL());
+            if (empty($object)) { $this->forward(); // TODO: 404
+            }
+            if (!$object->canEdit()) { $this->forward($object->getDisplayURL());
+            }
 
             if ($owner = $object->getOwner()) {
                 $this->setOwner($owner);
@@ -29,12 +31,14 @@ namespace Idno\Pages\Entity {
             session_write_close();
 
             $t = \Idno\Core\Idno::site()->template();
-            $t->__(array(
+            $t->__(
+                array(
 
                 'title' => $object->getTitle(),
                 'body'        => $t->__(['object' => $object])->draw('entity/editwrapper'),
 
-            ))->drawPage();
+                )
+            )->drawPage();
 
         }
 

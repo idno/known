@@ -142,11 +142,10 @@ namespace Idno\Pages\Admin {
                     } else if (empty($handle) && empty($email)) {
                         \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("Please enter a username and email address."));
                     } else if (!empty($email) && filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                        if (
-                            !($emailuser = \Idno\Entities\User::getByEmail($email)) &&
-                            !($handleuser = \Idno\Entities\User::getByHandle($handle)) &&
-                            !empty($handle) && strlen($handle) <= 32 &&
-                            !substr_count($handle, '/')
+                        if (!($emailuser = \Idno\Entities\User::getByEmail($email))
+                        && !($handleuser = \Idno\Entities\User::getByHandle($handle))
+                        && !empty($handle) && strlen($handle) <= 32
+                        && !substr_count($handle, '/')
                         ) {
                             $user         = new \Idno\Entities\User();
                             $user->email  = $email;

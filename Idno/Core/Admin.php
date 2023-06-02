@@ -3,7 +3,7 @@
     /**
      * Site administration
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -41,8 +41,9 @@ namespace Idno\Core {
 
         /**
          * Retrieve users by admins.
-         * @param type $limit
-         * @param type $offset
+         *
+         * @param  type $limit
+         * @param  type $offset
          * @return type
          */
         static function getAdmins($limit = 10, $offset = 0)

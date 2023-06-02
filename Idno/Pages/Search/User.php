@@ -47,7 +47,7 @@ namespace Idno\Pages\Search {
                 'rendered' => ''
             ];
 
-            $t = new \Idno\Core\Template();
+            $t = new \Idno\Core\DefaultTemplate();
             if (!empty($users)) {
                 foreach ($users as $user) {
                     $results['rendered'] .= $t->__(['user' => $user])->draw($template);
@@ -55,8 +55,9 @@ namespace Idno\Pages\Search {
             }
 
             global $template_postponed_link_actions;
-            if (!empty($template_postponed_link_actions))
+            if (!empty($template_postponed_link_actions)) {
                 $results['rendered'] .= $template_postponed_link_actions;
+            }
 
             echo json_encode($results); exit;
         }

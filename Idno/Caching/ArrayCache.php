@@ -1,7 +1,7 @@
 <?php
 
 namespace Idno\Caching {
-    
+
     use Symfony\Component\Cache\Adapter\ArrayAdapter;
 
     /**
@@ -10,9 +10,10 @@ namespace Idno\Caching {
     class ArrayCache
         extends EphemeralCache
     {
-        public function __construct() {
+        public function __construct()
+        {
             parent::__construct();
-            
+
             $this->setCacheEngine(new ArrayAdapter());
         }
     }

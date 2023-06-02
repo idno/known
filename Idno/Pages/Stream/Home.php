@@ -13,12 +13,16 @@ namespace Idno\Pages\Stream {
             if ($items = FeedItem::get()) {
 
                 $t = \Idno\Core\Idno::site()->template();
-                $t->__(array(
+                $t->__(
+                    array(
                     'title' => 'Stream',
-                    'body'  => $t->__(array(
+                    'body'  => $t->__(
+                        array(
                         'items' => $items
-                    ))->draw('stream/home')
-                ))->drawPage();
+                        )
+                    )->draw('stream/home')
+                    )
+                )->drawPage();
 
             }
 

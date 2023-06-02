@@ -1,10 +1,13 @@
 <?php
     // Display the login link, if the user is not currently logged in.
     // If they're logged out, this is probably why they're denied.
+
+    $login_url = \Idno\Core\Idno::site()->currentPage()->forwardToLogin($_SERVER['REQUEST_URI'], true);
+
 if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) {
     ?>
         <a id="soft-forward"
-           href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/login?fwd=' . Idno\Core\Webservice::base64UrlEncode($_SERVER['REQUEST_URI']); ?>"><?php echo \Idno\Core\Idno::site()->language()->_('Click here to log in.'); ?></a>
+           href="<?php echo $login_url; ?>"><?php echo \Idno\Core\Idno::site()->language()->_('Click here to log in.'); ?></a>
         <script>
             $('#soft-forward').hide();  // JS users will be forwarded anyway
         </script>
@@ -20,11 +23,11 @@ if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) {
                     <p><?php echo \Idno\Core\Idno::site()->language()->_("It's nothing personal. You just don't have the right permissions to see what's here."); ?></p>
                     <p>
                     <?php echo \Idno\Core\Idno::site()->language()->_('Find something else to view on the <a href="%s">%s homepage</a>.', [\Idno\Core\Idno::site()->config()->getDisplayURL(), \Idno\Core\Idno::site()->config()->title]); ?>
-                    </p>                    
+                    </p>
                 </div>
                 <div class="col-md-5">
                     <img src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL()?>gfx/robots/aleph_403.png" alt="Robot with a stop sign">
-                </div>                
+                </div>
             </div>
         </div>
 <?php }

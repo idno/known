@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * List form elements into a nice structure
  */
 
@@ -16,9 +16,9 @@ $values   = $vars['values'];
 
 <div class="form-list">
     
-    <?php 
+    <?php
     foreach ($elements as $field => $type) {
-        
+
         $value = (object)$values;
         $settings = [
             'name' => $field,
@@ -31,28 +31,28 @@ $values   = $vars['values'];
         if (!empty($placeholders[$field])) {
             $settings['placeholder'] = $placeholders[$field];
         }
-        
-        
+
+
         if ($type != 'hidden') {
-        ?>
+            ?>
         
     <div class="row">
         <div class="col-sm-12 col-md-2">
             <label>
-                <?= \Idno\Core\Idno::site()->language()->_($labels[$field]); ?>
+                <?php echo \Idno\Core\Idno::site()->language()->_($labels[$field]); ?>
             </label> 
         </div>
         <div class="col-sm-12 col-md-6">  
-            <?= $this->__($settings)->draw('forms/input/' . $type); ?>
+            <?php echo $this->__($settings)->draw('forms/input/' . $type); ?>
         </div>
         <div class="col-sm-12 col-md-4">
             <?php if (!empty($help[$field])) { ?>
-            <p class="config-desc"><?= \Idno\Core\Idno::site()->language()->_($help[$field]); ?></p>
+            <p class="config-desc"><?php echo \Idno\Core\Idno::site()->language()->_($help[$field]); ?></p>
             <?php } ?>
         </div>
     </div>
         
-        <?php
+            <?php
         } else {
             echo $this->__($settings)->draw('forms/input/' . $type);
         }

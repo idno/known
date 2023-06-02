@@ -2,7 +2,7 @@
 
     $template = $this->formatShellVariables($vars);
     $vars = $template->vars;
-    
+
     header('Content-type: text/html');
     header("Access-Control-Allow-Origin: *");
 
@@ -17,7 +17,7 @@
     echo $template->draw('settings-shell/bootstrap');
     echo $template->draw('settings-shell/javascript');
     echo $template->draw('settings-shell/css');
-    ?>
+?>
 
 </head>
 
@@ -30,7 +30,7 @@
         <div class="settings-sidebar col-lg-2 col-md-2 col-sm-2 col-2">
             <?php if (strpos(\Idno\Core\Idno::site()->currentPage()->currentUrl(), \Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/')!==false) {
                 // This is an admin page
-                echo $this->draw('admin/menu'); 
+                echo $this->draw('admin/menu');
             } else {
                 // Settings page
                 echo $this->draw('account/menu');
@@ -43,7 +43,8 @@
             <?php echo $template->draw('settings-shell/messages') ?>
             <a name="pagecontent"></a>
             <?php
-                if (!empty($vars['body'])) echo $vars['body'];
+            if (!empty($vars['body'])) { echo $vars['body'];
+            }
             ?>
             
         </div>
@@ -58,6 +59,6 @@
 
     </div>
         
-    <?= $template->draw('shell/form-data'); ?>
+    <?php echo $template->draw('shell/form-data'); ?>
 </body>
 </html>

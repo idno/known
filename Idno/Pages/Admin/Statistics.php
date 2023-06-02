@@ -12,8 +12,9 @@ namespace Idno\Pages\Admin {
 
             $stats = \Idno\Core\Statistics::gather($report);
 
-            if (empty($stats) || !is_array($stats))
+            if (empty($stats) || !is_array($stats)) {
                 throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("Something went wrong, either no statistics were returned or it wasn't in the correct format."));
+            }
 
             if ($this->xhr) {
 

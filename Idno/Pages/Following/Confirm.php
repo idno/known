@@ -20,13 +20,17 @@ namespace Idno\Pages\Following {
                     $items = $feed->retrieveItems();
 
                     $t = \Idno\Core\Idno::site()->template();
-                    $t->__(array(
+                    $t->__(
+                        array(
                         'title' => 'Subscribe to ' . $feed->getTitle(),
-                        'body'  => $t->__(array(
+                        'body'  => $t->__(
+                            array(
                             'feed'  => $feed,
                             'items' => $items
-                        ))->draw('following/confirm')
-                    ))->drawPage();
+                            )
+                        )->draw('following/confirm')
+                        )
+                    )->drawPage();
 
                 }
 

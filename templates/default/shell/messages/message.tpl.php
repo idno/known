@@ -1,6 +1,7 @@
 <?php
 
-    if (empty($vars['message'])) return;
+if (empty($vars['message'])) { return;
+}
     $message = $vars['message'];
 
 ?>

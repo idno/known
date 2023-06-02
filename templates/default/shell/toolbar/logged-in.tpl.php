@@ -2,7 +2,8 @@
 <!--<ul class="nav navbar-nav">-->
 <li class="dropdown">
     <a class="dropdown-toggle" data-toggle="dropdown" href="">
-        <img class="u-photo" src="<?= \Idno\Core\Idno::site()->session()->currentUser()->getIcon(); ?>" />
+        <img class="u-photo" src="<?php echo \Idno\Core\Idno::site()->session()->currentUser()->getIcon() ?>" 
+             alt="<?php echo htmlspecialchars(\Idno\Core\Idno::site()->session()->currentUser()->getTitle()) ?>" />
         <?php echo htmlspecialchars(\Idno\Core\Idno::site()->session()->currentUser()->getTitle())?>
         <?php
             $notifs = \Idno\Core\Idno::site()->session()->currentUser()->countUnreadNotifications();

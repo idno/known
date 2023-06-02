@@ -9,6 +9,7 @@ namespace Idno\Files {
 
         /**
          * Get this file's contents. For larger files this might not be wise.
+         *
          * @return mixed|string
          */
         function getBytes()
@@ -44,6 +45,7 @@ namespace Idno\Files {
 
         /**
          * Output the contents of the file to the buffer
+         *
          * @return mixed|void
          */
         function passThroughBytes()
@@ -57,6 +59,7 @@ namespace Idno\Files {
 
         /**
          * Retrieves a stream resource referencing the file
+         *
          * @return mixed|resource
          */
         function getResource()
@@ -80,7 +83,8 @@ namespace Idno\Files {
 
         /**
          * Writes this file to the filename specified in $path
-         * @param string $path
+         *
+         * @param  string $path
          * @return bool|mixed
          */
         function write($path)
@@ -102,6 +106,7 @@ namespace Idno\Files {
 
         /**
          * Returns this file's filename
+         *
          * @return string
          */
         function getFilename()

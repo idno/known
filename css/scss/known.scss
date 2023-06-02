@@ -2,8 +2,8 @@
  * Known main stylesheet.
  */
 
-@import "known/base.scss";
-@import "known/unfurl.scss";
-@import "known/settings-template.scss";
-@import "known/pagination.scss";
-@import "known/bootstrap3.scss";
+@use 'known/_base.scss';
+@use 'known/_unfurl.scss';
+@use 'known/_settings-template.scss';
+@use 'known/_pagination.scss';
+@use 'known/_bootstrap3.scss';

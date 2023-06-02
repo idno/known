@@ -23,7 +23,7 @@
 
                     echo $this->draw('settings-shell/toolbar/logged-in');
 
-                } 
+                }
                 ?>
             </ul>
 

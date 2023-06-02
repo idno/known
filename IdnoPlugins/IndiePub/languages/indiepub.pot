@@ -1,0 +1,92 @@
+#: ./templates/default/indiepub/auth.tpl.php:12
+msgid "You are logged in as %s."
+msgstr ""
+
+#: ./templates/default/indiepub/auth.tpl.php:18
+msgid "Authenticate to %s?"
+msgstr ""
+
+#: ./templates/default/indiepub/auth.tpl.php:20
+msgid "Authorize %s to access this site with the following permission(s)?<br />%s"
+msgstr ""
+
+#: ./templates/default/indiepub/auth.tpl.php:28
+msgid "Authenticate"
+msgstr ""
+
+#: ./templates/default/indiepub/auth.tpl.php:28
+msgid "Authorize"
+msgstr ""
+
+#: ./templates/default/indiepub/auth.tpl.php:31
+msgid "Cancel"
+msgstr ""
+
+#: ./templates/default/account/menu/items/indiepub.tpl.php:6
+msgid "IndiePub"
+msgstr ""
+
+#: ./templates/default/account/indiepub.tpl.php:12
+msgid "Micropub Accounts"
+msgstr ""
+
+#: ./templates/default/account/indiepub.tpl.php:20
+msgid "There are currently no micropub accounts associated with this site."
+msgstr ""
+
+#: ./templates/default/account/indiepub.tpl.php:28
+msgid "Client ID"
+msgstr ""
+
+#: ./templates/default/account/indiepub.tpl.php:32
+msgid "Authorized"
+msgstr ""
+
+#: ./templates/default/account/indiepub.tpl.php:33
+msgid "with the scope"
+msgstr ""
+
+#: ./templates/default/account/indiepub.tpl.php:36
+msgid "Redirect URI"
+msgstr ""
+
+#: ./templates/default/account/indiepub.tpl.php:39
+msgid "Token"
+msgstr ""
+
+#: ./templates/default/account/indiepub.tpl.php:43
+msgid "Revoke Access"
+msgstr ""
+
+#: ./templates/default/account/indiepub.tpl.php:53
+msgid "Add Micropub Account"
+msgstr ""
+
+#: ./templates/default/account/indiepub.tpl.php:60
+msgid "To manually add a micropub client account and generate an API token, enter the details below."
+msgstr ""
+
+#: ./templates/default/account/indiepub.tpl.php:75
+msgid "Save"
+msgstr ""
+
+#: ./Pages/Add.php:20
+msgid "Client ID can't be blank."
+msgstr ""
+
+#: ./Pages/Add.php:24
+msgid "Redirect URI can't be blank."
+msgstr ""
+
+#: ./Pages/Account.php:17
+msgid "IndiePub Accounts"
+msgstr ""
+
+#: ./Pages/Revoke.php:21
+msgid "Nothing to revoke."
+msgstr ""
+
+#: ./Pages/Revoke.php:27
+msgid "No IndiePub account with that token."
+msgstr ""
+

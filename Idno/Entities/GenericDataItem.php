@@ -4,7 +4,7 @@
      * Generic data storage item.
      * A data item for storing arbitrary data using the Known data handling methods.
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -14,6 +14,7 @@ namespace Idno\Entities {
     {
         /**
          * Retrieve a bit of generic data by it's data type
+         *
          * @param type $datatype
          */
         public static function getByDatatype($datatype, $search = array(), $fields = array(), $limit = 10, $offset = 0)
@@ -25,6 +26,7 @@ namespace Idno\Entities {
 
         /**
          * Label this item as being of a user defined type.
+         *
          * @param type $datatype
          */
         public function setDatatype($datatype)
@@ -37,13 +39,13 @@ namespace Idno\Entities {
             return $this->datatype;
         }
 
-        public function save($add_to_feed = false, $feed_verb = 'post')
+        public function save($overrideAccess = false)
         {
             if (empty($this->datatype)) {
                 throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_("GenericDataItem classes must have a datatype label set."));
             }
 
-            return parent::save($add_to_feed, $feed_verb);
+            return parent::save($overrideAccess);
         }
     }
 

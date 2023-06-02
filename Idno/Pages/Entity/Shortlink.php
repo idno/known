@@ -33,7 +33,8 @@ namespace Idno\Pages\Entity {
             if (!empty($this->arguments[0])) {
                 $object = \Idno\Common\Entity::getByShortURL($this->arguments[0]);
             }
-            if (empty($object)) return false;
+            if (empty($object)) { return false;
+            }
 
             $return = true;
 

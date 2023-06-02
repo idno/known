@@ -3,7 +3,7 @@
     /**
      * Remote object representation
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 

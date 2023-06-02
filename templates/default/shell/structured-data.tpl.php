@@ -59,8 +59,8 @@ if (!empty($jsonld)) {
 
 <!-- JSON+LD Structured Data -->
 <script type="application/ld+json">
-<?= json_encode($jsonld, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG ); ?>
+    <?php echo json_encode($jsonld, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_HEX_TAG); ?>
     
 </script>
-<?php
+    <?php
 }

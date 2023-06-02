@@ -1,22 +1,20 @@
 language: php
 php:
- - 7.2
- - 7.3
- - 7.4
+ - 8.1
 
 # Configure different DB environments
 env:
   - DB=mysql
   - DB=mongo
-  - DB=pgsql
   
-#matrix:
+# jobs:
 #   allow_failures:
-#     - php: 7.4
+#     - php: 8.0
   
 branches:
   only:
-    - master
+    - dev
+    - stable
 
 before_script:
   # Update and install base system

@@ -13,13 +13,14 @@ namespace Idno\Core {
 
         /**
          * Create a GetText translation.
-         * @param type $domain 'known' for core, 'mypluginname' for plugins
-         * @param type $path Full path to where to find the translations.
+         *
+         * @param  type $domain 'known' for core, 'mypluginname' for plugins
+         * @param  type $path   Full path to where to find the translations.
          * @throws \RuntimeException
          */
         public function __construct(
-                $domain = 'known',
-                $path = ''
+            $domain = 'known',
+            $path = ''
         )
         {
             if (!extension_loaded('gettext')) {

@@ -3,7 +3,6 @@
     /**
      * Hubs are central, or semi-central servers, that provide functionality for groups of Known users.
      * Functionality may include managed cron jobs, feed parsing, social syndication, discovery, and more.
-     *
      */
 
 namespace Idno\Core {
@@ -27,6 +26,7 @@ namespace Idno\Core {
 
         /**
          * Sets the hub server to connect to
+         *
          * @param $server
          */
         function setServer($server)
@@ -44,18 +44,20 @@ namespace Idno\Core {
         function registerEventHooks()
         {
             // Register user on login
-            \Idno\Core\Idno::site()->events()->addListener('login/success', function (\Idno\Core\Event $event) {
-                $eventdata = $event->data();
-                if ($user = $eventdata['user']) {
-                    $this->registerUser($user);
+            \Idno\Core\Idno::site()->events()->addListener(
+                'login/success', function (\Idno\Core\Event $event) {
+                    $eventdata = $event->data();
+                    if ($user = $eventdata['user']) {
+                        $this->registerUser($user);
+                    }
                 }
-            });
+            );
         }
 
         /**
          * Register the current user with the Known hub. The site must have been registered first.
          *
-         * @param bool $user
+         * @param  bool $user
          * @return bool
          */
         function registerUser($user = false)
@@ -68,12 +70,14 @@ namespace Idno\Core {
                 $contents = json_encode($user);
                 $time     = time();
                 $details  = $this->loadDetails();
-                $results  = Webservice::post($this->server . 'hub/user/register', array(
+                $results  = Webservice::post(
+                    $this->server . 'hub/user/register', array(
                     'content'    => $contents,
                     'time'       => $time,
                     'auth_token' => $details['auth_token'],
                     'signature'  => hash_hmac('sha1', $contents . $time . $details['auth_token'], $details['secret'])
-                ));
+                    )
+                );
 
                 if ($results['response'] == 401) {
                     \Idno\Core\Idno::site()->config()->hub_settings = array();
@@ -94,6 +98,7 @@ namespace Idno\Core {
         /**
          * Load the locally stored auth token & secret details, or register with the hub if no details have been
          * saved
+         *
          * @return bool
          */
         function loadDetails()
@@ -110,6 +115,7 @@ namespace Idno\Core {
 
         /**
          * Sets the public auth token to use to communicate with the hub server
+         *
          * @param $token
          */
         function setAuthToken($token)
@@ -119,6 +125,7 @@ namespace Idno\Core {
 
         /**
          * Sets the secret auth token to use to communicate with the hub server
+         *
          * @param $secret
          */
         function setSecret($secret)
@@ -137,10 +144,9 @@ namespace Idno\Core {
             $details = $this->loadDetails();
             if (!empty($details['auth_token'])) {
                 // Apply pre-stored auth details and connect to server
-            } else if (
-                !substr_count($_SERVER['REQUEST_URI'], 'callback') &&
-                !substr_count($_SERVER['REQUEST_URI'], '.') &&
-                !substr_count($_SERVER['REQUEST_URI'], '/file/')
+            } else if (!substr_count($_SERVER['REQUEST_URI'], 'callback')
+                && !substr_count($_SERVER['REQUEST_URI'], '.')
+                && !substr_count($_SERVER['REQUEST_URI'], '/file/')
             ) {
                 // Establish auth details, save them, and then connect
                 if ($details = $this->register()) {
@@ -180,11 +186,13 @@ namespace Idno\Core {
 
             if ($last_ping < (time() - 10)) { // Throttling registration pings to hub
 
-                $results = Webservice::post($this->server . 'hub/site/register', array(
+                $results = Webservice::post(
+                    $this->server . 'hub/site/register', array(
                     'url'   => \Idno\Core\Idno::site()->config()->getURL(),
                     'title' => \Idno\Core\Idno::site()->config()->getTitle(),
                     'token' => $this->getRegistrationToken()
-                ));
+                    )
+                );
 
                 if ($results['response'] == 200) {
                     \Idno\Core\Idno::site()->config()->load();
@@ -201,6 +209,7 @@ namespace Idno\Core {
 
         /**
          * Retrieves a token for use in registering this Known site with a hub. Tokens last for 10 minutes.
+         *
          * @return string
          */
         function getRegistrationToken()
@@ -233,7 +242,8 @@ namespace Idno\Core {
 
         /**
          * Detect whether the current user has registered with the hub & stored credentials
-         * @param bool $user
+         *
+         * @param  bool $user
          * @return bool
          */
         function userIsRegistered($user = false)
@@ -256,9 +266,9 @@ namespace Idno\Core {
         /**
          * Makes a call to the hub
          *
-         * @param $endpoint
-         * @param $contents
-         * @param bool $user
+         * @param  $endpoint
+         * @param  $contents
+         * @param  bool $user
          * @return array|bool
          */
         function makeCall($endpoint, $contents, $user = false)
@@ -273,12 +283,14 @@ namespace Idno\Core {
                     $contents = json_encode($contents);
                     $time     = time();
                     $details  = $user->hub_settings;
-                    $results  = Webservice::post($this->server . $endpoint, array(
+                    $results  = Webservice::post(
+                        $this->server . $endpoint, array(
                         'content'    => $contents,
                         'time'       => $time,
                         'auth_token' => $details['token'],
                         'signature'  => hash_hmac('sha1', $contents . $time . $details['token'], $details['secret'])
-                    ));
+                        )
+                    );
 
                     return $results;
                 }
@@ -291,8 +303,8 @@ namespace Idno\Core {
         /**
          * Retrieves a link that will allow the current user to log into the hub page at $endpoint
          *
-         * @param $endpoint
-         * @param $callback
+         * @param  $endpoint
+         * @param  $callback
          * @return bool|string
          */
         function getRemoteLink($endpoint, $callback)
@@ -316,6 +328,7 @@ namespace Idno\Core {
 
         /**
          * Save hub auth
+         *
          * @param $token
          * @param $secret
          */

@@ -18,7 +18,6 @@ namespace Idno\Common {
 
     abstract class Entity extends Component implements EntityInterface
     {
-
         // Which collection should this be stored in?
         private $collection = 'entities';
         static $retrieve_collection = 'entities';
@@ -111,6 +110,7 @@ namespace Idno\Common {
          * happens to be a URI for it).
          *
          * @return type
+         * @deprecated Use Entity::getID() if you want a canonical ID of an entity
          */
 
         function getUUID()
@@ -173,9 +173,10 @@ namespace Idno\Common {
 
         static function getOne($search = array(), $fields = array())
         {
-            if ($records = static::get($search, $fields, 1))
+            if ($records = static::get($search, $fields, 1)) {
                 foreach ($records as $record)
                     return $record;
+            }
 
             return false;
         }
@@ -208,17 +209,21 @@ namespace Idno\Common {
 
             $object = null;
 
-            if (empty($object))
+            if (empty($object)) {
                 $object = static::getByID($identifier);
+            }
 
-            if (empty($object))
+            if (empty($object)) {
                 $object = static::getByUUID($identifier);
+            }
 
-            if (empty($object))
+            if (empty($object)) {
                 $object = static::getBySlug($identifier);
+            }
 
-            if (empty($object))
+            if (empty($object)) {
                 $object = static::getByShortURL($identifier);
+            }
 
             return $object;
         }
@@ -249,10 +254,10 @@ namespace Idno\Common {
 
         static function getOneFromAll($search = array(), $fields = array())
         {
-            if ($records = static::getFromAll($search, $fields, 1))
+            if ($records = static::getFromAll($search, $fields, 1)) {
                 foreach ($records as $record)
                     return $record;
-
+            }
             return false;
         }
 
@@ -330,15 +335,17 @@ namespace Idno\Common {
         {
             if (isset(self::$entity_cache[$url]) && $cached) return self::$entity_cache[$url];
 
-            if (!self::isLocalUUID($url))
+            if (!self::isLocalUUID($url)) {
                 return false;
+            }
 
             $return = \Idno\Core\Idno::site()->events()->triggerEvent('object/getbyurl', [
                 'url' => $url
             ], false);
 
-            if (!empty($return))
+            if (!empty($return)) {
                 self::$entity_cache[$url] = $return;
+            }
 
             return $return;
         }
@@ -360,7 +367,11 @@ namespace Idno\Common {
          */
         static function isLocalUUID($uuid)
         {
-            // TODO: improve this heuristic
+            // If $uuid is not valid, return false
+            if (empty($uuid) || !is_string($uuid)) {
+                return false;
+            }
+
             // Parse the UUID
             if (($uuid_parse = parse_url($uuid)) && ($url_parse = parse_url(\Idno\Core\Idno::site()->config()->url))) {
                 if (!empty($uuid_parse['host'])) {
@@ -553,11 +564,8 @@ namespace Idno\Common {
          */
         public function setPublishStatus($status = 'published')
         {
-
             $status = trim($status);
-
             $this->publish_status = $status;
-
         }
 
         /**
@@ -566,9 +574,7 @@ namespace Idno\Common {
          */
         public function getPublishStatus()
         {
-
             return $this->publish_status;
-
         }
 
         /**
@@ -606,9 +612,11 @@ namespace Idno\Common {
          * Saves this entity - either creating a new entry, or
          * overwriting the existing one.
          *
+         * @param false $overrideAccess Set this to true to avoid checking write permissions before saving
+         * @return false|\Idno\Core\id
          */
 
-        function save()
+        function save($overrideAccess = false)
         {
 
             // Adding this entity's owner (if we don't know already)
@@ -617,6 +625,9 @@ namespace Idno\Common {
             if (\Idno\Core\Idno::site()->session()->isLoggedIn() && empty($owner_id)) {
                 $this->setOwner(\Idno\Core\Idno::site()->session()->currentUser());
             }
+
+            // If you're not allowed to edit this entity, you shouldn't be able to save it
+            if (!$overrideAccess && !$this->canEdit()) return false;
 
             // Automatically add a slug (if one isn't set and this is a new entity)
 
@@ -1450,8 +1461,8 @@ namespace Idno\Common {
         function canEdit($user_id = '')
         {
 
-            if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) return false;
-            if (!\Idno\Core\Idno::site()->canWrite()) return false;
+            if (!empty($user_id) || !\Idno\Core\Idno::site()->session()->isLoggedOn()) return false;
+            if (!\Idno\Core\Idno::site()->canWrite($user_id)) return false;
 
             if (empty($user_id)) {
                 $user_id = \Idno\Core\Idno::site()->session()->currentUserUUID();
@@ -1720,7 +1731,8 @@ namespace Idno\Common {
         public function jsonSerialize()
         {
             $object = array(
-                'id' => $this->getUUID(),
+                'id' => "" . $this->getID(),
+                'uuid' => $this->getUUID(),
                 'content' => strip_tags($this->getDescription()),
                 'formattedContent'
                 => \Idno\Core\Idno::site()->template()->autop($this->getDescription()),
@@ -1838,11 +1850,13 @@ namespace Idno\Common {
             */
             if ($attachments = $item->getAttachments()) {
                 foreach($attachments as $attachment) {
-                    $enclosureItem = $page->createElement('enclosure');
-                    $enclosureItem->setAttribute('url', $attachment['url']);
-                    $enclosureItem->setAttribute('type', $attachment['mime-type']);
-                    $enclosureItem->setAttribute('length', $attachment['length']);
-                    $rssItem->appendChild($enclosureItem);
+                    if (!empty($attachment['url'])) { // Only include attachments with set URLs
+                        $enclosureItem = $page->createElement('enclosure');
+                        $enclosureItem->setAttribute('url', $attachment['url']);
+                        $enclosureItem->setAttribute('type', $attachment['mime-type']);
+                        $enclosureItem->setAttribute('length', $attachment['length']);
+                        $rssItem->appendChild($enclosureItem);
+                    }
                 }
             }
             if ($tags = $item->getTags()) {
@@ -1919,11 +1933,11 @@ namespace Idno\Common {
                         case ':slug':
                             return $this->getSlug();
                         case ':year':
-                            return strftime('%Y', $this->created);
+                            return date('Y', $this->created);
                         case ':month':
-                            return strftime('%m', $this->created);
+                            return date('m', $this->created);
                         case ':day':
-                            return strftime('%d', $this->created);
+                            return date('d', $this->created);
                         default:
                             return $part;
                     }
@@ -1988,22 +2002,30 @@ namespace Idno\Common {
          * Many properties in mf2 can have either a simple string value or a complex
          * object value, "u-in-reply-to h-cite" is a common example. This function
          * takes a possibly mixed array, and returns an array of only strings.
-         *
+         * @param $arr An array of URL strings
+         * @param bool $filter_urls If true (default), will remove URL parameters and anchors
          * @return array
          */
-        static function getStringURLs($arr)
+        static function getStringURLs($arr, $filter_urls = true)
         {
             $result = [];
             foreach ($arr as $value) {
                 if (is_string($value)) {
+                    if ($filter_urls) {
+                        $value = explode('?', $value)[0];
+                        $value = explode('#', $value)[0];
+                    }
                     $result[] = $value;
                 } else if (is_array($value) && !empty($value['properties']) && !empty($value['properties']['url'])) {
                     foreach ($value['properties']['url'] as $url) {
+                        if ($filter_urls) {
+                            $url = explode('?', $url)[0];
+                            $url = explode('#', $url)[0];
+                        }
                         $result[] = $url;
                     }
                 }
             }
-
             return $result;
         }
 
@@ -2020,7 +2042,7 @@ namespace Idno\Common {
         {
             if ($source_response['response'] == 410) {
                 $this->removeAnnotation($source);
-                $this->save();
+                $this->save(true);
 
                 return true;
             }
@@ -2075,7 +2097,7 @@ namespace Idno\Common {
                             $return = false;
                         }
                     }
-                    $this->save();
+                    $this->save(true);
 
                     if ($return && $this->isReply()) {
                         if ($reply_urls = $this->getReplyToURLs()) {
@@ -2310,7 +2332,7 @@ namespace Idno\Common {
 
             $annotations[$subtype][$local_url] = $annotation;
             $this->annotations = $annotations;
-            $this->save();
+            $this->save(true);
 
             \Idno\Core\Idno::site()->events()->triggerEvent('annotation/add/' . $subtype, array('annotation' => $annotation, 'object' => $this));
 
@@ -2393,7 +2415,7 @@ namespace Idno\Common {
                                     $notif->setObject($annotation);
                                     $notif->setTarget($this);
                                     $notif->read = false;
-                                    $notif->save();
+                                    $notif->save(true);
                                     $recipient->notify($notif);
                                 }
                             }
@@ -2477,8 +2499,9 @@ namespace Idno\Common {
         {
             if (!empty($this->annotations) && is_array($this->annotations)) {
                 foreach ($this->annotations as $subtype => $array) {
-                    if (isset($array[$uuid]))
+                    if (isset($array[$uuid])) {
                         return $array[$uuid];
+                    }
                 }
             }
 

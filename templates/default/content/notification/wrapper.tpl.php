@@ -15,7 +15,9 @@ if (!empty($post)) {
             <?php if (!empty($owner_image)) { ?>
                     <p>
                         <a href="<?php echo $owner_url ?>" class="u-url icon-container">
-                            <img class="u-photo" src="<?php echo $owner_image ?>"/></a><br/>
+                            <img class="u-photo" 
+                                 src="<?php echo $owner_image ?>"
+                                 alt="<?php echo $owner_name ?>" /></a><br/>
                     </p>
             <?php } ?>
             </div>
@@ -23,10 +25,10 @@ if (!empty($post)) {
                 class="col-md-8 idno-notification-reply idno-object idno-content">
             <?php if (empty($vars['hide-body'])) { ?>
                     <div class="e-content entry-content">
-                        <?php 
+                        <?php
                         if (!empty($content)) {
                             $this->autop($this->parseURLs($this->parseHashtags($this->parseUsers(htmlentities($content, ENT_QUOTES, 'UTF-8')))));
-                        } 
+                        }
                         ?>
                     </div>
             <?php } ?>

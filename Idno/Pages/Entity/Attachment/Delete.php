@@ -21,8 +21,9 @@ namespace Idno\Pages\Entity\Attachment {
                 Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("We couldn't find the post."));
                 $this->goneContent();
             }
-            if (!$object->canEdit())
+            if (!$object->canEdit()) {
                 $this->deniedContent();
+            }
 
             if (!empty($this->arguments[1])) {
                 $attachment_id = $this->arguments[1];

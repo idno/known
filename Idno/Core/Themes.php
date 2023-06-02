@@ -3,7 +3,7 @@
     /**
      * Theme management class
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -67,6 +67,7 @@ namespace Idno\Core {
 
         /**
          * Retrieves the array of loaded theme objects
+         *
          * @return array
          */
         public function get()
@@ -76,6 +77,7 @@ namespace Idno\Core {
 
         /**
          * Retrieves a list of stored themes (but not necessarily loaded ones)
+         *
          * @return array
          */
         public function getStored()

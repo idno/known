@@ -44,6 +44,7 @@ namespace Idno\Core {
 
         /**
          * When given a file, create a backup of it.
+         *
          * @param type $file
          */
         protected function backupFile($file)
@@ -67,7 +68,8 @@ namespace Idno\Core {
 
         /**
          * Check that the upload directory exists and is readable and writable
-         * @param type $upload_path
+         *
+         * @param  type $upload_path
          * @return boolean
          * @throws \RuntimeException
          */
@@ -149,8 +151,9 @@ namespace Idno\Core {
 
         /**
          * Write out the configuration
-         * @param type $ini_file
-         * @param type $name
+         *
+         * @param  type $ini_file
+         * @param  type $name
          * @throws \RuntimeException
          */
         protected function writeConfig($ini_file, $name = 'config.ini')
@@ -171,7 +174,8 @@ namespace Idno\Core {
 
         /**
          * Generate a configuration file from a template.
-         * @param array $params Name => Value array of configuration values, e.g. "dbname" => "known"
+         *
+         * @param  array $params Name => Value array of configuration values, e.g. "dbname" => "known"
          * @return string The built ini file
          */
         protected function buildConfig(array $params = [])
@@ -196,8 +200,9 @@ namespace Idno\Core {
 
             // Load template
             $template = file_get_contents($this->root_path . '/warmup/webserver-configs/config.ini.template');
-            if (empty($template))
+            if (empty($template)) {
                 throw new \Idno\Exceptions\ConfigurationException('Configuration template could not be loaded.');
+            }
 
             // Build config output
             foreach ($params as $name => $value) {
@@ -209,20 +214,21 @@ namespace Idno\Core {
 
         /**
          * Install the mysql DB schema
-         * @param type $host
-         * @param type $dbname
-         * @param type $user
-         * @param type $pass
-         * @param type $schema
+         *
+         * @param  type $host
+         * @param  type $dbname
+         * @param  type $user
+         * @param  type $pass
+         * @param  type $schema
          * @return boolean
          * @throws \RuntimeException
          */
         protected function installSchema(
-                $host,
-                $dbname,
-                $user,
-                $pass,
-                $schema = 'mysql'
+            $host,
+            $dbname,
+            $user,
+            $pass,
+            $schema = 'mysql'
         )
         {
 
@@ -230,8 +236,9 @@ namespace Idno\Core {
             $schema = preg_replace("/[^a-zA-Z0-9\_\.]/", "", strtolower($schema)); // Sanitise $schema
 
             // Skip schema install for mongo, not necessary
-            if ($schema == 'mongo' || $schema == 'mongodb')
+            if ($schema == 'mongo' || $schema == 'mongodb') {
                 return true;
+            }
 
             // Crufty hack to alias schemas if they're different from class. TODO: do this nicer
             $dbscheme = "";
@@ -295,10 +302,8 @@ namespace Idno\Core {
          */
         public static function checkPHPVersion()
         {
-            if (version_compare(phpversion(), '7.3') >= 0) {
+            if (version_compare(phpversion(), '8.1') >= 0) {
                 return 'ok';
-            } else if (version_compare(phpversion(), '7.2') >= 0) {
-                return 'warn';
             } else {
                 return 'fail';
             }

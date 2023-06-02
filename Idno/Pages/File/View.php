@@ -16,13 +16,13 @@ namespace Idno\Pages\File {
 
         function getContent()
         {
-
             if (!empty($this->arguments[0])) {
                 $object = \Idno\Entities\File::getByID($this->arguments[0]);
             }
 
-            if (empty($object))
+            if (empty($object)) {
                 $this->noContent();
+            }
 
             session_write_close();  // Close the session early
             //header("Pragma: public");
@@ -43,9 +43,7 @@ namespace Idno\Pages\File {
             header("Cache-Control: public");
             header('Expires: ' . date(\DateTime::RFC1123, time() + (86400 * 30))); // Cache files for 30 days!
             $this->setLastModifiedHeader($upload_ts);
-            //            if ($cache = \Idno\Core\Idno::site()->cache()) {
-            //                $cache->store("{$this->arguments[0]}_modified_ts", $upload_ts);
-            //            }
+
             if (!empty($object->file['mime_type'])) {
                 header('Content-type: ' . $object->file['mime_type']);
             } else {
@@ -83,10 +81,9 @@ namespace Idno\Pages\File {
                 \Idno\Core\Idno::site()->logging()->debug("Partial content request for $c_start - $c_end bytes from $size available bytes");
 
                 // Validate range
-                if (
-                        ($c_start > $c_end) || // Start after end
-                        ($c_end > $size) || // End after size
-                        ($c_start < 0) // Start less than zero
+                if (($c_start > $c_end)  // Start after end
+                    || ($c_end > $size)  // End after size
+                    || ($c_start < 0) // Start less than zero
                 ) {
                     $this->setResponse(416);
                     \Idno\Core\Idno::site()->logging()->debug('Requested Range Not Satisfiable');

@@ -1,13 +1,12 @@
 <?php
 
 /**
- *
  * Bonita form handling class.
  *
  * Uses the templating class and some extra helpers to provide a safe form handler. See
  * examples/forms.php for more.
  *
- * @package Bonita
+ * @package    Bonita
  * @subpackage Forms
  */
 
@@ -18,6 +17,7 @@ namespace Idno\Core\Bonita {
 
         /**
          *  Attaches a target URL to the form.
+         *
          * @param string $targetURL URL for the form to point to
          */
         public function setTarget($targetURL)
@@ -38,15 +38,16 @@ namespace Idno\Core\Bonita {
          *  Gatekeeper function that validates input forms and prevents csrf attacks.
          *  Call this from your form action code.
          *
-         * @param string $targetURL The URL of the form action that brought us here.
-         * @param boolean $haltExecutionOnBadRequest If set to true, the function halts all execution if the form doesn't validate. (True by default.)
+         * @param  string  $targetURL                 The URL of the form action that brought us here.
+         * @param  boolean $haltExecutionOnBadRequest If set to true, the function halts all execution if the form doesn't validate. (True by default.)
          * @return true|false
          */
         public static function validateToken($action = '', $haltExecutionOnBadRequest = true)
         {
             if (empty($_REQUEST['__bTs']) || empty($_REQUEST['__bTk'])) {
-                if ($haltExecutionOnBadRequest)
+                if ($haltExecutionOnBadRequest) {
                     exit;
+                }
 
                 return false;
             }
@@ -103,7 +104,7 @@ namespace Idno\Core\Bonita {
          *    Generate a token based on a given action and UNIX timestamp.
          *
          * @param string $targetURL The URL of the form action we're using.
-         * @param int $time The current timestamp.
+         * @param int    $time      The current timestamp.
          *
          * @return true|false
          */
@@ -131,7 +132,8 @@ namespace Idno\Core\Bonita {
 
         /**
          * Obfuscate a form field name.
-         * @param type $field
+         *
+         * @param  type $field
          * @return type
          */
         public static function obfuscateField($field)

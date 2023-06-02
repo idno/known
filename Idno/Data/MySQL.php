@@ -3,7 +3,7 @@
     /**
      * MySQL back-end for Known data.
      *
-     * @package idno
+     * @package    idno
      * @subpackage data
      */
 
@@ -54,7 +54,8 @@ namespace Idno\Data {
         function checkAndUpgradeSchema()
         {
             $versions = $this->getVersions();
-            if (!$versions) $versions = [(object)['label' => 'schema', 'value' => 0]];
+            if (!$versions) { $versions = [(object)['label' => 'schema', 'value' => 0]];
+            }
             if ($versions) {
                 foreach ($versions as $version) {
                     if ($version->label === 'schema') {
@@ -76,26 +77,36 @@ namespace Idno\Data {
                             2019060501,
                             2019121401,
                             2020042101,
+                            2020111301,
+                            2020120201,
+                            2020120301,
                         ] as $date) {
                             if ($basedate < $date) {
-                                if ($sql = @file_get_contents($schema_dir . $date . '.sql')) {
+                                try {
+                                    $client->beginTransaction();
 
-                                    error_log("Applying schema updates from {$schema_dir}{$date}.sql");
+                                    if ($sql = @file_get_contents($schema_dir . $date . '.sql')) {
 
-                                    $statements = explode(";\n", $sql); // Explode statements; only mysql can support multiple statements per line, and then only badly.
-                                    foreach ($statements as $sql) {
-                                        $sql = trim($sql);
-                                        if (!empty($sql)) {
-                                            try {
+                                        error_log("Applying schema updates from {$schema_dir}{$date}.sql");
+
+                                        $statements = explode(";\n", $sql); // Explode statements; only mysql can support multiple statements per line, and then only badly.
+                                        foreach ($statements as $sql) {
+                                            $sql = trim($sql);
+                                            if (!empty($sql)) {
                                                 $statement = $client->prepare($sql);
                                                 $statement->execute();
-                                            } catch (\Exception $e) {
-                                                error_log($e->getMessage());
                                             }
                                         }
                                     }
+                                    $newdate = $date;
+
+                                    $client->commit();
+
+                                } catch (\Exception $e) {
+                                    error_log($e->getMessage());
+                                    if ($client->inTransaction()) { $client->rollback();
+                                    }
                                 }
-                                $newdate = $date;
                             }
                         }
                     }
@@ -105,6 +116,7 @@ namespace Idno\Data {
 
         /**
          * Optimize tables - this can reduce overall database storage space and query time
+         *
          * @return bool
          */
         function optimize()
@@ -129,6 +141,7 @@ namespace Idno\Data {
 
         /**
          * Returns an instance of the database reference variable
+         *
          * @return string;
          */
         function getDatabase()
@@ -138,6 +151,7 @@ namespace Idno\Data {
 
         /**
          * Returns an instance of the database client reference variable
+         *
          * @return \PDO
          */
         function getClient()
@@ -147,7 +161,8 @@ namespace Idno\Data {
 
         /**
          * MySQL doesn't need the ID to be processed.
-         * @param $id
+         *
+         * @param  $id
          * @return string
          */
         function processID($id)
@@ -158,8 +173,8 @@ namespace Idno\Data {
         /**
          * Saves a record to the specified database collection
          *
-         * @param string $collection
-         * @param array $array
+         * @param  string $collection
+         * @param  array  $array
          * @return int | false
          */
 
@@ -168,7 +183,10 @@ namespace Idno\Data {
             $collection = $this->sanitiseCollection($collection);
 
             if (empty($array['_id'])) {
-                $array['_id'] = md5(mt_rand() . microtime(true));
+                $array['_id'] = $this->generateID();
+            }
+            if (empty($array['siteid']) && !empty(Idno::site()->site_details())) {
+                $array['siteid'] = Idno::site()->site_details()->uuid();
             }
             if (empty($array['uuid'])) {
                 $array['uuid'] = \Idno\Core\Idno::site()->config()->getURL() . 'view/' . $array['_id'];
@@ -180,8 +198,9 @@ namespace Idno\Data {
             try {
                 $contents = json_encode($array);
 
-                if (json_last_error() != JSON_ERROR_NONE)
+                if (json_last_error() != JSON_ERROR_NONE) {
                     throw new \Exception(json_last_error_msg());
+                }
 
             } catch (\Exception $e) {
                 $contents = json_encode([]);
@@ -224,9 +243,9 @@ namespace Idno\Data {
             }
 
             if (empty($array['created'])) {
-                $array['created'] = date("Y-m-d H:i:s", time());
+                $array['created'] = $this->formatDate(time());
             } else {
-                $array['created'] = date("Y-m-d H:i:s", $array['created']);
+                $array['created'] = $this->formatDate($array['created']);
             }
 
             $search = str_replace("\n", " \n ", $search);
@@ -242,22 +261,25 @@ namespace Idno\Data {
             $benchmark_start = microtime(true);
             try {
                 $client->beginTransaction();
-                $statement = $client->prepare("insert into {$collection}
-                                                    (`uuid`, `_id`, `entity_subtype`,`owner`, `contents`, `publish_status`, `created`)
+                $statement = $client->prepare(
+                    "insert into {$collection}
+                                                    (`uuid`, `_id`, `siteid`, `entity_subtype`,`owner`, `contents`, `publish_status`, `created`)
                                                     values
-                                                    (:uuid, :id, :subtype, :owner, :contents, :publish_status, :created)
-                                                    on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `publish_status` = :publish_status, `created` = :created");
-                if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':publish_status' => $array['publish_status'], ':created' => $array['created']))) {
-                    
+                                                    (:uuid, :id, :siteid, :subtype, :owner, :contents, :publish_status, :created)
+                                                    on duplicate key update `uuid` = :uuid, `entity_subtype` = :subtype, `owner` = :owner, `contents` = :contents, `publish_status` = :publish_status, `created` = :created"
+                );
+                if ($statement->execute(array(':uuid' => $array['uuid'], ':id' => $array['_id'], ':siteid' => $array['siteid'], ':owner' => $array['owner'], ':subtype' => $array['entity_subtype'], ':contents' => $contents, ':publish_status' => $array['publish_status'], ':created' => $array['created']))) {
+
                     // Update FTS
-                    $statement = $client->prepare("insert into {$collection}_search
+                    $statement = $client->prepare(
+                        "insert into {$collection}_search
                         (`_id`, `search`)
                         values
                         (:id, :search)
-                        on duplicate key update `search` = :search");
+                        on duplicate key update `search` = :search"
+                    );
                     $statement->execute(array(':id' => $array['_id'], ':search' => $search));
-                    
-                    
+
                     $retval = $array['_id'];
                     if ($statement = $client->prepare("delete from {$collection}_metadata where _id = :id")) {
                         $statement->execute(array(':id' => $array['_id']));
@@ -272,8 +294,9 @@ namespace Idno\Data {
                                 try {
                                     $value = json_encode($value);
 
-                                    if (json_last_error() != JSON_ERROR_NONE)
+                                    if (json_last_error() != JSON_ERROR_NONE) {
                                         throw new \Exception(json_last_error_msg());
+                                    }
                                 } catch (\Exception $e) {
                                     $value = json_encode([]);
                                     \Idno\Core\Idno::site()->logging()->error($e->getMessage());
@@ -305,8 +328,8 @@ namespace Idno\Data {
         /**
          * Retrieves a record from the database by its UUID
          *
-         * @param string $id
-         * @param string $collection The collection to retrieve from (default: entities)
+         * @param  string $id
+         * @param  string $collection The collection to retrieve from (default: entities)
          * @return array
          */
 
@@ -331,8 +354,8 @@ namespace Idno\Data {
         /**
          * Retrieves a record from the database by ID
          *
-         * @param string $id
-         * @param string $entities The collection name to retrieve from (default: 'entities')
+         * @param  string $id
+         * @param  string $entities The collection name to retrieve from (default: 'entities')
          * @return array
          */
 
@@ -357,7 +380,7 @@ namespace Idno\Data {
         /**
          * Retrieves ANY record from a collection
          *
-         * @param string $collection
+         * @param  string $collection
          * @return array
          */
         function getAnyRecord($collection = 'entities')
@@ -372,8 +395,9 @@ namespace Idno\Data {
                     }
                 }
             } catch (\Exception $e) {
-                if (\Idno\Core\Idno::site()->session() == null)
+                if (\Idno\Core\Idno::site()->session() == null) {
                     throw $e; // Throw exception up if the session isn't set
+                }
             }
 
             return false;
@@ -383,10 +407,10 @@ namespace Idno\Data {
          * Retrieves a set of records from the database with given parameters, in
          * reverse chronological order
          *
-         * @param array $parameters Query parameters in MongoDB format
-         * @param int $limit Maximum number of records to return
-         * @param int $offset Number of records to skip
-         * @param string $collection The collection to interrogate (default: 'entities')
+         * @param  array  $parameters Query parameters in MongoDB format
+         * @param  int    $limit      Maximum number of records to return
+         * @param  int    $offset     Number of records to skip
+         * @param  string $collection The collection to interrogate (default: 'entities')
          * @return iterator|false Iterator or false, depending on success
          */
 
@@ -442,12 +466,13 @@ namespace Idno\Data {
         /**
          * Recursive function that takes an array of parameters and returns an array of clauses suitable
          * for compiling into an SQL query
+         *
          * @param $params
          * @param $where
          * @param $variables
          * @param $metadata_joins
          * @param $non_md_variables
-         * @param string $clause Defaults to 'and'
+         * @param string $clause           Defaults to 'and'
          */
         function build_where_from_array($params, &$variables, &$metadata_joins, &$non_md_variables, $clause = 'and', $collection = 'entities')
         {
@@ -468,11 +493,6 @@ namespace Idno\Data {
                     if (!is_array($value)) {
                         if (in_array($key, $this->getSchemaFields())) {
                             $subwhere[] = "(`{$collection}`.`{$key}` = :nonmdvalue{$non_md_variables})";
-                            if ($key === 'created') {
-                                if (!is_int($value)) {
-                                    $value = strtotime($value);
-                                }
-                            }
                             $variables[":nonmdvalue{$non_md_variables}"] = $value;
                             $non_md_variables++;
                         } else {
@@ -489,7 +509,8 @@ namespace Idno\Data {
                                     $notstring = "`{$collection}`.`$key` not in (";
                                     $i         = 0;
                                     foreach ($value['$not']['$in'] as $val) {
-                                        if ($i > 0) $notstring .= ', ';
+                                        if ($i > 0) { $notstring .= ', ';
+                                        }
                                         $notstring .= ":nonmdvalue{$non_md_variables}";
                                         $variables[":nonmdvalue{$non_md_variables}"] = $val;
                                         $non_md_variables++;
@@ -502,7 +523,8 @@ namespace Idno\Data {
                                     $variables[":name{$metadata_joins}"] = $key;
                                     $i                                   = 0;
                                     foreach ($value['$not']['$in'] as $val) {
-                                        if ($i > 0) $notstring .= ', ';
+                                        if ($i > 0) { $notstring .= ', ';
+                                        }
                                         $notstring .= ":nonmdvalue{$non_md_variables}";
                                         $variables[":nonmdvalue{$non_md_variables}"] = $val;
                                         $non_md_variables++;
@@ -530,7 +552,8 @@ namespace Idno\Data {
                                 $instring = "`{$collection}`.`$key` in (";
                                 $i        = 0;
                                 foreach ($value['$in'] as $val) {
-                                    if ($i > 0) $instring .= ', ';
+                                    if ($i > 0) { $instring .= ', ';
+                                    }
                                     $instring .= ":nonmdvalue{$non_md_variables}";
                                     $variables[":nonmdvalue{$non_md_variables}"] = $val;
                                     $non_md_variables++;
@@ -543,7 +566,8 @@ namespace Idno\Data {
                                 $variables[":name{$metadata_joins}"] = $key;
                                 $i                                   = 0;
                                 foreach ($value['$in'] as $val) {
-                                    if ($i > 0) $instring .= ', ';
+                                    if ($i > 0) { $instring .= ', ';
+                                    }
                                     $instring .= ":nonmdvalue{$non_md_variables}";
                                     $variables[":nonmdvalue{$non_md_variables}"] = $val;
                                     $non_md_variables++;
@@ -557,11 +581,6 @@ namespace Idno\Data {
                             $val = $value['$lt'];
                             if (in_array($key, $this->getSchemaFields())) {
                                 $subwhere[] = "(`{$collection}`.`{$key}` < :nonmdvalue{$non_md_variables})";
-                                if ($key === 'created') {
-                                    if (!is_int($val)) {
-                                        $val = strtotime($val);
-                                    }
-                                }
                                 $variables[":nonmdvalue{$non_md_variables}"] = $val;
                                 $non_md_variables++;
                             } else {
@@ -575,11 +594,6 @@ namespace Idno\Data {
                             $val = $value['$gt'];
                             if (in_array($key, $this->getSchemaFields())) {
                                 $subwhere[] = "(`{$collection}`.`{$key}` > :nonmdvalue{$non_md_variables})";
-                                if ($key === 'created') {
-                                    if (!is_int($val)) {
-                                        $val = strtotime($val);
-                                    }
-                                }
                                 $variables[":nonmdvalue{$non_md_variables}"] = $val;
                                 $non_md_variables++;
                             } else {
@@ -622,7 +636,8 @@ namespace Idno\Data {
 
         /**
          * Export a collection as SQL.
-         * @param string $collection
+         *
+         * @param  string $collection
          * @return bool|string
          */
         function exportRecords($collection = 'entities', $limit = 10, $offset = 0)
@@ -641,27 +656,35 @@ namespace Idno\Data {
                     while ($object = $statement->fetch(\PDO::FETCH_ASSOC)) {
                         $uuid   = $object['uuid'];
                         $fields = array_keys($object);
-                        $fields = array_map(function ($v) {
-                            return '`' . $v . '`';
-                        }, $fields);
-                        $object = array_map(function ($v) {
-                            return \Idno\Core\Idno::site()->db()->getClient()->quote($v);
-                        }, $object);
+                        $fields = array_map(
+                            function ($v) {
+                                return '`' . $v . '`';
+                            }, $fields
+                        );
+                        $object = array_map(
+                            function ($v) {
+                                return \Idno\Core\Idno::site()->db()->getClient()->quote($v);
+                            }, $object
+                        );
                         $line   = 'insert into ' . $collection . ' ';
                         $line .= '(' . implode(',', $fields) . ')';
                         $line .= ' values ';
                         $line .= '(' . implode(',', $object) . ');';
                         $output .= $line . "\n";
-                        $metadata_statement = $client->prepare("select * from {$collection}_metadata where `entity` = :uuid");
+                        $metadata_statement = $client->prepare("select * from {$collection}_metadata where `_id` = :uuid");
                         if ($metadata_response = $metadata_statement->execute([':uuid' => $uuid])) {
                             while ($object = $metadata_statement->fetch(\PDO::FETCH_ASSOC)) {
                                 $fields = array_keys($object);
-                                $fields = array_map(function ($v) {
-                                    return '`' . $v . '`';
-                                }, $fields);
-                                $object = array_map(function ($v) {
-                                    return \Idno\Core\Idno::site()->db()->getClient()->quote($v);
-                                }, $object);
+                                $fields = array_map(
+                                    function ($v) {
+                                        return '`' . $v . '`';
+                                    }, $fields
+                                );
+                                $object = array_map(
+                                    function ($v) {
+                                        return \Idno\Core\Idno::site()->db()->getClient()->quote($v);
+                                    }, $object
+                                );
                                 $line   = "insert into {$collection}_metadata ";
                                 $line .= '(' . implode(',', $fields) . ')';
                                 $line .= ' values ';
@@ -690,8 +713,9 @@ namespace Idno\Data {
 
         /**
          * Count the number of records that match the given parameters
-         * @param array $parameters
-         * @param string $collection The collection to interrogate (default: 'entities')
+         *
+         * @param  array  $parameters
+         * @param  string $collection The collection to interrogate (default: 'entities')
          * @return int
          */
         function countRecords($parameters, $collection = 'entities')
@@ -725,7 +749,7 @@ namespace Idno\Data {
                     }
                 }
 
-            } catch (Exception $e) {
+            } catch (\Exception $e) {
                 \Idno\Core\Idno::site()->logging()->error($e->getMessage());
 
                 return false;
@@ -736,7 +760,8 @@ namespace Idno\Data {
 
         /**
          * Remove an entity from the database
-         * @param string $id
+         *
+         * @param  string $id
          * @return true|false
          */
         function deleteRecord($id, $collection = 'entities')
@@ -749,14 +774,14 @@ namespace Idno\Data {
                 /* @var \PDO $client */
                 $statement = $client->prepare("delete from {$collection} where _id = :id");
                 return $statement->execute(array(':id' => $id));
-                
+
                 // Don't need to explicitly delete metadata now due to cascade
-//                if ($statement->execute(array(':id' => $id))) {
-//                    
-//                    if ($statement = $client->prepare("delete from metadata where _id = :id")) {
-//                        return $statement->execute(array(':id' => $id));
-//                    }
-//                }
+                //                if ($statement->execute(array(':id' => $id))) {
+                //
+                //                    if ($statement = $client->prepare("delete from metadata where _id = :id")) {
+                //                        return $statement->execute(array(':id' => $id));
+                //                    }
+                //                }
 
             } catch (\Exception $e) {
 
@@ -771,29 +796,31 @@ namespace Idno\Data {
 
         /**
          * Remove all entities from a collection from the database
-         * @param string $collection
+         *
+         * @param  string $collection
          * @return bool
          */
         function deleteAllRecords($collection)
         {
             try {
-                if (empty($collection)) return false;
+                if (empty($collection)) { return false;
+                }
                 $collection = $this->sanitiseCollection($collection);
 
                 $client = $this->client;
                 /* @var \PDO $client */
                 $statement = $client->prepare("delete from {$collection}");
                 return $statement->execute();
-                
-//                if ($statement->execute()) {
-//                    
-//                    $statement = $client->prepare("delete from {$collection}_search");
-//                    $statement->execute();
-//                    
-//                    if ($statement = $client->prepare("delete from metadata where collection = :collection")) {
-//                        return $statement->execute([':collection' => $collection]);
-//                    }
-//                }
+
+                //                if ($statement->execute()) {
+                //
+                //                    $statement = $client->prepare("delete from {$collection}_search");
+                //                    $statement->execute();
+                //
+                //                    if ($statement = $client->prepare("delete from metadata where collection = :collection")) {
+                //                        return $statement->execute([':collection' => $collection]);
+                //                    }
+                //                }
             } catch (\Exception $e) {
                 \Idno\Core\Idno::site()->logging()->error($e->getMessage());
                 return false;

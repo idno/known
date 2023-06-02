@@ -4,11 +4,11 @@
 
     $underline = mb_strlen($joinus);
 
-    for($u = 1; $u < $underline; $u++) {
-        echo '=';
-    }
+for($u = 1; $u < $underline; $u++) {
+    echo '=';
+}
 
- ?>
+?>
 
 
 <?php echo \Idno\Core\Idno::site()->language()->_('Hi there! Your friend *%s* has invited you to join %s', [$vars['inviter'],\Idno\Core\Idno::site()->config()->title]) ?>: <?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>.

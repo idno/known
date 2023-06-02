@@ -3,7 +3,7 @@
     /**
      * Site invitation representation
      *
-     * @package idno
+     * @package    idno
      * @subpackage core
      */
 
@@ -33,7 +33,8 @@ namespace Idno\Entities {
 
         /**
          * Retrieves an invitation associated with a particular email address
-         * @param $email
+         *
+         * @param  $email
          * @return bool
          */
         static function getByEmail($email)
@@ -49,8 +50,9 @@ namespace Idno\Entities {
 
         /**
          * Validates an email address / invitation code combination (or returns false if no such invitation exists).
-         * @param $email
-         * @param $code
+         *
+         * @param  $email
+         * @param  $code
          * @return \Idno\Entities\Invitation|false
          */
         static function validate($email, $code)
@@ -64,8 +66,9 @@ namespace Idno\Entities {
 
         /**
          * Retrieves an invitation associated with a particular email address and code.
-         * @param $email
-         * @param $code
+         *
+         * @param  $email
+         * @param  $code
          * @return bool
          */
         static function getByEmailAndCode($email, $code)
@@ -81,6 +84,7 @@ namespace Idno\Entities {
 
         /**
          * A cleanup utility method to remove all invitations associated with a given email address
+         *
          * @param string $email
          */
         static function removeByEmail($email)
@@ -97,8 +101,9 @@ namespace Idno\Entities {
 
         /**
          * Saves this invitation and sends it to the appropriate email address
-         * @param $email
-         * @param $from_email If set, sets a reply to
+         *
+         * @param  $email
+         * @param  $from_email If set, sets a reply to
          * @return bool|int
          */
         function sendToEmail($email, $from_email = '')
@@ -122,7 +127,8 @@ namespace Idno\Entities {
 
         /**
          * Associates this invitation with a particular email address; returns false if the address is invalid
-         * @param $email
+         *
+         * @param  $email
          * @return bool
          */
         function associateWithEmail($email)
