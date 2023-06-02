@@ -12,18 +12,11 @@ Please also read our [code of conduct](CODE_OF_CONDUCT.md).
 Contributors to Known
 =====================
 
-Core team
----------
+Homepage: https://known.co/
 
-* Ben Werdmuller https://werd.io
-* Erin Jo Richey https://erinjorichey.com
-* Marcus Povey https://www.marcus-povey.co.uk
-
-Homepage: https://withknown.com/
+Project lead: Ben Werdmuller https://werd.io
 
 Community contributors
 ----------------------
 
 See https://github.com/idno/Known/graphs/contributors
-
-
