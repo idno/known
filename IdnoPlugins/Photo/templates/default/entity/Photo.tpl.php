@@ -50,8 +50,10 @@ if (empty($vars['feed_view']) && $vars['object']->getTitle() && $vars['object']-
 
             if (!empty($attachment['url'])) {
                 $mainsrc = $attachment['url'];
-            } else {
+            } else if (!empty($attachment['_id'])) {
                 $mainsrc = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'file/' . $attachment['_id'];
+            } else {
+                $mainsrc = '#';
             }
 
             $filename = "";
