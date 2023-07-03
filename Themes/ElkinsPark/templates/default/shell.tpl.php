@@ -17,11 +17,8 @@
     echo $template->draw('shell/opengraph');
     echo $template->draw('shell/structured-data');
     echo $template->draw('shell/dublincore');
-    echo $template->draw('shell/amp');
-    echo $template->draw('shell/bootstrap');
     echo $template->draw('shell/javascript');
     echo $template->draw('shell/css');
-    echo $template->draw('shell/syndication');
     echo $template->draw('shell/identities');
     echo $template->draw('shell/head');
     echo $template->draw('shell/monetization');
@@ -33,7 +30,6 @@
 <body class="<?php echo $template->getBodyClasses(); ?>">
 
     <?php echo $template->draw('shell/nav'); ?>
-    <?php echo $template->draw('shell/afternav'); ?>
 
     <div class="page-container">
         <div class="container page-body">
