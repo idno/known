@@ -1,6 +1,0 @@
-nbproject/
-node_modules
-package-lock.json
-!package.json
-vendor/
-composer.lock
