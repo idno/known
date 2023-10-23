@@ -210,14 +210,6 @@
 
             <div class="row">
                 <div class="col-md-10">
-                    <h3><?php echo \Idno\Core\Idno::site()->language()->_('Web monetization'); ?></h3>
-                </div>
-            </div>
-
-            <!----------->
-
-            <div class="row">
-                <div class="col-md-10">
                     <h3><?php echo \Idno\Core\Idno::site()->language()->_('Technical Settings'); ?></h3>
                 </div>
             </div>

@@ -1322,10 +1322,6 @@ msgstr ""
 msgid "Show per-post privacy settings."
 msgstr ""
 
-#: ./templates/default/admin/home.tpl.php:213
-msgid "Web monetization"
-msgstr ""
-
 #: ./templates/default/admin/home.tpl.php:239
 msgid "Technical Settings"
 msgstr ""
