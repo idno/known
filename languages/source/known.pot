@@ -1326,22 +1326,6 @@ msgstr ""
 msgid "Web monetization"
 msgstr ""
 
-#: ./templates/default/admin/home.tpl.php:221
-msgid "Coil web payments"
-msgstr ""
-
-#: ./templates/default/admin/home.tpl.php:224
-msgid "Coil web payment pointer"
-msgstr ""
-
-#: ./templates/default/admin/home.tpl.php:228
-msgid "Receive direct payments from visitors with Coil wallets."
-msgstr ""
-
-#: ./templates/default/admin/home.tpl.php:229
-msgid "Set up your Coil payment pointer"
-msgstr ""
-
 #: ./templates/default/admin/home.tpl.php:239
 msgid "Technical Settings"
 msgstr ""
