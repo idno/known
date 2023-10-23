@@ -19,17 +19,7 @@ namespace IdnoPlugins\Photo {
 
         function getDescription()
         {
-            $body = $this->body;
-            if (!empty($this->inreplyto)) {
-                if (is_array($this->inreplyto)) {
-                    foreach ($this->inreplyto as $inreplyto) {
-                        $body = '<a href="' . $inreplyto . '" class="u-in-reply-to"></a>' . $body;
-                    }
-                } else {
-                    $body = '<a href="' . $this->inreplyto . '" class="u-in-reply-to"></a>' . $body;
-                }
-            }
-            return $body;
+            return $this->body;
         }
 
         /**
@@ -43,11 +33,7 @@ namespace IdnoPlugins\Photo {
 
         function getMetadataForFeed()
         {
-            $meta = array('type' => 'photo');
-            if ($this->inreplyto) {
-                $meta['in-reply-to'] = $this->inreplyto;
-            }
-            return $meta;
+            return array('type' => 'photo');
         }
 
         /**
@@ -120,20 +106,6 @@ namespace IdnoPlugins\Photo {
             }
 
             $this->title = \Idno\Core\Idno::site()->currentPage()->getInput('title');
-            $inreplyto = \Idno\Core\Idno::site()->currentPage()->getInput('inreplyto');
-            $this->inreplyto = $inreplyto;
-
-            // TODO fetch syndicated reply targets asynchronously (or maybe on-demand, when syndicating?)
-            if (!empty($inreplyto)) {
-                if (is_array($inreplyto)) {
-                    foreach ($inreplyto as $inreplytourl) {
-                        $this->syndicatedto = \Idno\Core\Webmention::addSyndicatedReplyTargets($inreplytourl, $this->syndicatedto);
-                    }
-                } else {
-                    $this->syndicatedto = \Idno\Core\Webmention::addSyndicatedReplyTargets($inreplyto);
-                }
-            }
-
             $this->body  = \Idno\Core\Idno::site()->currentPage()->getInput('body');
             $this->tags  = \Idno\Core\Idno::site()->currentPage()->getInput('tags');
             $access = \Idno\Core\Idno::site()->currentPage()->getInput('access');
@@ -146,7 +118,8 @@ namespace IdnoPlugins\Photo {
             }
 
             // Get photo
-            $files = \Idno\Core\Input::getFiles('photo');
+            //if ($new) {
+                $files = \Idno\Core\Input::getFiles('photo');
 
             if (!isset($files['name'])) {
                 $files = array_filter($files, function($var) {
@@ -155,6 +128,11 @@ namespace IdnoPlugins\Photo {
             } else {
                 $files = [$files]; // Handle situations where we aren't handling array of photos
             }
+
+                // Replace any existing photos
+            //                    if (!empty($files[0]['tmp_name'])) {
+            //                        $this->deleteAttachments(); // TODO: Allow edit/removal of existing photos
+            //                    }
 
             foreach ($files as $_file) {
 
@@ -179,7 +157,7 @@ namespace IdnoPlugins\Photo {
                                 $exif = false;
                             }
                         } else {
-                            $exif = false;
+                                    $exif = false;
 
                             if (!is_callable('exif_read_data')) {
                                 // Admins get a no-EXIF error

@@ -1,0 +1,177 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr_FR\n"
+"X-Generator: Poedit 2.2.4\n"
+
+#: ContentType.php:21
+msgid "Event"
+msgstr "Évènement"
+
+#: ContentType.php:30
+msgid "Events"
+msgstr "Evenements"
+# diacritics will break /content/ link msgstr "Événements"
+
+#: Pages/Delete.php:29
+msgid "Delete %s"
+msgstr "Effacer %s"
+
+#: Pages/Delete.php:43
+msgid "You don't have permission to perform this task."
+msgstr "Vous n’avez pas la permission d’effectuer cette tâche."
+
+#: Pages/Delete.php:48
+msgid "%s was deleted."
+msgstr "%s a été supprimé."
+
+#: Pages/Delete.php:50
+msgid "We couldn't delete %s."
+msgstr "On n’a pas pu supprimer %s."
+
+#: Pages/RSVP/Edit.php:31
+msgid "Write an RSVP"
+msgstr "Écrire un RSVP"
+
+#: Pages/RSVP/Edit.php:33
+msgid "Edit RSVP"
+msgstr "Modifier le RSVP"
+
+#: Pages/Edit.php:42
+msgid "Write an event"
+msgstr "Écrire un évènement"
+
+#: Pages/Edit.php:44
+msgid "Edit event"
+msgstr "Modifier l’évènement"
+
+#: templates/default/entity/Event.tpl.php:21
+msgid "Location"
+msgstr "Lieu"
+
+#: templates/default/entity/Event.tpl.php:44
+msgid "Ends"
+msgstr "Se termine"
+
+#: templates/default/entity/Event.tpl.php:53
+msgid "Time Zone"
+msgstr "Fuseau horaire"
+
+#: templates/default/entity/RSVP/edit.tpl.php:12
+msgid "New RSVP"
+msgstr "Nouveau RSVP"
+
+#: templates/default/entity/RSVP/edit.tpl.php:22
+msgid "What's the URL of the event you're responding to?"
+msgstr "Quel est l’URL de l’évènement auquel vous répondez?"
+
+#: templates/default/entity/RSVP/edit.tpl.php:33
+msgid "The website address of the event"
+msgstr "L’adresse du site de l’évènement"
+
+#: templates/default/entity/RSVP/edit.tpl.php:39
+msgid "Are you going?"
+msgstr "Y allez-vous ?"
+
+#: templates/default/entity/RSVP/edit.tpl.php:48
+msgid "Yes: I am attending this event"
+msgstr "Oui : Je participe à cet évènement"
+
+#: templates/default/entity/RSVP/edit.tpl.php:49
+msgid "No: I am not attending this event"
+msgstr "Non: je ne participerai pas à cet évènement"
+
+#: templates/default/entity/RSVP/edit.tpl.php:50
+msgid "Maybe: I might attend this event"
+msgstr "Peut-être: je vais peut-être participer à cet évènement"
+
+#: templates/default/entity/RSVP/edit.tpl.php:58
+msgid "Any comments?"
+msgstr "Des commentaires ?"
+
+#: templates/default/entity/RSVP/edit.tpl.php:62
+msgid "Say something here..."
+msgstr "Dites quelque chose ici…"
+
+#: templates/default/entity/RSVP/edit.tpl.php:76
+msgid "Cancel"
+msgstr "Annuler"
+
+#: templates/default/entity/RSVP/edit.tpl.php:77
+msgid "Save"
+msgstr "Enregistrer"
+
+#: templates/default/entity/Event/edit.tpl.php:10
+msgid "New Event"
+msgstr "Nouvel évènement"
+
+#: templates/default/entity/Event/edit.tpl.php:12
+msgid "Edit Event"
+msgstr "Éditer évènement"
+
+#: templates/default/entity/Event/edit.tpl.php:21
+msgid "Event name"
+msgstr "Nom de l’évènement"
+
+#: templates/default/entity/Event/edit.tpl.php:25
+msgid "Give it a name"
+msgstr "Nommer-le"
+
+#: templates/default/entity/Event/edit.tpl.php:38
+msgid "Where will it take place?"
+msgstr "Où aura-t-il lieu ?"
+
+#: templates/default/entity/Event/edit.tpl.php:45
+msgid "Start day and time"
+msgstr "Jour et heure de début"
+
+#: templates/default/entity/Event/edit.tpl.php:49
+msgid "Type in the start day and time?"
+msgstr "Entrez la date et l’heure de début."
+
+#: templates/default/entity/Event/edit.tpl.php:55
+msgid "End day and time"
+msgstr "Date et heure de fin"
+
+#: templates/default/entity/Event/edit.tpl.php:59
+msgid "Type in the end day and time"
+msgstr "Entre la date et l’heure de fin"
+
+#: templates/default/entity/Event/edit.tpl.php:66
+msgid "Time zone"
+msgstr "Fuseau horaire"
+
+#: templates/default/entity/Event/edit.tpl.php:82
+msgid "Brief summary"
+msgstr "Résumé"
+
+#: templates/default/entity/Event/edit.tpl.php:86
+msgid "What's this about?"
+msgstr "Il s’agit de quoi?"
+
+#: templates/default/entity/Event/edit.tpl.php:94
+msgid "Description"
+msgstr "Description"
+
+#: RSVP.php:96
+msgid "Your RSVP was successfully saved."
+msgstr "Votre RSVP a été enregistré avec succès."
+
+#: RSVP.php:100
+msgid "You can't save an RSVP with no status."
+msgstr "Vous ne pouvez pas sauvegarder un RSVP sans statut."
+
+#: Event.php:10
+msgid "Untitled"
+msgstr "Sans titre"
+
+#: Event.php:88
+msgid "You can't save an event with no description."
+msgstr "Vous ne pouvez pas sauvegarder un évènement sans description."

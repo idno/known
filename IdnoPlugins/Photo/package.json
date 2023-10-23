@@ -1,0 +1,7 @@
+{
+    "name": "Photo",
+    "version": "1.0.4",
+    "devDependencies": {
+        "grunt": ">=1.3.0"
+    }
+}

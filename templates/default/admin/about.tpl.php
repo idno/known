@@ -21,11 +21,3 @@
         </p>
     </div>
 </div>
-<div class="row" style="margin-top: 1em">
-
-    <center>
-        <a href="https://opencollective.com/known/contribute" target="_blank" rel="noopener noreferrer">
-            <img src="https://opencollective.com/known/contribute/button@2x.png?color=blue" width="300">
-        </a>
-    </center>
-</div>

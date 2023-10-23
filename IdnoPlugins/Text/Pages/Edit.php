@@ -65,6 +65,8 @@ namespace IdnoPlugins\Text\Pages {
 
             if ($object->saveDataFromInput()) {
                 (new \Idno\Core\Autosave())->clearContext('entry');
+                //$this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'content/all/');
+                //$this->forward($object->getDisplayURL());
                 $forward = $this->getInput('forward-to', $object->getDisplayURL());
                 $this->forward($forward);
             }

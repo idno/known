@@ -572,7 +572,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
          *
          * @return void
          */
-        protected function error(int $statusCode, string $error, string $description = '')
+        protected function error($statusCode, $error, $description)
         {
             $site = \Idno\Core\Idno::site();
             $msgs = $site->session()->getMessages();
@@ -609,7 +609,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
          * @param string $type "photo", "audio" or "video"
          * @param string $url  File URL
          */
-        private function uploadFromUrl(string $type, string $url): bool
+        private function uploadFromUrl($type, $url)
         {
             $_url = $url;
             foreach($_url as $url)

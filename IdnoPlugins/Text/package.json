@@ -1,0 +1,11 @@
+{
+    "name": "Text",
+    "version": "1.0.8",
+    "devDependencies": {
+        "grunt": "^1.4.1"
+    },
+    "scripts": {
+        "postinstall": "opencollective-postinstall",
+        "grunt": "grunt"
+    }
+}

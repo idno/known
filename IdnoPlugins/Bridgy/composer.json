@@ -1,0 +1,17 @@
+{
+    "name": "idno/bridgy",
+    "description": "Receive comments from external services on your Known site.",
+    "type": "known-plugin",
+    "version": "1.0.1",
+    "require": {
+        "composer/installers": "~1.0"
+    },
+    "require-dev": {
+        "mapkyca/known-language-tools": "^1.0",
+        "mapkyca/known-dev-scripts": "^1.0",
+        "mapkyca/known-phpcs": "^1.0"
+    },
+    "extra": {
+        "installer-name": "Bridgy"
+    }
+}

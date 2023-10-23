@@ -1,11 +1,3 @@
-#: ContentType.php:8
-msgid "Photo"
-msgstr ""
-
-#: ContentType.php:9
-msgid "Photos"
-msgstr ""
-
 #: ./Pages/Delete.php:29
 msgid "Delete %s"
 msgstr ""
@@ -67,14 +59,14 @@ msgid "Untitled"
 msgstr ""
 
 #: ./Photo.php:178
-msgid "Image wasn't attached."
+msgid "Image wasn\'t attached."
 msgstr ""
 
 #: ./Photo.php:182
-msgid "This doesn't seem to be an image..."
+msgid "This doesn\'t seem to be an image..."
 msgstr ""
 
 #: ./Photo.php:199
-msgid "We couldn't access your image for an unknown reason. Please try again."
+msgid "We couldn\'t access your image for an unknown reason. Please try again."
 msgstr ""
 

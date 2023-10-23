@@ -1,0 +1,7 @@
+{
+    "name": "Media",
+    "version": "1.0.2",
+    "devDependencies": {
+        "grunt": "^0.4.5"
+    }
+}

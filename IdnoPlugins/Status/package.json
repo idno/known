@@ -1,0 +1,7 @@
+{
+    "name": "Status",
+    "version": "1.0.6",
+    "devDependencies": {
+        "grunt": "^0.4.5"
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "name": "idno/theme-black",
+    "description": "A simple, minimal, blank-slate theme.",
+    "type": "known-theme",
+    "version": "1.0.0",
+    "require": {
+        "composer/installers": "~1.0"
+    },
+    "require-dev": {
+        "mapkyca/known-language-tools": "^1.0",
+        "mapkyca/known-dev-scripts": "^1.0",
+        "mapkyca/known-phpcs": "^1.0"
+    },
+    "extra": {
+        "installer-name": "Black"
+    }
+}

@@ -23,10 +23,10 @@ namespace IdnoPlugins\StaticPages {
         {
 
             \Idno\Core\Idno::site()->routes()->addRoute('/staticpages?/edit/?', 'IdnoPlugins\StaticPages\Pages\Edit');
-            \Idno\Core\Idno::site()->routes()->addRoute('/staticpages?/edit/:id/?', '\IdnoPlugins\StaticPages\Pages\Edit');
-            \Idno\Core\Idno::site()->routes()->addRoute('/staticpages?/delete/:id/?', '\IdnoPlugins\StaticPages\Pages\Delete');
-            \Idno\Core\Idno::site()->routes()->addRoute('/staticpages?/homepage/set/:id/?', 'IdnoPlugins\StaticPages\Pages\SetHomepage');
-            \Idno\Core\Idno::site()->routes()->addRoute('/staticpages?/homepage/clear/:id/?', 'IdnoPlugins\StaticPages\Pages\ClearHomepage');
+            \Idno\Core\Idno::site()->routes()->addRoute('/staticpages?/edit/([A-Za-z0-9\-]+)/?', '\IdnoPlugins\StaticPages\Pages\Edit');
+            \Idno\Core\Idno::site()->routes()->addRoute('/staticpages?/delete/([A-Za-z0-9\-]+)/?', '\IdnoPlugins\StaticPages\Pages\Delete');
+            \Idno\Core\Idno::site()->routes()->addRoute('/staticpages?/homepage/set/([A-Za-z0-9\-]+)/?', 'IdnoPlugins\StaticPages\Pages\SetHomepage');
+            \Idno\Core\Idno::site()->routes()->addRoute('/staticpages?/homepage/clear/([A-Za-z0-9\-]+)/?', 'IdnoPlugins\StaticPages\Pages\ClearHomepage');
 
             \Idno\Core\Idno::site()->routes()->addRoute('/admin/staticpages/?', 'IdnoPlugins\StaticPages\Pages\Admin');
             \Idno\Core\Idno::site()->routes()->addRoute('/admin/staticpages/add/?', 'IdnoPlugins\StaticPages\Pages\Admin\AddCategory');
@@ -226,9 +226,6 @@ namespace IdnoPlugins\StaticPages {
                 $categories = str_replace("\r", '', \Idno\Core\Idno::site()->config()->staticPages['categories']);
                 $categories = explode("\n", $categories);
 
-                // Add "no category"
-                array_unshift($categories, 'No Category');
-
                 // Trim all categories first
                 array_filter($categories, function ($var) {
                     return trim($var);
@@ -236,9 +233,6 @@ namespace IdnoPlugins\StaticPages {
 
                 // Then remove any empty categories
                 array_filter($categories);
-                
-                // Set keys to equal values
-                $categories = array_combine($categories, $categories);
 
                 // Now send back the array
                 return $categories;
