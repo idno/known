@@ -252,6 +252,23 @@
                 </div>
             </div>
 
+            <!----------->
+
+            <div class="row">
+                <div class="col-md-2">
+                    <p><label class="control-label" for="share_backup_url"><strong><?php echo \Idno\Core\Idno::site()->language()->_('Backup share image'); ?></strong></label>
+                    </p>
+                </div>
+                <div class="config-toggle col-md-4">
+                <input type="url" id="share_backup_url" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_('Backup share image URL'); ?>" class="input col-md-4 form-control" name="share_backup_url"
+                           value="<?php echo htmlspecialchars(\Idno\Core\Idno::site()->config()->share_backup_url) ?>">
+                </div>
+                <div class="col-md-6"><p class="config-desc">
+                        <?php echo \Idno\Core\Idno::site()->language()->_("Specify the URL of an image to use as your default social share image."); ?>
+                    </p>
+                </div>
+            </div>
+
             <!---------->
             <div class="row">
                 <div class="col-md-2">

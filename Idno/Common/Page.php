@@ -1282,6 +1282,8 @@ namespace Idno\Common {
                         $icon = $user->getIcon();
                     }
                 }
+            } else if (\Idno\Core\Idno::site()->config()->share_backup_url) {
+              $icon = \Idno\Core\Idno::site()->config()->share_backup_url;
             }
 
             return \Idno\Core\Idno::site()->events()->triggerEvent('icon', ['object' => $this], $icon);
