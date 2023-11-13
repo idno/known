@@ -1,7 +1,7 @@
 <?php
 
     /**
-     * Webfiiiiinger (da daaaaah dah)
+     * Webfinger
      */
 
 namespace Idno\Pages\Webfinger {
@@ -24,18 +24,21 @@ namespace Idno\Pages\Webfinger {
                     }
                 }
             }
+            if (empty($user)) $this->noContent();
             if (empty($links)) {
                 $links = array();
             }
             $t = \Idno\Core\Idno::site()->template();
             $t->setTemplateType('json');
-            $t->__(
-                array(
+            echo $t->__(
+              array(
+                'properties' => [
+                  'http://webfinger.example/ns/name' => $user->getName(),
+                ],
                 'subject' => $acct,
                 'links'   => $links
-                )
-            )->drawPage();
-
+              )
+            )->draw('shell');
         }
 
         function postContent()

@@ -43,20 +43,28 @@ namespace Idno\Entities {
                     $user      = $eventdata['object'];
 
                     $links = $event->response();
-                    if (empty($links)) { $links = array();
+                    if (empty($links)) { 
+                      $links = array();
                     }
 
                     if ($user instanceof User) {
-                        $links = array(
-                        array(
-                            'rel'  => 'http://webfinger.net/rel/avatar',
-                            'href' => $user->getIcon()
-                        ),
-                        array(
-                            'rel'  => 'http://webfinger.net/rel/profile-page',
-                            'href' => $user->getURL()
-                        )
-                        );
+                      $links = [
+/* Uncomment when ActivityPub endpoints are live
+                        [
+                          'rel' => 'self',
+                          'type' => 'application/activity+json',
+                          'href' => $user->getDisplayURL() . '?_t=activitypub'
+                        ],
+*/
+                        [
+                          'rel'  => 'http://webfinger.net/rel/avatar',
+                          'href' => $user->getIcon()
+                        ],
+                        [
+                          'rel'  => 'http://webfinger.net/rel/profile-page',
+                          'href' => $user->getURL()
+                        ]
+                      ];
                     }
 
                     $event->setResponse($links);
