@@ -160,17 +160,8 @@ namespace Idno\Core\Templating {
                 return $url;
             }
 
-            // Map to local
-            $proxied_url = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'service/web/imageproxy/' . Webservice::base64UrlEncode($url);
-
-            if (!empty($maxsize)) {
-                $proxied_url .= '/' . (int)$maxsize;
-            }
-
-            if (!empty($transform)) {
-                $proxied_url .= '/' . $transform;
-            }
-
+            // For now, just return $url anyway.
+            $proxied_url = $url;
             return $proxied_url;
 
         }

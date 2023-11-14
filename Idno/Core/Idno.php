@@ -277,9 +277,6 @@ namespace Idno\Core {
             $this->routes()->addRoute('/service/security/csrftoken/?', '\Idno\Pages\Service\Security\CSRFToken');
             $this->routes()->addRoute('/service/web/unfurl/?', '\Idno\Pages\Service\Web\UrlUnfurl');
             $this->routes()->addRoute('/service/web/unfurl/remove/:id/?', '\Idno\Pages\Service\Web\RemovePreview');
-            $this->routes()->addRoute('/service/web/imageproxy/([^\/]+)/?', '\Idno\Pages\Service\Web\ImageProxy');
-            $this->routes()->addRoute('/service/web/imageproxy/([^\/]+)/([0-9]+)/?', '\Idno\Pages\Service\Web\ImageProxy'); // With scale
-            $this->routes()->addRoute('/service/web/imageproxy/([^\/]+)/([0-9]+)/([^\/]+)/?', '\Idno\Pages\Service\Web\ImageProxy'); // With scale, with transform
             $this->routes()->addRoute('/service/system/log/?', '\Idno\Pages\Service\System\Log');
             $this->routes()->addRoute('/service/geo/geocoder/?', '\Idno\Pages\Service\Geo\Geocoder');
 
