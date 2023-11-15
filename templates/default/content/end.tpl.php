@@ -25,7 +25,7 @@ if (!empty($owner)) {
             <p>
                 <a href="<?php echo $owner->getDisplayURL() ?>"><?php echo htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8') ?></a><?php echo \Idno\Core\Idno::site()->language()->_('published this'); ?>
                 <a class="u-url url" href="<?php echo $vars['object']->getDisplayURL() ?>" rel="permalink"><time class="dt-published"
-                          datetime="<?php echo date(DATE_ISO8601, $vars['object']->created) ?>"><?php echo strftime('%d %b %Y', $vars['object']->created) ?></time></a>
+                          datetime="<?php echo date(DATE_ATOM, $vars['object']->created) ?>"><?php echo date('d F Y', $vars['object']->created) ?></time></a>
             <?php
 
             if ($vars['object']->access != 'PUBLIC') {
