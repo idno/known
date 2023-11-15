@@ -288,15 +288,18 @@ namespace Idno\Entities {
         /**
          * Detects whether the file contains PHP or script tags, eg to check for embedded code in GIFs
          * @param $file_path
+         * @param $file_name? Optionally, the file name
          * @return bool
          */
-        public static function isFileFreeFromScriptTags($file_path)
+        public static function isFileFreeFromScriptTags($file_path, $file_name = '')
         {
-            if ($contents = file_get_contents($file_path)) {
-                if (stripos($contents, '<script') || stripos($contents, '<?php')) return false;
-                return true;
+            foreach([$file_name, file_get_contents($file_path)] as $contents) {
+              $contents = strtolower($contents);
+              if (stripos($contents, '<script') !== false || stripos($contents, '<?php') !== false) {
+                return false;
+              }
             }
-            return false;
+            return true;
         }
 
         /**

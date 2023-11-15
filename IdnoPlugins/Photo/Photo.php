@@ -118,21 +118,15 @@ namespace IdnoPlugins\Photo {
             }
 
             // Get photo
-            //if ($new) {
-                $files = \Idno\Core\Input::getFiles('photo');
+            $files = \Idno\Core\Input::getFiles('photo');
 
             if (!isset($files['name'])) {
                 $files = array_filter($files, function($var) {
                     return !empty($var['tmp_name']); // Filter non-filled in elements
                 });
             } else {
-                $files = [$files]; // Handle situations where we aren't handling array of photos
+                $files = [$files]; // Handle situations where we aren't given an array of photos
             }
-
-                // Replace any existing photos
-            //                    if (!empty($files[0]['tmp_name'])) {
-            //                        $this->deleteAttachments(); // TODO: Allow edit/removal of existing photos
-            //                    }
 
             foreach ($files as $_file) {
 
@@ -140,7 +134,7 @@ namespace IdnoPlugins\Photo {
 
                     if (\Idno\Entities\File::isImage($_file['tmp_name']) || \Idno\Entities\File::isSVG($_file['tmp_name'], $_file['name'])) {
 
-                        if (!\Idno\Entities\File::isFileFreeFromScriptTags($_file['tmp_name'])) {
+                        if (!\Idno\Entities\File::isFileFreeFromScriptTags($_file['tmp_name'], $_file['name'])) {
                             \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('Image seems to contain malicious code and cannot be uploaded.'));
                             return false;
                         }
@@ -157,7 +151,7 @@ namespace IdnoPlugins\Photo {
                                 $exif = false;
                             }
                         } else {
-                                    $exif = false;
+                            $exif = false;
 
                             if (!is_callable('exif_read_data')) {
                                 // Admins get a no-EXIF error
@@ -168,7 +162,7 @@ namespace IdnoPlugins\Photo {
                         }
 
                         if ($photo = \Idno\Entities\File::createFromFile($_file['tmp_name'], $_file['name'], $_file['type'], true, true)) {
-                            $this->attachFile($photo);
+                            $this->attachFile($photo, true);
 
                             // Now get some smaller thumbnails, with the option to override sizes
                             $sizes = \Idno\Core\Idno::site()->events()->dispatch('photo/thumbnail/getsizes', new \Idno\Core\Event(array('sizes' => array('large' => 800, 'medium' => 400, 'small' => 200))));

@@ -882,13 +882,22 @@ namespace Idno\Common {
         /**
          * Attaches a file reference to this entity
          * @param  $file_wrapper
+         * @param  $embeddable Will the file be embedded in a page?
          */
-        function attachFile($file_wrapper)
+        function attachFile($file_wrapper, $embeddable = false)
         {
             $file = $file_wrapper->file;
             if (empty($this->attachments) || !is_array($this->attachments)) {
                 $this->attachments = array();
             }
+
+            // If a file is embeddable we should not allow XSS-able filenames.
+            if ($embeddable) {
+              if (substr(strtolower($file['filename']), -5) == '.html' || substr(strtolower($file['filename']), -3) == '.js') $file['filename'] .= '.data';
+              $file['filename'] = str_replace('<', '', $file['filename']);
+              $file['filename'] = str_replace('>', '', $file['filename']);
+            }
+
             $attachments = $this->attachments;
             $attachments[] = [
                 '_id' => $file['_id'],

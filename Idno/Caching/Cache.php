@@ -50,7 +50,7 @@ namespace Idno\Caching {
          * Retrieve a value from the store.
          *
          * @param  $key Key to retrieve
-         * @return mixed|false
+         * @return mixed
          */
         public function load($key)
         {
