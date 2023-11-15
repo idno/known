@@ -1,6 +1,6 @@
 {
     "name": "Known",
-    "version": "1.6",
+    "version": "1.6.1",
     "devDependencies": {
         "@babel/cli": "^7.14.8",
         "@babel/core": "^7.15.0",
