@@ -1737,7 +1737,7 @@ namespace Idno\Common {
          * Serialize this entity
          * @return array|mixed
          */
-        public function jsonSerialize()
+        public function jsonSerialize(): mixed
         {
             $object = array(
                 'id' => "" . $this->getID(),
@@ -2633,7 +2633,7 @@ namespace Idno\Common {
          * @param mixed $offset
          * @return bool
          */
-        function offsetExists($offset)
+        function offsetExists(mixed $offset): bool
         {
             return empty($this->attributes[$offset]);
         }
@@ -2643,7 +2643,7 @@ namespace Idno\Common {
          * @param mixed $offset
          * @return mixed
          */
-        function offsetGet($offset)
+        function offsetGet(mixed $offset): mixed
         {
             return $this->attributes[$offset];
         }
@@ -2653,7 +2653,7 @@ namespace Idno\Common {
          * @param mixed $offset
          * @param mixed $value
          */
-        function offsetSet($offset, $value)
+        function offsetSet(mixed $offset, mixed $value): void
         {
             $this->attributes[$offset] = $value;
         }
@@ -2662,7 +2662,7 @@ namespace Idno\Common {
          * Allows you to unset a property value as you would an array
          * @param mixed $offset
          */
-        function offsetUnset($offset)
+        function offsetUnset(mixed $offset): void 
         {
             unset($this->attributes[$offset]);
         }

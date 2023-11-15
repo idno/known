@@ -1029,7 +1029,7 @@ namespace Idno\Entities {
             return parent::delete();
         }
 
-        public function jsonSerialize()
+        public function jsonSerialize(): mixed
         {
             $data          = parent::jsonSerialize();
 

@@ -62,7 +62,7 @@ namespace Idno\Caching {
                 return $item->get();
             }
 
-            return false;
+            return null;
         }
 
         /**
@@ -124,7 +124,7 @@ namespace Idno\Caching {
 
         /* Array access interface */
 
-        public function offsetGet($key)
+        public function offsetGet(mixed $key): mixed
         {
             return $this->load($key);
         }
