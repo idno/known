@@ -110,7 +110,8 @@ namespace IdnoPlugins\Checkin {
             return null;
         }
         
-        function jsonSerialize() {
+        function jsonSerialize(): mixed 
+        {
             $object = parent::jsonSerialize();
             
             $object['latitude'] = (string)$this->lat();
