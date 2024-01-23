@@ -1064,16 +1064,16 @@
         },
         {
             "name": "npm-asset/eonasdan-bootstrap-datetimepicker",
-            "version": "v6.7.16",
+            "version": "v6.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Eonasdan/tempus-dominus.git",
-                "reference": "61829005a713aca670d294922398ccb777657990"
+                "reference": "5f79399779918fd588ae1f4d598b3de30998ca00"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Eonasdan/tempus-dominus/zipball/61829005a713aca670d294922398ccb777657990",
-                "reference": "61829005a713aca670d294922398ccb777657990"
+                "url": "https://api.github.com/repos/Eonasdan/tempus-dominus/zipball/5f79399779918fd588ae1f4d598b3de30998ca00",
+                "reference": "5f79399779918fd588ae1f4d598b3de30998ca00"
             },
             "type": "npm-asset",
             "license": [
