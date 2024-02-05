@@ -413,6 +413,36 @@ namespace Idno\Entities {
         }
 
         /**
+         * Returns this user's PublicKeyPem for ActivityPub, and generates a new one if they don't
+         * have one yet
+         *
+         * @return string
+         */
+        function getPublicKeyPem()
+        {
+            if (empty($this->publicKeyPem)) {
+                $this->generateKeyPair();
+            }
+
+            return $this->publicKeyPem;
+        }
+
+        /**
+         * Returns this user's PrivateKey for ActivityPub, and generates a new one if they don't
+         * have one yet
+         *
+         * @return string
+         */
+        private function getPrivateKey()
+        {
+            if (empty($this->privateKey)) {
+                $this->generateKeyPair();
+            }
+
+            return $this->privateKey;
+        }
+
+        /**
          * Generate a (ActivityPub) Key Pair for this user
          * Props to wordpress-activitypub
          *
