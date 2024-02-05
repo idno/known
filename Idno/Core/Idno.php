@@ -240,6 +240,7 @@ namespace Idno\Core {
             $this->routes()->addRoute('/profile/([^\/]+)/?', '\Idno\Pages\User\View');
             $this->routes()->addRoute('/profile/([^\/]+)/edit/?', '\Idno\Pages\User\Edit');
             $this->routes()->addRoute('/profile/([^\/]+)/([A-Za-z\-\/]+)+', '\Idno\Pages\User\View');
+            $this->routes()->addRoute('/actor/([^\/]+)/?', '\Idno\Pages\User\View');
 
             /**
              * Search
