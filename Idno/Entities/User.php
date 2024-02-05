@@ -158,6 +158,24 @@ namespace Idno\Entities {
         }
 
         /**
+         * Retrieve the Icon object to this user's avatar icon image
+         * (if none has been saved, a default is returned)
+         *
+         * @return object
+         */
+        function getIconObject()
+        {
+            $mimebits = explode('.', $this->getIcon());
+            $icon_mime = 'image/' . end($mimebits);
+
+            return [
+                'url' => $this->getIcon(),
+                'type' => 'Image',
+                'mediaType' => $icon_mime,
+            ];
+        }
+
+        /**
          * Return the user's current timezone.
          *
          * @return type
