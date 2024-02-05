@@ -413,6 +413,26 @@ namespace Idno\Entities {
         }
 
         /**
+         * Returns this user's PublicKey object for an ActivityPub actor Profile
+         *
+         * @return object
+         */
+        function getPublicKey()
+        {
+            if (empty($this->publicKeyPem)) {
+                $this->generateKeyPair();
+            }
+
+            $publicKey = [
+                'id' => $this->getActorID() . '#main-key',
+                'owner' => $this->getActorID(),
+                'publicKeyPem' => $this->publicKeyPem,
+            ];
+
+            return $publicKey;
+        }
+
+        /**
          * Returns this user's PublicKeyPem for ActivityPub, and generates a new one if they don't
          * have one yet
          *
