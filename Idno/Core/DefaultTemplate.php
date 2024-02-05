@@ -294,6 +294,9 @@ namespace Idno\Core {
                     site()->template()->setTemplateType($template);
                 } else if ($page->isAcceptedContentType('application/json')) {
                     site()->template()->setTemplateType('json');
+                } else if ($page->isAcceptedContentType('application/ld+json; profile="https://www.w3.org/ns/activitystreams"') ||
+                    $page->isAcceptedContentType('application/activity+json')) {
+                    site()->template()->setTemplateType('activitypub');
                 } else {
                     site()->template()->setTemplateType('default');
                 }
