@@ -269,6 +269,17 @@ namespace Idno\Entities {
         }
 
         /**
+         * Get endpoints for sharedInbox
+         *
+         * @return string
+         */
+
+        function getEndpoints()
+        {
+            return [ 'sharedInbox' => \Idno\Core\Idno::site()->config()->getURL() . 'inbox'];
+        }
+
+        /**
          * Retrieves user by email address
          *
          * @param  string $email

@@ -280,6 +280,7 @@ namespace Idno\Core {
             $this->routes()->addRoute('/service/web/unfurl/remove/:id/?', '\Idno\Pages\Service\Web\RemovePreview');
             $this->routes()->addRoute('/service/system/log/?', '\Idno\Pages\Service\System\Log');
             $this->routes()->addRoute('/service/geo/geocoder/?', '\Idno\Pages\Service\Geo\Geocoder');
+            $this->routes()->addRoute('/inbox/?', '\Idno\Pages\Service\ActivityPub\SharedInbox');
 
             // These must be loaded last
             $this->plugins = new Plugins();
