@@ -413,6 +413,45 @@ namespace Idno\Entities {
         }
 
         /**
+         * Generate a (ActivityPub) Key Pair for this user
+         * Props to wordpress-activitypub
+         *
+         * @return string
+         */
+        function generateKeyPair()
+        {
+            $config = array(
+                'digest_alg' => 'sha512',
+                'private_key_bits' => 2048,
+                'private_key_type' => \OPENSSL_KEYTYPE_RSA,
+            );
+    
+            $key = \openssl_pkey_new( $config );
+            $priv_key = null;
+    
+            \openssl_pkey_export( $key, $priv_key );
+    
+            $detail = \openssl_pkey_get_details( $key );
+    
+            // check if keys are valid
+            if (
+                empty( $priv_key ) || ! is_string( $priv_key ) ||
+                ! isset( $detail['key'] ) || ! is_string( $detail['key'] )
+            ) {
+                return array(
+                    'private_key' => null,
+                    'public_key'  => null,
+                );
+            }
+
+            $this->privateKey = $priv_key;
+            $this->publicKeyPem = $detail['key'];
+            $this->save(true);
+
+            return;
+        }
+
+        /**
          * Is this user an admin?
          *
          * @return bool
