@@ -202,6 +202,20 @@ namespace Idno\Entities {
         }
 
         /**
+         * Get the ActivityPub actor ID for this user
+         *
+         * @return string
+         */
+        function getActorID()
+        {
+            if (!empty($this->url)) {
+                return $this->url;
+            }
+
+            return \Idno\Core\Idno::site()->config()->getDisplayURL() . 'actor/' . $this->getHandle();
+        }
+
+        /**
          * Get the IndieAuth identity URL for this user
          *
          * @return string
