@@ -20,11 +20,10 @@
 
     if ( 'person' === $vars['user']?->getActivityStreamsObjectType()) {
 
-        $person       = Type::create('Person', [
+        $person = Type::create('Person', [
             '@context' => [
                 'https://www.w3.org/ns/activitystreams',
                 'https://w3id.org/security/v1',
-                // 'https://purl.archive.org/socialweb/webfinger', //FEP-4adb isn't yet supported by landrok/activitypub
             ],
             'id' => $vars['user']->getActorID(),
             'url' => ($vars['user']->getAuthorURL()),
@@ -33,8 +32,7 @@
             'summary' => $vars['user']->getDescription(),
             'icon' => $vars['user']->getIconObject(),
             'publicKey' => $vars['user']->getPublicKey(),
-            'endpoints' => $vars['user']->getEndpoints(),
-            // 'webfinger' => $vars['user']->getWebfinger(), //FEP-4adb isn't yet supported by landrok/activitypub
+            // 'endpoints' => $vars['user']->getEndpoints(),
         ]);
         echo $person->toJson(JSON_PRETTY_PRINT);
     } else {
