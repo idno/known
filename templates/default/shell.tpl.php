@@ -21,6 +21,7 @@
     echo $template->draw('shell/bootstrap');
     echo $template->draw('shell/javascript');
     echo $template->draw('shell/css');
+    echo $template->draw('shell/activitypub');
     echo $template->draw('shell/syndication');
     echo $template->draw('shell/identities');
     echo $template->draw('shell/head');
