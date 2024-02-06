@@ -49,13 +49,11 @@ namespace Idno\Entities {
 
                     if ($user instanceof User) {
                       $links = [
-/* Uncomment when ActivityPub endpoints are live
                         [
                           'rel' => 'self',
                           'type' => 'application/activity+json',
-                          'href' => $user->getDisplayURL() . '?_t=activitypub'
+                          'href' => $user->getActorID()
                         ],
-*/
                         [
                           'rel'  => 'http://webfinger.net/rel/avatar',
                           'href' => $user->getIcon()
