@@ -36,9 +36,6 @@
         ]);
         echo $person->toJson(JSON_PRETTY_PRINT);
     } else {
-
-        if ( 'note' === $vars['object']?->getActivityStreamsObjectType()) {
-        }
-        if ( 'article' === $vars['object']?->getActivityStreamsObjectType()) {
+        if ( isset($vars['object']) && $vars['object']?->isPublic()) {
         }
     }
