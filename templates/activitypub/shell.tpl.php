@@ -37,5 +37,23 @@
         echo $person->toJson(JSON_PRETTY_PRINT);
     } else {
         if ( isset($vars['object']) && $vars['object']?->isPublic()) {
+            if ( 'note' === $vars['object']?->getActivityStreamsObjectType()) {
+                $note = Type::create('Note', [
+                    '@context' => [
+                        'https://www.w3.org/ns/activitystreams',
+                    ],
+                    'id' => $vars['object']->getUUID(),
+                    'url' => ($vars['object']->getURL()),
+                    'attributedTo' => $vars['object']->getActorID(),
+                    'to' => $vars['object']->getAddressedTo(),
+                    'published' => $vars['object']->getPublishedTime(),
+                    'content' => \Idno\Core\Idno::site()->template()->autop($vars['object']->getDescription()),
+                    'tag' => $vars['object']->getHashTagObjects(),
+                ]);
+                if ($vars['object']->getUpdatedTime()) {
+                    $note->updated = $vars['object']->getUpdatedTime();
+                }
+                echo $note->toJson(JSON_PRETTY_PRINT);
+            }
         }
     }
