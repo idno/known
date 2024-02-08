@@ -163,13 +163,10 @@ namespace Idno\Entities {
          */
         function getIconObject()
         {
-            $mimebits = explode('.', $this->getIcon());
-            $icon_mime = 'image/' . end($mimebits);
-
             return [
                 'url' => $this->getIcon(),
                 'type' => 'Image',
-                'mediaType' => $icon_mime,
+                'mediaType' => $this->getIconMimeType(),
             ];
         }
 
