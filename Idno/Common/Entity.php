@@ -1144,6 +1144,31 @@ namespace Idno\Common {
         }
 
         /**
+         * Return an array of hashtags objects (if any) present in this entity's description.
+         * @return array
+         */
+        function getHashTagObjects()
+        {
+            $hash_tags = $this->getTags();
+            $hash_tags_array = [];
+            if (!empty($hash_tags)) {
+                if (is_array($hash_tags)) {
+                    foreach( $hash_tags as $hash_tag ) {
+                        $hash_tag_obj = (object) [
+                            'type' => 'Hashtag',
+                            'href' => \Idno\Core\Idno::site()->config()->url . 'tag/' . ltrim($hash_tag,'#'),
+                            'name' => $hash_tag
+                        ];
+                        $hash_tags_array[] = $hash_tag_obj;
+                    }
+                    return $hash_tags_array;
+                }
+            }
+
+            return array();
+        }
+
+        /**
          * Retrieve a text description of this entity
          * @return string
          */
