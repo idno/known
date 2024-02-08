@@ -525,6 +525,28 @@ namespace Idno\Common {
         }
 
         /**
+         * Return the published time of the entity.
+         * @return DateTime::RFC3339
+         */
+        function getPublishedTime()
+        {
+            return date(\DateTime::RFC3339, $this->created);
+        }
+
+        /**
+         * Return the created timestamp of the entity.
+         * @return unix timestamp
+         */
+        function getUpdatedTime()
+        {
+            $updated = null;
+            if ($this->created < $this->updated) {
+                $updated = date(\DateTime::RFC3339, $this->updated);
+            }
+            return $updated;
+        }
+
+        /**
          * Retrieve a title for this object suitable for notifications
          * @return string
          */
