@@ -1175,6 +1175,19 @@ namespace Idno\Common {
         }
 
         /**
+         * Retrieves this object's actorID URI
+         * @return bool|string
+         */
+        function getActorID()
+        {
+            if ($owner = $this->getOwner()) {
+                return $owner->getActorID();
+            }
+
+            return false;
+        }
+
+        /**
          * Retrieves the rendered HTML of this body
          * @return string
          */
