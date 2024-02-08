@@ -56,10 +56,12 @@ namespace Idno\Entities {
                         ],
                         [
                           'rel'  => 'http://webfinger.net/rel/avatar',
+                          'type' => $user->getIconMimetype(),
                           'href' => $user->getIcon()
                         ],
                         [
                           'rel'  => 'http://webfinger.net/rel/profile-page',
+                          'type' => 'text/html',
                           'href' => $user->getURL()
                         ]
                       ];
