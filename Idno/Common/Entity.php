@@ -1620,6 +1620,21 @@ namespace Idno\Common {
         }
 
         /**
+         * Retrieves the access group for ActivityPub To
+         * @return array
+         */
+
+        function getAddressedTo()
+        {
+            $to = [];
+            if ($this->isPublic()) {
+                $to[] = 'https://www.w3.org/ns/activitystreams#Public';
+            }
+
+            return $to;
+        }
+
+        /**
          * Is this entity a reply to another entity?
          * @return bool
          */
