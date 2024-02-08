@@ -18,7 +18,7 @@
 
     /* @var \Idno\Common\Entity $object */
 
-    if ( 'person' === $vars['user']?->getActivityStreamsObjectType()) {
+    if ( isset($vars['user']) && 'person' === $vars['user']?->getActivityStreamsObjectType()) {
 
         $person = Type::create('Person', [
             '@context' => [
