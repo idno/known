@@ -1001,6 +1001,32 @@ namespace Idno\Common {
         }
 
         /**
+         * Returns an array of activitypub formatted attachments for this entity.
+         * @return array
+         */
+        function getFormattedAttachments()
+        {
+            $images = [];
+            if ( 'image' === $this?->getActivityStreamsObjectType() &&
+             !empty($this->attachments)) {
+                foreach ($this->attachments as $attachment) {
+                    if (!empty($attachment['url'])) {
+                        $image = (object)[
+                            'type' => ucfirst(explode('/', $attachment['mime-type'])[0]),
+                            'mediaType' => $attachment['mime-type'],
+                            'url' => $attachment['url'],
+                            'name' => $this->getShortDescription()
+                        ];
+                        $images[] = $image;
+                    }
+                }
+            } else {
+                $images = $this->getFormattedImagesFromBody();
+            }
+            return $images;
+        }
+
+        /**
          * Delete this entity
          * @todo complete this
          * @return bool
@@ -1294,6 +1320,35 @@ namespace Idno\Common {
             }
 
             return false;
+        }
+
+        /**
+         * Get the ActivityPub Formatted images of all images in this entity's body HTML
+         * @return array
+         */
+        function getFormattedImagesFromBody()
+        {
+            $images_arr = array();
+            if ($body = $this->getBody()) {
+                $doc = new \DOMDocument();
+                $doc->loadHTML($body);
+                if ($images = $doc->getElementsByTagName('img')) {
+                    foreach ($images as $image) {
+                        if ($source = $image->getAttribute('src')) {
+                            $get_image = \Idno\Entities\File::getByURL($image->getAttribute('src'));
+                            $formattedImage = (object)[
+                                'type' => ucfirst(explode('/', $get_image->file['mime_type'])[0]),
+                                'name' => $image->getAttribute('alt'),
+                                'url' => $image->getAttribute('src'),
+                                'mediaType' => $get_image->file['mime_type']
+                            ];
+                            $images_arr[] = $formattedImage;
+                        }
+                    }
+                }
+            }
+
+            return $images_arr;
         }
 
         /**
