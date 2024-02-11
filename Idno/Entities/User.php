@@ -56,7 +56,7 @@ namespace Idno\Entities {
                         ],
                         [
                           'rel'  => 'http://webfinger.net/rel/avatar',
-                          'type' => $user->getIconMimetype(),
+                          'type' => \Idno\Entities\File::getByURL($user->getIcon())->file['mime_type'],
                           'href' => $user->getIcon()
                         ],
                         [
@@ -168,20 +168,8 @@ namespace Idno\Entities {
             return [
                 'url' => $this->getIcon(),
                 'type' => 'Image',
-                'mediaType' => $this->getIconMimeType(),
+                'mediaType' => \Idno\Entities\File::getByURL($user->getIcon()),
             ];
-        }
-
-        /**
-         * Retrieve the Icon object to this user's avatar icon image
-         * (if none has been saved, a default is returned)
-         *
-         * @return object
-         */
-        function getIconMimeType()
-        {
-            $mimebits = explode('.', $this->getIcon());
-            return 'image/' . end($mimebits);
         }
 
         /**
