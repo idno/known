@@ -1543,6 +1543,25 @@ namespace Idno\Common {
         }
 
         /**
+         * Retrieve a short description of this page suitable for including in page metatags
+         * @param $words Number of words to limit to, if we're generating a short description on the fly (default: 25)
+         * @return string
+         */
+
+        function getFormattedContent()
+        {
+            $body = '';
+            if ( 'note' === $this?->getActivityStreamsObjectType()) {
+                // note plaintext needs parsing
+                $body = \Idno\Core\Idno::site()->template()->parseHashtags(\Idno\Core\Idno::site()->template()->parseURLs($this->body));
+            } else {
+                //image & article need newline filtering 
+                $body = preg_replace('/\R+/', '', $this->body);
+            }
+            return $body;
+        }
+
+        /**
          * Return a URI endpoint to edit this object (defaults to a variation of
          * the UUID of the object)
          * @return string
