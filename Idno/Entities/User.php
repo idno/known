@@ -52,7 +52,7 @@ namespace Idno\Entities {
                         [
                           'rel' => 'self',
                           'type' => 'application/activity+json',
-                          'href' => $user->getActorID()
+                          'href' => $user->getActivityPubActorID()
                         ],
                         [
                           'rel'  => 'http://webfinger.net/rel/avatar',
@@ -221,7 +221,7 @@ namespace Idno\Entities {
          *
          * @return string
          */
-        function getActorID()
+        function getActivityPubActorID()
         {
             if (!empty($this->url)) {
                 return $this->url;
@@ -450,8 +450,8 @@ namespace Idno\Entities {
             }
 
             $publicKey = [
-                'id' => $this->getActorID() . '#main-key',
-                'owner' => $this->getActorID(),
+                'id' => $this->getActivityPubActorID() . '#main-key',
+                'owner' => $this->getActivityPubActorID(),
                 'publicKeyPem' => $this->publicKeyPem,
             ];
 

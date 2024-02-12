@@ -5,7 +5,7 @@ $pageOwner = $currentPage->getOwner();
 $alt_link = '';
 
 if (!empty($vars['user']) && $vars['user'] instanceof Idno\Entities\User) {
-    $alt_link = $vars['user']->getActorID();
+    $alt_link = $vars['user']->getActivityPubActorID();
 } elseif (!empty($vars['object'])) {
     $alt_link = $vars['object']->getUUID();
 }

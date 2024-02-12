@@ -2,7 +2,7 @@
 
     use ActivityPhp\Type;
 
-    header('Content-type: application/ld+json; profile="https://www.w3.org/ns/activitystreams"');
+    header('Content-Type: application/ld+json; profile="https://www.w3.org/ns/activitystreams"');
 
     unset($vars['body']);
 
@@ -25,13 +25,13 @@
                 'https://www.w3.org/ns/activitystreams',
                 'https://w3id.org/security/v1',
             ],
-            'id' => $vars['user']->getActorID(),
+            'id' => $vars['user']->getActivityPubActorID(),
             'url' => ($vars['user']->getAuthorURL()),
             'preferredUsername' => $vars['user']->getHandle(),
             'name' => $vars['user']->getAuthorName(),
             'summary' => $vars['user']->getDescription(),
             'icon' => $vars['user']->getIconObject(),
-            'inbox' => $vars['user']->getActorID() . '/inbox',//non-functional placeholder
+            'inbox' => $vars['user']->getActivityPubActorID() . '/inbox',//non-functional placeholder
             'publicKey' => $vars['user']->getPublicKey(),
             // 'endpoints' => $vars['user']->getEndpoints(),
         ]);
@@ -44,7 +44,7 @@
                 ],
                 'id' => $vars['object']->getUUID(),
                 'url' => ($vars['object']->getURL()),
-                'attributedTo' => $vars['object']->getActorID(),
+                'attributedTo' => $vars['object']->getActivityPubActorID(),
                 'to' => $vars['object']->getAddressedTo(),
                 'published' => $vars['object']->getPublishedTime(),
                 'content' => $vars['object']->getFormattedContent(),

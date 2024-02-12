@@ -1251,10 +1251,10 @@ namespace Idno\Common {
          * Retrieves this object's actorID URI
          * @return bool|string
          */
-        function getActorID()
+        function getActivityPubActorID()
         {
             if ($owner = $this->getOwner()) {
-                return $owner->getActorID();
+                return $owner->getActivityPubActorID();
             }
 
             return false;
