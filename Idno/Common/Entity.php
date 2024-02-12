@@ -1352,6 +1352,21 @@ namespace Idno\Common {
         }
 
         /**
+         * Gets the mime-type for a given local media url
+         * @param string $media_url
+         * @return string
+         */
+        static function getMediaMimeType($media_url)
+        {
+            $media_object = \Idno\Entities\File::getByURL($media_url);
+            if ($media_object) {
+                return $media_object->file['mime_type'];
+            }
+
+            return false;
+        }
+
+        /**
          * Retrieves paragraphs from the body, optionally limiting the total number to $total
          * @param int $total
          * @return array
