@@ -1335,12 +1335,12 @@ namespace Idno\Common {
                 if ($images = $doc->getElementsByTagName('img')) {
                     foreach ($images as $image) {
                         if ($source = $image->getAttribute('src')) {
-                            $get_image = \Idno\Entities\File::getByURL($image->getAttribute('src'));
+                            $image_mime = self::getMediaMimeType($image->getAttribute('src'));
                             $formattedImage = (object)[
-                                'type' => ucfirst(explode('/', $get_image->file['mime_type'])[0]),
+                                'type' => ucfirst(reset(explode('/', $image_mime))),
                                 'name' => $image->getAttribute('alt'),
                                 'url' => $image->getAttribute('src'),
-                                'mediaType' => $get_image->file['mime_type']
+                                'mediaType' => $image_mime
                             ];
                             $images_arr[] = $formattedImage;
                         }

@@ -56,7 +56,7 @@ namespace Idno\Entities {
                         ],
                         [
                           'rel'  => 'http://webfinger.net/rel/avatar',
-                          'type' => \Idno\Entities\File::getByURL($user->getIcon())->file['mime_type'],
+                          'type' => parent::getMediaMimeType($user->getIcon()),
                           'href' => $user->getIcon()
                         ],
                         [
@@ -168,7 +168,7 @@ namespace Idno\Entities {
             return [
                 'url' => $this->getIcon(),
                 'type' => 'Image',
-                'mediaType' => \Idno\Entities\File::getByURL($user->getIcon()),
+                'mediaType' => parent::getMediaMimeType($this->getIcon()),
             ];
         }
 
