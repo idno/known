@@ -2,10 +2,16 @@
 
 $currentPage = \Idno\Core\Idno::site()->currentPage();
 $pageOwner = $currentPage->getOwner();
+$alt_link = '';
 
 if (!empty($vars['user']) && $vars['user'] instanceof Idno\Entities\User) {
-    ?>
-    <link rel="alternate" type="application/activity+json" href="<?php echo $vars['user']->getActorID() ?>" />
-    <?php
+    $alt_link = $vars['user']->getActorID();
 } elseif (!empty($vars['object'])) {
+    $alt_link = $vars['object']->getUUID();
+}
+
+if (!empty($alt_link)) {
+    ?>
+    <link rel="alternate" type="application/activity+json" href="<?php echo $alt_link ?>" />
+    <?php
 }
