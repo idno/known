@@ -1565,14 +1565,12 @@ namespace Idno\Common {
 
         function getFormattedContent()
         {
-            $body = '';
+            $body = \Idno\Core\Idno::site()->template()->parseHashtags(\Idno\Core\Idno::site()->template()->parseURLs($this->body));
             if ( 'note' === $this?->getActivityStreamsObjectType()) {
-                // note plaintext needs parsing
-                $body = \Idno\Core\Idno::site()->template()->parseHashtags(\Idno\Core\Idno::site()->template()->parseURLs($this->body));
-            } else {
-                //image & article need newline filtering 
-                $body = preg_replace('/\R+/', '', $this->body);
+                // note plaintext needs autop
+                $body = \Idno\Core\Idno::site()->template()->autop($body);
             }
+            $body = preg_replace('/\R+/', '', $body);
             return $body;
         }
 
