@@ -31,6 +31,7 @@
             'name' => $vars['user']->getAuthorName(),
             'summary' => $vars['user']->getDescription(),
             'icon' => $vars['user']->getIconObject(),
+            'inbox' => $vars['user']->getActorID() . '/inbox',//non-functional placeholder
             'publicKey' => $vars['user']->getPublicKey(),
             // 'endpoints' => $vars['user']->getEndpoints(),
         ]);
