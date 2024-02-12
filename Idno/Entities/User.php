@@ -271,7 +271,7 @@ namespace Idno\Entities {
          * @return string
          */
 
-        function getEndpoints()
+        function getAcivityPubEndpoints()
         {
             return [ 'sharedInbox' => \Idno\Core\Idno::site()->config()->getURL() . 'inbox'];
         }
