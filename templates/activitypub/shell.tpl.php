@@ -56,6 +56,9 @@
             if ($vars['object']->getFormattedAttachments()) {
                 $note->attachment = $vars['object']->getFormattedAttachments();
             }
+            if ( 'image' === $vars['object']?->getActivityStreamsObjectType()) {
+                $note->content = $vars['object']->getTitle();
+            }
             echo $note->toJson(JSON_UNESCAPED_SLASHES);            
         }
     }
