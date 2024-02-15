@@ -43,12 +43,12 @@ namespace Idno\Entities {
                     $user      = $eventdata['object'];
 
                     $links = $event->response();
-                    if (empty($links)) { 
-                      $links = array();
+                    if (empty($links)) {
+                        $links = array();
                     }
 
                     if ($user instanceof User) {
-                      $links = [
+                        $links = [
                         [
                           'rel' => 'self',
                           'type' => 'application/activity+json',
@@ -64,7 +64,7 @@ namespace Idno\Entities {
                           'type' => 'text/html',
                           'href' => $user->getURL()
                         ]
-                      ];
+                        ];
                     }
 
                     $event->setResponse($links);
@@ -501,18 +501,18 @@ namespace Idno\Entities {
                 'private_key_bits' => 2048,
                 'private_key_type' => \OPENSSL_KEYTYPE_RSA,
             );
-    
-            $key = \openssl_pkey_new( $config );
+
+            $key = \openssl_pkey_new($config);
             $priv_key = null;
-    
-            \openssl_pkey_export( $key, $priv_key );
-    
-            $detail = \openssl_pkey_get_details( $key );
-    
+
+            \openssl_pkey_export($key, $priv_key);
+
+            $detail = \openssl_pkey_get_details($key);
+
             // check if keys are valid
             if (
-                empty( $priv_key ) || ! is_string( $priv_key ) ||
-                ! isset( $detail['key'] ) || ! is_string( $detail['key'] )
+                empty($priv_key) || ! is_string($priv_key) ||
+                ! isset($detail['key']) || ! is_string($detail['key'])
             ) {
                 return array(
                     'private_key' => null,

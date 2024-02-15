@@ -20,7 +20,7 @@ namespace Idno\Core\Templating {
             $components = parse_url($this->getCurrentURL());
             if (!empty($components['query'])) {
                 parse_str($components['query'], $url_var_array);
-                if (!empty($url_var_array[$variable_name])) { 
+                if (!empty($url_var_array[$variable_name])) {
                     unset($url_var_array[$variable_name]);
                 }
             } else {
@@ -28,7 +28,7 @@ namespace Idno\Core\Templating {
             }
             $components['query'] = http_build_query($url_var_array);
             $url                 = $components['scheme'] . '://' . $components['host'] . (!empty($components['port']) ? ':' . $components['port'] : '') . $components['path'];
-            if (!empty($components['query'])) { 
+            if (!empty($components['query'])) {
                 $url .= '?' . $components['query'];
             }
 

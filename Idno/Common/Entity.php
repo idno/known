@@ -915,9 +915,9 @@ namespace Idno\Common {
 
             // If a file is embeddable we should not allow XSS-able filenames.
             if ($embeddable) {
-              if (substr(strtolower($file['filename']), -5) == '.html' || substr(strtolower($file['filename']), -3) == '.js') $file['filename'] .= '.data';
-              $file['filename'] = str_replace('<', '', $file['filename']);
-              $file['filename'] = str_replace('>', '', $file['filename']);
+                if (substr(strtolower($file['filename']), -5) == '.html' || substr(strtolower($file['filename']), -3) == '.js') $file['filename'] .= '.data';
+                $file['filename'] = str_replace('<', '', $file['filename']);
+                $file['filename'] = str_replace('>', '', $file['filename']);
             }
 
             $attachments = $this->attachments;
@@ -1182,7 +1182,7 @@ namespace Idno\Common {
                     foreach( $hash_tags as $hash_tag ) {
                         $hash_tag_obj = (object) [
                             'type' => 'Hashtag',
-                            'href' => \Idno\Core\Idno::site()->config()->url . 'tag/' . ltrim($hash_tag,'#'),
+                            'href' => \Idno\Core\Idno::site()->config()->url . 'tag/' . ltrim($hash_tag, '#'),
                             'name' => $hash_tag
                         ];
                         $hash_tags_array[] = $hash_tag_obj;
@@ -2824,7 +2824,7 @@ namespace Idno\Common {
          * Allows you to unset a property value as you would an array
          * @param mixed $offset
          */
-        function offsetUnset(mixed $offset): void 
+        function offsetUnset(mixed $offset): void
         {
             unset($this->attributes[$offset]);
         }
