@@ -1567,7 +1567,7 @@ namespace Idno\Common {
 
         function getFormattedContent()
         {
-            $body = \Idno\Core\Idno::site()->template()->parseHashtags(\Idno\Core\Idno::site()->template()->parseURLs($this->body));
+            $body = \Idno\Core\Idno::site()->template()->parseHashtags(\Idno\Core\Idno::site()->template()->parseURLs($this->body, '', false));
             if ( 'note' === $this?->getActivityStreamsObjectType()) {
                 // note plaintext needs autop
                 $body = \Idno\Core\Idno::site()->template()->autop($body);
