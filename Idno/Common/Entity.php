@@ -1159,7 +1159,8 @@ namespace Idno\Common {
                     else
                         $descr .= ' ' . $this->tags;
                 }
-                if (preg_match_all('/(?<!=)(?<!["\'])(\#[A-Za-z0-9\_]+)/iu', $descr, $matches)) {
+                $pattern = '/(?<=^|>|\s)(\#[A-Za-z0-9\_]+)/iu';
+                if (preg_match_all($pattern, $descr, $matches)) {
                     if (!empty($matches[0])) {
                         return $matches[0];
                     }
