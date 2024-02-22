@@ -46,7 +46,7 @@ namespace Themes\Cherwell {
             }
 
         }
-        
+
         function registerTranslations()
         {
             \Idno\Core\Idno::site()->language()->register(

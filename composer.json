@@ -57,7 +57,8 @@
         "ramsey/uuid": "^4.1",
         "npm-asset/eonasdan-bootstrap-datetimepicker": "^6.2",
         "composer/installers": "^2",
-        "vlucas/phpdotenv": "^5.3"
+        "vlucas/phpdotenv": "^5.3",
+        "landrok/activitypub": "^0.7.1"
     },
     "license": "Apache-2.0",
     "prefer-stable": true,
@@ -87,7 +88,8 @@
         "mapkyca/known-language-tools": "^1.0",
         "mapkyca/mapkyca-known-docker": "^1.0",
         "codeception/aspect-mock": "*",
-        "squizlabs/php_codesniffer": "3.*"
+        "squizlabs/php_codesniffer": "3.*",
+        "mapkyca/known-phpcs": "^1.0"
     },
     "extra": {
         "unused": [

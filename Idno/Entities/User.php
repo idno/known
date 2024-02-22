@@ -43,28 +43,28 @@ namespace Idno\Entities {
                     $user      = $eventdata['object'];
 
                     $links = $event->response();
-                    if (empty($links)) { 
-                      $links = array();
+                    if (empty($links)) {
+                        $links = array();
                     }
 
                     if ($user instanceof User) {
-                      $links = [
-/* Uncomment when ActivityPub endpoints are live
+                        $links = [
                         [
                           'rel' => 'self',
                           'type' => 'application/activity+json',
-                          'href' => $user->getDisplayURL() . '?_t=activitypub'
+                          'href' => $user->getActivityPubActorID()
                         ],
-*/
                         [
                           'rel'  => 'http://webfinger.net/rel/avatar',
+                          'type' => parent::getMediaMimeType($user->getIcon()),
                           'href' => $user->getIcon()
                         ],
                         [
                           'rel'  => 'http://webfinger.net/rel/profile-page',
+                          'type' => 'text/html',
                           'href' => $user->getURL()
                         ]
-                      ];
+                        ];
                     }
 
                     $event->setResponse($links);
@@ -158,6 +158,21 @@ namespace Idno\Entities {
         }
 
         /**
+         * Retrieve the Icon object to this user's avatar icon image
+         * (if none has been saved, a default is returned)
+         *
+         * @return object
+         */
+        function getIconObject()
+        {
+            return [
+                'url' => $this->getIcon(),
+                'type' => 'Image',
+                'mediaType' => parent::getMediaMimeType($this->getIcon()),
+            ];
+        }
+
+        /**
          * Return the user's current timezone.
          *
          * @return type
@@ -202,6 +217,20 @@ namespace Idno\Entities {
         }
 
         /**
+         * Get the ActivityPub actor ID for this user
+         *
+         * @return string
+         */
+        function getActivityPubActorID()
+        {
+            if (!empty($this->url)) {
+                return $this->url;
+            }
+
+            return \Idno\Core\Idno::site()->config()->getDisplayURL() . 'actor/' . $this->getHandle();
+        }
+
+        /**
          * Get the IndieAuth identity URL for this user
          *
          * @return string
@@ -234,6 +263,17 @@ namespace Idno\Entities {
         function getHandle()
         {
             return $this->handle;
+        }
+
+        /**
+         * Get endpoints for sharedInbox
+         *
+         * @return string
+         */
+
+        function getAcivityPubEndpoints()
+        {
+            return [ 'sharedInbox' => \Idno\Core\Idno::site()->config()->getURL() . 'inbox'];
         }
 
         /**
@@ -396,6 +436,95 @@ namespace Idno\Entities {
             $this->save();
 
             return $apikey;
+        }
+
+        /**
+         * Returns this user's PublicKey object for an ActivityPub actor Profile
+         *
+         * @return object
+         */
+        function getPublicKey()
+        {
+            if (empty($this->publicKeyPem)) {
+                $this->generateKeyPair();
+            }
+
+            $publicKey = [
+                'id' => $this->getActivityPubActorID() . '#main-key',
+                'owner' => $this->getActivityPubActorID(),
+                'publicKeyPem' => $this->publicKeyPem,
+            ];
+
+            return $publicKey;
+        }
+
+        /**
+         * Returns this user's PublicKeyPem for ActivityPub, and generates a new one if they don't
+         * have one yet
+         *
+         * @return string
+         */
+        function getPublicKeyPem()
+        {
+            if (empty($this->publicKeyPem)) {
+                $this->generateKeyPair();
+            }
+
+            return $this->publicKeyPem;
+        }
+
+        /**
+         * Returns this user's PrivateKey for ActivityPub, and generates a new one if they don't
+         * have one yet
+         *
+         * @return string
+         */
+        private function getPrivateKey()
+        {
+            if (empty($this->privateKey)) {
+                $this->generateKeyPair();
+            }
+
+            return $this->privateKey;
+        }
+
+        /**
+         * Generate a (ActivityPub) Key Pair for this user
+         * Props to wordpress-activitypub
+         *
+         * @return string
+         */
+        function generateKeyPair()
+        {
+            $config = array(
+                'digest_alg' => 'sha512',
+                'private_key_bits' => 2048,
+                'private_key_type' => \OPENSSL_KEYTYPE_RSA,
+            );
+
+            $key = \openssl_pkey_new($config);
+            $priv_key = null;
+
+            \openssl_pkey_export($key, $priv_key);
+
+            $detail = \openssl_pkey_get_details($key);
+
+            // check if keys are valid
+            if (
+                empty($priv_key) || ! is_string($priv_key) ||
+                ! isset($detail['key']) || ! is_string($detail['key'])
+            ) {
+                return array(
+                    'private_key' => null,
+                    'public_key'  => null,
+                );
+            }
+
+            $this->privateKey = $priv_key;
+            $this->publicKeyPem = $detail['key'];
+            $this->save(true);
+
+            return;
         }
 
         /**

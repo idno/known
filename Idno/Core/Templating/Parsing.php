@@ -11,11 +11,12 @@ namespace Idno\Core\Templating {
         /**
          * Automatically links URLs embedded in a piece of text
          *
-         * @param  stirng $text
+         * @param  string $text
          * @param  string $code Optionally, code to inject into the anchor tag (eg to add classes). '%URL%' is replaced with the URL. Default: blank.
+         * @param  bool $wbr Optionally, inject <wbr /> tag. Default: true.
          * @return string
          */
-        function parseURLs($text, $code = '')
+        function parseURLs($text, $code = '', $wbr = true)
         {
             $r = preg_replace_callback(
                 '/(?<!=)(?<!["\'])((ht|f)tps?:\/\/[^\s<>"\']+)/i', function ($matches) use ($code) {
@@ -43,7 +44,11 @@ namespace Idno\Core\Templating {
                         $result .= ' ' . str_replace("%URL%", $url, $code);
                     }
                     $result .= ">";
-                    $result .= preg_replace('/([\/=]+)/', '${1}<wbr />', static::sampleTextChars($url, 100));
+                    if ($wbr) {
+                        $result .= preg_replace('/([\/=]+)/', '${1}<wbr />', static::sampleTextChars($url, 100));
+                    } else {
+                        $result .= preg_replace('/([\/=]+)/', '${1}', static::sampleTextChars($url, 100));
+                    }
                     $result .= "</a>$punc";
 
                     return $result;

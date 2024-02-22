@@ -31,13 +31,13 @@ namespace Idno\Pages\Webfinger {
             $t = \Idno\Core\Idno::site()->template();
             $t->setTemplateType('json');
             echo $t->__(
-              array(
+                array(
                 'properties' => [
                   'http://webfinger.example/ns/name' => $user->getName(),
                 ],
                 'subject' => $acct,
                 'links'   => $links
-              )
+                )
             )->draw('shell');
         }
 

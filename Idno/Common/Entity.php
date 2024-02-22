@@ -525,6 +525,28 @@ namespace Idno\Common {
         }
 
         /**
+         * Return the published time of the entity.
+         * @return DateTime::RFC3339
+         */
+        function getPublishedTime()
+        {
+            return date(\DateTime::RFC3339, $this->created);
+        }
+
+        /**
+         * Return the created timestamp of the entity.
+         * @return unix timestamp
+         */
+        function getUpdatedTime()
+        {
+            $updated = null;
+            if ($this->created < $this->updated) {
+                $updated = date(\DateTime::RFC3339, $this->updated);
+            }
+            return $updated;
+        }
+
+        /**
          * Retrieve a title for this object suitable for notifications
          * @return string
          */
@@ -893,9 +915,9 @@ namespace Idno\Common {
 
             // If a file is embeddable we should not allow XSS-able filenames.
             if ($embeddable) {
-              if (substr(strtolower($file['filename']), -5) == '.html' || substr(strtolower($file['filename']), -3) == '.js') $file['filename'] .= '.data';
-              $file['filename'] = str_replace('<', '', $file['filename']);
-              $file['filename'] = str_replace('>', '', $file['filename']);
+                if (substr(strtolower($file['filename']), -5) == '.html' || substr(strtolower($file['filename']), -3) == '.js') $file['filename'] .= '.data';
+                $file['filename'] = str_replace('<', '', $file['filename']);
+                $file['filename'] = str_replace('>', '', $file['filename']);
             }
 
             $attachments = $this->attachments;
@@ -976,6 +998,32 @@ namespace Idno\Common {
             } else {
                 return array();
             }
+        }
+
+        /**
+         * Returns an array of activitypub formatted attachments for this entity.
+         * @return array
+         */
+        function getFormattedAttachments()
+        {
+            $images = [];
+            if ( 'image' === $this?->getActivityStreamsObjectType() &&
+             !empty($this->attachments)) {
+                foreach ($this->attachments as $attachment) {
+                    if (!empty($attachment['url'])) {
+                        $image = (object)[
+                            'type' => ucfirst(explode('/', $attachment['mime-type'])[0]),
+                            'mediaType' => $attachment['mime-type'],
+                            'url' => $attachment['url'],
+                            'name' => $this->getShortDescription()
+                        ];
+                        $images[] = $image;
+                    }
+                }
+            } else {
+                $images = $this->getFormattedImagesFromBody();
+            }
+            return $images;
         }
 
         /**
@@ -1111,10 +1159,36 @@ namespace Idno\Common {
                     else
                         $descr .= ' ' . $this->tags;
                 }
-                if (preg_match_all('/(?<!=)(?<!["\'])(\#[A-Za-z0-9\_]+)/iu', $descr, $matches)) {
+                $pattern = '/(?<=^|>|\s)(\#[A-Za-z0-9\_]+)/iu';
+                if (preg_match_all($pattern, $descr, $matches)) {
                     if (!empty($matches[0])) {
                         return $matches[0];
                     }
+                }
+            }
+
+            return array();
+        }
+
+        /**
+         * Return an array of hashtags objects (if any) present in this entity's description.
+         * @return array
+         */
+        function getHashTagObjects()
+        {
+            $hash_tags = $this->getTags();
+            $hash_tags_array = [];
+            if (!empty($hash_tags)) {
+                if (is_array($hash_tags)) {
+                    foreach( $hash_tags as $hash_tag ) {
+                        $hash_tag_obj = (object) [
+                            'type' => 'Hashtag',
+                            'href' => \Idno\Core\Idno::site()->config()->url . 'tag/' . ltrim($hash_tag, '#'),
+                            'name' => $hash_tag
+                        ];
+                        $hash_tags_array[] = $hash_tag_obj;
+                    }
+                    return $hash_tags_array;
                 }
             }
 
@@ -1169,6 +1243,19 @@ namespace Idno\Common {
         {
             if ($owner = $this->getOwner()) {
                 return $owner->getURL();
+            }
+
+            return false;
+        }
+
+        /**
+         * Retrieves this object's actorID URI
+         * @return bool|string
+         */
+        function getActivityPubActorID()
+        {
+            if ($owner = $this->getOwner()) {
+                return $owner->getActivityPubActorID();
             }
 
             return false;
@@ -1231,6 +1318,51 @@ namespace Idno\Common {
         {
             if ($src = $this->getImageSourcesFromBody()) {
                 return $src[0];
+            }
+
+            return false;
+        }
+
+        /**
+         * Get the ActivityPub Formatted images of all images in this entity's body HTML
+         * @return array
+         */
+        function getFormattedImagesFromBody()
+        {
+            $images_arr = array();
+            if ($body = $this->getBody()) {
+                $doc = new \DOMDocument();
+                $doc->loadHTML($body);
+                if ($images = $doc->getElementsByTagName('img')) {
+                    foreach ($images as $image) {
+                        if ($source = $image->getAttribute('src')) {
+                            $media_mime = self::getMediaMimeType($image->getAttribute('src'));
+                            $media_type = explode('/', $media_mime)[0];
+                            $formattedImage = (object)[
+                                'type' => ucfirst($media_type),
+                                'name' => $image->getAttribute('alt'),
+                                'url' => $image->getAttribute('src'),
+                                'mediaType' => $media_mime
+                            ];
+                            $images_arr[] = $formattedImage;
+                        }
+                    }
+                }
+            }
+
+            return $images_arr;
+        }
+
+        /**
+         * Gets the mime-type for a given local media url
+         * @param string $media_url
+         * @return string
+         */
+        static function getMediaMimeType($media_url)
+        {
+            $media_object = \Idno\Entities\File::getByURL($media_url);
+            if ($media_object) {
+                return $media_object->file['mime_type'];
             }
 
             return false;
@@ -1428,6 +1560,23 @@ namespace Idno\Common {
         }
 
         /**
+         * Retrieve a short description of this page suitable for including in page metatags
+         * @param $words Number of words to limit to, if we're generating a short description on the fly (default: 25)
+         * @return string
+         */
+
+        function getFormattedContent()
+        {
+            $body = \Idno\Core\Idno::site()->template()->parseHashtags(\Idno\Core\Idno::site()->template()->parseURLs($this->body, '', false));
+            if ( 'note' === $this?->getActivityStreamsObjectType()) {
+                // note plaintext needs autop
+                $body = \Idno\Core\Idno::site()->template()->autop($body);
+            }
+            $body = preg_replace('/\R+/', '', $body);
+            return $body;
+        }
+
+        /**
          * Return a URI endpoint to edit this object (defaults to a variation of
          * the UUID of the object)
          * @return string
@@ -1582,6 +1731,21 @@ namespace Idno\Common {
             }
 
             return false;
+        }
+
+        /**
+         * Retrieves the access group for ActivityPub To
+         * @return array
+         */
+
+        function getAddressedTo()
+        {
+            $to = [];
+            if ($this->isPublic()) {
+                $to[] = 'https://www.w3.org/ns/activitystreams#Public';
+            }
+
+            return $to;
         }
 
         /**
@@ -2662,7 +2826,7 @@ namespace Idno\Common {
          * Allows you to unset a property value as you would an array
          * @param mixed $offset
          */
-        function offsetUnset(mixed $offset): void 
+        function offsetUnset(mixed $offset): void
         {
             unset($this->attributes[$offset]);
         }

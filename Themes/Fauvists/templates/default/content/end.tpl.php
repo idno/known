@@ -80,11 +80,11 @@ if (!empty($owner)) {
             <a class="shares"
                href="<?php echo $vars['object']->getDisplayURL() ?>#comments"><?php if ($shares = $vars['object']->countAnnotations('share')) {
                     echo '<i class="fa fa-retweet"></i> ' . $shares;
-              } ?></a>
+} ?></a>
             <a class="rsvps"
                href="<?php echo $vars['object']->getDisplayURL() ?>#comments"><?php if ($rsvps = $vars['object']->countAnnotations('rsvp')) {
                     echo '<i class="fa fa-calendar-o"></i> ' . $rsvps;
-              } ?></a>
+} ?></a>
         </div>
         <br class="clearall"/>
         <?php
