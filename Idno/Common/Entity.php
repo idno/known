@@ -517,7 +517,7 @@ namespace Idno\Common {
 
         /**
          * Return the created timestamp of the entity.
-         * @return unix timestamp
+         * @return int epoch timestamp
          */
         function getCreatedTime()
         {
