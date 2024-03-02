@@ -93,8 +93,8 @@ namespace Idno\Core\Templating {
         /**
          * Change @user links into active users.
          *
-         * @param type $text        The text to parse
-         * @param type $in_reply_to If specified, the function will make a (hopefully) sensible guess as to where the user is located
+         * @param string $text        The text to parse
+         * @param string|array $in_reply_to If specified, the function will make a (hopefully) sensible guess as to where the user is located
          */
         function parseUsers($text, $in_reply_to = null)
         {

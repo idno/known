@@ -55,7 +55,7 @@ namespace Idno\Core\Templating {
          * Get the modified time of a Known file.
          * Primarily used by cache busting, this method returns when a file was last modified.
          *
-         * @param type $file The file, relative to the known path.
+         * @param string $file The file path, relative to the Known path.
          */
         public function getModifiedTS($file)
         {

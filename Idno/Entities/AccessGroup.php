@@ -57,8 +57,8 @@ namespace Idno\Entities {
          * Is the specified user (or the currently logged-in user) a member
          * of this access group?
          *
-         * @param  type $user_id
-         * @return type
+         * @param  string $user_id
+         * @return bool
          */
         function isMember($user_id = '', $access = 'read')
         {
@@ -150,11 +150,11 @@ namespace Idno\Entities {
         /**
          * Get entities by access group.
          *
-         * @param  mixed $access_group
-         * @param  type  $search
-         * @param  type  $fields
-         * @param  type  $limit
-         * @param  type  $offset
+         * @param  mixed  $access_group
+         * @param  array  $search
+         * @param  array  $fields
+         * @param  int    $limit
+         * @param  int    $offset
          * @return boolean
          */
         static function getByAccessGroup($access_group, $search = array(), $fields = array(), $limit = 10, $offset = 0)

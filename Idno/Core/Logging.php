@@ -22,8 +22,8 @@ namespace Idno\Core {
         /**
          * Create a basic logger to log to the PHP log.
          *
-         * @param type $loglevel_filter Log levels to show 0 - off, 1 - errors, 2 - errors & warnings, 3 - errors, warnings and info, 4 - 3 + debug
-         * @param type $identifier      Identify this site in the log (defaults to current domain)
+         * @param int $loglevel_filter Log levels to show 0 - off, 1 - errors, 2 - errors & warnings, 3 - errors, warnings and info, 4 - 3 + debug
+         * @param string $identifier      Identify this site in the log (defaults to current domain)
          */
         public function __construct($loglevel_filter = 0, $identifier = null)
         {
@@ -320,8 +320,8 @@ namespace Idno\Core {
         /**
          * (attempt) to send, if configured, a message when a fatal error occurs, or an exception is caught.
          *
-         * @param type $message
-         * @param type $title
+         * @param string $message
+         * @param string $title
          */
         public static function oopsAlert($message, $title = "")
         {

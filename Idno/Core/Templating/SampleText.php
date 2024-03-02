@@ -48,8 +48,8 @@ namespace Idno\Core\Templating {
         /**
          * Return a snippet of plain text based on a number of characters.
          *
-         * @param type $text
-         * @param type $chars
+         * @param string $text
+         * @param int $chars
          */
         function sampleTextChars($text, $chars = 250, $dots = '...')
         {

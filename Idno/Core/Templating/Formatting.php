@@ -38,7 +38,7 @@ namespace Idno\Core\Templating {
          * Sanitize HTML in a large block of text, removing XSS and other vulnerabilities.
          * This works by calling the text/filter event, as well as any built-in purifier.
          *
-         * @param type $html
+         * @param string $html
          */
         function sanitize_html($html)
         {

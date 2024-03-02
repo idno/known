@@ -22,7 +22,7 @@ namespace Idno\Core {
         /**
          * Create this translation, for the defined language.
          *
-         * @param type $language Which language is this for? Default 'en_US'
+         * @param string $language Which language is this for? Default 'en_US'
          */
         public function __construct($language = 'en_US')
         {
@@ -32,7 +32,7 @@ namespace Idno\Core {
         /**
          * Can this object provide the given language.
          *
-         * @param  type $language
+         * @param  string $language
          * @return bool
          */
         public function canProvide($language)

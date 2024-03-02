@@ -328,7 +328,7 @@ namespace Idno\Common {
          * This function will try and get an entity by a URL, calling out to an event (object/getbyurl) to allow for extension.
          * Important, this is not always going to be 100%, since urls are not guaranteed unique for all time in the database, although they almost
          * always are, they don't have the same guarantees as UUIDs or IDs.
-         * @param type $url
+         * @param string $url
          * @return \Idno\Common\Entity|false
          */
         static function getByURL($url, $cached = true)
@@ -927,7 +927,7 @@ namespace Idno\Common {
 
         /**
          * Delete a single attachment by its id
-         * @param type $id
+         * @param string $id
          */
         function deleteAttachment($id)
         {
@@ -2486,7 +2486,7 @@ namespace Idno\Common {
 
         /**
          * Retrieve an annotation type via its id
-         * @param type $uuid
+         * @param string $uuid
          */
         function getAnnotationSubtype($uuid)
         {
@@ -2502,7 +2502,7 @@ namespace Idno\Common {
 
         /**
          * Retrieve an annotation via its id
-         * @param type $uuid
+         * @param string $uuid
          */
         function getAnnotation($uuid)
         {

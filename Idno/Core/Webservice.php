@@ -305,7 +305,7 @@ namespace Idno\Core {
          * Replacement for file_get_contents for retrieving remote files.
          * Essentially a wrapper for self::get()
          *
-         * @param type $url
+         * @param string $url
          */
         static function file_get_contents($url)
         {
@@ -321,7 +321,7 @@ namespace Idno\Core {
         /**
          * Identical to Webservice::file_get_contents(), except that this function returns the full context - headers and all.
          *
-         * @param type $url
+         * @param string $url
          */
         static function file_get_contents_ex($url)
         {
@@ -415,7 +415,7 @@ namespace Idno\Core {
         /**
          * Converts an "@" formatted file string into a CurlFile
          *
-         * @param  type $fileuploadstring
+         * @param  string $fileuploadstring
          * @return CURLFile|false
          */
         static function fileToCurlFile($fileuploadstring)
@@ -473,7 +473,7 @@ namespace Idno\Core {
          * Wrapper function to decode a value for use in web services.
          * This way if we change the algorithm, there's no need to change the whole codebase.
          *
-         * @param  $string
+         * @param string $string
          * @return string
          */
         static function decodeValue($string)
@@ -484,7 +484,7 @@ namespace Idno\Core {
         /**
          * Utility method to produce URL safe base64 encoding.
          *
-         * @param  type $string
+         * @param string $string
          * @return string
          */
         static function base64UrlEncode($string)
@@ -495,7 +495,7 @@ namespace Idno\Core {
         /**
          * Utility method to decode URL safe base64 encoding.
          *
-         * @param  type $string
+         * @param $string
          * @return string
          */
         static function base64UrlDecode($string)
@@ -507,7 +507,7 @@ namespace Idno\Core {
          * Check whether a given url has valid HSTS stored for it
          *
          * @todo  Handle includeSubDomains
-         * @param type $url
+         * @param string $url
          */
         public static function isHSTS($url)
         {

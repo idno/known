@@ -53,7 +53,7 @@ namespace Idno\Entities {
         /**
          * Set this user's remote profile url.
          *
-         * @param type $url
+         * @param string $url
          */
         public function setUrl($url)
         {

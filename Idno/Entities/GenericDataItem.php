@@ -15,7 +15,7 @@ namespace Idno\Entities {
         /**
          * Retrieve a bit of generic data by it's data type
          *
-         * @param type $datatype
+         * @param string $datatype
          */
         public static function getByDatatype($datatype, $search = array(), $fields = array(), $limit = 10, $offset = 0)
         {
@@ -27,7 +27,7 @@ namespace Idno\Entities {
         /**
          * Label this item as being of a user defined type.
          *
-         * @param type $datatype
+         * @param string $datatype
          */
         public function setDatatype($datatype)
         {

@@ -1053,7 +1053,7 @@ namespace Idno\Common {
          * Helper function to see if the given Known base path matches the current page URL.
          * This is useful for setting active on menus in subdirectory installs.
          *
-         * @param  type $path Path, relative to the Known base
+         * @param  string $path Path, relative to the Known base
          * @return bool
          */
         public function doesPathMatch($path)
@@ -1240,15 +1240,17 @@ namespace Idno\Common {
         /**
          * Set or add a file asset.
          *
-         * @param type $name  Name of the asset (e.g. 'idno', 'jquery')
-         * @param type $class Class of asset (e.g. 'javascript', 'css')
-         * @param type $value A URL or other value
+         * @param string $name  Name of the asset (e.g. 'idno', 'jquery')
+         * @param string $class Class of asset (e.g. 'javascript', 'css')
+         * @param string $value A URL or other value
          */
         public function setAsset(string $name, string $value, string $class)
         {
-            if (!isset($this->assets) || !is_array($this->assets)) { $this->assets = array();
+            if (!isset($this->assets) || !is_array($this->assets)) { 
+              $this->assets = array();
             }
-            if (!isset($this->assets[$class]) || !is_array($this->assets)) { $this->assets[$class] = array();
+            if (!isset($this->assets[$class]) || !is_array($this->assets)) { 
+              $this->assets[$class] = array();
             }
 
             $this->assets[$class][$name] = $value;
@@ -1257,7 +1259,7 @@ namespace Idno\Common {
         /**
          * Get assets of a given class.
          *
-         * @param  type $class
+         * @param  string $class
          * @return array
          */
         public function getAssets(string $class)
@@ -1342,7 +1344,7 @@ namespace Idno\Common {
          * Simplify if modified since checks.
          * Set a 304 not modified if If-Modified-Since header is less than the given timestamp.
          *
-         * @param type $timestamp Timestamp to check
+         * @param int $timestamp Timestamp to check
          */
         public function lastModifiedGatekeeper($timestamp)
         {
@@ -1358,7 +1360,7 @@ namespace Idno\Common {
         /**
          * Return whether the current page URL matches the given regex string.
          *
-         * @param type $regex_string URL string in the same format as the page handler definition.
+         * @param string $regex_string URL string in the same format as the page handler definition.
          */
         public function matchUrl($regex_string)
         {

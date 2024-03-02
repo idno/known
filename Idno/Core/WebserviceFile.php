@@ -41,7 +41,7 @@ namespace Idno\Core {
         /**
          * Converts an "@" formatted file string into a WebserviceFile
          *
-         * @param  type $fileuploadstring
+         * @param  string $fileuploadstring
          * @return WebserviceFile|false
          */
         static function createFromCurlString($fileuploadstring)

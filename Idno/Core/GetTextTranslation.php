@@ -14,8 +14,8 @@ namespace Idno\Core {
         /**
          * Create a GetText translation.
          *
-         * @param  type $domain 'known' for core, 'mypluginname' for plugins
-         * @param  type $path   Full path to where to find the translations.
+         * @param  string $domain 'known' for core, 'mypluginname' for plugins
+         * @param  string $path   Full path to where to find the translations.
          * @throws \RuntimeException
          */
         public function __construct(

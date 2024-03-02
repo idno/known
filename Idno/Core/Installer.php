@@ -45,7 +45,7 @@ namespace Idno\Core {
         /**
          * When given a file, create a backup of it.
          *
-         * @param type $file
+         * @param string $file
          */
         protected function backupFile($file)
         {
@@ -69,7 +69,7 @@ namespace Idno\Core {
         /**
          * Check that the upload directory exists and is readable and writable
          *
-         * @param  type $upload_path
+         * @param  string $upload_path
          * @return boolean
          * @throws \RuntimeException
          */
@@ -150,20 +150,20 @@ namespace Idno\Core {
         }
 
         /**
-         * Write out the configuration
+         * Write out the configuration to the file specified in $name
          *
-         * @param  type $ini_file
-         * @param  type $name
+         * @param  string $ini_file_contents
+         * @param  string $name
          * @throws \RuntimeException
          */
-        protected function writeConfig($ini_file, $name = 'config.ini')
+        protected function writeConfig($ini_file_contents, $name = 'config.ini')
         {
 
             $this->backupFile($this->root_path. '/configuration/' . $name); // Create a backup of the existing file, if any.
 
             if ($fp = @fopen($this->root_path. '/configuration/' . $name, 'w')) {
 
-                fwrite($fp, $ini_file);
+                fwrite($fp, $ini_file_contents);
                 fclose($fp);
 
             } else {
@@ -215,11 +215,11 @@ namespace Idno\Core {
         /**
          * Install the mysql DB schema
          *
-         * @param  type $host
-         * @param  type $dbname
-         * @param  type $user
-         * @param  type $pass
-         * @param  type $schema
+         * @param  string $host
+         * @param  string $dbname
+         * @param  string $user
+         * @param  string $pass
+         * @param  string $schema
          * @return boolean
          * @throws \RuntimeException
          */

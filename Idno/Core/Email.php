@@ -126,8 +126,8 @@ namespace Idno\Core {
         /**
          * Set the text only component of an email.
          *
-         * @param  type $template_name
-         * @param  type $vars
+         * @param  string $template_name
+         * @param  array $vars
          * @return mixed
          */
         function setTextBodyFromTemplate($template_name, $vars = array())

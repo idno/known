@@ -51,7 +51,7 @@ namespace Idno\Core {
          * Retrieve a formatted files array from input, if multiple files are found, this will be turned into
          * a sensible structure.
          *
-         * @param type $name
+         * @param string $name
          */
         public static function getFiles($name)
         {

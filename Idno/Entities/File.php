@@ -16,7 +16,7 @@ namespace Idno\Entities {
          * Write data to temporary file.
          * This function writes a temporary file, returning filename on success.
          *
-         * @param type $data
+         * @param string $data
          */
         public static function writeTmpFile($data)
         {

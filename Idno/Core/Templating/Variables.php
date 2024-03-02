@@ -8,8 +8,8 @@ namespace Idno\Core\Templating {
         /**
          * Document a form control and make it easily discoverable by the API.
          *
-         * @param type $name   Name of the control
-         * @param type $values Array of form value. Common are 'type', 'description', 'id'
+         * @param string $name   Name of the control
+         * @param array $values Array of form value. Common are 'type', 'description', 'id'
          */
         function documentFormControl($name, $values = [])
         {

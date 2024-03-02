@@ -207,7 +207,7 @@ namespace Idno\Core {
         /**
          * Find the (first) feed on a given URL.
          *
-         * @param  type $url
+         * @param  string $url
          * @return type
          */
         protected function findFeed($url, $data = null)
@@ -244,7 +244,7 @@ namespace Idno\Core {
          * Find the self resource.
          * This method will find a link self on a feed, finding the feed first
          *
-         * @param type $url
+         * @param string $url
          */
         protected function findSelf($url)
         {

@@ -115,7 +115,7 @@ namespace Idno\Pages\Account\Settings\Following {
          * Quickly find a title from a HTML page.
          *
          * @return string|false
-         * @param  type $content
+         * @param  string $content
          */
         private function findPageTitle($content)
         {

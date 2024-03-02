@@ -133,7 +133,7 @@ namespace Idno\Core\Bonita {
         /**
          * Obfuscate a form field name.
          *
-         * @param  type $field
+         * @param  string $field
          * @return type
          */
         public static function obfuscateField($field)

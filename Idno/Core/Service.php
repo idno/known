@@ -35,7 +35,7 @@ namespace Idno\Core {
         /**
          * Generate a token based on the site secret and URL.
          *
-         * @param  type $url Endpoint URL you're calling
+         * @param  string $url Endpoint URL you're calling
          * @return string
          * @throws \Idno\Exceptions\ConfigurationException
          * @throws \RuntimeException
@@ -62,9 +62,9 @@ namespace Idno\Core {
         }
 
         /**
-         * Call a service endpoint
+         * Call a service endpoint at the URL specified in $endpoint
          *
-         * @param  type $endpoint
+         * @param  string $endpoint
          * @return boolean
          * @throws \RuntimeException
          */
@@ -118,7 +118,7 @@ namespace Idno\Core {
         /**
          * Returns true if given system call is available (i.e. not in disable_functions).
          *
-         * @param  type $func
+         * @param  mixed $func
          * @return boolean
          */
         public static function isFunctionAvailable($func)

@@ -33,7 +33,7 @@ namespace Idno\Stats {
         /**
          * Increment a counter value.
          *
-         * @param type $counter
+         * @param int $counter
          */
         public static function increment($counter)
         {
@@ -47,7 +47,7 @@ namespace Idno\Stats {
         /**
          * Decrement a counter value.
          *
-         * @param type $counter
+         * @param int $counter
          */
         public static function decrement($counter)
         {
@@ -61,7 +61,7 @@ namespace Idno\Stats {
         /**
          * Retrieve the counter value
          *
-         * @param  type $counter
+         * @param  int $counter
          * @return int
          */
         public static function get($counter)

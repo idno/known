@@ -17,7 +17,7 @@ namespace Idno\Stats {
         /**
          * Start a timer.
          *
-         * @param type $timer
+         * @param string $timer
          */
         public static function start($timer)
         {
@@ -27,7 +27,7 @@ namespace Idno\Stats {
         /**
          * Retrieve the current number of seconds (with milliseconds) since $timer was started.
          *
-         * @param type $timer
+         * @param string $timer
          */
         public static function value($timer)
         {
@@ -44,7 +44,7 @@ namespace Idno\Stats {
         /**
          * Shorthand to log a given timer to the debug log.
          *
-         * @param type $timer
+         * @param string $timer
          */
         public static function logTimer($timer)
         {

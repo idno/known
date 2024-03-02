@@ -15,7 +15,7 @@ namespace Idno\Core {
         /**
          * Convert an epoch timestamp into an RFC2616 (HTTP) compatible date.
          *
-         * @param type $timestamp Optionally, an epoch timestamp. Defaults to the current time.
+         * @param int $timestamp Optionally, an epoch timestamp. Defaults to the current time.
          */
         public static function timestampToRFC2616($timestamp = false)
         {
@@ -59,9 +59,9 @@ namespace Idno\Core {
         /**
          * Work out the difference between two timezones.
          *
-         * @param  type $timezone1
-         * @param  type $timezone2
-         * @return type
+         * @param  string $timezone1
+         * @param  string $timezone2
+         * @return int
          */
         public static function timezoneDiff($timezone1, $timezone2)
         {
@@ -80,7 +80,7 @@ namespace Idno\Core {
         /**
          * Print the difference between two timezones in a human readable way.
          *
-         * @param  type $diff
+         * @param  null|bool|int|float|string $diff
          * @return string
          */
         public static function printTimezoneDiff($diff)

@@ -860,7 +860,7 @@ namespace Idno\Entities {
         /**
          * Revoke a given permission.
          *
-         * @param type $permission
+         * @param string $permission
          */
         function revokePermission($permission)
         {
@@ -912,7 +912,7 @@ namespace Idno\Entities {
          * Flag this user for "Restricted Processing" as defined under the GDPR
          *
          * @see   https://techblog.bozho.net/gdpr-practical-guide-developers/
-         * @param type $restrict
+         * @param bool $restrict
          */
         public function setRestrictedProcessing($restrict = true)
         {

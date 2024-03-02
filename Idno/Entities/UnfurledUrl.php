@@ -10,7 +10,7 @@ namespace Idno\Entities {
         /**
          * Copied and modified from https://github.com/mapkyca/php-ogp, extract information from graph headers
          *
-         * @param type $content
+         * @param string $content
          */
         private static function parseHeaders($content)
         {
@@ -48,7 +48,7 @@ namespace Idno\Entities {
         /**
          * Unfurl and unpack a url, extracting title, description, open-graph and oembed
          *
-         * @param type $url
+         * @param string $url
          */
         public function unfurl($url)
         {

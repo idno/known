@@ -42,9 +42,9 @@ namespace Idno\Core {
         /**
          * Retrieve users by admins.
          *
-         * @param  type $limit
-         * @param  type $offset
-         * @return type
+         * @param  int $limit
+         * @param  int $offset
+         * @return array
          */
         static function getAdmins($limit = 10, $offset = 0)
         {

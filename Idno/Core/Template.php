@@ -8,8 +8,8 @@ namespace Idno\Core {
         /**
          * Override a page shell based on the page root.
          *
-         * @param type $path_root Url base, e.g. 'settings'
-         * @param type $shell     The shell, e.g. 'settings-shell'
+         * @param string $path_root Url base, e.g. 'settings'
+         * @param string $shell     The shell, e.g. 'settings-shell'
          */
         public function addUrlShellOverride($path_root, $shell);
 

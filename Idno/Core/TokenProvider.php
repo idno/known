@@ -21,8 +21,8 @@ namespace Idno\Core {
         /**
          * Generate a cryptographically secure random token.
          *
-         * @param  type $length Length in bytes
-         * @return bytes
+         * @param  int $length Length in bytes
+         * @return string
          * @throws \Exception If cryptographic functions are not strong enough.
          */
         function generateToken($length)

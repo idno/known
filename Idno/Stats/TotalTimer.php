@@ -32,8 +32,8 @@ namespace Idno\Stats {
         /**
          * Return the TOTAL timer value.
          *
-         * @param  type $timer
-         * @return type
+         * @param  int $timer
+         * @return int
          * @throws \RuntimeException
          */
         public static function value($timer)
