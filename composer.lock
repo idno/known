@@ -2794,16 +2794,16 @@
         },
         {
             "name": "symfony/cache",
-            "version": "v7.0.7",
+            "version": "v7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
-                "reference": "48e3508338987d63b0114a00c208c4cbb76e5303"
+                "reference": "c36a10e6456b32e40d1ef516b3a2749883f9117b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/cache/zipball/48e3508338987d63b0114a00c208c4cbb76e5303",
-                "reference": "48e3508338987d63b0114a00c208c4cbb76e5303",
+                "url": "https://api.github.com/repos/symfony/cache/zipball/c36a10e6456b32e40d1ef516b3a2749883f9117b",
+                "reference": "c36a10e6456b32e40d1ef516b3a2749883f9117b",
                 "shasum": ""
             },
             "require": {
@@ -2811,6 +2811,7 @@
                 "psr/cache": "^2.0|^3.0",
                 "psr/log": "^1.1|^2|^3",
                 "symfony/cache-contracts": "^2.5|^3",
+                "symfony/deprecation-contracts": "^2.5|^3.0",
                 "symfony/service-contracts": "^2.5|^3",
                 "symfony/var-exporter": "^6.4|^7.0"
             },
@@ -2870,7 +2871,7 @@
                 "psr6"
             ],
             "support": {
-                "source": "https://github.com/symfony/cache/tree/v7.0.7"
+                "source": "https://github.com/symfony/cache/tree/v7.1.0"
             },
             "funding": [
                 {
@@ -2886,7 +2887,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-18T09:29:19+00:00"
+            "time": "2024-05-28T08:39:33+00:00"
         },
         {
             "name": "symfony/cache-contracts",
@@ -4241,16 +4242,16 @@
         },
         {
             "name": "symfony/var-exporter",
-            "version": "v7.0.7",
+            "version": "v7.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-exporter.git",
-                "reference": "cdecc0022e40e90340ba1a59a3d5ccf069777078"
+                "reference": "353688d70dcd43e8f7a5cc13b9afba49d4946c39"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-exporter/zipball/cdecc0022e40e90340ba1a59a3d5ccf069777078",
-                "reference": "cdecc0022e40e90340ba1a59a3d5ccf069777078",
+                "url": "https://api.github.com/repos/symfony/var-exporter/zipball/353688d70dcd43e8f7a5cc13b9afba49d4946c39",
+                "reference": "353688d70dcd43e8f7a5cc13b9afba49d4946c39",
                 "shasum": ""
             },
             "require": {
@@ -4297,7 +4298,7 @@
                 "serialize"
             ],
             "support": {
-                "source": "https://github.com/symfony/var-exporter/tree/v7.0.7"
+                "source": "https://github.com/symfony/var-exporter/tree/v7.1.0"
             },
             "funding": [
                 {
@@ -4313,7 +4314,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-04-18T09:29:19+00:00"
+            "time": "2024-05-22T10:14:54+00:00"
         },
         {
             "name": "tinymce/tinymce",
