@@ -23,7 +23,7 @@ if (empty($vars['user']) && !empty($vars['object'])) {
                 <p>
                     <a href="<?php echo $vars['user']->getDisplayURL() ?>" class="u-url icon-container"><img class="u-photo"
                                                                                                src="<?php echo $vars['user']->getIcon() ?>"
-                                                                                               alt="<?php echo htmlspecialchars($vars['user']->getTitle()) ?>" ?>"/></a>
+                                                                                               alt="<?php echo htmlspecialchars($vars['user']->getTitle()) ?>" /></a>
                 </p>
 
                         <?php
