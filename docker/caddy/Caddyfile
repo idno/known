@@ -1,0 +1,15 @@
+:80 {
+	# compress stuff
+	encode zstd gzip
+
+	# our root is in /srv
+	root * /app
+
+	# pass everything else to php
+	php_fastcgi known:9000 {
+		env HTTPS on
+		env SERVER_PORT 443
+	}
+
+	file_server
+}
