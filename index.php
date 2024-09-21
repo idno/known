@@ -50,13 +50,14 @@ if (!empty($path)) {
 
 \Idno\Core\PageHandler::hook(
     '404', function ($params = array()) {
-        http_response_code(404);
         $t = \Idno\Core\Idno::site()->template();
 
         // Take over page detection
         \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
-        (new \Idno\Pages\Homepage())->noContent();
+         (new \Idno\Pages\Homepage())->noContent();
     }
 );
-\Idno\Core\PageHandler::serve($routes);
+
+$response = \Idno\Core\PageHandler::serve($routes);
+$response->send();

@@ -11,6 +11,8 @@ namespace Idno\Core {
 
     use Idno\Common\Page;
     use Idno\Entities\User;
+    use Idno\Core\Http\Request;
+    use Idno\Core\Http\Response;
 
     class Idno extends \Idno\Common\Component
     {
@@ -41,6 +43,9 @@ namespace Idno\Core {
         private $statistics;
         private $site_details;
 
+        private $request;
+        private $response;
+
         function __construct()
         {
             parent::__construct();
@@ -52,6 +57,8 @@ namespace Idno\Core {
         function init()
         {
             self::$site       = $this;
+            $this->request    = Request::createFromGlobals();
+            $this->response   = new \Idno\Core\Http\Response();
             $this->routes     = new PageHandler();
             $this->dispatcher = new EventDispatcher();
             $this->config     = new Config();
@@ -306,6 +313,26 @@ namespace Idno\Core {
         {
             return $this->dispatcher;
         }
+
+        /**
+         * Return the request object loaded as part of this site
+         *
+         * @return \Idno\Core\Http\Request
+         */
+        function &request() : ?Request
+        {
+            return $this->request;
+        }
+
+        /** 
+        * Return the response object loaded as part of this site
+        *
+        * @return \Idno\Core\Http\Response
+        */
+       function &response() : ?Response
+       {
+           return $this->response;
+       }
 
         /**
          * Access to the EventQueue for dispatching events

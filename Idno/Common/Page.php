@@ -18,6 +18,7 @@
 namespace Idno\Common {
 
     use Idno\Entities\User;
+    use Idno\Core\Http\Response;
 
     abstract class Page extends \Idno\Common\Component
     {
@@ -166,7 +167,8 @@ namespace Idno\Common {
         {
             $code           = (int)$code;
             $this->response = $code;
-            http_response_code($this->response);
+            \Idno\Core\Idno::site()->response()->setStatusCode($code);
+           
         }
 
         /**
@@ -818,14 +820,15 @@ namespace Idno\Common {
         function noContent()
         {
             $this->setResponse(404);
-            http_response_code($this->response);
+            
+            // http_response_code($this->response);
+            \Idno\Core\Idno::site()->response()->headers->remove('X-Known-CSRF-Ts');
+            \Idno\Core\Idno::site()->response()->headers->remove('X-Known-CSRF-Token');
 
-            header_remove('X-Known-CSRF-Ts');
-            header_remove('X-Known-CSRF-Token');
 
             $t = \Idno\Core\Idno::site()->template();
-            $t->__(array('body' => $t->draw('pages/404'), 'title' => \Idno\Core\Idno::site()->language()->_('This page can\'t be found.')))->drawPage();
-            exit;
+            $content = $t->__(array('body' => $t->draw('pages/404'), 'title' => \Idno\Core\Idno::site()->language()->_('This page can\'t be found.')))->drawPage(false);
+            \Idno\Core\Idno::site()->response()->setContent($content);
         }
 
         /**
