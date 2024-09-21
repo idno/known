@@ -62,9 +62,10 @@ namespace Idno\Common {
         function init()
         {
             if (!defined('KNOWN_UNIT_TEST')) { // Don't do header stuff in unit tests
-                header('X-Powered-By: https://withknown.com');
-                header('X-Clacks-Overhead: GNU Terry Pratchett');
-                header('X-Known-Build-Fingerprint: ' . \Idno\Core\TokenProvider::truncateToken(\Idno\Core\Version::fingerprint()));
+                \Idno\Core\Idno::site()->response()->headers->set('X-Powered-By', 'https://withknown.com');
+                \Idno\Core\Idno::site()->response()->headers->set('X-Clacks-Overhead', 'GNU Terry Pratchett');
+                \Idno\Core\Idno::site()->response()->headers->set('X-Known-Version', \Idno\Core\Version::version());
+
             }
             if ($template = $this->getInput('_t')) {
                 if (\Idno\Core\Idno::site()->template()->templateTypeExists($template)) {
@@ -74,8 +75,8 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->setCurrentPage($this);
 
             // Set referrer, and ensure it's not blank
-            $this->referrer = $_SERVER['HTTP_REFERER']??'';
-            $_SERVER['HTTP_REFERER'] = $_SERVER['HTTP_REFERER']??''; // Ensure that the $_SERVER['HTTP_REFERER'] is never blank
+            $this->referrer =\Idno\Core\Idno::site()->request()->server->get('HTTP_REFERER')??'';
+            \Idno\Core\Idno::site()->request()->server->set('HTTP_REFERER',$this->referrer);
 
             // Default exception handler
             set_exception_handler(
@@ -137,7 +138,6 @@ namespace Idno\Common {
         function exception($e)
         {
             $this->setResponse(500);
-            http_response_code($this->response);
 
             \Idno\Core\Idno::site()->logging()->critical($e->getMessage() . " [".$e->getFile().":".$e->getLine()."]");
 
@@ -153,8 +153,8 @@ namespace Idno\Common {
             }
 
             $t = \Idno\Core\Idno::site()->template();
-            $t->__(array('body' => $t->__(array('exception' => $e))->draw('pages/500'), 'title' => 'Exception'))->drawPage();
-            exit;
+            $content = $t->__(array('body' => $t->__(array('exception' => $e))->draw('pages/500'), 'title' => 'Exception'))->drawPage(false);
+            \Idno\Core\Idno::site()->response()->setContent($content);
         }
 
         /**
@@ -214,7 +214,7 @@ namespace Idno\Common {
             $this->getContent();
 
             //if (http_response_code() != 200)
-            http_response_code($this->response);
+            $this->setResponse($this->response);
         }
 
         /**
@@ -325,8 +325,8 @@ namespace Idno\Common {
 
             $this->getContent();
 
-            if (http_response_code() != 200) {
-                http_response_code($this->response);
+            if (\Idno\Core\Idno::site()->response()->getStatusCode() != 200) {
+                \Idno\Core\Idno::site()->response()->setStatusCode($this->response);
             }
         }
 
@@ -334,24 +334,24 @@ namespace Idno\Common {
         {
 
             $ts = "";
-            if (empty($_REQUEST['__bTs'])) {
+            if (empty(\Idno\Core\Idno::site()->request()->request->get('__bTs'))) {
                 \Idno\Core\Idno::site()->logging()->error("__bTs timestamp is missing");
             } else {
-                $ts = $_REQUEST['__bTs'];
+                $ts = \Idno\Core\Idno::site()->request()->request->get('__bTs');
             }
 
             $ta = "";
-            if (empty($_REQUEST['__bTa'])) {
+            if (empty(\Idno\Core\Idno::site()->request()->request->get('__bTa'))) {
                 \Idno\Core\Idno::site()->logging()->warning("__bTa action is missing");
             } else {
-                $ta = $_REQUEST['__bTa'];
+                $ta = \Idno\Core\Idno::site()->request()->request->get('__bTa');
             }
 
             $tk = "";
-            if (empty($_REQUEST['__bTk'])) {
+            if (empty(\Idno\Core\Idno::site()->request()->request->get('__bTk'))) {
                 \Idno\Core\Idno::site()->logging()->error("__bTk token is missing");
             } else {
-                $tk = $_REQUEST['__bTk'];
+                $tk = \Idno\Core\Idno::site()->request()->request->get('__bTk');
             }
 
             $debug = [
@@ -424,7 +424,7 @@ namespace Idno\Common {
                 // API currently doesn't explicitly handle this situation (bad), but we don't want to forward (worse). Some plugins will still
                 // forward to / in some situations, these will need rewriting.
                 if ($return === null) {
-                    if (http_response_code() == 200) {
+                    if (\Idno\Core\Idno::site()->response()->getStatusCode() == 200) {
                         $this->setResponse(400);
                     }
 
@@ -435,23 +435,25 @@ namespace Idno\Common {
                     }
 
                     $t = \Idno\Core\Idno::site()->template();
-                    echo $t->drawPage();
+                    $content = $t->drawPage(false);
+                    \Idno\Core\Idno::site()->response()->setContent($content);
 
                 } else {
                     // We have a return value, and response hasn't been explicitly set. Assume false is error, everything else is ok
-                    if (($return === false) && (http_response_code() == 200)) {
+                    if (($return === false) && (\Idno\Core\Idno::site()->response()->getStatusCode() == 200)) {
                         $this->setResponse(400);
                     }
 
                     $t = \Idno\Core\Idno::site()->template();
-                    echo $t->__(['result' => $return])->drawPage();
+                    $content = $t->__(['result' => $return])->drawPage(false);
+                    \Idno\Core\Idno::site()->response()->setContent($content);
                 }
             } else {
                 $this->forward(); // If we haven't forwarded yet, do so (if we can)
             }
 
             //if (http_response_code() != 200) {
-            http_response_code($this->response);
+            \Idno\Core\Idno::site()->response()->setStatusCode($this->response);
             //}
         }
 
@@ -469,8 +471,7 @@ namespace Idno\Common {
         function options()
         {
 
-            header(
-                'Access-Control-Allow-Methods: ' . implode(
+            \Idno\Core\Idno::site()->response()->headers->set('Access-Control-Allow-Methods', implode(
                     ', ', [
                     'GET',
                     'POST',
@@ -479,12 +480,13 @@ namespace Idno\Common {
                     'PUT',
                     'DELETE'
                     ]
-                )
-            );
+                ));
+           
+            
+            \Idno\Core\Idno::site()->response()->headers->set('Access-Control-Max-Age', '86400');
 
-            header('Access-Control-Max-Age: 86400');
+            \Idno\Core\Idno::site()->response()->setStatusCode(204);
 
-            http_response_code(204);
         }
 
         /**
@@ -564,11 +566,12 @@ namespace Idno\Common {
                     if (!empty($call_trace)) {
                         $location['trace'] = $call_trace;
                     }
-                    echo json_encode($location);
+                    \Idno\Core\Idno::site()->response()->setJsonContent($location);
                 } elseif (!\Idno\Core\Idno::site()->session()->isAPIRequest() || $this->response == 200) {
                     if (!empty($call_trace)) { header('X-Known-Forward-Trace: ' . $call_trace);
                     }
-                    header('Location: ' . $location);
+
+                    \Idno\Core\Idno::site()->redirect($location);
                 }
 
                 if ($exit) {
@@ -641,7 +644,7 @@ namespace Idno\Common {
 
                 // Ensure we always get a meaningful response from the api
                 if ($return === null) {
-                    if (http_response_code() == 200) {
+                    if (\Idno\Core\Idno::site()->response()->getStatusCode() == 200) {
                         $this->setResponse(400);
                     }
 
@@ -652,24 +655,26 @@ namespace Idno\Common {
                     }
 
                     $t = \Idno\Core\Idno::site()->template();
-                    echo $t->drawPage();
+                    $content = $t->drawPage(false);
+                    \Idno\Core\Idno::site()->response()->setContent($content);
 
                 } else {
                     // We have a return value, and response hasn't been explicitly set. Assume false is error, everything else is ok
-                    if (($return === false) && (http_response_code() == 200)) {
+                    if (($return === false) && (\Idno\Core\Idno::site()->response()->getStatusCode() == 200)) {
                         $this->setResponse(400);
                     }
 
                     $t = \Idno\Core\Idno::site()->template();
-                    echo $t->__(['result' => $return])->drawPage();
+                    $content = $t->__(['result' => $return])->drawPage(false);
+                    \Idno\Core\Idno::site()->response()->setContent($content);
                 }
 
             } else {
                 $this->forward(); // If we haven't forwarded yet, do so (if we can)
             }
 
-            if (http_response_code() != 200) {
-                http_response_code($this->response);
+            if (\Idno\Core\Idno::site()->response()->getStatusCode() != 200) {
+                \Idno\Core\Idno::site()->response()->setStatusCode($this->response);
             }
         }
 
@@ -730,7 +735,7 @@ namespace Idno\Common {
 
                 // Ensure we always get a meaningful response from the api
                 if ($return === null) {
-                    if (http_response_code() == 200) {
+                    if (\Idno\Core\Idno::site()->response()->getStatusCode() == 200) {
                         $this->setResponse(400);
                     }
 
@@ -741,24 +746,26 @@ namespace Idno\Common {
                     }
 
                     $t = \Idno\Core\Idno::site()->template();
-                    echo $t->drawPage();
+                    $content = $t->drawPage(false);
+                    \Idno\Core\Idno::site()->response()->setContent($content);
 
                 } else {
                     // We have a return value, and response hasn't been explicitly set. Assume false is error, everything else is ok
-                    if (($return === false) && (http_response_code() == 200)) {
+                    if (($return === false) && (\Idno\Core\Idno::site()->response()->getStatusCode() == 200)) {
                         $this->setResponse(400);
                     }
 
                     $t = \Idno\Core\Idno::site()->template();
-                    echo $t->__(['result' => $return])->drawPage();
+                    $content = $t->__(['result' => $return])->drawPage(false);
+                    \Idno\Core\Idno::site()->response()->setContent($content);
                 }
 
             } else {
                 $this->forward(); // If we haven't forwarded yet, do so (if we can)
             }
 
-            if (http_response_code() != 200) {
-                http_response_code($this->response);
+            if (\Idno\Core\Idno::site()->response()->getStatusCode() != 200) {
+                \Idno\Core\Idno::site()->response()->setStatusCode($this->response);
             }
         }
 
@@ -804,14 +811,16 @@ namespace Idno\Common {
         function goneContent()
         {
             $this->setResponse(410);
-            http_response_code($this->response);
+            \Idno\Core\Idno::site()->response()->setStatusCode($this->response);
 
-            header_remove('X-Known-CSRF-Ts');
-            header_remove('X-Known-CSRF-Token');
+            \Idno\Core\Idno::site()->response()->headers->remove('X-Known-CSRF-Ts');
+            \Idno\Core\Idno::site()->response()->headers->remove('X-Known-CSRF-Token');
+
 
             $t = \Idno\Core\Idno::site()->template();
-            $t->__(array('body' => $t->draw('pages/410'), 'title' => \Idno\Core\Idno::site()->language()->_('This content isn\'t here.')))->drawPage();
-            exit;
+            $content = $t->__(array('body' => $t->draw('pages/410'), 'title' => \Idno\Core\Idno::site()->language()->_('This content isn\'t here.')))->drawPage(false);
+            \Idno\Core\Idno::site()->response()->setContent($content);
+            \Idno\Core\Idno::site()->sendResponse();
         }
 
         /**
@@ -829,10 +838,12 @@ namespace Idno\Common {
             $t = \Idno\Core\Idno::site()->template();
             $content = $t->__(array('body' => $t->draw('pages/404'), 'title' => \Idno\Core\Idno::site()->language()->_('This page can\'t be found.')))->drawPage(false);
             \Idno\Core\Idno::site()->response()->setContent($content);
+            \Idno\Core\Idno::site()->sendResponse();
         }
 
         /**
          * Flushes content to the browser and continues page working asynchronously.
+         * Depricate ?
          */
         function flushBrowser()
         {
@@ -863,14 +874,13 @@ namespace Idno\Common {
         function deniedContent($title = '')
         {
             $this->setResponse(403);
-            http_response_code($this->response);
-
-            header_remove('X-Known-CSRF-Ts');
-            header_remove('X-Known-CSRF-Token');
+            \Idno\Core\Idno::site()->response()->setStatusCode($this->response);
+            \Idno\Core\Idno::site()->response()->headers->remove('X-Known-CSRF-Ts');
+            \Idno\Core\Idno::site()->response()->headers->remove('X-Known-CSRF-Token');
 
             $t = \Idno\Core\Idno::site()->template();
-            $t->__(array('body' => $t->draw('pages/403'), 'title' => $title))->drawPage();
-            exit;
+            $content = $t->__(array('body' => $t->draw('pages/403'), 'title' => $title))->drawPage();
+            \Idno\Core\Idno::site()->response()->setContent($content);
         }
 
         /**
@@ -1002,10 +1012,8 @@ namespace Idno\Common {
 
                 $url = str_replace('http://', 'https://', $this->currentUrl());
 
-                header("HTTP/1.1 307 Temporary Redirect");
-                header("Location: $url");
+                \Idno\Core\Idno::site()->redirect($url);
 
-                exit;
             }
         }
 
@@ -1016,18 +1024,13 @@ namespace Idno\Common {
          */
         static function isSSL()
         {
-            if (isset($_SERVER['HTTPS'])) {
-                if ($_SERVER['HTTPS'] == '1') {
+            if (\Idno\Core\Idno::site()->request()->isSecure()) {
                     return true;
-                }
-                if (strtolower($_SERVER['HTTPS']) == 'on') {
-                    return true;
-                }
-            } else if (isset($_SERVER['SERVER_PORT']) && ($_SERVER['SERVER_PORT'] == '443')) {
+            } else if (\Idno\Core\Idno::site()->request()->server->has('SERVER_PORT') && (\Idno\Core\Idno::site()->request()->server->get('SERVER_PORT') == '443')) {
                 return true;
             }
 
-            if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) == 'https') {
+            if (\Idno\Core\Idno::site()->request()->server->has('HTTP_X_FORWARDED_PROTO') && strtolower(\Idno\Core\Idno::site()->request()->server->get('HTTP_X_FORWARDED_PROTO')) == 'https') {
                 return true;
             }
 
@@ -1043,7 +1046,7 @@ namespace Idno\Common {
         public function currentUrl($tokenise = false)
         {
             $url         = parse_url(\Idno\Core\Idno::site()->config()->url);
-            $url['path'] = $_SERVER['REQUEST_URI'];
+            $url['path'] = \Idno\Core\Idno::site()->request()->getPathInfo();
 
             if ($tokenise) {
                 return $url;
@@ -1133,7 +1136,7 @@ namespace Idno\Common {
         function getReferrer()
         {
 
-            $referrer = $_SERVER['HTTP_REFERER'];
+            $referrer = \Idno\Core\Idno::site()->request()->server->get('HTTP_REFERER');
 
             if (empty($referrer)) {
                 // TODO: Try other ways - e.g. for nginx
@@ -1202,7 +1205,7 @@ namespace Idno\Common {
         static function getallheaders()
         {
             $headers = array();
-            foreach ($_SERVER as $name => $value) {
+            foreach (\Idno\Core\Idno::site()->request()->headers->all() as $name => $value) {
                 if (substr($name, 0, 14) == 'REDIRECT_HTTP_') {
                     $name = substr($name, 9);
                 }
@@ -1325,9 +1328,9 @@ namespace Idno\Common {
          */
         public function setNoCache()
         {
-            header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
-            header("Cache-Control: post-check=0, pre-check=0", false);
-            header("Pragma: no-cache");
+            \Idno\Core\Idno::site()->response()->headers->set('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+            \Idno\Core\Idno::site()->response()->headers->set('Cache-Control', 'post-check=0, pre-check=0', false);
+            \Idno\Core\Idno::site()->response()->headers->set('Pragma', 'no-cache');
         }
 
         /**
@@ -1338,7 +1341,8 @@ namespace Idno\Common {
          */
         public function setLastModifiedHeader(int $timestamp)
         {
-            header('Last-Modified: ' . \Idno\Core\Time::timestampToRFC2616($timestamp));
+            \Idno\Core\Idno::site()->response()->headers->set('Last-Modified', \Idno\Core\Time::timestampToRFC2616($timestamp));
+            \Idno\Core\Idno::site()->sendResponse();
         }
 
         /**
@@ -1352,8 +1356,8 @@ namespace Idno\Common {
             $headers = self::getallheaders();
             if (isset($headers['If-Modified-Since'])) {
                 if (strtotime($headers['If-Modified-Since']) <= $timestamp) {
-                    header('HTTP/1.1 304 Not Modified');
-                    exit;
+                    \Idno\Core\Idno::site()->response()->setStatusCode(304);
+                    \Idno\Core\Idno::site()->sendResponse();
                 }
             }
         }

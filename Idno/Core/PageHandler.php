@@ -28,7 +28,7 @@ namespace Idno\Core {
             );
         }
 
-    public static function serve($routes): \Idno\Core\Http\Response
+    public static function serve($routes)
     {
         Hook::fire('before_request', compact('routes'));
 
@@ -88,7 +88,7 @@ namespace Idno\Core {
 
         Hook::fire('after_request', compact('routes', 'discovered_handler', 'request_method', 'regex_matches', 'result'));
 
-        return Idno::site()->response();
+        \Idno\Core\Idno::site()->sendResponse();
     }
 
         /**

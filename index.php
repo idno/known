@@ -59,5 +59,4 @@ if (!empty($path)) {
     }
 );
 
-$response = \Idno\Core\PageHandler::serve($routes);
-$response->send();
+\Idno\Core\PageHandler::serve($routes);
