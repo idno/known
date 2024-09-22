@@ -30,7 +30,7 @@ if (version_compare(phpversion(), '7.2', '<')) {
 require_once dirname(__FILE__) . '/Idno/start.php';
 
 // Get page routes
-
+\Idno\Core\Idno::site()->createRequest();
 $routes = \Idno\Core\Idno::site()->routes();
 
 // Get subdirectory

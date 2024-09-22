@@ -349,14 +349,31 @@ namespace Idno\Core {
 
         }
 
+        function &createRequest($request=null)
+        {
+            if($request instanceof \Symfony\Component\HttpFoundation\Request){
+                $this->request = Request::createFromSymfonyRequest($request);
+            } elseif ($request instanceof \Psr\Http\Message\ServerRequestInterface) {
+                $this->request = Request::createFromPsr7Request($request);
+            }
+            else {
+                $this->request = Request::createFromGlobals();
+            }
+        }
+
 
         /**
          * Send the response
          */
         function &sendResponse()
         {
-            $response = \Idno\Core\Idno::site()->events()->triggerEvent('response/before', ['response' => $this->response()],$this->response());
-            $response->send();
+            $this->response = \Idno\Core\Idno::site()->events()->triggerEvent('response/before', ['response' => $this->response()],$this->response());
+            // Delay sending response so that it can be modified if required
+            if(!$this->response->isDelayed()){
+                $this->response->send();
+            }
+            \Idno\Core\Idno::site()->events()->triggerEvent('response/delayed', ['response' => $this->response()]);
+
         }
 
         /**
