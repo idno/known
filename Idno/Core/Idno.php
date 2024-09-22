@@ -355,7 +355,8 @@ namespace Idno\Core {
          */
         function &sendResponse()
         {
-            $this->response->send();
+            $response = \Idno\Core\Idno::site()->events()->triggerEvent('response/before', ['response' => $this->response()],$this->response());
+            $response->send();
         }
 
         /**
