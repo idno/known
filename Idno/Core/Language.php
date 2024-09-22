@@ -213,12 +213,12 @@ namespace Idno\Core {
 
             $lang = "";
 
-            if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            if (\Idno\Core\Idno::site()->request()->server->has('HTTP_ACCEPT_LANGUAGE')) {
                 if ($full) {
-                    $length = strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], ',');
+                    $length = strpos(\Idno\Core\Idno::site()->request()->server->get('HTTP_ACCEPT_LANGUAGE'), ',');
                 }
 
-                $lang = preg_replace("/[^a-zA-Z\-_\s]/", "", substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, $length));
+                $lang = preg_replace("/[^a-zA-Z\-_\s]/", "", substr(\Idno\Core\Idno::site()->request()->server->get('HTTP_ACCEPT_LANGUAGE'), 0, $length));
                 $lang = str_replace('-', '_', $lang);
             }
 

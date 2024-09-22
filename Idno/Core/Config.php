@@ -241,7 +241,7 @@ namespace Idno\Core {
                 }
 
                 // Check environment variables and set as appropriate
-                foreach ($_SERVER as $name => $val) {
+                foreach (\Idno\Core\Idno::site()->request()->server->all() as $name => $val) {
                     if (substr($name, 0, 6) == 'KNOWN_') {
                         $name                    = strtolower(str_replace('KNOWN_', '', $name));
                         $val                     = $val;
@@ -377,17 +377,17 @@ namespace Idno\Core {
         {
 
             // Otherwise, use the standard server name header
-            if (!empty($_SERVER['SERVER_NAME'])) {
+            if (\Idno\Core\Idno::site()->request()->server->has('SERVER_NAME')) {
 
                 // Servername specified, so we can construct things in the normal way.
-                $url = (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'];
-                if (!empty($_SERVER['HTTP_X_FORWARDED_PORT'])) {
-                    if ($_SERVER['HTTP_X_FORWARDED_PORT'] != 80 && $_SERVER['HTTP_X_FORWARDED_PORT'] != 443) {
-                        $url .= ':' . $_SERVER['HTTP_X_FORWARDED_PORT'];
+                $url = (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . \Idno\Core\Idno::site()->request()->server->get('SERVER_NAME');
+                if (\Idno\Core\Idno::site()->request()->server->has('HTTP_X_FORWARDED_PORT')) {
+                    if (\Idno\Core\Idno::site()->request()->server->get('HTTP_X_FORWARDED_PORT') != 80 && \Idno\Core\Idno::site()->request()->server->get('HTTP_X_FORWARDED_PORT') != 443) {
+                        $url .= ':' . \Idno\Core\Idno::site()->request()->server->get('HTTP_X_FORWARDED_PORT');
                     }
-                } else if (!empty($_SERVER['SERVER_PORT'])) {
-                    if ($_SERVER['SERVER_PORT'] != 80 && $_SERVER['SERVER_PORT'] != 443) {
-                        $url .= ':' . $_SERVER['SERVER_PORT'];
+                } else if (\Idno\Core\Idno::site()->request()->server->has('SERVER_PORT')) {
+                    if (\Idno\Core\Idno::site()->request()->server->get('SERVER_PORT') != 80 && \Idno\Core\Idno::site()->request()->server->get('SERVER_PORT') != 443) {
+                        $url .= ':' . \Idno\Core\Idno::site()->request()->server->get('SERVER_PORT');
                     }
                 }
                 if (defined('KNOWN_SUBDIRECTORY')) {

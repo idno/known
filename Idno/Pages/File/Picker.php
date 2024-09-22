@@ -58,7 +58,7 @@ namespace Idno\Pages\File {
                         Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("You can only upload images."));
                     }
                 }
-                $this->forward($_SERVER['HTTP_REDIRECT']);
+                $this->forward(\Idno\Core\Idno::site()->request()->server->get('HTTP_REFERER'));
             }
         }
 

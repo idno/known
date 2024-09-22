@@ -65,7 +65,7 @@ namespace Idno\Pages\Account {
             if ($user->save()) {
                 \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_("Your details were saved."));
             }
-            $this->forward($_SERVER['HTTP_REFERER']);
+            $this->forward(\Idno\Core\Idno::site()->request()->server->get('HTTP_REFERER'));
         }
 
     }

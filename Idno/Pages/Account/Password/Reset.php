@@ -61,7 +61,7 @@ namespace Idno\Pages\Account\Password {
                 }
             } else {
                 \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('Sorry, your passwords either don\'t match, or are too weak'));
-                $this->forward($_SERVER['HTTP_REFERER']);
+                $this->forward(\Idno\Core\Idno::site()->request()->server->get('HTTP_REFERER'));
             }
 
         }

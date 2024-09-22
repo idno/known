@@ -99,7 +99,7 @@ namespace Idno\Core {
          * Load the locally stored auth token & secret details, or register with the hub if no details have been
          * saved
          *
-         * @return bool
+         * @return mixed
          */
         function loadDetails()
         {
@@ -144,9 +144,9 @@ namespace Idno\Core {
             $details = $this->loadDetails();
             if (!empty($details['auth_token'])) {
                 // Apply pre-stored auth details and connect to server
-            } else if (!substr_count($_SERVER['REQUEST_URI'], 'callback')
-                && !substr_count($_SERVER['REQUEST_URI'], '.')
-                && !substr_count($_SERVER['REQUEST_URI'], '/file/')
+            } else if (!substr_count(\Idno\Core\Idno::site()->request()->getRequestUri(), 'callback')
+                && !substr_count(\Idno\Core\Idno::site()->request()->getRequestUri(), '.')
+                && !substr_count(\Idno\Core\Idno::site()->request()->getRequestUri(), '/file/')
             ) {
                 // Establish auth details, save them, and then connect
                 if ($details = $this->register()) {

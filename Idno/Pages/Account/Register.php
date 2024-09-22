@@ -166,7 +166,7 @@ namespace Idno\Pages\Account {
                 $this->forward();
             } else {
                 \Idno\Core\Idno::site()->session()->addMessageAtStart(\Idno\Core\Idno::site()->language()->_("We couldn't register you."));
-                $this->forward($_SERVER['HTTP_REFERER']);
+                $this->forward(\Idno\Core\Idno::site()->request()->server->get('HTTP_REFERER'));
             }
 
         }

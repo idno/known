@@ -26,8 +26,8 @@ class WebInstaller extends \Idno\Core\Installer
      */
     public function rewriteWorking()
     {
-        if (!empty($_SERVER['PHP_SELF'])) {
-            if ($subdir = dirname(dirname($_SERVER['PHP_SELF']))) {
+        if (\Idno\Core\Idno::site()->request()->server->has('PHP_SELF')) {
+            if ($subdir = dirname(dirname(\Idno\Core\Idno::site()->request()->server->has('PHP_SELF')))) {
                 if ($subdir != DIRECTORY_SEPARATOR) {
                     if(substr($subdir, -1) == DIRECTORY_SEPARATOR) {
                         $subdir = substr($subdir, 0, -1);
@@ -45,7 +45,7 @@ class WebInstaller extends \Idno\Core\Installer
             $subdir = '/' . $subdir;
         }
 
-        $host = strtolower($_SERVER['HTTP_HOST']);
+        $host = strtolower(\Idno\Core\Idno::site()->request()->getHost());
         if (!empty(Idno\Common\Page::isSSL())) {
             $schema = 'https://';
         } else {

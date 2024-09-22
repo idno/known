@@ -354,16 +354,16 @@ namespace Idno\Core {
                             $vars['user'] = \Idno\Core\Idno::site()->session()->currentUserUUID();
                         }
 
-                        if (!empty($_SERVER['HTTP_USER_AGENT'])) {
-                            $vars['agent'] = $_SERVER['HTTP_USER_AGENT'];
+                        if (\Idno\Core\Idno::site()->request()->server->has('HTTP_USER_AGENT')) {
+                            $vars['agent'] = \Idno\Core\Idno::site()->request()->server->get('HTTP_USER_AGENT');
                         }
 
-                        if (!empty($_SERVER['QUERY_STRING'])) {
-                            $vars['qs'] = $_SERVER['QUERY_STRING'];
+                        if (\Idno\Core\Idno::site()->request()->server->has('QUERY_STRING')) {
+                            $vars['qs'] = \Idno\Core\Idno::site()->request()->server->get('QUERY_STRING');
                         }
 
-                        if (!empty($_SERVER['HTTP_REFERER'])) {
-                            $vars['referrer'] = $_SERVER['HTTP_REFERER'];
+                        if (\Idno\Core\Idno::site()->request()->server->has('HTTP_REFERER')) {
+                            $vars['referrer'] = \Idno\Core\Idno::site()->request()->server->get('HTTP_REFERER');
                         }
 
                         $email = new Email();

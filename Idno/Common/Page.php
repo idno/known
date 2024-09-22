@@ -225,15 +225,15 @@ namespace Idno\Common {
         {
 
             // First, let's see if we've been sent anything in form input
-            if (!empty($_REQUEST['json'])) {
-                $json = trim($_REQUEST['json']);
+            if ( \Idno\Core\Idno::site()->request()->request->has('json')) {
+                $json = trim(\Idno\Core\Idno::site()->request()->request->get('json'));
                 $json = str_replace('[]"', '"', $json); // Fake PHP's array conversion
                 if ($parsed = @json_decode($json, true)) {
                     $this->data = array_merge($parsed, $this->data());
                 }
             }
 
-            if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] != 'GET') {
+            if ( \Idno\Core\Idno->request()->getMethod() != 'GET') {
                 $body = @file_get_contents('php://input');
                 $body = trim($body);
                 $body = str_replace('[]"', '"', $body); // Fake PHP's array conversion

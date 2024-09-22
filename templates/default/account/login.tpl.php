@@ -22,8 +22,8 @@
                     <input type="hidden" name="fwd" value="<?php
                     if (!empty($vars['fwd'])) {
                         echo htmlspecialchars($vars['fwd']);
-                    } else if (!empty($_SERVER['HTTP_REFERER'])) {
-                        echo htmlspecialchars($_SERVER['HTTP_REFERER']);
+                    } else if (\Idno\Core\Idno::site()->request()->server->has('HTTP_REFERER')) {
+                        echo htmlspecialchars(\Idno\Core\Idno::site()->request()->server->get('HTTP_REFERER'));
                     } else {
                         echo \Idno\Core\Idno::site()->config()->getDisplayURL();
                     }?>" />

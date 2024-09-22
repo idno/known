@@ -497,7 +497,7 @@ namespace Idno\Core {
             $return = \Idno\Core\Idno::site()->events()->triggerEvent('user/auth/request', [], false);
 
             // auth standard API requests
-            if (!$return && !empty($_SERVER['HTTP_X_KNOWN_USERNAME']) && !empty($_SERVER['HTTP_X_KNOWN_SIGNATURE'])) {
+            if (!$return && \Idno\Core\Idno::site()->request()->server->has('HTTP_X_KNOWN_USERNAME') && !empty(\Idno\Core\Idno::site()->request()->server->has('HTTP_X_KNOWN_SIGNATURE'))) {
                 \Idno\Core\Idno::site()->logging()->debug("Attempting to auth via API credentials");
 
                 $this->setIsAPIRequest(true);
@@ -507,16 +507,16 @@ namespace Idno\Core {
                     \Idno\Core\Idno::site()->template()->setTemplateType('json');
                 }
 
-                $user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME']);
-                if (empty($user)) { $user = \Idno\Entities\User::getByEmail($_SERVER['HTTP_X_KNOWN_USERNAME']);
+                $user = \Idno\Entities\User::getByHandle(\Idno\Core\Idno::site()->request()->server->get('HTTP_X_KNOWN_USERNAME'));
+                if (empty($user)) { $user = \Idno\Entities\User::getByEmail(\Idno\Core\Idno::site()->request()->server->get('HTTP_X_KNOWN_USERNAME'));
                 }
                 if (!empty($user)) {
-                    \Idno\Core\Idno::site()->logging()->debug("API auth found user by username: {$_SERVER['HTTP_X_KNOWN_USERNAME']} - " . $user->getName());
+                    \Idno\Core\Idno::site()->logging()->debug("API auth found user by username: ".{\Idno\Core\Idno::site()->request()->server->has('HTTP_X_KNOWN_USERNAME')." - " . $user->getName());
 
                     $key  = $user->getAPIkey();
-                    $hmac = trim($_SERVER['HTTP_X_KNOWN_SIGNATURE']);
+                    $hmac = trim(\Idno\Core\Idno::site()->request()->server->has('HTTP_X_KNOWN_SIGNATURE'));
                     //$compare_hmac = base64_encode(hash_hmac('sha256', explode('?', $_SERVER['REQUEST_URI'])[0], $key, true));
-                    $compare_hmac = base64_encode(hash_hmac('sha256', ($_SERVER['REQUEST_URI']), $key, true));
+                    $compare_hmac = base64_encode(hash_hmac('sha256', \Idno\Core\Idno::site()->request()->getUri(), $key, true));
 
                     if ($hmac == $compare_hmac) {
                         \Idno\Core\Idno::site()->logging()->debug("API auth verified signature for user: " . $user->getName());
@@ -524,11 +524,11 @@ namespace Idno\Core {
                         $return = $this->refreshSessionUser($user);
                     } else {
                         \Idno\Core\Idno::site()->logging()->debug("API auth failed signature validation for user: " . $user->getName());
-                        \Idno\Core\Idno::site()->logging()->debug("Expected signature formed over base64_encode(hash_hmac('sha256', '{$_SERVER['REQUEST_URI']}', \$key, true)) = '$compare_hmac', but got '$hmac'. ");
+                        \Idno\Core\Idno::site()->logging()->debug("Expected signature formed over base64_encode(hash_hmac('sha256', '{\Idno\Core\Idno::site()->request()->getRequestUri())}', \$key, true)) = '$compare_hmac', but got '$hmac'. ");
                         \Idno\Core\Idno::site()->logging()->debug("Please read http://docs.withknown.com/en/latest/developers/plugins/api/ for further details.");
                     }
                 } else {
-                    \Idno\Core\Idno::site()->logging()->debug("API User given in X_KNOWN_USERNAME ('{$_SERVER['HTTP_X_KNOWN_USERNAME']}') could not be found.");
+                    \Idno\Core\Idno::site()->logging()->debug("API User given in X_KNOWN_USERNAME ('{\Idno\Core\Idno::site()->request()->server->get('HTTP_X_KNOW_USERNAME'))}') could not be found.");
                 }
             }
 
@@ -544,9 +544,9 @@ namespace Idno\Core {
                 }
                 // If this is an API request but we're not logged in, set page response code to access denied
                 if (!$return) {
-                    $ip = $_SERVER['REMOTE_ADDR'];
-                    if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-                        $proxies = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']); // We are behind a proxy
+                    $ip = \Idno\Core\Idno::site()->request()->server->get('REMOTE_ADDR');
+                    if (\Idno\Core\Idno::site()->request()->server->has('HTTP_X_FORWARDED_FOR')) {
+                        $proxies = explode(',', \Idno\Core\Idno::site()->request()->server->get('HTTP_X_FORWARDED_FOR')); // We are behind a proxy
                         $ip      = trim($proxies[0]);
                     }
 

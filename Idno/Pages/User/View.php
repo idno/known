@@ -96,7 +96,7 @@ namespace Idno\Pages\User {
                 }
                 $this->forward($user->getURL());
             }
-            $this->forward($_SERVER['HTTP_REFERER']);
+            $this->forward(\Idno\Core\Idno::site()->request()->server->get('HTTP_REFERER'));
         }
 
         // Handle DELETE requests to the entity
@@ -111,7 +111,7 @@ namespace Idno\Pages\User {
             if ($object->delete()) {
                 \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->esc_('%s was deleted.', [$object->getTitle()]));
             }
-            $this->forward($_SERVER['HTTP_REFERER']);
+            $this->forward(\Idno\Core\Idno::site()->request()->server->get('HTTP_REFERER'));
         }
 
         /**

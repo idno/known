@@ -105,10 +105,10 @@ namespace Idno\Core\Bonita {
          */
         static function detectDevice()
         {
-            if (empty($_SERVER['HTTP_USER_AGENT'])) {
+            if (!\Idno\Core\Idno::site()->request()->server->has('HTTP_USER_AGENT')) {
                 return 'default';
             }
-            $ua = $_SERVER['HTTP_USER_AGENT'];
+            $ua = \Idno\Core\Idno::site()->request()->server->get('HTTP_USER_AGENT');
 
             // Android
             if (preg_match('/android/i', $ua)) {

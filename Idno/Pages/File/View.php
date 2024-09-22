@@ -53,7 +53,7 @@ namespace Idno\Pages\File {
             header('Accept-Ranges: bytes');
 
             // Partial content
-            if (isset($_SERVER['HTTP_RANGE'])) {
+            if (\Idno\Core\Idno::site()->request()->server->has('HTTP_RANGE')) {
 
                 $size = $object->getSize();
                 $start = 0;
@@ -63,7 +63,7 @@ namespace Idno\Pages\File {
                 $c_end = (empty($end)) ? ($size - 1) : min(abs(intval($end)), ($size - 1)); //$end;
 
                 // Parse range
-                list(, $range) = explode('=', $_SERVER['HTTP_RANGE'], 2);
+                list(, $range) = explode('=', \Idno\Core\Idno::site()->request()->server->get('HTTP_RANGE'), 2);
 
                 if ($range[0] == '-') {
                     // Range form "-123"

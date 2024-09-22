@@ -69,7 +69,7 @@ namespace Idno\Pages\Account\Settings\Following {
             }
 
             // forward back
-            $this->forward($_SERVER['HTTP_REFERER']);
+            $this->forward(\Idno\Core\Idno::site()->request()->server->get('HTTP_REFERER'));
         }
 
         /**
