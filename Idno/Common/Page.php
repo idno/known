@@ -1342,7 +1342,6 @@ namespace Idno\Common {
         public function setLastModifiedHeader(int $timestamp)
         {
             \Idno\Core\Idno::site()->response()->headers->set('Last-Modified', \Idno\Core\Time::timestampToRFC2616($timestamp));
-            \Idno\Core\Idno::site()->sendResponse();
         }
 
         /**

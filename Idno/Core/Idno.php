@@ -64,8 +64,8 @@ namespace Idno\Core {
             $this->dispatcher = new EventDispatcher();
             $this->config = new Config();
             if ($this->config->isDefaultConfig()) {
-                header('Location: ./warmup/');
-                exit; // Load the installer
+                $this->redirect('./warmup/');
+                $this->sendResponse(); // Load the installer
             }
 
             // We need to load initial values from the .ini files
@@ -825,10 +825,14 @@ namespace Idno\Core {
         /**
          * Helper method that returns the current site object
          *
-         * @return \Idno\Core\Idno $site
+         * @return \Idno\Core\Idno | \Idno\Core\IdnoFoundation $site
          */
-        static function &site(): ?Idno
+        static function &site():Idno|IdnoFoundation
         {
+            // Workaround for wormup to work 
+            if(empty(self::$site)){
+                self::$site = new IdnoFoundation();
+            }
             return self::$site;
         }
 

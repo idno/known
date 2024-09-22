@@ -73,7 +73,7 @@
             </p>
 
             <p>
-                <input type="text" name="site_title" placeholder="" value="<?php echo htmlspecialchars($site_title) ?>"
+                <input type="text" name="site_title" placeholder=""  value="<?php echo !is_null($site_title) ?  htmlspecialchars($site_title) : '' ?>"
                        class="profile-input" id="site_title">
             </p>
         </div>
@@ -93,7 +93,7 @@
             <p>
                 <label class="control-label">
                     MySQL database name<br>
-                    <input type="text" name="mysql_name" placeholder="" value="<?php echo htmlspecialchars($mysql_name) ?>"
+                    <input type="text" name="mysql_name" placeholder="" value="<?php echo !is_null($mysql_name) ?  htmlspecialchars($mysql_name):'' ?>"
                            class="profile-input" required>
                 </label>
             </p>
@@ -101,7 +101,7 @@
             <p>
                 <label class="control-label">
                     MySQL username<br>
-                    <input type="text" name="mysql_user" placeholder="" value="<?php echo htmlspecialchars($mysql_user) ?>"
+                    <input type="text" name="mysql_user" placeholder="" value="<?php echo !is_null($mysql_user) ?  htmlspecialchars($mysql_user):'' ?>"
                            class="profile-input" required>
                 </label>
             </p>
@@ -116,7 +116,7 @@
             <p>
                 <label class="control-label">
                     MySQL server name<br>
-                    <input type="text" name="mysql_host" placeholder="<?php echo htmlspecialchars($mysql_host) ?>"
+                    <input type="text" name="mysql_host" placeholder="<?php echo !is_null($mysql_host) ? htmlspecialchars($mysql_host) :'' ?>"
                            value="localhost" class="profile-input" required>
                 </label>
             </p>
@@ -137,7 +137,7 @@
 
             <p>
                 <input type="text" name="upload_path" id="upload_path" placeholder=""
-                       value="<?php echo htmlspecialchars($upload_path) ?>" class="profile-input" required>
+                       value="<?php echo !is_null($upload_path) ? htmlspecialchars($upload_path) :'' ?>" class="profile-input" required>
             </p>
         </div>
         <div class="submit settings-group page-bottom">

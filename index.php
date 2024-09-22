@@ -14,6 +14,9 @@
  * @subpackage core
  */
 
+ error_reporting(E_ALL );
+
+
 // Check PHP version first of all
 if (version_compare(phpversion(), '7.2', '<')) {
     http_response_code(500);

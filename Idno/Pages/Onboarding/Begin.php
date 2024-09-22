@@ -24,7 +24,7 @@ namespace Idno\Pages\Onboarding {
                 'title'    => \Idno\Core\Idno::site()->language()->_('Welcome to Known'),
                 'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages()
                 )
-            )->draw('shell/simple')
+            )->draw('shell/simple');
             \Idno\Core\Idno::site()->response()->setContent($content);
 
         }

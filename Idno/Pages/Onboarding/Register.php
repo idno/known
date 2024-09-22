@@ -12,6 +12,7 @@ namespace Idno\Pages\Onboarding {
         function getContent()
         {
 
+
             $set_name = $this->getInput('set_name');
             if (!empty($set_name)) {
                 \Idno\Core\Idno::site()->session()->set('set_name', $set_name);

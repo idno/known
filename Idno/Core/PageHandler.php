@@ -38,6 +38,8 @@ namespace Idno\Core {
         if (! empty(Idno::site()->request()->getPathInfo())) {
             $path_info = Idno::site()->request()->getPathInfo();
         } 
+
+
         
         $discovered_handler = null;
         $regex_matches = array();
@@ -59,6 +61,7 @@ namespace Idno\Core {
                 }
             }
         }
+
 
         $result = null;
         $handler_instance = null;
@@ -87,7 +90,6 @@ namespace Idno\Core {
         }
 
         Hook::fire('after_request', compact('routes', 'discovered_handler', 'request_method', 'regex_matches', 'result'));
-
         \Idno\Core\Idno::site()->sendResponse();
     }
 

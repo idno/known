@@ -26,8 +26,8 @@ namespace Idno\Core {
         {
             if (!empty($name)) {
                 $value = null;
-                if (isset($_REQUEST[$name])) {
-                    $value = $_REQUEST[$name];
+                if (\Idno\Core\Idno::site()->request()->request->has($name)) {
+                    $value = \Idno\Core\Idno::site()->request()->request->get($name);
                 }
                 if (($value===null) && ($default!==null)) {
                     $value = $default;

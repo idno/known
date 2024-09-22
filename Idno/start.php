@@ -71,22 +71,25 @@
     );
 
     // This is a good time to see if we're running in a subdirectory
-    if (!defined('KNOWN_UNIT_TEST')) {
-        if (!empty($_SERVER['PHP_SELF'])) {
-            if ($subdir = dirname($_SERVER['PHP_SELF'])) {
-                if ($subdir != DIRECTORY_SEPARATOR) {
-                    if (substr($subdir, -1) == DIRECTORY_SEPARATOR) {
-                        $subdir = substr($subdir, 0, -1);
-                    }
-                    if (substr($subdir, 0, 1) == DIRECTORY_SEPARATOR) {
-                        $subdir = substr($subdir, 1);
-                    }
-                    $subdir = str_replace(DIRECTORY_SEPARATOR, '/', $subdir);
-                    define('KNOWN_SUBDIRECTORY', $subdir);
-                }
-            }
-        }
-    }
+    // if (!defined('KNOWN_UNIT_TEST')) {
+    //     if (!empty($_SERVER['PHP_SELF'])) {
+    //         print_r($_SERVER['PHP_SELF'].'<br>');
+
+    //         if ($subdir = dirname($_SERVER['PHP_SELF'])) {
+    //             if ($subdir != DIRECTORY_SEPARATOR) {
+    //                 if (substr($subdir, -1) == DIRECTORY_SEPARATOR) {
+    //                     $subdir = substr($subdir, 0, -1);
+    //                 }
+    //                 if (substr($subdir, 0, 1) == DIRECTORY_SEPARATOR) {
+    //                     $subdir = substr($subdir, 1);
+    //                 }
+    //                 $subdir = str_replace(DIRECTORY_SEPARATOR, '/', $subdir);
+    //                 define('KNOWN_SUBDIRECTORY', $subdir);
+
+    //             }
+    //         }
+    //     }
+    // }
 
     // Set time limit if we're using less
     if (ini_get('max_execution_time') < 120 && ini_get('safe_mode')) {

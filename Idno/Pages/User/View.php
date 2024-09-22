@@ -28,6 +28,7 @@ namespace Idno\Pages\User {
                 $this->noContent();
             }
 
+
             // Users own their own profiles
             $this->setOwner($user);
             $this->setPermalink(true, $user); // This is a permalink
@@ -52,6 +53,7 @@ namespace Idno\Pages\User {
             } else {
                 $types  = ['IdnoPlugins\Status\Status', 'IdnoPlugins\Text\Entry'];
             }
+
             $offset = (int)$this->getInput('offset');
             $count  = \Idno\Common\Entity::countFromX($types, array('owner' => $user->getUUID(), 'publish_status' => 'published'));
             $feed   = \Idno\Common\Entity::getFromX($types, array('owner' => $user->getUUID(), 'publish_status' => 'published'), array(), \Idno\Core\Idno::site()->config()->items_per_page, $offset);
@@ -62,7 +64,9 @@ namespace Idno\Pages\User {
                     $last_modified = $feed[0]->updated;
                 }
             }
+            
             $this->setLastModifiedHeader($last_modified);
+
 
             $t = \Idno\Core\Idno::site()->template();
             $t->__(
@@ -75,6 +79,7 @@ namespace Idno\Pages\User {
                 )
             )->drawPage();
         }
+
 
         // Handle POST requests to the entity
 
