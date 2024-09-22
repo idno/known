@@ -16,7 +16,7 @@ namespace Idno\Pages\Service\Db {
                 \Idno\Core\Idno::site()->config()->dboptimized = $time;
                 \Idno\Core\Idno::site()->config()->save();
 
-                echo json_encode('optimised');
+                \Idno\Core\Idno::site()->response()->setJsonContent(json_encode('optimised'));
             }
         }
 

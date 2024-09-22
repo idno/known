@@ -42,14 +42,14 @@ namespace Idno\Pages\Admin {
                         if (\Idno\Core\Idno::site()->plugins()->enable($plugin)) {
                             \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('The plugin was enabled.'));
 
-                            echo json_encode(
+                            \Idno\Core\Idno::site()->response()->setJsonContent(json_encode(
                                 [
                                 'action' => $action,
                                 'status' => true,
                                 'message' => \Idno\Core\Idno::site()->language()->_('The plugin was enabled.')
                                 ]
-                            );
-                            exit;
+                            ));
+                            \Idno\Core\Idno::site()->sendResponse();
                         }
 
                         break;
@@ -58,14 +58,14 @@ namespace Idno\Pages\Admin {
                         if (\Idno\Core\Idno::site()->plugins()->disable($plugin)) {
                             \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('The plugin was disabled.'));
 
-                            echo json_encode(
+                            \Idno\Core\Idno::site()->response()->setJsonContent( json_encode(
                                 [
                                 'action' => $action,
                                 'status' => true,
                                 'message' => \Idno\Core\Idno::site()->language()->_('The plugin was disabled.')
                                 ]
-                            );
-                            exit;
+                            ));
+                            \Idno\Core\Idno::site()->sendResponse();
                         }
 
                         break;
@@ -73,12 +73,12 @@ namespace Idno\Pages\Admin {
 
             }
 
-            echo json_encode(
+            \Idno\Core\Idno::site()->response()->setJsonContent( json_encode(
                 [
                 'action' => $action,
                 'status' => false,
                 ]
-            );
+            ));
             //$this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/plugins/');
         }
 

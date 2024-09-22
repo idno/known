@@ -29,7 +29,8 @@ namespace Idno\Pages\Account {
                 $t->title = \Idno\Core\Idno::site()->language()->_('Recover password');
             }
 
-            echo $t->draw('shell');
+            $content = $t->draw('shell');
+            \Idno\Core\Idno::site()->response()->setContent($content);
 
         }
 

@@ -9,7 +9,6 @@ namespace Idno\Pages\Service\Web {
         {
 
             \Idno\Core\Idno::site()->template()->setTemplateType('json');
-            header('Content-type: application/json');
 
             $this->xhrGatekeeper();
             $this->tokenGatekeeper();
@@ -22,12 +21,12 @@ namespace Idno\Pages\Service\Web {
 
             // Try and get UnfurledURL entity
             if ($object = \Idno\Entities\UnfurledUrl::getBySourceURL($url)) {
-                echo json_encode(
+                \Idno\Core\Idno::site()->response()->setJsonContent( json_encode(
                     [
                     'url' => $url,
                     'status' => $object->delete()
                     ]
-                );
+                ));
             } else {
                 $this->noContent();
             }
@@ -59,9 +58,9 @@ namespace Idno\Pages\Service\Web {
                 $unfurled['id'] = $object->getID();
                 $unfurled['rendered'] = $template->__(['object' => $object])->draw('entity/UnfurledUrl');
 
-                echo json_encode($unfurled, JSON_PRETTY_PRINT);
+                \Idno\Core\Idno::site()->response()->setJsonContent( json_encode($unfurled, JSON_PRETTY_PRINT));
 
-                exit;
+                \Idno\Core\Idno::site()->sendResponse();
             }
 
             if (empty($object)) {
@@ -83,7 +82,7 @@ namespace Idno\Pages\Service\Web {
             $unfurled['id'] = $object->getID();
             $unfurled['rendered'] = $template->__(['object' => $object])->draw('entity/UnfurledUrl');
 
-            echo json_encode($unfurled, JSON_PRETTY_PRINT);
+            \Idno\Core\Idno::site()->response()->setJsonContent(json_encode($unfurled, JSON_PRETTY_PRINT));
         }
 
     }

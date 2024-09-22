@@ -10,7 +10,7 @@ namespace Idno\Pages\Chrome {
         function getContent()
         {
 
-            echo \Idno\Core\Idno::site()->template()->draw('chrome/manifest');
+            \Idno\Core\Idno::site()->response()->setContent(\Idno\Core\Idno::site()->template()->draw('chrome/manifest'));
 
         }
 

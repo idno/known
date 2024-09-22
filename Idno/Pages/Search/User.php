@@ -59,7 +59,8 @@ namespace Idno\Pages\Search {
                 $results['rendered'] .= $template_postponed_link_actions;
             }
 
-            echo json_encode($results); exit;
+            \Idno\Core\Idno::site()->response()->setJsonContent(json_encode($results));
+            \Idno\Core\Idno::site()->sendResponse();
         }
 
     }

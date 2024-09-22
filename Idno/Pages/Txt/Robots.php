@@ -15,7 +15,7 @@ namespace Idno\Pages\Txt {
         function getContent()
         {
             $t = \Idno\Core\Idno::site()->template();
-            echo $t->draw('txt/robots');
+            \Idno\Core\Idno::site()->response()->setContent($t->draw('txt/robots'));
         }
 
     }

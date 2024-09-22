@@ -11,7 +11,6 @@ namespace Idno\Pages\Service\Web {
             $this->gatekeeper();
 
             \Idno\Core\Idno::site()->template()->setTemplateType('json');
-            header('Content-type: application/json');
 
             if (!empty($this->arguments[0])) {
                 $object = \Idno\Common\Entity::getByID($this->arguments[0]);
@@ -29,7 +28,7 @@ namespace Idno\Pages\Service\Web {
 
             $object->hide_preview = true;
 
-            echo json_encode($object->save());
+            \Idno\Core\Idno::site()->response()->setContent(json_encode($object->save()));
 
         }
 

@@ -49,13 +49,14 @@ namespace Idno\Pages\Admin {
                 // Hook so other plugins and subsystems can add their own data to the report.
                 $report = \Idno\Core\Idno::site()->events()->triggerEvent('diagnostics/report', [], $report);
 
-                echo $report;
-                exit;
+                \Idno\Core\Idno::site()->response()->setContent($report);
+                \Idno\Core\Idno::site()->sendResponse();
             } else {
                 $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->__(['basics' => $basics])->draw('admin/diagnostics');
                 $t->title = \Idno\Core\Idno::site()->language()->_('Diagnostics');
-                $t->drawPage();
+                $content = $t->drawPage(false);
+                \Idno\Core\Idno::site()->response()->setContent($content);
             }
         }
 

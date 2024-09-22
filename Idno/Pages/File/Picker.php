@@ -50,8 +50,9 @@ namespace Idno\Pages\File {
                         if ($return) {
                             $t       = \Idno\Core\Idno::site()->template();
                             $t->file = $file;
-                            echo $t->draw('file/picker/donejs');
-                            exit;
+                            $content = $t->draw('file/picker/donejs');
+                            \Idno\Core\Idno::site()->response()->setContent($content);
+                            \Idno\Core\Idno::site()->sendResponse();
                         }
                     } else {
                         Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("You can only upload images."));

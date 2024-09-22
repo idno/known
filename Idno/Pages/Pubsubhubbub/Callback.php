@@ -50,8 +50,8 @@ namespace Idno\Pages\Pubsubhubbub {
                         $subscriber->save();
 
                         \Idno\Core\Idno::site()->logging()->debug("Pubsub: $hub_challenge");
-                        echo $hub_challenge;
-                        exit;
+                        \Idno\Core\Idno::site()->response()->setContent($hub_challenge);
+                        \Idno\Core\Idno::site()->sendResponse();
                     }
                     break;
             }

@@ -20,13 +20,14 @@ namespace Idno\Pages\Admin {
 
                 header('Content-type: application/json');
 
-                echo json_encode($stats);
+                \Idno\Core\Idno::site()->response()->setJsonContent(json_encode($stats));
 
             } else {
                 $t = \Idno\Core\Idno::site()->template();
                 $t->body = $t->__(['statistics' => $stats, 'tab' => $this->getInput('tab', $report)])->draw('admin/statistics');
                 $t->title = \Idno\Core\Idno::site()->language()->_('Statistics');
-                $t->drawPage();
+                $content = $t->drawPage();
+                \Idno\Core\Idno::site()->response()->setContent($content);
             }
         }
 

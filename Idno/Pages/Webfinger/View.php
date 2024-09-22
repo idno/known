@@ -30,7 +30,7 @@ namespace Idno\Pages\Webfinger {
             }
             $t = \Idno\Core\Idno::site()->template();
             $t->setTemplateType('json');
-            echo $t->__(
+            $content = $t->__(
                 array(
                 'properties' => [
                   'http://webfinger.example/ns/name' => $user->getName(),
@@ -39,6 +39,7 @@ namespace Idno\Pages\Webfinger {
                 'links'   => $links
                 )
             )->draw('shell');
+            \Idno\Core\Idno::site()->response()->setContent($content);
         }
 
         function postContent()

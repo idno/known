@@ -195,18 +195,21 @@ namespace Idno\Core\Bonita {
         function drawPage($echo = true, $shell = 'shell')
         {
             if ($echo) {
+                // For Backward Compatibility reasons
+                \Idno\Core\Idno::site()->response()->setContent($this->draw($shell));
+                \Idno\Core\Idno::site()->sendResponse();
 
-                $content = $this->draw($shell);
-                header('Content-Length: ' . strlen($content));
+                // $content = $this->draw($shell);
+                // header('Content-Length: ' . strlen($content));
 
-                // Break long output to avoid an Apache performance bug
-                $split_output = str_split($content, 1024);
+                // // Break long output to avoid an Apache performance bug
+                // $split_output = str_split($content, 1024);
 
-                foreach ($split_output as $chunk) {
-                    echo $chunk;
-                }
+                // foreach ($split_output as $chunk) {
+                //     echo $chunk;
+                // }
 
-                exit;
+                // exit;
             } else {
                 return $this->draw($shell);
             }

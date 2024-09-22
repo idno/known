@@ -20,7 +20,7 @@ namespace Idno\Pages\Onboarding {
             $_SESSION['onboarding_passthrough'] = true;
 
             $t = \Idno\Core\Idno::site()->template();
-            echo $t->__(
+            $content = $t->__(
                 array(
 
                 'title'    => \Idno\Core\Idno::site()->language()->_("Connect some networks"),
@@ -29,6 +29,7 @@ namespace Idno\Pages\Onboarding {
 
                 )
             )->draw('shell/simple');
+            \Idno\Core\Idno::site()->response()->setContent($content);
             //} else {
             //    $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'begin/publish');
             //}

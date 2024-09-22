@@ -19,8 +19,9 @@ namespace Idno\Pages\Entity {
             }
             if (empty($object)) {
                 $this->setResponse(404);
-                echo \Idno\Core\Idno::site()->template()->__(array('body' => \Idno\Core\Idno::site()->template()->draw('404'), 'title' => 'Not found'))->drawPage();
-                exit;
+                $content = \Idno\Core\Idno::site()->template()->__(array('body' => \Idno\Core\Idno::site()->template()->draw('404'), 'title' => 'Not found'))->drawPage(false);
+                \Idno\Core\Idno::site()->response()->setContent($content);
+                \Idno\Core\Idno::site()->sendResponse();
             }
         }
 
@@ -33,14 +34,16 @@ namespace Idno\Pages\Entity {
             }
             if (empty($object)) {
                 $this->setResponse(404);
-                echo \Idno\Core\Idno::site()->template()->__(array('body' => \Idno\Core\Idno::site()->template()->draw('404'), 'title' => 'Not found'))->drawPage();
-                exit;
+                $content = \Idno\Core\Idno::site()->template()->__(array('body' => \Idno\Core\Idno::site()->template()->draw('404'), 'title' => 'Not found'))->drawPage(false);
+                \Idno\Core\Idno::site()->response()->setContent($content);
+                \Idno\Core\Idno::site()->sendResponse();
             }
 
             if (!$object->canEdit()) {
                 $this->setResponse(403);
-                echo \Idno\Core\Idno::site()->template()->__(array('body' => \Idno\Core\Idno::site()->template()->draw('403'), 'title' => 'Permission denied'))->drawPage();
-                exit;
+                $content = \Idno\Core\Idno::site()->template()->__(array('body' => \Idno\Core\Idno::site()->template()->draw('403'), 'title' => 'Permission denied'))->drawPage(false);
+                \Idno\Core\Idno::site()->response()->setContent($content);
+                \Idno\Core\Idno::site()->sendResponse();
             }
 
             $object->unsyndicate();

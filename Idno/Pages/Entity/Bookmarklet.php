@@ -16,7 +16,7 @@ namespace Idno\Pages\Entity {
         {
 
             $t = \Idno\Core\Idno::site()->template();
-            echo $t->draw('entity/bookmarklet');
+            Idno\Core\Idno::site()->response->setContent(($t->draw('entity/bookmarklet')));
 
         }
 

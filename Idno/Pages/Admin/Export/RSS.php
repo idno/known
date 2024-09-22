@@ -4,6 +4,8 @@ namespace Idno\Pages\Admin\Export {
 
     use Idno\Common\Page;
     use Idno\Core\Migration;
+    use Symfony\Component\HttpFoundation\HeaderUtils;
+
 
     class RSS extends Page
     {
@@ -15,8 +17,13 @@ namespace Idno\Pages\Admin\Export {
 
             set_time_limit(0);
 
-            header('Content-type: text/rss');
-            header('Content-disposition: attachment; filename=export.rss');
+            \Idno\Core\site()->response()->headers->set('Content-type', 'text/rss');
+            $disposition = HeaderUtils::makeDisposition(
+                HeaderUtils::DISPOSITION_ATTACHMENT,
+                'export.rss'
+            );
+
+            \Idno\Core\site()->response()->headers->set('Content-Disposition', $disposition);
 
             $hide_private = true;
             if ($private = $this->getInput('allposts')) {
@@ -27,15 +34,16 @@ namespace Idno\Pages\Admin\Export {
 
                 $stats = fstat($f);
 
-                header('Content-Length: ' . $stats['size']);
-
+                \Idno\Core\site()->response()->headers->set('Content-Length:', $stats['size']);
+                $file = '';
                 while ($content = fgets($f)) {
-                    echo $content;
+                    $file .= $content;
                 }
 
                 fclose($f);
+                \Idno\Core\site()->response()->setContent($file);
             }
-            exit;
+            \Idno\Core\site()->sendResponse();
 
         }
 

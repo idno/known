@@ -18,13 +18,14 @@ namespace Idno\Pages\Onboarding {
             }
 
             $t = \Idno\Core\Idno::site()->template();
-            echo $t->__(
+            $content = $t->__(
                 array(
                 'body'     => $t->draw('onboarding/begin'),
                 'title'    => \Idno\Core\Idno::site()->language()->_('Welcome to Known'),
                 'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages()
                 )
-            )->draw('shell/simple');
+            )->draw('shell/simple')
+            \Idno\Core\Idno::site()->response()->setContent($content);
 
         }
 

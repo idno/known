@@ -22,13 +22,12 @@ namespace Idno\Pages\Service\Security {
             $time = time();
             $token = \Idno\Core\Bonita\Forms::token($action, $time);
 
-            header('Content-type: application/json');
-            echo json_encode(
+            \Idno\Core\Idno::site()->response()->setJsonContent(json_encode(
                 [
                 'time' => $time,
                 'token' => $token
                 ]
-            );
+            ));
         }
 
     }

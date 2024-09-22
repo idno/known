@@ -11,7 +11,7 @@ namespace Idno\Pages\Service\Vendor {
             $this->setNoCache();
 
             if ($messages = \Idno\Core\Vendor::getMessages()) {
-                echo json_encode($messages);
+                \Idno\Core\Idno::site()->response()->setJsonContent(json_encode($messages));
             }
         }
 

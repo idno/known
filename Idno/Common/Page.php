@@ -6,7 +6,7 @@
      * Developers should extend the getContent, postContent and dataContent
      * methods as follows:
      *
-     * getContent: echoes HTML to the page
+     * getContent: set content for the page using \Idno\Core\Idno::site()->response()->setContent()
      *
      * postContent: handles content submitted to the page (assuming that form
      * elements were correctly signed)
@@ -879,7 +879,7 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->response()->headers->remove('X-Known-CSRF-Token');
 
             $t = \Idno\Core\Idno::site()->template();
-            $content = $t->__(array('body' => $t->draw('pages/403'), 'title' => $title))->drawPage();
+            $content = $t->__(array('body' => $t->draw('pages/403'), 'title' => $title))->drawPage(false);
             \Idno\Core\Idno::site()->response()->setContent($content);
         }
 

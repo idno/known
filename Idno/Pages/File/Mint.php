@@ -53,10 +53,10 @@ class Mint extends \Idno\Common\Page
         // Mint an ID
 
         // Lets tell people about where to stick the data
-        echo json_encode(
+        \Idno\Core\Idno::site()->response()->setJsonContent(json_encode(
             [
             'uploadUrl' => $upload_url
             ]
-        );
+        ));
     }
 }

@@ -49,8 +49,8 @@ namespace Idno\Pages\Hub\Register {
                 $result = array('status' => 'fail', 'message' => 'Signature does not match: ' . $signature . ', ' . $hmac);
             }
 
-            echo json_encode($result);
-            exit;
+            \Idno\Core\Idno::site()->response()->setJsonContent(json_encode($result));
+            \Idno\Core\Idno::site()->sendResponse();
 
         }
 
