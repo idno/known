@@ -27,14 +27,16 @@ namespace Idno\Pages\File {
         function post()
         {
             if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
-                if (!empty($_FILES['file']['tmp_name'])) {
+                $tmp_file = \Idno\Core\Input::getFile('file');
+                 
+                if (!empty($tmp_file['tmp_name'])) {
                     if (!\Idno\Core\Idno::site()->events()->triggerEvent("file/upload", [], true)) {
                         exit;
                     }
-                    if (\Idno\Entities\File::isImage($_FILES['file']['tmp_name'])) {
+                    if (\Idno\Entities\File::isImage($tmp_file['tmp_name'])) {
                         $return = false;
                         $file   = false;
-                        if ($file = \Idno\Entities\File::createThumbnailFromFile($_FILES['file']['tmp_name'], $_FILES['file']['name'], 1024)) {
+                        if ($file = \Idno\Entities\File::createThumbnailFromFile($tmp_file['tmp_name'], $tmp_file['name'], 1024)) {
 
                             \Idno\Core\Idno::site()->logging()->debug("Creating new file from thumbnail as {$file}");
 
@@ -42,7 +44,7 @@ namespace Idno\Pages\File {
                             $returnfile       = new \stdClass;
                             $returnfile->file = ['_id' => $file];
                             $file             = $returnfile;
-                        } else if ($file = \Idno\Entities\File::createFromFile($_FILES['file']['tmp_name'], $_FILES['file']['name'], $_FILES['file']['type'], true, true)) {
+                        } else if ($file = \Idno\Entities\File::createFromFile($tmp_file['tmp_name'], $tmp_file['name'], $tmp_file['type'], true, true)) {
                             \Idno\Core\Idno::site()->logging()->debug("Creating new file");
 
                             $return = true;

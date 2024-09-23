@@ -1108,19 +1108,26 @@ namespace Idno\Entities {
             if (!$this->canEdit()) { return false;
             }
 
+
             $profile = \Idno\Core\Idno::site()->currentPage()->getInput('profile');
             if (!empty($profile)) {
                 $this->profile = $profile;
             }
-            if ($name = \Idno\Core\Idno::site()->currentPage()->getInput('name')) {
+            $name = \Idno\Core\Idno::site()->currentPage()->getInput('name');
+
+            if (!empty($name)) {
                 $this->setName($name);
             }
-            if (!empty($_FILES['avatar'])) {
-                if (in_array($_FILES['avatar']['type'], array('image/png', 'image/jpg', 'image/jpeg', 'image/gif'))) {
-                    if (getimagesize($_FILES['avatar']['tmp_name'])) {
-                        if ($icon = \Idno\Entities\File::createThumbnailFromFile($_FILES['avatar']['tmp_name'], $_FILES['avatar']['name'], 300, true)) {
+
+            if ( \Idno\Core\Idno::site()->request()->files->has('avatar')) {
+                $avatar = \Idno\Core\Input::getFile(name: 'avatar');
+                
+
+                if (in_array($avatar['type'], array('image/png', 'image/jpg', 'image/jpeg', 'image/gif'))) {
+                    if (getimagesize($avatar['tmp_name'])) {
+                        if ($icon = \Idno\Entities\File::createThumbnailFromFile($avatar['tmp_name'], $avatar['name'], 300, true)) {
                             $this->icon = (string)$icon;
-                        } else if ($icon = \Idno\Entities\File::createFromFile($_FILES['avatar']['tmp_name'], $_FILES['avatar']['name'])) {
+                        } else if ($icon = \Idno\Entities\File::createFromFile($avatar['tmp_name'], $avatar['name'])) {
                             $this->icon = (string)$icon;
                         }
                     }

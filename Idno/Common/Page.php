@@ -111,6 +111,7 @@ namespace Idno\Common {
         function getInput($name, $default = null, callable $filter = null)
         {
             if (!empty($name)) {
+
                 $value = null;
                 $request = \Idno\Core\Input::getInput($name, $default, $filter);
                 if ($request !== null) {
@@ -121,13 +122,14 @@ namespace Idno\Common {
                 if (($value===null) && ($default!==null)) {
                     $value = $default;
                 }
+
+
                 if (!$value!==null) {
                     if (isset($filter) && is_callable($filter) && empty($request)) {
                         $value = call_user_func($filter, $name, $value);
                     }
 
                     // TODO, we may want to add some sort of system wide default filter for when $filter is null
-
                     return $value;
                 }
             }
