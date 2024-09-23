@@ -223,7 +223,6 @@ namespace Idno\Common {
          */
         function parseJSONPayload()
         {
-
             // First, let's see if we've been sent anything in form input
             if ( \Idno\Core\Idno::site()->request()->request->has('json')) {
                 $json = trim(\Idno\Core\Idno::site()->request()->request->get('json'));
@@ -233,7 +232,8 @@ namespace Idno\Common {
                 }
             }
 
-            if ( \Idno\Core\Idno->request()->getMethod() != 'GET') {
+
+            if ( \Idno\Core\Idno::site()->request()->getMethod() != 'GET') {
                 $body = @file_get_contents('php://input');
                 $body = trim($body);
                 $body = str_replace('[]"', '"', $body); // Fake PHP's array conversion
@@ -244,6 +244,7 @@ namespace Idno\Common {
                     }
                 }
             }
+
 
         }
 
@@ -310,11 +311,13 @@ namespace Idno\Common {
         function get($params = array())
         {
 
+
             \Idno\Core\Idno::site()->session()->publicGatekeeper();
 
             \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
             $this->parseJSONPayload();
+
 
             $arguments = func_get_args();
             if (!empty($arguments)) { $this->arguments = $arguments;
@@ -322,7 +325,6 @@ namespace Idno\Common {
 
             \Idno\Core\Idno::site()->events()->triggerEvent('page/head', array('page' => $this));
             \Idno\Core\Idno::site()->events()->triggerEvent('page/get', array('page_class' => get_called_class(), 'arguments' => $arguments));
-
             $this->getContent();
 
             if (\Idno\Core\Idno::site()->response()->getStatusCode() != 200) {

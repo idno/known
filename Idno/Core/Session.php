@@ -511,7 +511,7 @@ namespace Idno\Core {
                 if (empty($user)) { $user = \Idno\Entities\User::getByEmail(\Idno\Core\Idno::site()->request()->server->get('HTTP_X_KNOWN_USERNAME'));
                 }
                 if (!empty($user)) {
-                    \Idno\Core\Idno::site()->logging()->debug("API auth found user by username: ".{\Idno\Core\Idno::site()->request()->server->has('HTTP_X_KNOWN_USERNAME')." - " . $user->getName());
+                    \Idno\Core\Idno::site()->logging()->debug("API auth found user by username: ".\Idno\Core\Idno::site()->request()->server->has('HTTP_X_KNOWN_USERNAME')." - " . $user->getName());
 
                     $key  = $user->getAPIkey();
                     $hmac = trim(\Idno\Core\Idno::site()->request()->server->has('HTTP_X_KNOWN_SIGNATURE'));
