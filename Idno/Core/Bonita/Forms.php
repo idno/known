@@ -44,18 +44,18 @@ namespace Idno\Core\Bonita {
          */
         public static function validateToken($action = '', $haltExecutionOnBadRequest = true)
         {
-            if (empty($_REQUEST['__bTs']) || empty($_REQUEST['__bTk'])) {
+            if (!\Idno\Core\Idno::site()->request()->request->has('__bTs') || !\Idno\Core\Idno::site()->request()->request->has('__bTk')) {
                 if ($haltExecutionOnBadRequest) {
                     exit;
                 }
 
                 return false;
             }
-            $time = $_REQUEST['__bTs'];
-            $token = $_REQUEST['__bTk'];
+            $time = \Idno\Core\Idno::site()->request()->request->get('__bTs');
+            $token = \Idno\Core\Idno::site()->request()->request->get('__bTk');
             if (empty($action)) {
-                if (!empty($_REQUEST['__bTa'])) {
-                    $action = $_REQUEST['__bTa'];
+                if (\Idno\Core\Idno::site()->request()->request->has('__bTa')) {
+                    $action = \Idno\Core\Idno::site()->request()->request->get('__bTa');
                 } else {
 
                     \Idno\Core\Idno::site()->logging()->debug("No action in token");
@@ -93,7 +93,7 @@ namespace Idno\Core\Bonita {
         public static function formSubmitted()
         {
 
-            if (isset($_REQUEST['__bTk']) && isset($_REQUEST['__bTs'])) {
+            if (\Idno\Core\Idno::site()->request()->request->has('__bTk') && \Idno\Core\Idno::site()->request()->request->has('__bTs')) {
                 return true;
             }
 

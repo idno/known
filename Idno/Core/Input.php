@@ -13,7 +13,7 @@ namespace Idno\Core {
     {
 
         /**
-         * Retrieves input from $_REQUEST, and performs optional filtering.
+         * Retrieves input from http request, and performs optional filtering.
          *
          * @param  string  $name    Name of the input variable
          * @param  mixed   $default A default return value if no value specified (default: null)
