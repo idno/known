@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4b11c5586f4bbaa12e5539653c5b99a5",
+    "content-hash": "a41e1ed19444c0814c13c23f6f7af3d6",
     "packages": [
         {
             "name": "brick/math",
@@ -4319,16 +4319,16 @@
         },
         {
             "name": "tinymce/tinymce",
-            "version": "6.8.3",
+            "version": "7.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tinymce/tinymce-dist.git",
-                "reference": "01d1959b1200e0b872ea078e59ea5abfb5c54100"
+                "reference": "d48b4828c5f66dfb5171a71c47671e0d556dc2b4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/01d1959b1200e0b872ea078e59ea5abfb5c54100",
-                "reference": "01d1959b1200e0b872ea078e59ea5abfb5c54100",
+                "url": "https://api.github.com/repos/tinymce/tinymce-dist/zipball/d48b4828c5f66dfb5171a71c47671e0d556dc2b4",
+                "reference": "d48b4828c5f66dfb5171a71c47671e0d556dc2b4",
                 "shasum": ""
             },
             "type": "component",
@@ -4353,7 +4353,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "MIT-only"
+                "GPL-2.0-or-later"
             ],
             "description": "Web based JavaScript HTML WYSIWYG editor control.",
             "homepage": "https://www.tiny.cloud/",
@@ -4372,9 +4372,9 @@
                 "wysiwyg"
             ],
             "support": {
-                "source": "https://github.com/tinymce/tinymce-dist/tree/6.8.3"
+                "source": "https://github.com/tinymce/tinymce-dist/tree/7.4.0"
             },
-            "time": "2024-02-08T23:33:30+00:00"
+            "time": "2024-10-09T05:28:03+00:00"
         },
         {
             "name": "twbs/bootstrap",
