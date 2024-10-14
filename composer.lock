@@ -1677,10 +1677,10 @@
         },
         {
             "name": "npm-asset/underscore",
-            "version": "1.13.6",
+            "version": "1.13.7",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/underscore/-/underscore-1.13.6.tgz"
+                "url": "https://registry.npmjs.org/underscore/-/underscore-1.13.7.tgz"
             },
             "type": "npm-asset",
             "license": [
