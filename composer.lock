@@ -5196,21 +5196,21 @@
         },
         {
             "name": "mapkyca/known-phpcs",
-            "version": "1.0.0",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mapkyca/known-phpcs.git",
-                "reference": "227009f853de625875ec9d1eb506b30638b3f824"
+                "reference": "57203954347418acca05d75171d1cbae309d07cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/known-phpcs/zipball/227009f853de625875ec9d1eb506b30638b3f824",
-                "reference": "227009f853de625875ec9d1eb506b30638b3f824",
+                "url": "https://api.github.com/repos/mapkyca/known-phpcs/zipball/57203954347418acca05d75171d1cbae309d07cc",
+                "reference": "57203954347418acca05d75171d1cbae309d07cc",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.0",
-                "squizlabs/php_codesniffer": "^3.4"
+                "squizlabs/php_codesniffer": "3.5.8"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -5239,9 +5239,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mapkyca/known-phpcs/issues",
-                "source": "https://github.com/mapkyca/known-phpcs/tree/master"
+                "source": "https://github.com/mapkyca/known-phpcs/tree/1.0.3"
             },
-            "time": "2019-03-15T22:46:10+00:00"
+            "time": "2021-03-14T08:17:40+00:00"
         },
         {
             "name": "mapkyca/mapkyca-known-docker",
@@ -6889,16 +6889,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.10.2",
+            "version": "3.5.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPCSStandards/PHP_CodeSniffer.git",
-                "reference": "86e5f5dd9a840c46810ebe5ff1885581c42a3017"
+                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/86e5f5dd9a840c46810ebe5ff1885581c42a3017",
-                "reference": "86e5f5dd9a840c46810ebe5ff1885581c42a3017",
+                "url": "https://api.github.com/repos/PHPCSStandards/PHP_CodeSniffer/zipball/9d583721a7157ee997f235f327de038e7ea6dac4",
+                "reference": "9d583721a7157ee997f235f327de038e7ea6dac4",
                 "shasum": ""
             },
             "require": {
@@ -6908,11 +6908,11 @@
                 "php": ">=5.4.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.3.4"
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0 || ^7.0"
             },
             "bin": [
-                "bin/phpcbf",
-                "bin/phpcs"
+                "bin/phpcs",
+                "bin/phpcbf"
             ],
             "type": "library",
             "extra": {
@@ -6927,29 +6927,19 @@
             "authors": [
                 {
                     "name": "Greg Sherwood",
-                    "role": "Former lead"
-                },
-                {
-                    "name": "Juliette Reinders Folmer",
-                    "role": "Current lead"
-                },
-                {
-                    "name": "Contributors",
-                    "homepage": "https://github.com/PHPCSStandards/PHP_CodeSniffer/graphs/contributors"
+                    "role": "lead"
                 }
             ],
             "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
-            "homepage": "https://github.com/PHPCSStandards/PHP_CodeSniffer",
+            "homepage": "https://github.com/squizlabs/PHP_CodeSniffer",
             "keywords": [
                 "phpcs",
-                "standards",
-                "static analysis"
+                "standards"
             ],
             "support": {
-                "issues": "https://github.com/PHPCSStandards/PHP_CodeSniffer/issues",
-                "security": "https://github.com/PHPCSStandards/PHP_CodeSniffer/security/policy",
-                "source": "https://github.com/PHPCSStandards/PHP_CodeSniffer",
-                "wiki": "https://github.com/PHPCSStandards/PHP_CodeSniffer/wiki"
+                "issues": "https://github.com/squizlabs/PHP_CodeSniffer/issues",
+                "source": "https://github.com/squizlabs/PHP_CodeSniffer",
+                "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
             "funding": [
                 {
@@ -6965,7 +6955,7 @@
                     "type": "open_collective"
                 }
             ],
-            "time": "2024-07-21T23:26:44+00:00"
+            "time": "2020-10-23T02:01:07+00:00"
         },
         {
             "name": "symfony/finder",
