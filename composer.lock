@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "578af8017aeb183838bac806c7599440",
+    "content-hash": "5522d8119b642376fa1496186a8173bc",
     "packages": [
         {
             "name": "brick/math",
@@ -1665,10 +1665,10 @@
         },
         {
             "name": "npm-asset/tinymce--tinymce-jquery",
-            "version": "2.0.1-patch20221215235251599",
+            "version": "2.1.0",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/@tinymce/tinymce-jquery/-/tinymce-jquery-2.0.1-feature.20221215235251599.shaaa84a5c.tgz"
+                "url": "https://registry.npmjs.org/@tinymce/tinymce-jquery/-/tinymce-jquery-2.1.0.tgz"
             },
             "type": "npm-asset",
             "license": [
