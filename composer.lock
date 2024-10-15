@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5522d8119b642376fa1496186a8173bc",
+    "content-hash": "a60591ceae0937d1be2f49bf8253f7a7",
     "packages": [
         {
             "name": "brick/math",
@@ -1613,10 +1613,10 @@
         },
         {
             "name": "npm-asset/mediaelement",
-            "version": "7.0.3",
+            "version": "7.0.5",
             "dist": {
                 "type": "tar",
-                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-7.0.3.tgz"
+                "url": "https://registry.npmjs.org/mediaelement/-/mediaelement-7.0.5.tgz"
             },
             "require": {
                 "npm-asset/global": ">=4.3.1,<5.0.0",
