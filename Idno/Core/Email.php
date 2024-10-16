@@ -37,7 +37,7 @@ namespace Idno\Core {
         function setFrom($email, $name = '')
         {
             if (!empty($name)) {
-                return $this->message->addFrom(array($name => $email));
+                return $this->message->addFrom($email,$name);
             }
 
             return $this->message->addFrom($email);
@@ -53,7 +53,7 @@ namespace Idno\Core {
         function addTo($email, $name = '')
         {
             if (!empty($name)) {
-                return $this->message->addTo(array($name => $email));
+                return $this->message->addTo($email,$name);
             }
 
             return $this->message->addTo($email);
@@ -80,7 +80,7 @@ namespace Idno\Core {
         function setReplyTo($email, $name = '')
         {
             if (!empty($name)) {
-                return $this->message->addReplyTo(array($name => $email));
+                return $this->message->addReplyTo($email,$name);
             }
 
             return $this->message->addReplyTo($email);
@@ -126,8 +126,8 @@ namespace Idno\Core {
         /**
          * Set the text only component of an email.
          *
-         * @param  type $template_name
-         * @param  type $vars
+         * @param  string $template_name
+         * @param  string $vars
          * @return mixed
          */
         function setTextBodyFromTemplate($template_name, $vars = array())

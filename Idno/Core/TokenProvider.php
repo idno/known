@@ -21,8 +21,8 @@ namespace Idno\Core {
         /**
          * Generate a cryptographically secure random token.
          *
-         * @param  type $length Length in bytes
-         * @return bytes
+         * @param  int $length Length in bytes
+         * @return string bytes
          * @throws \Exception If cryptographic functions are not strong enough.
          */
         function generateToken($length)
@@ -43,7 +43,7 @@ namespace Idno\Core {
          * to output the whole thing since all you really want to know is if they're similar to another.
          *
          * @param  string $token
-         * @return retacted token
+         * @return string retacted token
          */
         public static function truncateToken($token)
         {

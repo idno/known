@@ -244,7 +244,6 @@ namespace Idno\Core {
                 foreach (\Idno\Core\Idno::site()->request()->server->all() as $name => $val) {
                     if (substr($name, 0, 6) == 'KNOWN_') {
                         $name                    = strtolower(str_replace('KNOWN_', '', $name));
-                        $val                     = $val;
                         $this->ini_config[$name] = $val;
                     }
                 }
@@ -650,7 +649,7 @@ namespace Idno\Core {
          */
         function hasSSL()
         {
-            if (substr_count(site()->config()->getURL(), 'https://') || !empty($this->config()->force_ssl)) {
+            if (substr_count(site()->config()->getURL(), 'https://') || !empty($this->config->force_ssl)) {
                 return true;
             }
 

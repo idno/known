@@ -44,6 +44,8 @@ namespace Idno\Core {
         private $statistics;
         private $site_details;
 
+        private $themes;
+
         private $request;
         private $response;
 
@@ -437,7 +439,7 @@ namespace Idno\Core {
          * Helper function that returns the current configuration object
          * for this site (or a configuration setting value)
          *
-         * @param The configuration setting value to retrieve (optional)
+         * @param $setting The configuration setting value to retrieve (optional)
          *
          * @return \Idno\Core\Config|array
          */

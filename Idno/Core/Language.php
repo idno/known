@@ -10,21 +10,21 @@ namespace Idno\Core {
         /**
          * Language associated array of translation objects.
          *
-         * @var type
+         * @var array
          */
         private $translations = [];
 
         /**
          * Current language
          *
-         * @var type
+         * @var string
          */
         private $language;
 
         /**
          * Construct a language object
          *
-         * @param type $language
+         * @param string $language
          */
         public function __construct($language = null)
         {
@@ -32,7 +32,7 @@ namespace Idno\Core {
             if (!empty($session)) {
                 if ($user = \Idno\Core\Idno::site()->session()->currentUser()) {
                     if (!empty($user->language)) {
-                        return $user->language;
+                        $language = $user->language;
                     }
                 }
             }
@@ -67,7 +67,7 @@ namespace Idno\Core {
         /**
          * Return a translated string, substituting variables in subs in the format of sprintf.
          *
-         * @param  type  $string String to translate
+         * @param  string  $string String to translate
          * @param  array $subs   List of substitution variables to be used in the translated string
          * @return string
          */
@@ -79,7 +79,7 @@ namespace Idno\Core {
         /**
          * Return an ESCAPED translated string, substituting variables in subs in the format of sprintf.
          *
-         * @param  type  $string String to translate
+         * @param  string  $string String to translate
          * @param  array $subs   List of substitution variables to be used in the translated string
          * @return string
          */
