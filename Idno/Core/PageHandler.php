@@ -239,7 +239,7 @@ namespace Idno\Core {
          */
         static function hook(string $hookName, callable $callable)
         {
-            \ToroHook::add($hookName, $callable);
+            Hook::add($hookName, $callable);
         }
 
         // ArrayAccess & Iterator interfaces ////////

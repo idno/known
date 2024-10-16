@@ -43,7 +43,7 @@ namespace Idno\Pages\Admin {
                 $config->config['smtp_password']   = '** REDACTED **';
 
                 $report .= "\nRunning config:\n---------------\n" . var_export($config, true) . "\n\n";
-                $report .= "\$_SESSION:\n----------\n" . var_export($_SESSION, true) . "\n\n";
+                $report .= "\$SESSION:\n----------\n" . var_export(\Idno\Core\Idno::site()->session()->all(), true) . "\n\n";
                 $report .= "\SERVER:\n---------\n" . var_export(\Idno\Core\Idno::site()->request()->server->all(), true) . "\n\n";
 
                 // Hook so other plugins and subsystems can add their own data to the report.

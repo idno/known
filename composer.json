@@ -27,7 +27,6 @@
         "ext-gettext": "*",
         "mapkyca/php-ogp": "^1.0",
         "psr/log": "~3.0",
-        "idno/torophp": "^3.0",
         "mf2/mf2": "0.5.0",
         "swiftmailer/swiftmailer": "6.3.0",
         "forkawesome/fork-awesome": "1.2",
