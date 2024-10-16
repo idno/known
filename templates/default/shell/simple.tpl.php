@@ -92,7 +92,7 @@ if (empty($vars['description'])) {
     <body class="<?php
 
         echo (str_replace('\\', '_', strtolower(get_class(\Idno\Core\Idno::site()->currentPage()))));
-    if ($path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)) {
+    if ($path = parse_url(\Idno\Core\Idno::site()->request()->getUri(), PHP_URL_PATH)) {
         if ($path = explode('/', $path)) {
             $page_class = '';
             foreach($path as $element) {

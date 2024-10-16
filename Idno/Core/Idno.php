@@ -1,16 +1,19 @@
 <?php
 
-    /**
-     * Base Idno class
-     *
-     * @package    idno
-     * @subpackage core
-     */
+/**
+ * Base Idno class
+ *
+ * @package    idno
+ * @subpackage core
+ */
 
 namespace Idno\Core {
 
     use Idno\Common\Page;
     use Idno\Entities\User;
+    use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\HttpFoundation\Response;
+    use Symfony\Component\HttpFoundation\RedirectResponse;
 
     class Idno extends \Idno\Common\Component
     {
@@ -41,6 +44,11 @@ namespace Idno\Core {
         private $statistics;
         private $site_details;
 
+        private $themes;
+
+        private $request;
+        private $response;
+
         function __construct()
         {
             parent::__construct();
@@ -51,13 +59,15 @@ namespace Idno\Core {
 
         function init()
         {
-            self::$site       = $this;
-            $this->routes     = new PageHandler();
+            self::$site = $this;
+            $this->request = Request::createFromGlobals();
+            $this->response = new Response();
+            $this->routes = new PageHandler();
             $this->dispatcher = new EventDispatcher();
-            $this->config     = new Config();
+            $this->config = new Config();
             if ($this->config->isDefaultConfig()) {
-                header('Location: ./warmup/');
-                exit; // Load the installer
+                $this->redirect('./warmup/');
+                $this->sendResponse(); // Load the installer
             }
 
             // We need to load initial values from the .ini files
@@ -72,12 +82,12 @@ namespace Idno\Core {
                     $this->db = new \Idno\Data\MySQL();
                     break;
                 case 'beanstalk-mysql': // A special instance of MYSQL designed for use with Amazon Elastic Beanstalk
-                    $this->config->dbhost = $_SERVER['RDS_HOSTNAME'];
-                    $this->config->dbuser = $_SERVER['RDS_USERNAME'];
-                    $this->config->dbpass = $_SERVER['RDS_PASSWORD'];
-                    $this->config->dbport = $_SERVER['RDS_PORT'];
+                    $this->config->dbhost = \Idno\Core\Idno::site()->request()->server->get('RDS_HOSTNAME'); ;
+                    $this->config->dbuser = \Idno\Core\Idno::site()->request()->server->get('RDS_USERNAME');
+                    $this->config->dbpass = \Idno\Core\Idno::site()->request()->server->get('RDS_PASSWORD');
+                    $this->config->dbport = \Idno\Core\Idno::site()->request()->server->get('RDS_PORT');
                     if (empty($this->config->dbname)) {
-                        $this->config->dbname = $_SERVER['RDS_DB_NAME'];
+                        $this->config->dbname = \Idno\Core\Idno::site()->request()->server->get('RDS_DB_NAME');
                     }
                     $this->db = new \Idno\Data\MySQL();
                     break;
@@ -112,17 +122,17 @@ namespace Idno\Core {
                 $this->logging->setLogLevel($this->config->loglevel);
             }
 
-            $this->session      = new Session();
-            $this->actions      = new Actions();
+            $this->session = new Session();
+            $this->actions = new Actions();
             $this->site_details = $this->site_details();
-            $this->template     = $this->componentFactory($this->config->template, Template::class, "Idno\\Core\\", HybridTwigTemplate::class);
-            $this->language     = new Language();
-                $this->language()->register(new GetTextTranslation()); // Register default gettext translations
-            $this->syndication  = new Syndication();
-            $this->reader       = new Reader();
+            $this->template = $this->componentFactory($this->config->template, Template::class, "Idno\\Core\\", HybridTwigTemplate::class);
+            $this->language = new Language();
+            $this->language()->register(new GetTextTranslation()); // Register default gettext translations
+            $this->syndication = new Syndication();
+            $this->reader = new Reader();
             $this->helper_robot = new HelperRobot();
-            $this->queue        = $this->componentFactory($this->config->event_queue, "Idno\\Core\\EventQueue", "Idno\\Core\\", "Idno\\Core\\SynchronousQueue");
-            $this->statistics   = $this->componentFactory($this->config->statistics_collector, "Idno\\Stats\\StatisticsCollector", "Idno\\Stats\\", "Idno\\Stats\\DummyStatisticsCollector");
+            $this->queue = $this->componentFactory($this->config->event_queue, "Idno\\Core\\EventQueue", "Idno\\Core\\", "Idno\\Core\\SynchronousQueue");
+            $this->statistics = $this->componentFactory($this->config->statistics_collector, "Idno\\Stats\\StatisticsCollector", "Idno\\Stats\\", "Idno\\Stats\\DummyStatisticsCollector");
 
             // Log some page statistics
             \Idno\Stats\Timer::start('script');
@@ -144,7 +154,8 @@ namespace Idno\Core {
 
             // No URL is a critical error, default base fallback is now a warning (Refs #526)
             if (!defined('KNOWN_CONSOLE')) {
-                if (!$this->config->url) { throw new \Idno\Exceptions\ConfigurationException('Known was unable to work out your base URL! You might try setting url="http://yourdomain.com/" in your config.ini');
+                if (!$this->config->url) {
+                    throw new \Idno\Exceptions\ConfigurationException('Known was unable to work out your base URL! You might try setting url="http://yourdomain.com/" in your config.ini');
                 }
                 if ($this->config->url == '/') {
                     $this->logging->warning(
@@ -160,11 +171,12 @@ namespace Idno\Core {
             if (empty(site()->session()->hub_connect)) {
                 site()->session()->hub_connect = 0;
             }
-            if (!empty($this->config->known_hub)
-                && !substr_count($_SERVER['REQUEST_URI'], '.')
+            if (
+                !empty($this->config->known_hub)
+                && !substr_count(\Idno\Core\Idno::site()->request()->getRequestUri(), '.')
                 && $this->config->known_hub != $this->config->url
             ) {
-                site()->session()->hub_connect     = time();
+                site()->session()->hub_connect = time();
                 \Idno\Core\Idno::site()->known_hub = new \Idno\Core\Hub($this->config->known_hub);
                 \Idno\Core\Idno::site()->hub()->connect();
             }
@@ -181,7 +193,7 @@ namespace Idno\Core {
 
             /**
              * Homepage
-            */
+             */
             $this->routes()->addRoute('/?', '\Idno\Pages\Homepage');
             $this->routes()->addRoute('/feed\.xml', '\Idno\Pages\Feed');
             $this->routes()->addRoute('/feed/?', '\Idno\Pages\Feed');
@@ -190,7 +202,7 @@ namespace Idno\Core {
 
             /**
              * Individual entities / posting / deletion
-            */
+             */
             $this->routes()->addRoute('/view/:id/?', '\Idno\Pages\Entity\View');
             $this->routes()->addRoute('/s/:id/?', '\Idno\Pages\Entity\Shortlink');
             $this->routes()->addRoute($permalink_route . '/?', '\Idno\Pages\Entity\View');
@@ -202,32 +214,32 @@ namespace Idno\Core {
 
             /**
              * Annotations
-            */
+             */
             $this->routes()->addRoute('/view/:id/annotations/:id?', '\Idno\Pages\Annotation\View');
             $this->routes()->addRoute($permalink_route . '/annotations/:id?', '\Idno\Pages\Annotation\View');
             $this->routes()->addRoute($permalink_route . '/annotations/:id/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation
-            $this->routes()->addRoute($permalink_route .'/annotation/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation alternate
+            $this->routes()->addRoute($permalink_route . '/annotation/delete/?', '\Idno\Pages\Annotation\Delete'); // Delete annotation alternate
             $this->routes()->addRoute('/annotation/post/?', '\Idno\Pages\Annotation\Post');
 
             /**
              * Bookmarklets and sharing
-            */
+             */
             $this->routes()->addRoute('/share/?', '\Idno\Pages\Entity\Share');
             $this->routes()->addRoute('/bookmarklet\.js', '\Idno\Pages\Entity\Bookmarklet', true);
 
             /**
              * Mobile integrations
-            */
+             */
             $this->routes()->addRoute('/chrome/manifest\.json', '\Idno\Pages\Chrome\Manifest', true);
 
             /**
              * Service worker
-            */
+             */
             $this->routes()->addRoute('/service-worker(\.min)?\.js', '\Idno\Pages\Chrome\ServiceWorker', true);
 
             /**
              * Files
-            */
+             */
             $this->routes()->addRoute('/file/mint/?', \Idno\Pages\File\Mint::class);
             $this->routes()->addRoute('/file/upload/?', '\Idno\Pages\File\Upload', true);
             $this->routes()->addRoute('/file/picker/?', '\Idno\Pages\File\Picker', true);
@@ -236,7 +248,7 @@ namespace Idno\Core {
 
             /**
              * Users
-            */
+             */
             $this->routes()->addRoute('/profile/([^\/]+)/?', '\Idno\Pages\User\View');
             $this->routes()->addRoute('/profile/([^\/]+)/edit/?', '\Idno\Pages\User\Edit');
             $this->routes()->addRoute('/profile/([^\/]+)/([A-Za-z\-\/]+)+', '\Idno\Pages\User\View');
@@ -244,7 +256,7 @@ namespace Idno\Core {
 
             /**
              * Search
-            */
+             */
             $this->routes()->addRoute('/search/?', '\Idno\Pages\Search\Forward');
             $this->routes()->addRoute('/search/mentions\.json', '\Idno\Pages\Search\Mentions');
             $this->routes()->addRoute('/tag/([^\s]+)\/?', '\Idno\Pages\Search\Tags');
@@ -252,17 +264,17 @@ namespace Idno\Core {
 
             /**
              * robots.txt
-            */
+             */
             $this->routes()->addRoute('/robots\.txt', '\Idno\Pages\Txt\Robots');
 
             /**
              * Autosave / preview
-            */
+             */
             $this->routes()->addRoute('/autosave/?', '\Idno\Pages\Entity\Autosave');
 
             /**
              * Installation / first use
-            */
+             */
             $this->routes()->addRoute('/begin/?', '\Idno\Pages\Onboarding\Begin', true);
             $this->routes()->addRoute('/begin/register/?', '\Idno\Pages\Onboarding\Register', true);
             $this->routes()->addRoute('/begin/profile/?', '\Idno\Pages\Onboarding\Profile');
@@ -272,7 +284,7 @@ namespace Idno\Core {
 
             /**
              * Add some services
-            */
+             */
             $this->routes()->addRoute('/service/db/optimise/?', '\Idno\Pages\Service\Db\Optimise');
             $this->routes()->addRoute('/service/vendor/messages/?', '\Idno\Pages\Service\Vendor\Messages');
             $this->routes()->addRoute('/service/security/csrftoken/?', '\Idno\Pages\Service\Security\CSRFToken');
@@ -284,7 +296,7 @@ namespace Idno\Core {
 
             // These must be loaded last
             $this->plugins = new Plugins();
-            $this->themes  = new Themes();
+            $this->themes = new Themes();
         }
 
         /**
@@ -292,7 +304,7 @@ namespace Idno\Core {
          *
          * @return \Idno\Core\DataConcierge
          */
-        function &db() : ?DataConcierge
+        function &db(): ?DataConcierge
         {
             return $this->db;
         }
@@ -302,9 +314,54 @@ namespace Idno\Core {
          *
          * @return \Idno\Core\EventDispatcher
          */
-        function &events() : ?EventDispatcher
+        function &events(): ?EventDispatcher
         {
             return $this->dispatcher;
+        }
+
+        /**
+         * Return the request object loaded as part of this site
+         *
+         * @return Request
+         */
+        function &request(): ?Request
+        {
+            return $this->request;
+        }
+
+        /** 
+         * Return the response object loaded as part of this site
+         *
+         * @return Response
+         */
+        function &response(): ?Response
+        {
+            return $this->response;
+        }
+
+        /**
+         * Redirect to a new URL
+         *
+         * @param string $url
+         */
+        function &redirect($url)
+        {
+            $this->response = new RedirectResponse($url);
+            \Idno\Core\Idno::site()->sendResponse();
+
+        }
+
+
+
+        /**
+         * Send the response
+         */
+        function &sendResponse()
+        {
+            $this->response = \Idno\Core\Idno::site()->events()->triggerEvent('response/before', ['response' => $this->response()],$this->response());
+            // Delay sending response so that it can be modified if required
+            $this->response->send();
+
         }
 
         /**
@@ -313,7 +370,7 @@ namespace Idno\Core {
          *
          * @return \Idno\Core\EventQueue
          */
-        function &queue() : ?EventQueue
+        function &queue(): ?EventQueue
         {
             return $this->queue;
         }
@@ -323,7 +380,7 @@ namespace Idno\Core {
          *
          * @return \Idno\Files\FileSystem
          */
-        function &filesystem() : ? \Idno\Files\FileSystem
+        function &filesystem(): ?\Idno\Files\FileSystem
         {
             return $this->filesystem;
         }
@@ -333,7 +390,7 @@ namespace Idno\Core {
          *
          * @return \Idno\Core\Hub
          */
-        function &hub() : ?Hub
+        function &hub(): ?Hub
         {
             return $this->known_hub;
         }
@@ -343,7 +400,7 @@ namespace Idno\Core {
          *
          * @return \Idno\Core\Logging
          */
-        function &logging() : ?Logging
+        function &logging(): ?Logging
         {
             return $this->logging;
         }
@@ -353,7 +410,7 @@ namespace Idno\Core {
          *
          * @return \Idno\Caching\PersistentCache
          */
-        function &cache() : ?\Idno\Caching\PersistentCache
+        function &cache(): ?\Idno\Caching\PersistentCache
         {
             return $this->cache;
         }
@@ -363,7 +420,7 @@ namespace Idno\Core {
          *
          * @return \Idno\Stats\StatisticsCollector
          */
-        function &statistics() : ?\Idno\Stats\StatisticsCollector
+        function &statistics(): ?\Idno\Stats\StatisticsCollector
         {
             return $this->statistics;
         }
@@ -373,7 +430,7 @@ namespace Idno\Core {
          *
          * @return \Idno\Core\PageHandler
          */
-        function &routes() : ?PageHandler
+        function &routes(): ?PageHandler
         {
             return $this->routes;
         }
@@ -382,7 +439,7 @@ namespace Idno\Core {
          * Helper function that returns the current configuration object
          * for this site (or a configuration setting value)
          *
-         * @param The configuration setting value to retrieve (optional)
+         * @param $setting The configuration setting value to retrieve (optional)
          *
          * @return \Idno\Core\Config|array
          */
@@ -400,7 +457,7 @@ namespace Idno\Core {
          *
          * @return \Idno\Core\Syndication
          */
-        function &syndication() : ?Syndication
+        function &syndication(): ?Syndication
         {
             return $this->syndication;
         }
@@ -410,7 +467,7 @@ namespace Idno\Core {
          *
          * @return \Idno\Core\Session
          */
-        function &session() : ?Session
+        function &session(): ?Session
         {
             return $this->session;
         }
@@ -420,7 +477,7 @@ namespace Idno\Core {
          *
          * @return \Idno\Core\Plugins
          */
-        function &plugins() : ?Plugins
+        function &plugins(): ?Plugins
         {
             return $this->plugins;
         }
@@ -430,7 +487,7 @@ namespace Idno\Core {
          *
          * @return \Idno\Core\Themes
          */
-        function &themes() : ?Themes
+        function &themes(): ?Themes
         {
             return $this->themes;
         }
@@ -441,7 +498,7 @@ namespace Idno\Core {
          * @return \Idno\Core\Template
          */
 
-        function &template() : ?Template
+        function &template(): ?Template
         {
             return $this->template;
         }
@@ -451,7 +508,7 @@ namespace Idno\Core {
          *
          * @return \Idno\Core\Language
          */
-        function &language() : ?Language
+        function &language(): ?Language
         {
             if (empty($this->language)) {
                 $this->language = new Language();
@@ -465,7 +522,7 @@ namespace Idno\Core {
          *
          * @return \Idno\Core\Actions
          */
-        function &actions() : ?Actions
+        function &actions(): ?Actions
         {
             return $this->actions;
         }
@@ -475,7 +532,7 @@ namespace Idno\Core {
          *
          * @return \Idno\Core\Reader
          */
-        function &reader() : ?Reader
+        function &reader(): ?Reader
         {
             return $this->reader;
         }
@@ -483,7 +540,7 @@ namespace Idno\Core {
         /**
          * Return the site object for the current site, creating a new entry if one doesn't exist.
          */
-        function &site_details() : ? Site
+        function &site_details(): ?Site
         {
             if (empty($this->site_details)) {
 
@@ -491,7 +548,7 @@ namespace Idno\Core {
 
                 if (!empty($domain) && !empty($this->session())) {
 
-                    $this->site_details = Site::getOne([ 'domain' => $domain ]);
+                    $this->site_details = Site::getOne(['domain' => $domain]);
 
                     if (empty($this->site_details)) {
 
@@ -545,7 +602,8 @@ namespace Idno\Core {
          */
         function canEdit($user_id = '')
         {
-            if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) { return false;
+            if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) {
+                return false;
             }
 
             if (empty($user_id)) {
@@ -555,11 +613,13 @@ namespace Idno\Core {
             if ($user = \Idno\Entities\User::getByUUID($user_id)) {
 
                 return \Idno\Core\Idno::site()->events()->triggerEvent(
-                    'canEdit/site', [
-                    'object' => $this,
-                    'user_id' => $user_id,
-                    'user' => $user
-                    ], (function () use ($user) {
+                    'canEdit/site',
+                    [
+                        'object' => $this,
+                        'user_id' => $user_id,
+                        'user' => $user
+                    ],
+                    (function () use ($user) {
 
                         if ($user->isAdmin()) {
                             return true;
@@ -584,7 +644,8 @@ namespace Idno\Core {
          */
         function canWrite($user_id = '')
         {
-            if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) { return false;
+            if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) {
+                return false;
             }
 
             if (empty($user_id)) {
@@ -595,11 +656,13 @@ namespace Idno\Core {
 
                 // Make site level canWrite extensible
                 return \Idno\Core\Idno::site()->events()->triggerEvent(
-                    'canWrite/site', [
-                    'object' => $this,
-                    'user_id' => $user_id,
-                    'user' => $user
-                    ], (function () use ($user) {
+                    'canWrite/site',
+                    [
+                        'object' => $this,
+                        'user_id' => $user_id,
+                        'user' => $user
+                    ],
+                    (function () use ($user) {
 
                         // Remote users can't ever create anything :( - for now
                         if ($user instanceof \Idno\Entities\RemoteUser) {
@@ -645,23 +708,23 @@ namespace Idno\Core {
          *
          * @returns array An associative array of various icons => url
          */
-        function getSiteIcons() : array
+        function getSiteIcons(): array
         {
             $icons = [];
 
             // Set our defaults (TODO: Set these cleaner, perhaps through the template system)
             $icons['defaults'] = [
-                'default'     => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k.png',
-                'default_16'  => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_16.png',
-                'default_32'  => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_32.png',
-                'default_36'  => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_36.png',
-                'default_48'  => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_48.png',
-                'default_64'  => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_64.png',
-                'default_96'  => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_96.png',
+                'default' => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k.png',
+                'default_16' => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_16.png',
+                'default_32' => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_32.png',
+                'default_36' => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_36.png',
+                'default_48' => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_48.png',
+                'default_64' => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_64.png',
+                'default_96' => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/logo_k_96.png',
 
                 // Apple logos
-                'default_57'  => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/apple-icon-57x57.png',
-                'default_72'  => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/apple-icon-72x72.png',
+                'default_57' => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/apple-icon-57x57.png',
+                'default_72' => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/apple-icon-72x72.png',
                 'default_114' => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/apple-icon-114x114.png',
                 'default_144' => \Idno\Core\Idno::site()->config()->getStaticURL() . 'gfx/logos/apple-icon-144x144.png',
 
@@ -687,15 +750,15 @@ namespace Idno\Core {
         function embedded()
         {
             if (site()->currentPage()->getInput('unembed')) {
-                $_SESSION['embedded'] = false;
+                $this->session->set('embedded', false);
 
                 return false;
             }
-            if (!empty($_SESSION['embedded'])) {
+            if ($this->session->has('embedded')) {
                 return true;
             }
             if (site()->currentPage()->getInput('embedded')) {
-                $_SESSION['embedded'] = true;
+                $this->session->set('embedded', true);
 
                 return true;
             }
@@ -716,12 +779,14 @@ namespace Idno\Core {
 
             if ($last_update < $machine_version) {
 
-                if ($this->events()->triggerEvent(
-                    'upgrade', [
-                    'last_update' => $last_update,
-                    'new_version' => $machine_version
-                    ]
-                )
+                if (
+                    $this->events()->triggerEvent(
+                        'upgrade',
+                        [
+                            'last_update' => $last_update,
+                            'new_version' => $machine_version
+                        ]
+                    )
                 ) {
 
                     // Save updated
@@ -748,10 +813,14 @@ namespace Idno\Core {
         /**
          * Helper method that returns the current site object
          *
-         * @return \Idno\Core\Idno $site
+         * @return \Idno\Core\Idno | \Idno\Core\IdnoFoundation $site
          */
-        static function &site() : ?Idno
+        static function &site():Idno|IdnoFoundation
         {
+            // Workaround for wormup to work 
+            if(empty(self::$site)){
+                self::$site = new IdnoFoundation();
+            }
             return self::$site;
         }
 
@@ -764,7 +833,7 @@ namespace Idno\Core {
          * @param string $defaultClassNameBase If a full namespace is not provided in $configValue, use this value as base class namespace
          * @param string $defaultClass         If class could not be constructed, return a new instance of this class name
          */
-        public function componentFactory($className, $expectedBaseClass = "Idno\\Common\\Component" , $defaultClassNameBase = "Idno\\Core\\", $defaultClass = null)
+        public function componentFactory($className, $expectedBaseClass = "Idno\\Common\\Component", $defaultClassNameBase = "Idno\\Core\\", $defaultClass = null)
         {
 
             $component = null;
@@ -803,7 +872,7 @@ namespace Idno\Core {
 
                     // validate
                     if (!is_subclass_of($component, $expectedBaseClass)) {
-                            $component = null;
+                        $component = null;
                     }
                 }
             }
@@ -828,7 +897,7 @@ namespace Idno\Core {
      * @deprecated Use \Idno\Core\Idno::site()
      * @return     \Idno\Core\Idno $site
      */
-    function &site() : Idno
+    function &site(): Idno
     {
         return \Idno\Core\Idno::site();
     }

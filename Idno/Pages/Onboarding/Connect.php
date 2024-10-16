@@ -16,11 +16,10 @@ namespace Idno\Pages\Onboarding {
 
             //if ($services = \Idno\Core\Idno::site()->syndication()->getServices()) {
             $user = \Idno\Core\Idno::site()->session()->currentUser();
-
-            $_SESSION['onboarding_passthrough'] = true;
+            \Idno\Core\Idno::site()->session()->set('onboarding_passthrough', true);
 
             $t = \Idno\Core\Idno::site()->template();
-            echo $t->__(
+            $content = $t->__(
                 array(
 
                 'title'    => \Idno\Core\Idno::site()->language()->_("Connect some networks"),
@@ -29,6 +28,7 @@ namespace Idno\Pages\Onboarding {
 
                 )
             )->draw('shell/simple');
+            \Idno\Core\Idno::site()->response()->setContent($content);
             //} else {
             //    $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'begin/publish');
             //}

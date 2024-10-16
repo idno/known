@@ -15,12 +15,13 @@ namespace Idno\Pages\Webmentions {
         function getContent()
         {
             $t = \Idno\Core\Idno::site()->template();
-            $t->__(
+            $content = $t->__(
                 [
                 'title' => \Idno\Core\Idno::site()->language()->_('Webmention endpoint'),
                 'body' => $t->draw('pages/webmention')
                 ]
-            )->drawPage();
+            )->drawPage(false);
+            \Idno\Core\Idno::site()->response()->setContent($content);
         }
 
         function post()
@@ -103,7 +104,7 @@ namespace Idno\Pages\Webmentions {
                 $error      = 'unknown_error';
                 $error_text = 'Not all the required webmention variables were set.';
             }
-            echo json_encode(array('error' => $error, 'error_text' => $error_text));
+            \Idno\Core\Idno::site()->response()->setJsonContent(json_encode(array('error' => $error, 'error_text' => $error_text)));
         }
 
     }

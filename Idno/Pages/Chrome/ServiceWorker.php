@@ -17,11 +17,11 @@ namespace Idno\Pages\Chrome {
         function getContent()
         {
 
-            header('Content-Type: application/javascript');
+            \Idno\Core\Idno::site()->response()->headers->set('Content-Type', 'application/javascript');
             if (!empty($this->arguments[0])) {
-                echo file_get_contents(\Idno\Core\Idno::site()->config()->path . '/js/service-worker.min.js');
+                \Idno\Core\Idno::site()->response()->setContent(file_get_contents(\Idno\Core\Idno::site()->config()->path . '/js/service-worker.min.js'));
             } else {
-                echo file_get_contents(\Idno\Core\Idno::site()->config()->path . '/js/service-worker.js');
+                \Idno\Core\Idno::site()->response()->setContent(file_get_contents(\Idno\Core\Idno::site()->config()->path . '/js/service-worker.js'));
             }
 
         }

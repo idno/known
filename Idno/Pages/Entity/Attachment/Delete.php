@@ -34,7 +34,7 @@ namespace Idno\Pages\Entity\Attachment {
                 $this->noContent();
             }
 
-            $this->forward($_SERVER['HTTP_REFERER']);
+            $this->forward(\Idno\Core\Idno::site()->request()->server->get('HTTP_REFERER'));
         }
 
     }

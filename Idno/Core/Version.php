@@ -59,7 +59,7 @@ namespace Idno\Core {
         /**
          * Return the machine version.
          *
-         * @return type
+         * @return string
          */
         public static function build()
         {

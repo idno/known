@@ -22,8 +22,8 @@ namespace Idno\Core {
         /**
          * Create a basic logger to log to the PHP log.
          *
-         * @param type $loglevel_filter Log levels to show 0 - off, 1 - errors, 2 - errors & warnings, 3 - errors, warnings and info, 4 - 3 + debug
-         * @param type $identifier      Identify this site in the log (defaults to current domain)
+         * @param int $loglevel_filter Log levels to show 0 - off, 1 - errors, 2 - errors & warnings, 3 - errors, warnings and info, 4 - 3 + debug
+         * @param string $identifier      Identify this site in the log (defaults to current domain)
          */
         public function __construct($loglevel_filter = 0, $identifier = null)
         {
@@ -74,7 +74,6 @@ namespace Idno\Core {
                         case E_NOTICE:
                         case E_DEPRECATED:
                         case E_USER_DEPRECATED:
-                        case E_STRICT:
                         case E_USER_NOTICE:
                             $this->notice($message);
                             break;
@@ -320,8 +319,8 @@ namespace Idno\Core {
         /**
          * (attempt) to send, if configured, a message when a fatal error occurs, or an exception is caught.
          *
-         * @param type $message
-         * @param type $title
+         * @param string $message
+         * @param string $title
          */
         public static function oopsAlert($message, $title = "")
         {
@@ -354,16 +353,16 @@ namespace Idno\Core {
                             $vars['user'] = \Idno\Core\Idno::site()->session()->currentUserUUID();
                         }
 
-                        if (!empty($_SERVER['HTTP_USER_AGENT'])) {
-                            $vars['agent'] = $_SERVER['HTTP_USER_AGENT'];
+                        if (\Idno\Core\Idno::site()->request()->server->has('HTTP_USER_AGENT')) {
+                            $vars['agent'] = \Idno\Core\Idno::site()->request()->server->get('HTTP_USER_AGENT');
                         }
 
-                        if (!empty($_SERVER['QUERY_STRING'])) {
-                            $vars['qs'] = $_SERVER['QUERY_STRING'];
+                        if (\Idno\Core\Idno::site()->request()->server->has('QUERY_STRING')) {
+                            $vars['qs'] = \Idno\Core\Idno::site()->request()->server->get('QUERY_STRING');
                         }
 
-                        if (!empty($_SERVER['HTTP_REFERER'])) {
-                            $vars['referrer'] = $_SERVER['HTTP_REFERER'];
+                        if (\Idno\Core\Idno::site()->request()->server->has('HTTP_REFERER')) {
+                            $vars['referrer'] = \Idno\Core\Idno::site()->request()->server->get('HTTP_REFERER');
                         }
 
                         $email = new Email();

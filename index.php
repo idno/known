@@ -14,6 +14,7 @@
  * @subpackage core
  */
 
+
 // Check PHP version first of all
 if (version_compare(phpversion(), '7.2', '<')) {
     http_response_code(500);
@@ -30,7 +31,6 @@ if (version_compare(phpversion(), '7.2', '<')) {
 require_once dirname(__FILE__) . '/Idno/start.php';
 
 // Get page routes
-
 $routes = \Idno\Core\Idno::site()->routes();
 
 // Get subdirectory
@@ -50,13 +50,13 @@ if (!empty($path)) {
 
 \Idno\Core\PageHandler::hook(
     '404', function ($params = array()) {
-        http_response_code(404);
         $t = \Idno\Core\Idno::site()->template();
 
         // Take over page detection
         \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
-        (new \Idno\Pages\Homepage())->noContent();
+         (new \Idno\Pages\Homepage())->noContent();
     }
 );
+
 \Idno\Core\PageHandler::serve($routes);

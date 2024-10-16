@@ -13,6 +13,7 @@ namespace Idno\Data {
 
     class MySQL extends AbstractSQL
     {
+        private $database;
 
         function init()
         {
@@ -27,11 +28,12 @@ namespace Idno\Data {
             } catch (\Exception $e) {
                 error_log($e->getMessage());
                 if (!empty(\Idno\Core\Idno::site()->config()->forward_on_empty)) {
-                    header('Location: ' . \Idno\Core\Idno::site()->config()->forward_on_empty);
-                    exit;
+                    \Idno\Core\Idno::site()->redirect(\Idno\Core\Idno::site()->config()->forward_on_empty);
+                    \Idno\Core\Idno::site()->sendResponse();
                 } else {
 
                     http_response_code(500);
+                    
 
                     if (\Idno\Core\Idno::site()->config()->debug) {
                         $message = '<p>' . $e->getMessage() . '</p>';

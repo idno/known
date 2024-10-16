@@ -34,8 +34,7 @@ namespace Idno\Pages\Search {
                 }
             }
 
-            header('Content-type: text/json');
-            echo json_encode($results);
+            \Idno\Core\Idno::site()->response()->setJsonContent(json_encode($results));
 
         }
 

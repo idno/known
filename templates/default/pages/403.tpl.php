@@ -2,7 +2,7 @@
     // Display the login link, if the user is not currently logged in.
     // If they're logged out, this is probably why they're denied.
 
-    $login_url = \Idno\Core\Idno::site()->currentPage()->forwardToLogin($_SERVER['REQUEST_URI'], true);
+    $login_url = \Idno\Core\Idno::site()->currentPage()->forwardToLogin(\Idno\Core\Idno::site()->request()->getPathInfo(), true);
 
 if (!\Idno\Core\Idno::site()->session()->isLoggedIn()) {
     ?>

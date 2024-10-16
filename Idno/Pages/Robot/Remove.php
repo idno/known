@@ -17,7 +17,7 @@ namespace Idno\Pages\Robot {
             $user              = \Idno\Core\Idno::site()->session()->currentUser();
             $user->robot_state = 0;
             $user->save();
-            $this->forward($_SERVER['HTTP_REFERER']);
+            $this->forward(\Idno\Core\Idno::site()->request()->server->get('HTTP_REFERER'));
 
         }
 

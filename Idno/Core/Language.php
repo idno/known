@@ -10,21 +10,21 @@ namespace Idno\Core {
         /**
          * Language associated array of translation objects.
          *
-         * @var type
+         * @var array
          */
         private $translations = [];
 
         /**
          * Current language
          *
-         * @var type
+         * @var string
          */
         private $language;
 
         /**
          * Construct a language object
          *
-         * @param type $language
+         * @param string $language
          */
         public function __construct($language = null)
         {
@@ -32,7 +32,7 @@ namespace Idno\Core {
             if (!empty($session)) {
                 if ($user = \Idno\Core\Idno::site()->session()->currentUser()) {
                     if (!empty($user->language)) {
-                        return $user->language;
+                        $language = $user->language;
                     }
                 }
             }
@@ -67,7 +67,7 @@ namespace Idno\Core {
         /**
          * Return a translated string, substituting variables in subs in the format of sprintf.
          *
-         * @param  type  $string String to translate
+         * @param  string  $string String to translate
          * @param  array $subs   List of substitution variables to be used in the translated string
          * @return string
          */
@@ -79,7 +79,7 @@ namespace Idno\Core {
         /**
          * Return an ESCAPED translated string, substituting variables in subs in the format of sprintf.
          *
-         * @param  type  $string String to translate
+         * @param  string  $string String to translate
          * @param  array $subs   List of substitution variables to be used in the translated string
          * @return string
          */
@@ -213,12 +213,12 @@ namespace Idno\Core {
 
             $lang = "";
 
-            if (!empty($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+            if (\Idno\Core\Idno::site()->request()->server->has('HTTP_ACCEPT_LANGUAGE')) {
                 if ($full) {
-                    $length = strpos($_SERVER['HTTP_ACCEPT_LANGUAGE'], ',');
+                    $length = strpos(\Idno\Core\Idno::site()->request()->server->get('HTTP_ACCEPT_LANGUAGE'), ',');
                 }
 
-                $lang = preg_replace("/[^a-zA-Z\-_\s]/", "", substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, $length));
+                $lang = preg_replace("/[^a-zA-Z\-_\s]/", "", substr(\Idno\Core\Idno::site()->request()->server->get('HTTP_ACCEPT_LANGUAGE'), 0, $length));
                 $lang = str_replace('-', '_', $lang);
             }
 

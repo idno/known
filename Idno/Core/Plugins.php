@@ -303,6 +303,8 @@ namespace Idno\Core {
 
                 return true;
             }
+            
+            return false;
         }
 
         /**

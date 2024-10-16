@@ -51,7 +51,7 @@ namespace Idno\Pages\Account {
                 $notif->save();
             }
 
-            echo $page;
+            \Idno\Core\Idno::site()->response()->setContent($page);
         }
 
     }

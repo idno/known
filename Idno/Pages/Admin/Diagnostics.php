@@ -43,19 +43,20 @@ namespace Idno\Pages\Admin {
                 $config->config['smtp_password']   = '** REDACTED **';
 
                 $report .= "\nRunning config:\n---------------\n" . var_export($config, true) . "\n\n";
-                $report .= "\$_SESSION:\n----------\n" . var_export($_SESSION, true) . "\n\n";
-                $report .= "\$_SERVER:\n---------\n" . var_export($_SERVER, true) . "\n\n";
+                $report .= "\$SESSION:\n----------\n" . var_export(\Idno\Core\Idno::site()->session()->all(), true) . "\n\n";
+                $report .= "\SERVER:\n---------\n" . var_export(\Idno\Core\Idno::site()->request()->server->all(), true) . "\n\n";
 
                 // Hook so other plugins and subsystems can add their own data to the report.
                 $report = \Idno\Core\Idno::site()->events()->triggerEvent('diagnostics/report', [], $report);
 
-                echo $report;
-                exit;
+                \Idno\Core\Idno::site()->response()->setContent($report);
+                \Idno\Core\Idno::site()->sendResponse();
             } else {
                 $t        = \Idno\Core\Idno::site()->template();
                 $t->body  = $t->__(['basics' => $basics])->draw('admin/diagnostics');
                 $t->title = \Idno\Core\Idno::site()->language()->_('Diagnostics');
-                $t->drawPage();
+                $content = $t->drawPage(false);
+                \Idno\Core\Idno::site()->response()->setContent($content);
             }
         }
 

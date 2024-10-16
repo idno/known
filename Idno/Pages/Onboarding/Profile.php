@@ -17,7 +17,7 @@ namespace Idno\Pages\Onboarding {
             $user = \Idno\Core\Idno::site()->session()->currentUser();
 
             $t = \Idno\Core\Idno::site()->template();
-            echo $t->__(
+            $content = $t->__(
                 array(
 
                 'title'    => \Idno\Core\Idno::site()->language()->_("Create your profile"),
@@ -26,6 +26,7 @@ namespace Idno\Pages\Onboarding {
 
                 )
             )->draw('shell/simple');
+            \Idno\Core\Idno::site()->response()->setContent($content);
 
         }
 

@@ -26,9 +26,11 @@ class WebInstaller extends \Idno\Core\Installer
      */
     public function rewriteWorking()
     {
+
         $subdir = ''; // Known no longer supports subdirectory installations.
 
-        $host = strtolower($_SERVER['HTTP_HOST']);
+
+        $host = strtolower(\Idno\Core\Idno::site()->request()->getHost());
         if (!empty(Idno\Common\Page::isSSL())) {
             $schema = 'https://';
         } else {

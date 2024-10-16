@@ -29,10 +29,11 @@ namespace Themes\Cherwell\Pages {
             if ($profile_user = $this->getInput('profile_user')) {
                 \Idno\Core\Idno::site()->config()->config['cherwell']['profile_user'] = $profile_user;
             }
-            if (!empty($_FILES['background']) && $this->getInput('action') != 'clear') {
-                if (in_array($_FILES['background']['type'], array('image/png', 'image/jpg', 'image/jpeg', 'image/gif'))) {
-                    if (getimagesize($_FILES['background']['tmp_name'])) {
-                        if ($background = \Idno\Entities\File::createFromFile($_FILES['background']['tmp_name'], $_FILES['background']['name'])) {
+            if (\Idno\Core\Idno::site()->request()->files->has('background') && $this->getInput('action') != 'clear') {
+                $background_file = \Idno\Core\Input::getFile('background');
+                if (in_array($background_file['type'], array('image/png', 'image/jpg', 'image/jpeg', 'image/gif'))) {
+                    if (getimagesize($background_file['tmp_name'])) {
+                        if ($background = \Idno\Entities\File::createFromFile($background_file['tmp_name'], $background_file['name'])) {
                             // Remove previous bg
                             if (!empty(\Idno\Core\Idno::site()->config()->cherwell['bg_id'])) {
                                 if ($file = File::getByID(\Idno\Core\Idno::site()->config()->cherwell['bg_id'])) {

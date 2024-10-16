@@ -22,14 +22,14 @@ namespace Idno\Pages\Service\Geo {
             $lat = $this->getInput('lat');
             $long = $this->getInput('long');
             if (!empty($lat) && (!empty($long))) {
-                echo json_encode($geocoder->queryLatLong($lat, $long), JSON_PRETTY_PRINT);
-                exit;
+                \Idno\Core\Idno::site()->response()->setJsonContent(json_encode($geocoder->queryLatLong($lat, $long), JSON_PRETTY_PRINT));
+                \Idno\Core\Idno::site()->sendResponse();
             }
 
             $address = $this->getInput('address');
             if (!empty($address)) {
-                echo json_encode($geocoder->queryAddress($address), JSON_PRETTY_PRINT);
-                exit;
+                \Idno\Core\Idno::site()->response()->setJsonContent(json_encode($geocoder->queryAddress($address), JSON_PRETTY_PRINT));
+                \Idno\Core\Idno::site()->sendResponse();
             }
         }
 
