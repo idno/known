@@ -10,10 +10,10 @@
 namespace Idno\Core {
 
     use Idno\Common\Page;
-    use Idno\Core\http\RedirectResponse;
     use Idno\Entities\User;
-    use Idno\Core\Http\Request;
-    use Idno\Core\Http\Response;
+    use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\HttpFoundation\Response;
+    use Symfony\Component\HttpFoundation\RedirectResponse;
 
     class Idno extends \Idno\Common\Component
     {
@@ -59,7 +59,7 @@ namespace Idno\Core {
         {
             self::$site = $this;
             $this->request = Request::createFromGlobals();
-            $this->response = new \Idno\Core\Http\Response();
+            $this->response = new Response();
             $this->routes = new PageHandler();
             $this->dispatcher = new EventDispatcher();
             $this->config = new Config();
@@ -320,7 +320,7 @@ namespace Idno\Core {
         /**
          * Return the request object loaded as part of this site
          *
-         * @return \Idno\Core\Http\Request
+         * @return Request
          */
         function &request(): ?Request
         {
@@ -330,7 +330,7 @@ namespace Idno\Core {
         /** 
          * Return the response object loaded as part of this site
          *
-         * @return \Idno\Core\Http\Response
+         * @return Response
          */
         function &response(): ?Response
         {
@@ -349,17 +349,6 @@ namespace Idno\Core {
 
         }
 
-        function &createRequest($request=null)
-        {
-            if($request instanceof \Symfony\Component\HttpFoundation\Request){
-                $this->request = Request::createFromSymfonyRequest($request);
-            } elseif ($request instanceof \Psr\Http\Message\ServerRequestInterface) {
-                $this->request = Request::createFromPsr7Request($request);
-            }
-            else {
-                $this->request = Request::createFromGlobals();
-            }
-        }
 
 
         /**
@@ -369,10 +358,7 @@ namespace Idno\Core {
         {
             $this->response = \Idno\Core\Idno::site()->events()->triggerEvent('response/before', ['response' => $this->response()],$this->response());
             // Delay sending response so that it can be modified if required
-            if(!$this->response->isDelayed()){
-                $this->response->send();
-            }
-            \Idno\Core\Idno::site()->events()->triggerEvent('response/delayed', ['response' => $this->response()]);
+            $this->response->send();
 
         }
 

@@ -1,8 +1,8 @@
 <?php
 
 namespace Idno\Core {
-    use \Idno\Core\http\Request;
-    use \Idno\Core\Http\Response;
+    use \Symfony\Component\HttpFoundation\Request;
+    use \Symfony\Component\HttpFoundation\Response;
     class IdnoFoundation
     {
 
@@ -12,7 +12,7 @@ namespace Idno\Core {
         public function __construct()
         {
             $this->request = Request::createFromGlobals();
-            $this->response = new \Idno\Core\Http\Response();
+            $this->response = new Response();
         }
 
         public function &request()
