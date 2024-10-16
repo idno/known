@@ -5,6 +5,13 @@
 	# our root is in /srv
 	root * /app
 
+        # Rewrites
+        rewrite /js/canary.js /js/known.min.js
+        @css path_regexp css ^/css/[0-9]+/(.*)$
+        rewrite @css /css/{re.css.1}
+        @js path_regexp js ^/js/[0-9]+/(.*)$
+        rewrite @js /js/{re.js.1}
+
 	# pass everything else to php
 	php_fastcgi known:9000 {
 		env HTTPS on
