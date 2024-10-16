@@ -53,12 +53,8 @@
                     $stats->increment("error.fatal");
                 }
 
-                if (isset(\Idno\Core\Idno::site()->logging) && \Idno\Core\Idno::site()->logging) {
-                    \Idno\Core\Idno::site()->logging()->error($error_message);
-                } else {
                     error_log($error_message);
-                }
-
+                
                 try {
                     \Idno\Core\Logging::oopsAlert($error_message, 'Oh no! Known experienced a problem!');
                 } catch (Exception $ex) {
