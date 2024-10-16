@@ -16,24 +16,24 @@ define('KNOWN_UNIT_TEST', true);
 
 // Set some environment: Use export KNOWN_DOMAIN / KNOWN_PORT to override from the command line
 $domain = 'localhost';
-if (\Idno\Core\Idno::site()->request()->server->has('KNOWN_DOMAIN')) {
-    $domain = \Idno\Core\Idno::site()->request()->server->get('KNOWN_DOMAIN');
+if (isset($_SERVER['KNOWN_DOMAIN'])) {
+    $domain = $_SERVER['KNOWN_DOMAIN'];
 }
 
-if (!$domain && \Idno\Core\Idno::site()->request()->server->has('SERVER_NAME')) {
-    $domain = \Idno\Core\Idno::site()->request()->server->get('SERVER_NAME');
+if (!$domain && isset($_SERVER['SERVER_NAME'])) {
+    $domain = $_SERVER['SERVER_NAME'];
 }
 
-\Idno\Core\Idno::site()->request()->server->set('SERVER_NAME', $domain);
+$_SERVER['SERVER_NAME'] = $domain;
 
 $port = getenv('KNOWN_PORT');
-if (!$port && \Idno\Core\Idno::site()->request()->server->has('SERVER_PORT')) {
-    $port =\Idno\Core\Idno::site()->request()->server->get('SERVER_PORT');
+if (!$port && isset($_SERVER['SERVER_PORT'])) {
+    $port = $_SERVER['SERVER_PORT'];
 }
 if (!$port) {
     $port = 80;
 }
-\Idno\Core\Idno::site()->request()->server->set('SERVER_PORT', $port);
+$_SERVER['SERVER_PORT'] = $port;
 
 try {
     // Load Known framework
