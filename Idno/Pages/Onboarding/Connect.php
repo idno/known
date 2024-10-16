@@ -16,8 +16,7 @@ namespace Idno\Pages\Onboarding {
 
             //if ($services = \Idno\Core\Idno::site()->syndication()->getServices()) {
             $user = \Idno\Core\Idno::site()->session()->currentUser();
-
-            $_SESSION['onboarding_passthrough'] = true;
+            \Idno\Core\Idno::site()->session()->set('onboarding_passthrough', true);
 
             $t = \Idno\Core\Idno::site()->template();
             $content = $t->__(

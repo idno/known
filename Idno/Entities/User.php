@@ -1105,6 +1105,7 @@ namespace Idno\Entities {
         function saveDataFromInput()
         {
 
+
             if (!$this->canEdit()) { return false;
             }
 
@@ -1113,15 +1114,16 @@ namespace Idno\Entities {
             if (!empty($profile)) {
                 $this->profile = $profile;
             }
+
             $name = \Idno\Core\Idno::site()->currentPage()->getInput('name');
 
             if (!empty($name)) {
                 $this->setName($name);
             }
 
-            if ( \Idno\Core\Idno::site()->request()->files->has('avatar')) {
+
+            if ( \Idno\Core\Idno::site()->request()->files->has('avatar') && \Idno\Core\Idno::site()->request()->files->get('avatar') !== null) {
                 $avatar = \Idno\Core\Input::getFile(name: 'avatar');
-                
 
                 if (in_array($avatar['type'], array('image/png', 'image/jpg', 'image/jpeg', 'image/gif'))) {
                     if (getimagesize($avatar['tmp_name'])) {
@@ -1133,6 +1135,7 @@ namespace Idno\Entities {
                     }
                 }
             }
+
 
             return $this->save();
 

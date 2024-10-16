@@ -750,15 +750,15 @@ namespace Idno\Core {
         function embedded()
         {
             if (site()->currentPage()->getInput('unembed')) {
-                $_SESSION['embedded'] = false;
+                $this->session->set('embedded', false);
 
                 return false;
             }
-            if (!empty($_SESSION['embedded'])) {
+            if ($this->session->has('embedded')) {
                 return true;
             }
             if (site()->currentPage()->getInput('embedded')) {
-                $_SESSION['embedded'] = true;
+                $this->session->set('embedded', true);
 
                 return true;
             }

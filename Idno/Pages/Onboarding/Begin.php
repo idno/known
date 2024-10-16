@@ -14,7 +14,7 @@ namespace Idno\Pages\Onboarding {
 
             $set_name = $this->getInput('set_name');
             if (!empty($set_name)) {
-                $_SESSION['set_name'] = $set_name;
+                \Idno\Core\Idno::site()->session()->set('set_name', $set_name);
             }
 
             $t = \Idno\Core\Idno::site()->template();

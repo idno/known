@@ -1,6 +1,7 @@
 <?php
 
 if (!empty($vars['messages'])) {
+    
     $messages = $vars['messages'];
 
     ?>

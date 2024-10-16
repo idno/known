@@ -10,20 +10,36 @@
 namespace Idno\Core {
 
     use Idno\Entities\User;
+    use Symfony\Component\HttpFoundation\Session\Session as SymfonySession;
+    use Symfony\Component\HttpFoundation\Session\Storage\SessionStorageInterface;
+
 
     class Session extends \Idno\Common\Component
     {
 
         private $user;
 
+        private $session_engine;
+
+        private $storage;
+
         private $storageHandler = false;
+
+        function __construct(?SessionStorageInterface $storage = null)
+        {
+
+            $this->storage = $storage;
+            parent::__construct();
+        }
 
         function init()
         {
+            $this->session_engine = new SymfonySession($this->storage);
+
             ini_set('session.cookie_lifetime', 60 * 60 * 24 * 7); // Persistent cookies
             ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 7); // Garbage collection to match
 
-            header('P3P: CP="CAO PSA OUR"');
+            \Idno\Core\Idno::site()->response()->headers->set('P3P', 'CP="CAO PSA OUR"');
             ini_set('session.use_only_cookies', true); // Only cookies for session
             ini_set('session.cookie_httponly', true); // Restrict cookies to HTTP only (help reduce XSS attack profile)
             ini_set('session.use_strict_mode', true); // Help mitigate session fixation
@@ -37,45 +53,48 @@ namespace Idno\Core {
                 ini_set('session.hash_function', $hash);
             }
 
-            $sessions_handled = false;
+            // Storage will now be handled bt symfony session
 
-            // If we're storing sessions in the database, then try to store it.
-            if ((!$sessions_handled) && (Idno::site()->config()->sessions_database)) {
-                $db = Idno::site()->db();
-                if ($db instanceof \Idno\Common\SessionStorageInterface) {
-                    if ($db->handleSession()) {
-                        $this->storageHandler = $db;
-                        $sessions_handled = true;
-                    }
-                }
-            }
+            // $sessions_handled = false;
+
+            // Todo - Make known schema compatible database session storage
+            // // If we're storing sessions in the database, then try to store it.
+            // if ((!$sessions_handled) && (Idno::site()->config()->sessions_database)) {
+            //     $db = Idno::site()->db();
+            //     if ($db instanceof \Idno\Common\SessionStorageInterface) {
+            //         if ($db->handleSession()) {
+            //             $this->storageHandler = $db;
+            //             $sessions_handled = true;
+            //         }
+            //     }
+            // }
 
             // Try a pluggable session storage handler
-            if ((!$sessions_handled) && (Idno::site()->config()->sessions_storage)) {
-                $storage_class = Idno::site()->config()->sessions_storage;
-                if (class_exists("{$storage_class}")) {
-                    if (is_subclass_of($storage_class, "Idno\\Common\\SessionStorageInterface")) {
-                        $storage_class = new $storage_class();
-                        if ($storage_class->handleSession()) {
-                            $this->storageHandler = $storage_class;
-                            $sessions_handled = true;
-                        }
-                    }
-                }
-            }
+            // if ((!$sessions_handled) && (Idno::site()->config()->sessions_storage)) {
+            //     $storage_class = Idno::site()->config()->sessions_storage;
+            //     if (class_exists("{$storage_class}")) {
+            //         if (is_subclass_of($storage_class, "Idno\\Common\\SessionStorageInterface")) {
+            //             $storage_class = new $storage_class();
+            //             if ($storage_class->handleSession()) {
+            //                 $this->storageHandler = $storage_class;
+            //                 $sessions_handled = true;
+            //             }
+            //         }
+            //     }
+            // }
 
-            // Fallback to files if no other session storage handler has been defined
-            if (!$sessions_handled) {
-                session_save_path(Idno::site()->config()->session_path);
-            }
+            // // Fallback to files if no other session storage handler has been defined
+            // if (!$sessions_handled) {
+            //     session_save_path(Idno::site()->config()->session_path);
+            // }
 
             // session_cache_limiter('public // TODO: Reintroduce when page endpoints have set no-expire as appropriate
-            session_name(Idno::site()->config()->sessionname);
-            session_start();
+            $this->session_engine->setName(Idno::site()->config()->sessionname);
+            $this->session_engine->start();
 
             // Flag insecure sessions (so we can check state changes etc)
-            if (!isset($_SESSION['secure'])) {
-                $_SESSION['secure'] = \Idno\Common\Page::isSSL();
+            if (!$this->has('secure')) {
+                $this->set('secure', \Idno\Common\Page::isSSL());
             }
 
             // Validate session
@@ -86,7 +105,7 @@ namespace Idno\Core {
                 \Idno\Core\Idno::site()->logging()->error('Error validating session', ['error' => $ex->getMessage()]);
                 header('X-KNOWN-DEBUG: Tilt!');
 
-                $_SESSION = [];
+                $this->session_engine->clear();
                 session_destroy();
             }
 
@@ -110,8 +129,8 @@ namespace Idno\Core {
                     if ($object->getUUID() != $this->user->getUUID()) { return;
                     }
 
-                    if (!empty($_SESSION['user_uuid'])) {
-                        if ($object->getUUID() != $_SESSION['user_uuid']) { return;
+                    if ($this->has('user_uuid')) {
+                        if ($object->getUUID() != $this->get('user_uuid')) { return;
                         }
                     }
 
@@ -131,6 +150,7 @@ namespace Idno\Core {
             );
         }
 
+
         /**
          * Validate the session.
          *
@@ -144,6 +164,8 @@ namespace Idno\Core {
                 throw new \Idno\Exceptions\SecurityException(\Idno\Core\Idno::site()->language()->_('Session funnybusiness: ', [$message));
             }*/
         }
+
+
 
         /**
          * Kill the session.
@@ -212,7 +234,7 @@ namespace Idno\Core {
         /**
          * Returns the currently logged-in user, if any
          *
-         * @return \Idno\Entities\User
+         * @return bool|\Idno\Entities\User
          */
 
         function currentUser()
@@ -233,10 +255,7 @@ namespace Idno\Core {
 
         function addMessage($message, $message_type = 'alert-info')
         {
-            if (empty($_SESSION['messages'])) {
-                $_SESSION['messages'] = array();
-            }
-            $_SESSION['messages'][] = $this->getStructuredMessage($message, $message_type);
+           $this->session_engine->getFlashBag()->add($message_type, $message);
         }
 
         /**
@@ -293,14 +312,14 @@ namespace Idno\Core {
          *
          * @param string $message      The text of the message
          * @param string $message_type This type of message; this will be added to the displayed message class, or returned as data
+         * @deprecated message order is not guaranteed
          */
 
         function addMessageAtStart($message, $message_type = 'alert-info')
         {
-            if (empty($_SESSION['messages'])) {
-                $_SESSION['messages'] = array();
-            }
-            array_unshift($_SESSION['messages'], array('message' => $message, 'message_type' => $message_type));
+           //We cant force the order of messages in flashbag
+           $this->session_engine->getFlashBag()->add($message_type, $message);
+
         }
 
         /**
@@ -310,10 +329,15 @@ namespace Idno\Core {
          */
         function getAndFlushMessages()
         {
-            $messages = $this->getMessages();
-            $this->flushMessages();
 
-            return $messages;
+            $messages = $this->session_engine->getFlashBag()->all();
+            $final_meassages = [];
+            foreach($messages as $type => $message){
+                foreach($message as $msg){
+                    array_push($final_meassages, $this->getStructuredMessage($msg, $type));
+                }
+            }
+            return $final_meassages;
         }
 
         /**
@@ -323,11 +347,8 @@ namespace Idno\Core {
          */
         function getMessages()
         {
-            if (!empty($_SESSION['messages'])) {
-                return $_SESSION['messages'];
-            } else {
-                return array();
-            }
+            return $this->session_engine->getFlashBag()->all();
+
         }
 
         /**
@@ -335,9 +356,7 @@ namespace Idno\Core {
          */
         function flushMessages()
         {
-            $messages                       = array();
-            $_SESSION['messages']           = $messages;
-            $_SESSION['last_message_flush'] = date('r', time());
+           //This is not required as flashbag will flush any messages after they are read
         }
 
         /**
@@ -416,11 +435,11 @@ namespace Idno\Core {
                 )
             );
 
-            unset($_SESSION['user_uuid']);
-            unset($this->user);
+            $this->remove('user_uuid');
+            $this->clear();
 
             // Unset all session variables, as per PHP docs.
-            $_SESSION = [];
+            
 
             // Really log the user off by destroying the cookie
             // See https://secure.php.net/manual/en/function.session-destroy.php
@@ -429,7 +448,7 @@ namespace Idno\Core {
                     if (ini_get("session.use_cookies")) {
                         $params = session_get_cookie_params();
                         setcookie(
-                            session_name(), '', time() - 42000,
+                            $this->session_engine->getName(), '', time() - 42000,
                             $params["path"], $params["domain"],
                             $params["secure"], $params["httponly"]
                         );
@@ -442,16 +461,7 @@ namespace Idno\Core {
             return true;
         }
 
-        /**
-         * Set a piece of session data
-         *
-         * @param string $name
-         * @param mixed  $value
-         */
-        function set($name, $value)
-        {
-            $_SESSION[$name] = $value;
-        }
+
 
         /**
          * Retrieve the session data with key $name, if it exists
@@ -461,11 +471,38 @@ namespace Idno\Core {
          */
         function get($name)
         {
-            if (!empty($_SESSION[$name])) {
-                return $_SESSION[$name];
-            } else {
-                return false;
-            }
+            return $this->session_engine->get($name,false);
+        }
+
+        /*
+        * Retrieve all session data
+        *
+        * @return array
+        */
+        function all(){
+            return $this->session_engine->all();
+        }
+
+        /**
+         * Check if the session has data with key $name
+         *
+         * @param $name
+         * @return bool
+         */
+        function has($name)
+        {
+            return $this->session_engine->has($name);
+        }
+
+        /**
+         * Set data with key $name to $value in the session
+         *
+         * @param string $name
+         * @param mixed  $value
+         */
+        function set($name, $value)
+        {
+            $this->session_engine->set($name, $value);
         }
 
         /**
@@ -475,7 +512,15 @@ namespace Idno\Core {
          */
         function remove($name)
         {
-            unset($_SESSION[$name]);
+            $this->session_engine->remove($name);
+        }
+
+        /**
+         * Clear the session
+         */
+        function clear()
+        {
+            $this->session_engine->clear();
         }
 
         /**
@@ -568,7 +613,7 @@ namespace Idno\Core {
          * Log the specified user on (note that this is NOT the same as taking the user's auth credentials)
          *
          * @param  \Idno\Entities\User $user
-         * @return \Idno\Entities\User
+         * @return \Idno\Entities\User|false
          */
 
         function logUserOn(\Idno\Entities\User $user)
@@ -579,7 +624,7 @@ namespace Idno\Core {
                 return false;
             }
             $return = $this->refreshSessionUser($user);
-            @session_regenerate_id(true);
+            $this->session_engine->migrate(true);
 
             // user/auth/success event needs to be triggered here
             $return = \Idno\Core\Idno::site()->events()->triggerEvent(
@@ -602,7 +647,7 @@ namespace Idno\Core {
          * Refresh the user currently stored in the session
          *
          * @param  \Idno\Entities\User $user
-         * @return \Idno\Entities\User
+         * @return \Idno\Entities\User|false
          */
         function refreshSessionUser(\Idno\Entities\User $user)
         {
@@ -614,7 +659,7 @@ namespace Idno\Core {
                     return false;
                 }
 
-                $_SESSION['user_uuid'] = $user->getUUID();
+                $this->set('user_uuid', $user->getUUID());
                 $this->user            = $user;
 
                 return $user;
@@ -628,8 +673,8 @@ namespace Idno\Core {
          */
         function refreshCurrentSessionuser()
         {
-            if (!$this->currentUser() && !empty($_SESSION['user_uuid'])) {
-                if ($this->user = User::getByUUID($_SESSION['user_uuid'])) {
+            if (!$this->currentUser() && $this->has('user_uuid')) {
+                if ($this->user = User::getByUUID($this->get('user_uuid'))) {
                     if (\Idno\Core\Idno::site()->config()->emailIsBlocked($this->user->email)) {
                         $this->logUserOff();
                     }
@@ -651,8 +696,8 @@ namespace Idno\Core {
          */
         function setIsAPIRequest($is_api_request)
         {
-            $is_api_request             = (bool)$is_api_request;
-            $_SESSION['is_api_request'] = $is_api_request;
+            $is_api_request = (bool)$is_api_request;
+            $this->set('is_api_request', $is_api_request);
         }
 
         /**
@@ -662,11 +707,7 @@ namespace Idno\Core {
          */
         function isAPIRequest()
         {
-            if (!empty($_SESSION['is_api_request'])) {
-                return true;
-            }
-
-            return false;
+            return $this->has('is_api_request') ? $this->get('is_api_request') : false;
         }
 
         /**
