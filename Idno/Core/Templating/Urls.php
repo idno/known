@@ -145,6 +145,25 @@ namespace Idno\Core\Templating {
         }
 
         /**
+         * Returns the URL variable with name $variable_name if it exists; otherwise null.
+         * 
+         * @param  string $variable_name
+         * @return string
+         */
+        function getCurrentURLVar($variable_name, $url = '')
+        {
+            $url = $url ?: $this->getCurrentURL();
+            $query = parse_url($url, PHP_URL_QUERY);
+            
+            if ($query) {
+                parse_str($query, $url_var_array);
+                return $url_var_array[$variable_name] ?? null;
+            }
+            
+            return null;
+        }
+
+        /**
          * Convert a remote image URL into one addressing the local image proxying service.
          *
          * @param  url                                     $url
@@ -233,6 +252,14 @@ namespace Idno\Core\Templating {
                 return $matches[1];
             }
             return '';
+        }
+
+        function getPageNumber()
+        {
+            if ($offset = $this->getCurrentURLVar('offset')) {
+
+            }
+            return 0;
         }
     }
 }
