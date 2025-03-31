@@ -1,6 +1,6 @@
 <?php
 
-    use ActivityPhp\Type;
+    use \ActivityPhp\Type;
 
     header('Content-Type: application/ld+json; profile="https://www.w3.org/ns/activitystreams"');
 
