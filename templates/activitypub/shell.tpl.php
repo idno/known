@@ -1,5 +1,7 @@
 <?php
 
+    if (!class_exists('\ActivityPhp\Type')) return; // If we don't have the ActivityPub library, there's no point in continuing
+
     use \ActivityPhp\Type;
 
     header('Content-Type: application/ld+json; profile="https://www.w3.org/ns/activitystreams"');
