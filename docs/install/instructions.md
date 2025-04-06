@@ -56,12 +56,6 @@ If you need to use a non-standard database port, you can also select this:
 
 Additionally, you will need to create the database referred to in this configuration file, and ensure that it can be connected to using the user credentials you supply. For now, you will need to load the SQL schema stored in `/warmup/schemas/mysql/mysql.sql`.
 
-### If you’re using Postgres
-
-Postgres users follow the MySQL instructions above, but set your database engine as follows:
-
-    database = "Postgres"
-
 ### If you're using SQLite
 
 As with MySQL, currently SQLite users need to create a ```config.ini``` in the root of their installation. This should contain the following information:

@@ -1,0 +1,51 @@
+version: '3.4'
+
+services:
+  tailscale:
+    image: tailscale/tailscale:latest
+    hostname: known
+    env_file: ../.env
+    environment:
+      - TS_SERVE_CONFIG=/config/known.json
+      - TS_STATE_DIR=/var/lib/tailscale
+    volumes:
+      - tailscalestate:/var/lib/tailscale
+      - ../docker/tailscale:/config
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - net_admin
+      - sys_module
+    restart: unless-stopped
+
+  caddy:
+    image: caddy:2.7.6
+    volumes:
+      - ../docker/caddy:/etc/caddy
+      - ../:/app
+      - caddy_data:/data
+      - caddy_config:/config
+    restart: unless-stopped
+
+  known:
+    image: jimwins/known
+    env_file: ../.env
+    expose:
+      - "9000"
+    volumes:
+      - ../:/app
+    restart: unless-stopped
+
+  db:
+    image: mysql:8.0.30
+    env_file: ../.env
+    expose:
+      - "3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
+  caddy_data:
+  caddy_config:
+  tailscalestate:

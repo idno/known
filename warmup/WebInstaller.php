@@ -26,24 +26,7 @@ class WebInstaller extends \Idno\Core\Installer
      */
     public function rewriteWorking()
     {
-        if (!empty($_SERVER['PHP_SELF'])) {
-            if ($subdir = dirname(dirname($_SERVER['PHP_SELF']))) {
-                if ($subdir != DIRECTORY_SEPARATOR) {
-                    if(substr($subdir, -1) == DIRECTORY_SEPARATOR) {
-                        $subdir = substr($subdir, 0, -1);
-                    }
-                    if (substr($subdir, 0, 1) == DIRECTORY_SEPARATOR) {
-                        $subdir = substr($subdir, 1);
-                    }
-                    $subdir = str_replace(DIRECTORY_SEPARATOR, '/', $subdir);
-                }
-            }
-        }
-        if (empty($subdir)) {
-            $subdir = '';
-        } else {
-            $subdir = '/' . $subdir;
-        }
+        $subdir = ''; // Known no longer supports subdirectory installations.
 
         $host = strtolower($_SERVER['HTTP_HOST']);
         if (!empty(Idno\Common\Page::isSSL())) {

@@ -13,6 +13,7 @@ namespace Idno\Data {
 
     class MySQL extends AbstractSQL
     {
+        protected $database;
 
         function init()
         {

@@ -220,7 +220,7 @@ namespace Idno\Core {
 
                     if (($cloudcube || $aws_s3) && (!empty($bucket))) {
                         $this->ini_config['filesystem'] = 'local';
-                        $this->ini_config['uploadpath'] = "s3://${bucket}${path}";
+                        $this->ini_config['uploadpath'] = "s3://{$bucket}{$path}";
                     }
 
                     if (array_key_exists('KNOWN_AWS_S3_REGION', $_ENV)) {
