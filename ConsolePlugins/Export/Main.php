@@ -9,10 +9,21 @@ namespace ConsolePlugins\Export {
             // Get all the registered content types
             $types = \Idno\Common\ContentType::getRegisteredClasses();
 
+            // Initialize Ghost import array
+            $export = [
+                'data' => [
+                    'posts' => [],
+                    'tags' => [],
+                    'posts_tags' => [],
+                    'posts_authors' => [],
+                    'posts_users' => []
+                ]
+            ];
+
             // Get all posts
             $posts = \Idno\Common\Entity::getFromX($types, [], [], PHP_INT_MAX);
-            foreach($posts as $post ) {
-                $output->writeln($post->getTitle());
+            foreach($posts as $post) {
+                // TODO: populate export structure
             }
         }
 
