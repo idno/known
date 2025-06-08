@@ -11,6 +11,9 @@ namespace ConsolePlugins\Export {
 
             // Get all posts
             $posts = \Idno\Common\Entity::getFromX($types, [], [], PHP_INT_MAX);
+            foreach($posts as $post ) {
+                $output->writeln($post->getTitle());
+            }
         }
 
         public function getCommand()
