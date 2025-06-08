@@ -39,9 +39,7 @@ namespace ConsolePlugins\Export {
 
         public function getParameters()
         {
-            return [
-                //new \Symfony\Component\Console\Input\InputArgument('echo', \Symfony\Component\Console\Input\InputArgument::REQUIRED, \Idno\Core\Idno::site()->language()->_('Text to echo'))
-            ];
+            return [];
         }
 
     }
