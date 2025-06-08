@@ -1,21 +1,21 @@
 #!/usr/bin/php -q
 <?php
 
-    define('KNOWN_CONSOLE', 'true');
+define('KNOWN_CONSOLE', 'true');
 
-    // Load external libraries
+// Load external libraries
 if (file_exists(dirname(__FILE__) . '/vendor/autoload.php')) {
     include_once dirname(__FILE__) . '/vendor/autoload.php';
 } else {
     die('Could not find autoload.php, did you run "composer install" ..?');
 }
 
-    // Register console namespace
-    use Symfony\Component\Console\Application;
+// Register console namespace
+use Symfony\Component\Console\Application;
 
-    // Create new console application
-    global $console;
-    $console = new Application('Known Console', \Idno\Core\Version::version());
+// Create new console application
+global $console;
+$console = new Application('Known Console', \Idno\Core\Version::version());
 
 function &application()
 {
@@ -25,20 +25,20 @@ function &application()
 }
 
 
-    // Boot known
+// Boot known
 try {
-    $idno         = new Idno\Core\Idno();
-    $account      = new Idno\Core\Account();
-    $admin        = new Idno\Core\Admin();
-    $webfinger    = new Idno\Core\Webfinger();
-    $webmention   = new Idno\Core\Webmention();
+    $idno = new Idno\Core\Idno();
+    $account = new Idno\Core\Account();
+    $admin = new Idno\Core\Admin();
+    $webfinger = new Idno\Core\Webfinger();
+    $webmention = new Idno\Core\Webmention();
     $pubsubhubbub = new Idno\Core\PubSubHubbub();
 } catch (\Exception $e) {
     error_log($e->getMessage());
 }
 
-    // Load any plugin functions
-    $directory = dirname(__FILE__) . '/ConsolePlugins/';
+// Load any plugin functions
+$directory = dirname(__FILE__) . '/ConsolePlugins/';
 if ($scanned_directory = array_diff(scandir($directory), array('..', '.'))) {
     foreach ($scanned_directory as $file) {
         if (is_dir($directory . $file)) {
@@ -68,8 +68,8 @@ if ($scanned_directory = array_diff(scandir($directory), array('..', '.'))) {
     }
 }
 
-    // Allow regular plugins to contain a ConsoleMain.php
-    $directory = dirname(__FILE__) . '/IdnoPlugins/';
+// Allow regular plugins to contain a ConsoleMain.php
+$directory = dirname(__FILE__) . '/IdnoPlugins/';
 if ($scanned_directory = array_diff(scandir($directory), array('..', '.'))) {
     foreach ($scanned_directory as $file) {
         if (is_dir($directory . $file)) {
@@ -105,22 +105,22 @@ if ($scanned_directory = array_diff(scandir($directory), array('..', '.'))) {
     }
 }
 
-    $console
-        ->register('version')
-        ->setDescription(\Idno\Core\Idno::site()->language()->_('Returns the current Known version as defined in version.known'))
-        ->setDefinition([])
-        ->setCode(
-            function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
-                $output->writeln(file_get_contents(dirname(__FILE__) . '/version.known'));
+$console
+    ->register('version')
+    ->setDescription(\Idno\Core\Idno::site()->language()->_('Returns the current Known version as defined in version.known'))
+    ->setDefinition([])
+    ->setCode(
+        function (\Symfony\Component\Console\Input\InputInterface $input, \Symfony\Component\Console\Output\OutputInterface $output) {
+            $output->writeln(file_get_contents(dirname(__FILE__) . '/version.known'));
 
-                $remoteVersion = \Idno\Core\RemoteVersion::build();
-                if (\Idno\Core\Version::build() < $remoteVersion) {
-                    $version = \Idno\Core\RemoteVersion::version();
-                    $output->writeln(\Idno\Core\Idno::site()->language()->_("WARNING: Your build of Known is behind the latest version from Github (%s - %s). If you're having problems, you may want to try updating to the latest version.\nUpdate now: https://github.com/idno/Known\n", [$version, $remoteVersion]));
-                }
+            $remoteVersion = \Idno\Core\RemoteVersion::build();
+            if (\Idno\Core\Version::build() < $remoteVersion) {
+                $version = \Idno\Core\RemoteVersion::version();
+                $output->writeln(\Idno\Core\Idno::site()->language()->_("WARNING: Your build of Known is behind the latest version from Github (%s - %s). If you're having problems, you may want to try updating to the latest version.\nUpdate now: https://github.com/idno/Known\n", [$version, $remoteVersion]));
             }
-        );
+        }
+    );
 
 
-    // Run the application
-    $console->run();
+// Run the application
+$console->run();
