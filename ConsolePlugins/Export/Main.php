@@ -65,10 +65,12 @@ use Idno\Entities\User;
 					'published_at'	=> date('Y-m-d\TH:i:sP', $post->created)
                 ];
 
+                
+
                 $safe_author_id = $this->getSafeAuthorId($post->getOwnerID());
                 $this->export['posts_authors'][] = [
                     'post_id' => $safe_post_id,
-                    'author_id' => $safe_author_id,
+                    'author_id' => $safe_author_id || null,
                 ];
 
                 $tags = $post->getTags();
@@ -90,21 +92,23 @@ use Idno\Entities\User;
 
         private function getSafeAuthorId(string $user_id) {
             if (empty($this->author_map[$user_id])) {
-                $user = User::getByID($user_id);
-                $id = count($this->author_map);
-                $user_obj = [
-                    'id' => count($this->author_map),
-                    'slug' => $user->getHandle(),
-                    'bio' => $user->getDescription(),
-                    'website' => null,
-                    'created_at' => date('Y-m-d\TH:i:sP', $user->created),
-                    'email' => $user->email,
-                    'name' => $user->getName(),
-                    'profile_image' => $user->getIcon(),
-                    'roles' => ['Contributor']
-                ];
-                $this->author_map[$user->getID()] = $user_obj['id'];
-                $this->users[] = $user_obj;
+                $user = User::getByUUID($user_id);
+                if ($user) {
+                    $id = count($this->author_map);
+                    $user_obj = [
+                        'id' => count($this->author_map),
+                        'slug' => $user->getHandle(),
+                        'bio' => $user->getDescription(),
+                        'website' => null,
+                        'created_at' => date('Y-m-d\TH:i:sP', $user->created),
+                        'email' => $user->email,
+                        'name' => $user->getName(),
+                        'profile_image' => $user->getIcon(),
+                        'roles' => ['Contributor']
+                    ];
+                    $this->author_map[$user_id] = $user_obj['id'];
+                    $this->users[] = $user_obj;
+                } else $id = false;
             } else {
                 $id = $this->author_map[$user_id];
             }
