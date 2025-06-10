@@ -79,9 +79,11 @@ use Idno\Entities\User;
                     ];
                 }
 
-                json_encode(['db' => $this->export]);
+                $this->export['data']['posts'][] = $post_object;
                 
             }
+
+            $output->write(json_encode(['db' => $this->export]));
         }
 
         private function getSafeAuthorId(string $user_id) {
