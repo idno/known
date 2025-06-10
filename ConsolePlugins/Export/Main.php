@@ -79,7 +79,7 @@ use Idno\Entities\User;
                     ];
                 }
 
-                echo json_encode(['db' => $this->export]);
+                json_encode(['db' => $this->export]);
                 
             }
         }
