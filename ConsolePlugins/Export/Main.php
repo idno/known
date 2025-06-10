@@ -21,7 +21,6 @@ use Idno\Entities\User;
                 'posts_authors' => [],
             ],
             'meta' => [
-                'exported_on' => time() * 1000,
                 'version' => '2.14.0'
             ]
         ];
@@ -31,6 +30,9 @@ use Idno\Entities\User;
         {
             // Get all the registered content types
             $types = \Idno\Common\ContentType::getRegisteredClasses();
+
+            // Set generated time
+            $this->export['meta']['exported_on'] = time() * 1000;
 
             // Get all posts
             $posts = \Idno\Common\Entity::getFromX($types, [], [], PHP_INT_MAX);
