@@ -35,9 +35,9 @@ use Idno\Entities\User;
             $this->export['meta']['exported_on'] = time() * 1000;
 
             // Get all posts
-            $posts = \Idno\Common\Entity::getFromX($types, [], [], PHP_INT_MAX);
-            $safe_post_id = 0;
+            $posts = \Idno\Common\Entity::getFromX($types, [], [], /* PHP_INT_MAX */ 5);
             foreach($posts as $post) {
+                $safe_post_id = count($this->export['data']['posts']);
                 $post_object = [
                     'id' => $safe_post_id,
                     'title' => $post->getTitle(),
@@ -59,25 +59,23 @@ use Idno\Entities\User;
 					'type' => substr_count($post->getClassName, 'StaticPage') ? 'page' : 'post',
 					'status' => 'published',
 					'meta_title' => $post->getTitle(),
-					'meta_description' => $post->getDescription(),
+					'meta_description' => $post->getShortDescription(),
 					'created_at' => date('Y-m-d\TH:i:sP', $post->created),
 					'updated_at' => date('Y-m-d\TH:i:sP', $post->created),
 					'published_at'	=> date('Y-m-d\TH:i:sP', $post->created)
-                ];
-
-                
+                ];                
 
                 $safe_author_id = $this->getSafeAuthorId($post->getOwnerID());
-                $this->export['posts_authors'][] = [
+                $this->export['data']['posts_authors'][] = [
                     'post_id' => $safe_post_id,
-                    'author_id' => $safe_author_id || null,
+                    'author_id' => $safe_author_id,
                 ];
 
                 $tags = $post->getTags();
                 $tags[] = $post->getMicroformats2ObjectType(); // Adding microformat type so it can be added back in Ghost template
                 foreach($tags as $tag) {
                     $safe_tag_id = $this->getSafeTagId($tag);
-                    $this->export['post_tags'][] = [
+                    $this->export['data']['posts_tags'][] = [
                         'post_id' => $safe_post_id,
                         'tag_id' => $safe_tag_id,
                     ];
@@ -87,11 +85,14 @@ use Idno\Entities\User;
                 
             }
 
+            $this->export['data']['tags'] = $this->tags;
+            $this->export['data']['users'] = $this->users;
+
             $output->write(json_encode(['db' => $this->export]));
         }
 
         private function getSafeAuthorId(string $user_id) {
-            if (empty($this->author_map[$user_id])) {
+            if (!isset($this->author_map[$user_id])) {
                 $user = User::getByUUID($user_id);
                 if ($user) {
                     $id = count($this->author_map);
@@ -108,7 +109,9 @@ use Idno\Entities\User;
                     ];
                     $this->author_map[$user_id] = $user_obj['id'];
                     $this->users[] = $user_obj;
-                } else $id = false;
+                } else {
+                    $id = null;
+                }
             } else {
                 $id = $this->author_map[$user_id];
             }
@@ -116,7 +119,7 @@ use Idno\Entities\User;
         }
 
         private function getSafeTagId(string $tag) {
-            if (empty($this->tag_map[$tag])) {
+            if (!isset($this->tag_map[$tag])) {
                 $id = count($this->tag_map);
                 $this->tags[] = [
                     'id' => $id,
