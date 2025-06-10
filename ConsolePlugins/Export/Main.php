@@ -21,7 +21,7 @@ use Idno\Entities\User;
                 'posts_authors' => [],
             ],
             'meta' => [
-                'version' => '2.14.0'
+                'version' => '5.0'
             ]
         ];
 
