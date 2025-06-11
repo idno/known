@@ -61,7 +61,7 @@ use Idno\Entities\User;
 					'feature_image_alt'	=> null,
 					'feature_image_caption'	=> null,
 					'featured' => 0,
-					'type' => substr_count($post->getClassName, 'StaticPage') ? 'page' : 'post',
+					'type' => substr_count($post->getClassName(), 'StaticPage') ? 'page' : 'post',
 					'status' => 'published',
                     'visibility' => 'public',
                     'locale' => null,
