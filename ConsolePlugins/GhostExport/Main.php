@@ -35,7 +35,7 @@ use Idno\Entities\User;
             $this->export['meta']['exported_on'] = time() * 1000;
 
             // Get all posts
-            $posts = \Idno\Common\Entity::getFromX($types, [], [], /* PHP_INT_MAX */ 5);
+            $posts = \Idno\Common\Entity::getFromX($types, [], [], PHP_INT_MAX);
             foreach($posts as $post) {
                 $safe_post_id = count($this->export['data']['posts']); // $this->generateId(count($this->export['data']['posts']));
                 $autop = new \mapkyca\autop\MrClayAutoP();
