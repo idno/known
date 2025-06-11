@@ -92,7 +92,7 @@ use Idno\Entities\User;
             $this->export['data']['tags'] = $this->tags;
             $this->export['data']['users'] = $this->users;
 
-            $json_output = json_encode(['db' => $this->export]);
+            $json_output = json_encode($this->export);
             // Strip command tags
             $json_output = str_replace('\n', '', $json_output);
             $json_output = str_replace('\r', '', $json_output);
@@ -125,7 +125,7 @@ use Idno\Entities\User;
                     $user_obj = [
                         'id' => count($this->author_map),
                         'slug' => $user->getHandle(),
-                        'bio' => $user->getDescription(),
+                        'bio' => '', // Known bios are too long for Ghost
                         'website' => null,
                         'created_at' => date('Y-m-d\TH:i:sP', $user->created),
                         'email' => $user->email,

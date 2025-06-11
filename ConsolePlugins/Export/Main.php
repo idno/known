@@ -1,6 +1,6 @@
 <?php
 
-namespace ConsolePlugins\GhostExport {
+namespace ConsolePlugins\Export {
 
 use Idno\Core\Idno;
 use Idno\Entities\User;
