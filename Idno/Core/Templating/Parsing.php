@@ -19,7 +19,7 @@ namespace Idno\Core\Templating {
         function parseURLs($text, $code = '', $wbr = true)
         {
             $r = preg_replace_callback(
-                '/(?<!=)(?<!["\'])((ht|f)tps?:\/\/[^\s<>"\']+)/i', function ($matches) use ($code) {
+                '/(?<!=)(?<!["\'])((ht|f)tps?:\/\/[^\s<>"\']+)/i', function ($matches) use ($code, $wbr) {
                     $url  = $matches[1];
                     $punc = '';
 
