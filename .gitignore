@@ -63,6 +63,7 @@ IdnoPlugins/
 
 ConsolePlugins/*
 !ConsolePlugins/Export
+!ConsolePlugins/GhostExport
 
 error_log
 

@@ -1,9 +1,8 @@
 <?php
 
-namespace ConsolePlugins\Export {
+namespace ConsolePlugins\GhostExport {
 
 use Idno\Core\Idno;
-use Idno\Core\Template;
 use Idno\Entities\User;
     class Main extends \Idno\Common\ConsolePlugin
     {
