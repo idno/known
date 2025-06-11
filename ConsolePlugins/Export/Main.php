@@ -2,6 +2,8 @@
 
 namespace ConsolePlugins\Export {
 
+use Idno\Core\Idno;
+use Idno\Core\Template;
 use Idno\Entities\User;
     class Main extends \Idno\Common\ConsolePlugin
     {
@@ -18,10 +20,9 @@ use Idno\Entities\User;
                 'tags' => [],
                 'users' => [],
                 'posts_tags' => [],
-                'posts_authors' => [],
             ],
             'meta' => [
-                'version' => '5.0'
+                'version' => '5.75.1'
             ]
         ];
 
@@ -37,12 +38,16 @@ use Idno\Entities\User;
             // Get all posts
             $posts = \Idno\Common\Entity::getFromX($types, [], [], /* PHP_INT_MAX */ 5);
             foreach($posts as $post) {
-                $safe_post_id = count($this->export['data']['posts']);
+                $safe_post_id = count($this->export['data']['posts']); // $this->generateId(count($this->export['data']['posts']));
+                $autop = new \mapkyca\autop\MrClayAutoP();
+
+                $safe_author_id = $this->getSafeAuthorId($post->getOwnerID());
+
                 $post_object = [
                     'id' => $safe_post_id,
                     'title' => $post->getTitle(),
                     'slug' => $post->getSlug(),
-					'mobiledoc' 		=> '{"version":"0.3.1","atoms":[],"cards":[["html",{"html":"'.str_replace(
+					/*'mobiledoc' 		=> '{"version":"0.3.1","atoms":[],"cards":[["html",{"html":"'.str_replace(
 						array(
 							'\n',
 							'\\/',
@@ -51,25 +56,24 @@ use Idno\Entities\User;
 							'\\n',
 							'/',
 						),
-						json_encode($post->getBody()) ) .'"}]],"markups":[],"sections":[[10,0],[1,"p",[]]]}',
+						json_encode($post->getBody()) ) .'"}]],"markups":[],"sections":[[10,0],[1,"p",[]]]}',*/
+                    'html' => $autop->process($post->getDescription()),
 					'feature_image'	=> null,
 					'feature_image_alt'	=> null,
 					'feature_image_caption'	=> null,
 					'featured' => 0,
 					'type' => substr_count($post->getClassName, 'StaticPage') ? 'page' : 'post',
 					'status' => 'published',
+                    'visibility' => 'public',
+                    'locale' => null,
 					'meta_title' => $post->getTitle(),
 					'meta_description' => $post->getShortDescription(),
 					'created_at' => date('Y-m-d\TH:i:sP', $post->created),
 					'updated_at' => date('Y-m-d\TH:i:sP', $post->created),
-					'published_at'	=> date('Y-m-d\TH:i:sP', $post->created)
-                ];                
-
-                $safe_author_id = $this->getSafeAuthorId($post->getOwnerID());
-                $this->export['data']['posts_authors'][] = [
-                    'post_id' => $safe_post_id,
+					'published_at'	=> date('Y-m-d\TH:i:sP', $post->created),
                     'author_id' => $safe_author_id,
-                ];
+                    'email_only' => false,
+                ];                
 
                 $tags = $post->getTags();
                 $tags[] = $post->getMicroformats2ObjectType(); // Adding microformat type so it can be added back in Ghost template
@@ -78,6 +82,7 @@ use Idno\Entities\User;
                     $this->export['data']['posts_tags'][] = [
                         'post_id' => $safe_post_id,
                         'tag_id' => $safe_tag_id,
+                        'sort_order' => 0,
                     ];
                 }
 
@@ -88,14 +93,36 @@ use Idno\Entities\User;
             $this->export['data']['tags'] = $this->tags;
             $this->export['data']['users'] = $this->users;
 
-            $output->write(json_encode(['db' => $this->export]));
+            $json_output = json_encode(['db' => $this->export]);
+            // Strip command tags
+            $json_output = str_replace('\n', '', $json_output);
+            $json_output = str_replace('\r', '', $json_output);
+            $json_output = str_replace('\t', '', $json_output);
+
+            $output->write($json_output, JSON_UNESCAPED_UNICODE);
+        }
+
+        private function generateId($counter) {
+            // Initialize machine ID once
+            $machineId = md5(Idno::site()->config()->getURL());
+            
+            // 4-byte timestamp
+            $timestamp = pack('N', time());
+            
+            // 5-byte machine/process identifier
+            $machineProcess = hex2bin($machineId);
+            
+            // 3-byte counter (increments and wraps at 16777215)
+            $string_counter = substr(pack('N', $counter), 1);
+            
+            return bin2hex($timestamp . $machineProcess . $string_counter);
         }
 
         private function getSafeAuthorId(string $user_id) {
             if (!isset($this->author_map[$user_id])) {
                 $user = User::getByUUID($user_id);
                 if ($user) {
-                    $id = count($this->author_map);
+                    $id = count($this->author_map); //$this->generateId(count($this->author_map) + 1000000); //md5(count($this->author_map) . $user_id);
                     $user_obj = [
                         'id' => count($this->author_map),
                         'slug' => $user->getHandle(),
@@ -119,8 +146,9 @@ use Idno\Entities\User;
         }
 
         private function getSafeTagId(string $tag) {
+            $tag = str_replace('#','',$tag);
             if (!isset($this->tag_map[$tag])) {
-                $id = count($this->tag_map);
+                $id = $this->generateId(count($this->tag_map) + 2000000);
                 $this->tags[] = [
                     'id' => $id,
                     'name' => $tag,
