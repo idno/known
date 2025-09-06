@@ -766,49 +766,36 @@ namespace Idno\Core {
          */
         public function componentFactory($className, $expectedBaseClass = "Idno\\Common\\Component" , $defaultClassNameBase = "Idno\\Core\\", $defaultClass = null)
         {
+            $class = null;
 
-            $component = null;
-
-            // Try full namespace
-            if (!empty($className) && class_exists($className)) {
-                if (is_subclass_of($className, $expectedBaseClass)) {
-                    $class = $className;
+            if (is_string($className) && $className !== '') {
+                $candidates = array($className, $defaultClassNameBase . $className);
+                foreach ($candidates as $candidate) {
+                    if (class_exists($candidate) && is_subclass_of($candidate, $expectedBaseClass)) {
+                        $class = $candidate;
+                        break;
+                    }
                 }
             }
 
-            // Attempt base class creation
-            if (empty($class)) {
-                if (class_exists($defaultClassNameBase . $className)) {
-                    $class = $defaultClassNameBase . $className;
-                }
-            }
-
-            // Now try and create it
             if (!empty($class)) {
-                if (is_subclass_of($class, $expectedBaseClass)) {
-                    $component = new $class();
+                return new $class();
+            }
+
+            if (!empty($defaultClass)) {
+                if (is_string($defaultClass)) {
+                    if (class_exists($defaultClass) && is_subclass_of($defaultClass, $expectedBaseClass)) {
+                        return new $defaultClass();
+                    }
+                    return null;
+                }
+
+                if (is_object($defaultClass) && is_subclass_of($defaultClass, $expectedBaseClass)) {
+                    return $defaultClass;
                 }
             }
 
-            // Do we have a class yet? otherwise try a default
-            if (empty($component)) {
-
-                if (!empty($defaultClass)) {
-
-                    if (is_string($defaultClass)) {
-                        $component = new $defaultClass();
-                    } else {
-                        $component = $defaultClass;
-                    }
-
-                    // validate
-                    if (!is_subclass_of($component, $expectedBaseClass)) {
-                            $component = null;
-                    }
-                }
-            }
-
-            return $component;
+            return null;
         }
 
         /**

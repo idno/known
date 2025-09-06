@@ -11,6 +11,24 @@ namespace Idno\Core {
 
     class Service extends \Idno\Common\Component
     {
+        /**
+         * Normalize a URL for token generation by removing query string and scheme.
+         */
+        private static function normalizeUrlForToken($url)
+        {
+            if (empty($url)) {
+                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Url not provided to token generation.'));
+            }
+
+            $url = explode('?', $url)[0];
+            $url = preg_replace('#^https?://#i', '', $url);
+
+            if (empty($url)) {
+                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Url not provided to token generation.'));
+            }
+
+            return $url;
+        }
 
         /**
          * Check that a page is being accessed by a local service.
@@ -42,23 +60,14 @@ namespace Idno\Core {
          */
         public static function generateToken($url)
         {
-
             $site_secret = \Idno\Core\Idno::site()->config()->site_secret;
             if (empty($site_secret)) {
                 throw new \Idno\Exceptions\ConfigurationException(\Idno\Core\Idno::site()->language()->_('Missing site secret'));
             }
 
-            $url = explode('?', $url)[0];
+            $normalized = self::normalizeUrlForToken($url);
 
-            // Normalise url for token generation
-            $url = str_replace('https://', '', $url);
-            $url = str_replace('http://', '', $url);
-
-            if (empty($url)) {
-                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Url not provided to token generation.'));
-            }
-
-            return hash_hmac('sha256', $url, $site_secret);
+            return hash_hmac('sha256', $normalized, $site_secret);
         }
 
         /**

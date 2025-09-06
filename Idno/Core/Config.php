@@ -664,11 +664,7 @@ namespace Idno\Core {
          */
         function getTitle()
         {
-            if (!empty($this->title)) {
-                return $this->title;
-            }
-
-            return '';
+            return $this->title ?? '';
         }
 
         /**
@@ -678,11 +674,7 @@ namespace Idno\Core {
          */
         function getDescription()
         {
-            if (!empty($this->description)) {
-                return $this->description;
-            }
-
-            return '';
+            return $this->description ?? '';
         }
 
         /**
@@ -718,11 +710,7 @@ namespace Idno\Core {
          */
         function isPublicSite()
         {
-            if (empty($this->walled_garden)) {
-                return true;
-            }
-
-            return false;
+            return empty($this->walled_garden);
         }
 
         /**
@@ -732,11 +720,7 @@ namespace Idno\Core {
          */
         function multipleSyndicationAccounts()
         {
-            if (isset($this->multi_syndication)) {
-                return $this->multi_syndication;
-            }
-
-            return false;
+            return (bool)$this->multi_syndication;
         }
 
         /**
@@ -774,11 +758,7 @@ namespace Idno\Core {
          */
         function isDefaultConfig()
         {
-            if ($this->default_config) {
-                return true;
-            }
-
-            return false;
+            return (bool)$this->default_config;
         }
 
         /**

@@ -108,29 +108,31 @@ namespace Idno\Common {
          */
         function getInput($name, $default = null, callable $filter = null)
         {
-            if (!empty($name)) {
-                $value = null;
-                $request = \Idno\Core\Input::getInput($name, $default, $filter);
-                if ($request !== null) {
-                    $value = $request;
-                } else if (isset($this->data[$name])) {
-                    $value = $this->data[$name];
-                }
-                if (($value===null) && ($default!==null)) {
-                    $value = $default;
-                }
-                if (!$value!==null) {
-                    if (isset($filter) && is_callable($filter) && empty($request)) {
-                        $value = call_user_func($filter, $name, $value);
-                    }
-
-                    // TODO, we may want to add some sort of system wide default filter for when $filter is null
-
-                    return $value;
-                }
+            if (empty($name)) {
+                return null;
             }
 
-            return null;
+            $request = \Idno\Core\Input::getInput($name, $default, $filter);
+
+            // Prefer explicit request values
+            if ($request !== null) {
+                return $request;
+            }
+
+            // Fallback to decoded JSON payload stored in $this->data
+            $value = $this->data[$name] ?? null;
+
+            if ($value === null) {
+                $value = $default;
+            }
+
+            // If a filter is provided and wasn't already applied by Input::getInput, apply it here
+            if ($value !== null && $request === null && isset($filter) && is_callable($filter)) {
+                $value = call_user_func($filter, $name, $value);
+            }
+
+            // TODO: we may want a system-wide default filter when $filter is null
+            return $value;
         }
 
         function exception($e)
