@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/idno/known.svg?branch=master)](https://travis-ci.org/idno/known) 
-[![Backers on Open Collective](https://opencollective.com/known/backers/badge.svg)](#backers) 
+[![Build Status](https://travis-ci.org/idno/known.svg?branch=master)](https://travis-ci.org/idno/known)
 
 # Known: a social group platform
 
@@ -36,8 +35,6 @@ Optionally, you can install the latest bleeding edge code the same way: ``` comp
 
 ### Support us
 
-**If you find this project useful, and you really want to support us, you can now fund us on [OpenCollective](https://opencollective.com/known).**
-
 * [Star us on GitHub](https://github.com/idno/known)
 * [Like us on alternativeto.net](http://alternativeto.net/software/known/)
 * [Contribute](CONTRIBUTING.md)
@@ -58,15 +55,8 @@ For details on contributing to the Known project, please read [CONTRIBUTING.md](
 ## Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-<a href="https://github.com/idno/known/graphs/contributors"><img src="https://opencollective.com/known/contributors.svg?width=890&button=false" /></a>
 
-
-## Backers
-
-Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/known#backer)]
-
-<a href="https://opencollective.com/known#backers" target="_blank"><img src="https://opencollective.com/known/backers.svg?width=890"></a>
-
+See [contributors on GitHub](https://github.com/idno/known/graphs/contributors).
 
 ## Copyright and License
 
