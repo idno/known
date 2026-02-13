@@ -270,6 +270,92 @@ EOD;
     }
 
     /**
+     * Test that plain string content values (not {value, html} objects) are handled.
+     * Regression test for https://github.com/idno/known/issues/3199
+     */
+    function testAddWebmentions_PlainStringContent()
+    {
+        $entity = $this->webmentionEntityProvider();
+        $this->toDelete[] = $entity;
+        $target = $entity->getURL();
+
+        $source = 'http://example.com/2024/plain-content-reply';
+        $sourceContent = <<<EOD
+<!DOCTYPE html>
+<html>
+<body class="h-entry">
+  <a class="u-in-reply-to" href="$target">in reply to</a>
+  <span class="p-name">This is plain text content</span>
+  <a class="u-url" href="$source">permalink</a>
+  <a class="p-author h-card" href="https://example.com/">Plain Jane</a>
+</body>
+</html>
+EOD;
+        $sourceResp = ['response' => 200, 'content' => $sourceContent];
+        $sourceMf2 = (new \Mf2\Parser($sourceContent, $source))->parse();
+        $entity->addWebmentions($source, $target, $sourceResp, $sourceMf2);
+
+        $this->assertArrayHasKey('reply', $entity->getAllAnnotations(), 'A reply annotation should have been created.');
+        $anno = array_values($entity->getAllAnnotations()['reply'])[0];
+        $this->assertIsString($anno['content'], 'Annotation content should be a string.');
+        $this->assertIsString($anno['permalink'], 'Annotation permalink should be a string.');
+        $this->assertIsString($anno['owner_name'], 'Annotation owner_name should be a string.');
+    }
+
+    /**
+     * Test that mf2 photo values with alt text objects are handled.
+     * Regression test for https://github.com/idno/known/issues/3199
+     */
+    function testAddWebmentions_PhotoWithAltText()
+    {
+        $entity = $this->webmentionEntityProvider();
+        $this->toDelete[] = $entity;
+        $target = $entity->getURL();
+
+        // Construct mf2 data directly with a photo that has alt text (object form)
+        $source = 'http://example.com/2024/photo-alt-mention';
+        $sourceContent = <<<EOD
+<!DOCTYPE html>
+<html>
+<body class="h-entry">
+  <a class="u-in-reply-to" href="$target">in reply to</a>
+  <span class="p-name e-content">A reply with author photo</span>
+  <a class="u-url" href="$source">permalink</a>
+  <div class="p-author h-card">
+    <a class="p-name u-url" href="https://example.com/">Photo Jane</a>
+    <img class="u-photo" src="https://example.com/photo.jpg" alt="Jane's photo" />
+  </div>
+</body>
+</html>
+EOD;
+        $sourceResp = ['response' => 200, 'content' => $sourceContent];
+        $sourceMf2 = (new \Mf2\Parser($sourceContent, $source))->parse();
+
+        // Simulate the case where the mf2 parser returns photo as an object with alt text
+        // by modifying the parsed data to use the {value, alt} form
+        foreach ($sourceMf2['items'] as &$item) {
+            if (isset($item['type']) && in_array('h-entry', $item['type'])) {
+                if (!empty($item['properties']['author'])) {
+                    foreach ($item['properties']['author'] as &$author) {
+                        if (is_array($author) && isset($author['properties']['photo'])) {
+                            $author['properties']['photo'] = [
+                                ['value' => 'https://example.com/photo.jpg', 'alt' => "Jane's photo"]
+                            ];
+                        }
+                    }
+                }
+            }
+        }
+
+        $entity->addWebmentions($source, $target, $sourceResp, $sourceMf2);
+
+        $this->assertArrayHasKey('reply', $entity->getAllAnnotations(), 'A reply annotation should have been created.');
+        $anno = array_values($entity->getAllAnnotations()['reply'])[0];
+        $this->assertEquals('Photo Jane', $anno['owner_name'], 'Owner name should be set.');
+        $this->assertIsString($anno['permalink'], 'Permalink should be a string.');
+    }
+
+    /**
      * A particularly knotty case when we get a webmention from *our
      * own* feed. It looks valid because it includes a link, but it's
      * not really.

@@ -2335,36 +2335,37 @@ namespace Idno\Common {
             }
 
             if ($item) {
-                error_log(json_encode($item));
                 $mention = array();
                 if (!empty($item['properties'])) {
                     if (!empty($item['properties']['content'])) {
                         $mention['content'] = '';
                         if (is_array($item['properties']['content'])) {
                             foreach ($item['properties']['content'] as $content) {
-                                if (!empty($content['value'])) {
+                                if (is_string($content)) {
+                                    $parsed_content = \Idno\Core\Idno::site()->template()->sanitize_html($content);
+                                } else if (is_array($content) && !empty($content['value'])) {
                                     $parsed_content = \Idno\Core\Idno::site()->template()->sanitize_html($content['value']);
-                                    if (!substr_count($mention['content'], $parsed_content)) {
-                                        $mention['content'] .= $parsed_content;
-                                    }
+                                } else {
+                                    continue;
+                                }
+                                if (!empty($parsed_content) && !substr_count($mention['content'], $parsed_content)) {
+                                    $mention['content'] .= $parsed_content;
                                 }
                             }
-                        } else {
-                            $mention['content'] = $item['properties']['content'];
+                        } else if (is_string($item['properties']['content'])) {
+                            $mention['content'] = \Idno\Core\Idno::site()->template()->sanitize_html($item['properties']['content']);
                         }
                     } else if (!empty($item['properties']['summary'])) {
-                        // TODO properties are always arrays, are these checks unnecessary?
-                        if (is_array($item['properties']['summary'])) {
-                            $mention['content'] = \Idno\Core\Idno::site()->template()->sanitize_html(implode(' ', $item['properties']['summary']));
-                        } else {
-                            $mention['content'] = $item['properties']['summary'];
-                        }
+                        // mf2 properties are always arrays; filter to strings before imploding
+                        $summaries = is_array($item['properties']['summary'])
+                            ? array_filter($item['properties']['summary'], 'is_string')
+                            : [];
+                        $mention['content'] = \Idno\Core\Idno::site()->template()->sanitize_html(implode(' ', $summaries));
                     } else if (!empty($item['properties']['name'])) {
-                        if (is_array($item['properties']['name'])) {
-                            $mention['content'] = \Idno\Core\Idno::site()->template()->sanitize_html(implode(' ', $item['properties']['name']));
-                        } else {
-                            $mention['content'] = $item['properties']['name'];
-                        }
+                        $names = is_array($item['properties']['name'])
+                            ? array_filter($item['properties']['name'], 'is_string')
+                            : [];
+                        $mention['content'] = \Idno\Core\Idno::site()->template()->sanitize_html(implode(' ', $names));
                     }
                     if (!empty($item['properties']['published'])) {
                         $mention['created'] = strtotime($item['properties']['published'][0]);
@@ -2373,11 +2374,13 @@ namespace Idno\Common {
                         $mention['created'] = time();
                     }
                     if (!empty($item['properties']['url'])) {
+                        $urls = static::getStringURLs($item['properties']['url'], false);
                         if (!empty($item['properties']['uid'])) {
-                            $mention['url'] = array_intersect($item['properties']['uid'], $item['properties']['url']);
+                            $uids = static::getStringURLs($item['properties']['uid'], false);
+                            $mention['url'] = array_values(array_intersect($uids, $urls));
                         }
                         if (empty($mention['url'])) {
-                            $mention['url'] = $item['properties']['url'];
+                            $mention['url'] = $urls;
                         }
                     }
 
@@ -2407,7 +2410,6 @@ namespace Idno\Common {
                             }
                         }
                     }
-                    error_log(json_encode($mention));
                 }
                 if (empty($mention['content'])) {
                     $mention['content'] = '';
@@ -2426,14 +2428,26 @@ namespace Idno\Common {
         {
             $owner = [];
             if (!empty($hcard['properties']['name'])) {
-                $owner['name'] = $hcard['properties']['name'][0];
+                $name = $hcard['properties']['name'][0];
+                $owner['name'] = is_string($name) ? $name : '';
             }
             if (!empty($hcard['properties']['url'])) {
-                $owner['url'] = $hcard['properties']['url'][0];
+                $url = $hcard['properties']['url'][0];
+                // Handle h-cite-style nested objects
+                if (is_array($url) && !empty($url['properties']['url'][0])) {
+                    $url = $url['properties']['url'][0];
+                }
+                $owner['url'] = is_string($url) ? $url : '';
             }
             if (!empty($hcard['properties']['photo'])) {
-
-                $owner['photo'] =  \Idno\Core\Idno::site()->template()->getProxiedImageUrl($hcard['properties']['photo'][0], 300, 'square');
+                $photo = $hcard['properties']['photo'][0];
+                // mf2 photo values can be objects with 'value' and 'alt' keys
+                if (is_array($photo) && !empty($photo['value'])) {
+                    $photo = $photo['value'];
+                }
+                if (is_string($photo)) {
+                    $owner['photo'] = \Idno\Core\Idno::site()->template()->getProxiedImageUrl($photo, 300, 'square');
+                }
             }
 
             return $owner;
