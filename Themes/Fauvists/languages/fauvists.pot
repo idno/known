@@ -15,10 +15,6 @@ msgid "Settings"
 msgstr ""
 
 #: ./templates/default/account/menu.tpl.php:4
-msgid "Email notifications"
-msgstr ""
-
-#: ./templates/default/account/menu.tpl.php:5
 msgid "Tools and Apps"
 msgstr ""
 
@@ -28,10 +24,6 @@ msgstr ""
 
 #: ./templates/default/account/settings/menu.tpl.php:4
 msgid "Account settings"
-msgstr ""
-
-#: ./templates/default/account/settings/menu.tpl.php:5
-msgid "Notifications"
 msgstr ""
 
 #: ./templates/default/account/register.tpl.php:6

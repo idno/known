@@ -69,7 +69,6 @@ namespace Idno\Core {
                 session_save_path(Idno::site()->config()->session_path);
             }
 
-            // session_cache_limiter('public // TODO: Reintroduce when page endpoints have set no-expire as appropriate
             session_name(Idno::site()->config()->sessionname);
             session_start();
 
@@ -138,11 +137,6 @@ namespace Idno\Core {
          */
         protected function validate()
         {
-            // Check for secure sessions being delivered insecurely, and vis versa
-            /*if (isset($_SESSION['secure']) && $_SESSION['secure'] != Idno::site()->isSecure()) {
-                $message = Idno::site()->isSecure() ? 'Insecure session accessed securely' : 'Secure session accessed insecurely';
-                throw new \Idno\Exceptions\SecurityException(\Idno\Core\Idno::site()->language()->_('Session funnybusiness: ', [$message));
-            }*/
         }
 
         /**

@@ -7,7 +7,6 @@
 namespace Idno\Pages {
 
     use Idno\Core\Webmention;
-    use Idno\Entities\Notification;
     use Idno\Entities\User;
 
     /**

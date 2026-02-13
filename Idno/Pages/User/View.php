@@ -8,7 +8,6 @@ namespace Idno\Pages\User {
 
     use Idno\Core\Idno;
     use Idno\Core\Webmention;
-    use Idno\Entities\Notification;
     use Idno\Entities\User;
 
     /**
@@ -166,27 +165,6 @@ namespace Idno\Pages\User {
                 if (!empty($card['properties']['name'])) {
                     $mention['owner_name'] = $card['properties']['name'][0];
                 }
-            }
-
-            $message = 'You were mentioned';
-            if (isset($mention['owner_name'])) {
-                $message .= ' by ' . $mention['owner_name'];
-            }
-            $message .= ' on ' . parse_url($mention['permalink'], PHP_URL_HOST);
-
-            $notif = new Notification();
-            if ($notif->setNotificationKey(['mention', $user->getUUID(), $source, $target])) {
-                $notif->setOwner($user);
-                $notif->setMessage($message);
-                $notif->setMessageTemplate('content/notification/mention');
-                $notif->setActor($sender_url);
-                $notif->setVerb('mention');
-                $notif->setObject($mention);
-                $notif->setTarget($user);
-                $notif->save(true);
-                $user->notify($notif);
-            } else {
-                \Idno\Core\Idno::site()->logging()->debug("ignoring duplicate notification", ['source' => $source, 'target' => $target, 'user' => $user->getHandle()]);
             }
 
             return true;

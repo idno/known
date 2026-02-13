@@ -547,7 +547,7 @@ namespace Idno\Common {
         }
 
         /**
-         * Retrieve a title for this object suitable for notifications
+         * @deprecated Notifications have been removed. Equivalent to getTitle() with getShortDescription() fallback.
          * @return string
          */
         function getNotificationTitle()
@@ -2508,95 +2508,6 @@ namespace Idno\Common {
             $this->save(true);
 
             \Idno\Core\Idno::site()->events()->triggerEvent('annotation/add/' . $subtype, array('annotation' => $annotation, 'object' => $this));
-
-            if ($recipients = $this->getAnnotationOwnerUUIDs(true)) {
-                $recipients[] = $this->getOwnerID();
-                $recipients = array_unique($recipients);
-            } else {
-                $recipients = array($this->getOwnerID());
-            }
-
-            if ($send_notification) {
-                foreach ($recipients as $recipient_uuid) {
-
-                    if (Idno::site()->session()->isLoggedIn()) {
-                        if ($recipient_uuid == Idno::site()->session()->currentUserUUID()) {
-                            // Don't bother sending a notification to the user performing the action
-                            // Note: for received webmentions, no user will ever be logged in, so this only applies to local comments
-                            continue;
-                        }
-                    }
-                    // Don't send a notification to the commenter
-                    if ($recipient_uuid === $owner_url) {
-                        continue;
-                    }
-
-                    if ($recipient = User::getByUUID($recipient_uuid)) {
-
-                        $send = true;
-                        switch ($subtype) {
-                            case 'mention':
-                            case 'reply':
-                                if ($recipient_uuid == $this->getOwnerID()) {
-                                    $subject = $owner_name . ' replied to your post!';
-                                } else {
-                                    $subject = $owner_name . ' replied!';
-                                }
-                                $notification_template = 'content/notification/reply';
-                                $context = 'reply';
-                                break;
-                            case 'like':
-                                if ($recipient_uuid == $this->getOwnerID()) {
-                                    $subject = $owner_name . ' liked your post!';
-                                } else {
-                                    $send = false;
-                                }
-                                $notification_template = 'content/notification/like';
-                                $context = 'like';
-                                break;
-                            case 'share':
-                                if ($recipient_uuid == $this->getOwnerID()) {
-                                    $subject = $owner_name . ' reshared your post!';
-                                } else {
-                                    $send = false;
-                                }
-                                $notification_template = 'content/notification/share';
-                                $context = 'share';
-                                break;
-                            case 'rsvp':
-                                $subject = $owner_name . ' RSVPed!';
-                                $notification_template = 'content/notification/rsvp';
-                                $context = 'rsvp';
-                                break;
-                        }
-
-                        if (
-                            $send == true && $post_existed == false
-                        ) {
-                            if (empty($subject)) {
-                                $subject = '';
-                            }
-
-                            if (!empty($notification_template) && !empty($context) && $send_notification) {
-                                $notif = new \Idno\Entities\Notification();
-                                if ($notif->setNotificationKey([$context, $recipient->getUUID(), $annotation_url])) {
-                                    $notif->setOwner($recipient);
-                                    $notif->setMessage($subject);
-                                    $notif->setMessageTemplate($notification_template);
-                                    $notif->setActor($owner_url);
-                                    $notif->setVerb($context);
-                                    $notif->setObject($annotation);
-                                    $notif->setTarget($this);
-                                    $notif->read = false;
-                                    $notif->save(true);
-                                    $recipient->notify($notif);
-                                }
-                            }
-                        }
-
-                    }
-                }
-            }
 
             return true;
         }

@@ -5,17 +5,10 @@
         <img class="u-photo" src="<?php echo \Idno\Core\Idno::site()->session()->currentUser()->getIcon() ?>" 
              alt="<?php echo htmlspecialchars(\Idno\Core\Idno::site()->session()->currentUser()->getTitle()) ?>" />
         <?php echo htmlspecialchars(\Idno\Core\Idno::site()->session()->currentUser()->getTitle())?>
-        <?php
-            $notifs = \Idno\Core\Idno::site()->session()->currentUser()->countUnreadNotifications();
-        if ($notifs > 0) {
-            echo "<span class=\"unread-notification-count\">$notifs</span>";
-        }
-        ?>
         <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
         <li><a href="<?php echo \Idno\Core\Idno::site()->session()->currentUser()->getDisplayURL()?>"><?php echo \Idno\Core\Idno::site()->language()->_('Profile'); ?></a></li>
-        <li><a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/notifications"><?php echo \Idno\Core\Idno::site()->language()->_('Notifications'); ?></a></li>
         <?php echo $this->draw('shell/toolbar/personal/items')?>
         <li><a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/settings/"><?php echo \Idno\Core\Idno::site()->language()->_('Account Settings'); ?></a></li>
         <?php if (\Idno\Core\Idno::site()->session()->currentUser()->isAdmin()) { ?>

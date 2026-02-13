@@ -56,7 +56,6 @@ module.exports = function (grunt) {
           'js/known.es6': [
 	      'js/src/classes/Security.js',
 	      'js/src/classes/Logger.js',
-	      'js/src/classes/Notifications.js',
 	      'js/src/lib/Known.js',
 	      'js/src/classes/Unfurl.js',
 	      'js/src/classes/Image.js',

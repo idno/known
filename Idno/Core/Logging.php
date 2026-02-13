@@ -16,7 +16,14 @@ namespace Idno\Core {
     class Logging extends Component implements LoggerInterface
     {
 
-        public $loglevel_filter = 4;
+        /** Log level constants */
+        const LEVEL_OFF     = 0;
+        const LEVEL_ERROR   = 1;
+        const LEVEL_WARNING = 2;
+        const LEVEL_INFO    = 3;
+        const LEVEL_DEBUG   = 4;
+
+        public $loglevel_filter = self::LEVEL_DEBUG;
         private $identifier;
 
         /**
@@ -74,7 +81,6 @@ namespace Idno\Core {
                         case E_NOTICE:
                         case E_DEPRECATED:
                         case E_USER_DEPRECATED:
-                        case E_STRICT:
                         case E_USER_NOTICE:
                             $this->notice($message);
                             break;
@@ -84,8 +90,6 @@ namespace Idno\Core {
                             break;
                     }
 
-                    /* Don't execute PHP internal error handler */
-                    //return true;
                 }
             );
         }
@@ -109,15 +113,18 @@ namespace Idno\Core {
         private function passesFilter($level)
         {
             switch ($level) {
-                case LogLevel::EMERGENCY: case LogLevel::ALERT:
-                    case LogLevel::CRITICAL: case LogLevel::ERROR:
-                    return $this->loglevel_filter >= LOGLEVEL_ERROR;
+                case LogLevel::EMERGENCY:
+                case LogLevel::ALERT:
+                case LogLevel::CRITICAL:
+                case LogLevel::ERROR:
+                    return $this->loglevel_filter >= self::LEVEL_ERROR;
                 case LogLevel::WARNING:
-                    return $this->loglevel_filter >= LOGLEVEL_WARNING;
-                case LogLevel::NOTICE: case LogLevel::INFO:
-                    return $this->loglevel_filter >= LOGLEVEL_INFO;
+                    return $this->loglevel_filter >= self::LEVEL_WARNING;
+                case LogLevel::NOTICE:
+                case LogLevel::INFO:
+                    return $this->loglevel_filter >= self::LEVEL_INFO;
                 case LogLevel::DEBUG:
-                    return $this->loglevel_filter >= LOGLEVEL_DEBUG;
+                    return $this->loglevel_filter >= self::LEVEL_DEBUG;
             }
             return false;
         }
@@ -129,24 +136,18 @@ namespace Idno\Core {
          * @param $message
          * @param array  $context
          */
-        public function log($level,$message = LOGLEVEL_INFO, array $context = array()): void
+        public function log($level, $message = '', array $context = array()): void
         {
-            // backward compatibility
+            // backward compatibility: log($message, $numericLevel) calling convention
             if (is_string($level) && is_int($message)) {
-                // TODO in a future version, warn that this
-                // calling style is deprecated and will eventually
-                // go away.
                 $temp = $level;
-                if ($message === LOGLEVEL_ERROR) {
+                if ($message === self::LEVEL_ERROR) {
                     $level = LogLevel::ERROR;
-                }
-                if ($message === LOGLEVEL_WARNING) {
+                } elseif ($message === self::LEVEL_WARNING) {
                     $level = LogLevel::WARNING;
-                }
-                if ($message === LOGLEVEL_INFO) {
+                } elseif ($message === self::LEVEL_INFO) {
                     $level = LogLevel::INFO;
-                }
-                if ($message === LOGLEVEL_DEBUG) {
+                } elseif ($message === self::LEVEL_DEBUG) {
                     $level = LogLevel::DEBUG;
                 }
                 $message = $temp;
@@ -163,7 +164,7 @@ namespace Idno\Core {
                 // Construct log message
                 // Trace for debug (when filtering is set to debug, always add a trace)
                 $trace = "";
-                if ($this->loglevel_filter == LOGLEVEL_DEBUG) {
+                if ($this->loglevel_filter == self::LEVEL_DEBUG) {
                     $backtrace = @debug_backtrace(false, 3);
                     foreach (array_reverse($backtrace) as $frame) {
                         if (isset($frame['class']) && isset($frame['file']) && isset($frame['line']) /*&& $frame['class'] !== 'Idno\Core\Logging'*/) {
@@ -382,9 +383,10 @@ namespace Idno\Core {
 
     }
 
-    define('LOGLEVEL_OFF', 0);
-    define('LOGLEVEL_ERROR', 1);
-    define('LOGLEVEL_WARNING', 2);
-    define('LOGLEVEL_INFO', 3);
-    define('LOGLEVEL_DEBUG', 4);
+    // @deprecated Use Logging::LEVEL_* class constants instead. Kept for backward compatibility.
+    define('LOGLEVEL_OFF', Logging::LEVEL_OFF);
+    define('LOGLEVEL_ERROR', Logging::LEVEL_ERROR);
+    define('LOGLEVEL_WARNING', Logging::LEVEL_WARNING);
+    define('LOGLEVEL_INFO', Logging::LEVEL_INFO);
+    define('LOGLEVEL_DEBUG', Logging::LEVEL_DEBUG);
 }

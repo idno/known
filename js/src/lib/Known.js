@@ -32,9 +32,4 @@ $(document).ready(function () {
     if (!!url) {
 	window.location = url;
     }
-    
-    if (known.session.loggedIn) {
-	//TODO(ben) re-enable in a smarter way
-	//Notifications.enable(true);
-    }
 });

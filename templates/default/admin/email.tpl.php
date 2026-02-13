@@ -6,7 +6,7 @@
 
         <div class="explanation">
             <p>
-                <?php echo \Idno\Core\Idno::site()->language()->_("Known tries to send email using your server's default email settings. If you'd like it to do something else - for example, if you'd like to send email using an external provider - enter the new SMTP settings below. You can also <a href=\"%s\">change your notification settings</a>.", [\Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/settings/notifications/']); ?>
+                <?php echo \Idno\Core\Idno::site()->language()->_("Known tries to send email using your server's default email settings. If you'd like it to do something else - for example, if you'd like to send email using an external provider - enter the new SMTP settings below."); ?>
             </p>
         </div>
     </div>
@@ -30,7 +30,7 @@
                            value="<?php echo htmlspecialchars(\Idno\Core\Idno::site()->config()->from_email) ?>">
                 </div>
                 <div class="col-md-6">
-                    <p class="config-desc"><?php echo \Idno\Core\Idno::site()->language()->_('This is the address that every notification will be sent from.'); ?></p>
+                    <p class="config-desc"><?php echo \Idno\Core\Idno::site()->language()->_('This is the address that every email will be sent from.'); ?></p>
                 </div>
             </div>
 
