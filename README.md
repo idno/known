@@ -33,6 +33,40 @@ You can install Known directly from composer using: ``` composer create-project 
 
 Optionally, you can install the latest bleeding edge code the same way: ``` composer create-project idno/known -s dev ```
 
+### Setting up the async pipeline
+
+By default, Known processes events like Webmention pings and syndication to external services synchronously during page requests. You can enable asynchronous event processing to improve page load times by deferring these operations to a background worker.
+
+#### 1. Enable the async queue
+
+Add the following line to your `config.ini`:
+
+```ini
+event_queue = 'AsynchronousQueue'
+```
+
+#### 2. Run the event queue worker
+
+Start the dispatch service using the Known console tool. Run it as your web server user so it can read and write files:
+
+```bash
+sudo -u www-data KNOWN_DOMAIN='your.domain' ./known service-event-queue
+```
+
+This process must stay running to dispatch queued events. Use a process manager (e.g., systemd, supervisord) to keep it alive.
+
+#### 3. Run the periodic cron service (optional)
+
+If you need periodic background tasks (triggered via `cron/minute`, `cron/hourly`, and `cron/daily` events), start the cron service:
+
+```bash
+sudo -u www-data KNOWN_DOMAIN='your.domain' ./known.php service-cron
+```
+
+**Important:** When you update Known core or any plugins, restart both `service-event-queue` and `service-cron` so they run the updated code.
+
+For more details, see the [advanced configuration docs](docs/install/advanced.md).
+
 ### Support us
 
 * [Star us on GitHub](https://github.com/idno/known)
