@@ -53,12 +53,15 @@ namespace Idno\Pages\Webmentions {
                 // Get the page handler for target
                 if ($page = \Idno\Core\Idno::site()->routes()->getRoute($route)) {
                     // First of all, make sure the target page isn't the source page. Let's not webmention ourselves!
+                    // Compare URL paths directly instead of creating Page objects via getRoute(),
+                    // which has side effects (overwrites currentPage, triggers page/ready events,
+                    // sends duplicate headers) that can break annotation processing.
                     $webmention_ok = true;
                     if (\Idno\Common\Entity::isLocalUUID($source)) {
-                        if ($source_page = \Idno\Core\Idno::site()->routes()->getRoute($source)) {
-                            if ($source_page == $page) {
-                                $webmention_ok = false;
-                            }
+                        $source_path = parse_url($source, PHP_URL_PATH);
+                        $target_path = parse_url($target, PHP_URL_PATH);
+                        if ($source_path && $target_path && rtrim($source_path, '/') === rtrim($target_path, '/')) {
+                            $webmention_ok = false;
                         }
                     }
 
