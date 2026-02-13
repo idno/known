@@ -55,13 +55,12 @@ namespace Idno\Pages\Account {
                     $email->setTextBodyFromTemplate('account/password', array('email' => $email_address, 'code' => $auth_code));
                     $email->send();
 
-                    $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'account/password/?sent=true');
-
                 }
 
             }
-            \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Oh no! We couldn't find an account associated with that email address."));
-            $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'account/password');
+
+            // Always show the same response to prevent user enumeration
+            $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'account/password/?sent=true');
 
         }
 
