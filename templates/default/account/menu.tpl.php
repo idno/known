@@ -1,9 +1,6 @@
 <ul class="nav">
     <li <?php if (\Idno\Core\Idno::site()->currentPage()->doesPathMatch('/account/settings/')) echo 'class="active"'; ?> role="presentation"><a
             href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/settings/"><?php echo \Idno\Core\Idno::site()->language()->_('Settings'); ?></a></li>
-    <li <?php if (\Idno\Core\Idno::site()->currentPage()->doesPathMatch('/account/settings/notifications/')) echo 'class="active"'; ?>
-        role="presentation"><a
-            href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/settings/notifications/"><?php echo \Idno\Core\Idno::site()->language()->_('Email notifications'); ?></a></li>
     <li <?php if (\Idno\Core\Idno::site()->currentPage()->doesPathMatch('/account/settings/tools/')) echo 'class="active"'; ?> role="presentation">
         <a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>account/settings/tools/"><?php echo \Idno\Core\Idno::site()->language()->_('Tools and Apps'); ?></a></li>
     <?php echo $this->draw('account/menu/items') ?>

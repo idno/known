@@ -90,49 +90,6 @@ namespace Idno\Entities {
                 }
             );
 
-            // Email notifications
-            \Idno\Core\Idno::site()->events()->addListener(
-                'notify', function (\Idno\Core\Event $event) {
-
-                    $eventdata    = $event->data();
-                    $user         = $eventdata['user'];
-                    $notification = $eventdata['notification'];
-
-                    if ($user instanceof User && !defined('KNOWN_UNIT_TEST')) {
-
-                        if (empty($user->notifications['email']) || $user->notifications['email'] == 'all' || ($user->notifications['email'] == 'comment' && in_array($notification->type, array('comment', 'reply')))) {
-
-                            if (($obj = $notification->getObject()) && isset($obj['permalink'])) {
-                                $permalink = $obj['permalink'];
-                            }
-
-                            if (empty($user->notifications['ignored_domains']) || empty($permalink) || !in_array(parse_url($permalink, PHP_URL_HOST), $user->notifications['ignored_domains'])) {
-                                if (filter_var($user->email, FILTER_VALIDATE_EMAIL)) {
-                                    $vars = [
-                                    'user'         => $user,
-                                    'notification' => $notification,
-                                    ];
-
-                                    $t = clone \Idno\Core\Idno::site()->template();
-                                    $t->setTemplateType('email');
-                                    $shellvars = [];
-                                    if ($preheader = $t->__($vars)->draw('content/notification/preheader/'.$notification->getVerb())) {
-                                        $shellvars['preheader'] = $preheader;
-                                    }
-
-                                    $email = new Email();
-                                    $email->setSubject($notification->getMessage());
-                                    $email->setHTMLBodyFromTemplate($notification->getMessageTemplate(), $vars, $shellvars);
-                                    $email->setTextBodyFromTemplate($notification->getMessageTemplate(), $vars);
-                                    $email->addTo($user->email);
-                                    $email->send();
-                                }
-                            }
-                        }
-                    }
-                }
-            );
-
         }
 
         /**
@@ -1064,36 +1021,22 @@ namespace Idno\Entities {
         }
 
         /**
-         * Hook to provide a method of notifying a user - for example, sending an email or displaying a popup.
-         *
-         * @param \Idno\Entities\Notification $notification
-         * @param \Idno\Common\Entity|null    $object
+         * @deprecated Notifications have been removed. This method is a no-op for backward compatibility.
+         * @param mixed $notification
+         * @return bool
          */
         public function notify($notification)
         {
-            return \Idno\Core\Idno::site()->events()->triggerEvent(
-                'notify', array(
-                'user'         => $this,
-                'notification' => $notification,
-                )
-            );
+            return true;
         }
 
         /**
-         * Look up the number of unread notifications for this user
-         *
-         * @return integer
+         * @deprecated Notifications have been removed. Always returns 0.
+         * @return int
          */
         public function countUnreadNotifications()
         {
-            $count = Notification::countFromX(
-                'Idno\Entities\Notification', [
-                'owner' => $this->getUUID(),
-                'read'  => false,
-                ]
-            );
-
-            return $count;
+            return 0;
         }
 
         /**

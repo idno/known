@@ -53,9 +53,19 @@ namespace Idno\Core {
             bind_textdomain_codeset($domain, 'UTF-8');
         }
 
+        /**
+         * Whether this translation provider can provide translations.
+         *
+         * Note: Unlike the parent class, this does not check the specific
+         * $language parameter. GetText's language selection is handled by
+         * the system locale, not by this object's state. The $language
+         * parameter is accepted for interface compatibility but not used.
+         *
+         * @param string $language
+         * @return bool
+         */
         public function canProvide($language)
         {
-
             return $this->canProvide;
         }
 

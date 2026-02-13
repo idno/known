@@ -42,7 +42,7 @@
                     <?php echo $this->__(['id' => 'inputEmail', 'value' => $user->email, 'class' => 'input col-md-4 form-control', 'name' => 'email', 'placeholder' => \Idno\Core\Idno::site()->language()->_('Your email address')])->draw('forms/input/email'); ?>
                 </div>
                 <div class="col-md-5 config-desc">
-                    <?php echo \Idno\Core\Idno::site()->language()->_('Site notifications will be sent here.'); ?>
+                    <?php echo \Idno\Core\Idno::site()->language()->_('Used for account recovery and communications.'); ?>
                 </div>
             </div>
 

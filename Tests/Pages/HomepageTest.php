@@ -3,7 +3,6 @@
 namespace Tests\Pages {
 
     use Idno\Core\Idno;
-    use Idno\Core\Event;
     use Idno\Core\Webservice;
 
     class HomepageTest extends \Tests\KnownTestCase
@@ -16,10 +15,6 @@ namespace Tests\Pages {
 
             // Make sure it's not empty
             $this->assertNotEmpty($contents, 'The homepage load should not be empty. If this is failing, you may need to set KNOWN_DOMAIN.');
-
-            // Make sure it's actually Known we're talking to
-            // $this->assertNotFalse(strpos(implode(" \r\n", $http_response_header), 'X-Powered-By: https://withknown.com'), 'The homepage should identify as a Known site.');
-            // NOTE: removing this test as some plugins may intentionally remove the Known powered by header
         }
 
         function test404Page()
@@ -30,14 +25,6 @@ namespace Tests\Pages {
 
         private function doWebmentionContent($source, $target)
         {
-            $notification = false;
-            Idno::site()->events()->addListener(
-                'notify', function (Event $event) use (&$notification) {
-                    $eventdata    = $event->data();
-                    $notification = $eventdata['notification'];
-                }
-            );
-
             $sourceContent = <<<EOD
 <div class="h-entry">
   <a class="p-author h-card" href="http://foo.bar">Foo Bar</a>
@@ -48,9 +35,8 @@ EOD;
             $sourceResp = ['response' => 200, 'content' => $sourceContent];
 
             $homepage = new \Idno\Pages\Homepage();
-            $homepage->webmentionContent($source, $target, $sourceResp, $sourceMf2);
 
-            return $notification;
+            return $homepage->webmentionContent($source, $target, $sourceResp, $sourceMf2);
         }
 
 
@@ -62,15 +48,10 @@ EOD;
         {
             Idno::site()->config()->single_user = true;
             $this->admin(); // make sure there is an admin user
-            // uniquify source to make sure we get the notification
             $source = 'http://foo.bar/homepage-mention-single-user-'.md5(time() . rand(0, 9999));
             $target = Idno::site()->config()->getDisplayURL();
-            $notification = $this->doWebmentionContent($source, $target);
-            $this->assertTrue($notification !== false);
-            $this->assertEquals('http://foo.bar', $notification['actor']);
-            $this->assertEquals('You were mentioned by Foo Bar on foo.bar', $notification['message']);
-            $this->assertEquals('Foo Bar', $notification['object']['owner_name']);
-            $this->assertEquals('http://foo.bar', $notification['object']['owner_url']);
+            $result = $this->doWebmentionContent($source, $target);
+            $this->assertTrue($result !== false, 'Webmention to single-user homepage should be accepted.');
         }
 
 
@@ -84,28 +65,22 @@ EOD;
             $this->admin(); // make sure there is an admin user
             $source = 'http://foo.bar/homepage-mention-single-user-no-slash-'.md5(time() . rand(0, 9999));
             $target = rtrim(Idno::site()->config()->getDisplayURL(), '/');
-            $notification = $this->doWebmentionContent($source, $target);
-            $this->assertTrue($notification !== false);
-            $this->assertEquals('http://foo.bar', $notification['actor']);
-            $this->assertEquals('You were mentioned by Foo Bar on foo.bar', $notification['message']);
-            $this->assertEquals('Foo Bar', $notification['object']['owner_name']);
-            $this->assertEquals('http://foo.bar', $notification['object']['owner_url']);
+            $result = $this->doWebmentionContent($source, $target);
+            $this->assertTrue($result !== false, 'Webmention to single-user homepage (no trailing slash) should be accepted.');
         }
 
         /**
-         * Make sure that we're not notifying anyone of homepage mentions
-         * for multiuser sites
+         * Make sure that homepage mentions are ignored for multiuser sites
          */
         function testWebmentionContentMultiUser()
         {
             Idno::site()->config()->single_user = false;
             $source = 'http://foo.bar/homepage-mention-multi-user-'.md5(time() . rand(0, 9999));
             $target = Idno::site()->config()->getDisplayURL();
-            $notification = $this->doWebmentionContent($source, $target);
-            $this->assertFalse($notification);
+            $result = $this->doWebmentionContent($source, $target);
+            $this->assertFalse($result);
         }
 
     }
 
 }
-
