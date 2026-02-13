@@ -16,7 +16,7 @@ class Revoke extends Page
         $user = Idno::site()->session()->currentUser();
         $token = $this->getInput('token');
 
-        if (!token) {
+        if (!$token) {
             $this->setResponse(400);
             Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_("Nothing to revoke."));
             return $this->forward($accturl);
