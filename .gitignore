@@ -64,6 +64,8 @@ IdnoPlugins/
 ConsolePlugins/*
 !ConsolePlugins/Export
 !ConsolePlugins/GhostExport
+!ConsolePlugins/EventQueueService
+!ConsolePlugins/CronService
 
 error_log
 
