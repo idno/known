@@ -34,7 +34,7 @@ namespace Idno\Core {
         /* @var \Idno\Core\Idno $site */
         private static $site;
         private $currentPage;
-        private $known_hub;
+        private $idno_hub;
         private $helper_robot;
         private $reader;
         private $cache;
@@ -144,28 +144,29 @@ namespace Idno\Core {
 
             // No URL is a critical error, default base fallback is now a warning (Refs #526)
             if (!defined('IDNO_CONSOLE')) {
-                if (!$this->config->url) { throw new \Idno\Exceptions\ConfigurationException('Known was unable to work out your base URL! You might try setting url="http://yourdomain.com/" in your config.ini');
+                if (!$this->config->url) { throw new \Idno\Exceptions\ConfigurationException('Idno was unable to work out your base URL! You might try setting url="http://yourdomain.com/" in your config.ini');
                 }
                 if ($this->config->url == '/') {
                     $this->logging->warning(
-                        'Base URL has defaulted to "/" because Known was unable to detect your server name. '
-                        . 'This may be because you\'re loading Known via a script. '
+                        'Base URL has defaulted to "/" because Idno was unable to detect your server name. '
+                        . 'This may be because you\'re loading Idno via a script. '
                         . 'Try setting url="http://yourdomain.com/" in your config.ini to remove this message'
                     );
                 }
             }
 
-            // Connect to a Known hub if one is listed in the configuration file
+            // Connect to an Idno hub if one is listed in the configuration file
             // (and this isn't the hub!)
             if (empty(site()->session()->hub_connect)) {
                 site()->session()->hub_connect = 0;
             }
-            if (!empty($this->config->known_hub)
+            $hub_url = !empty($this->config->idno_hub) ? $this->config->idno_hub : (!empty($this->config->known_hub) ? $this->config->known_hub : false);
+            if (!empty($hub_url)
                 && !substr_count($_SERVER['REQUEST_URI'], '.')
-                && $this->config->known_hub != $this->config->url
+                && $hub_url != $this->config->url
             ) {
                 site()->session()->hub_connect     = time();
-                \Idno\Core\Idno::site()->known_hub = new \Idno\Core\Hub($this->config->known_hub);
+                \Idno\Core\Idno::site()->idno_hub = new \Idno\Core\Hub($hub_url);
                 \Idno\Core\Idno::site()->hub()->connect();
             }
 
@@ -329,13 +330,13 @@ namespace Idno\Core {
         }
 
         /**
-         * Returns the current Known hub
+         * Returns the current Idno hub
          *
          * @return \Idno\Core\Hub
          */
         function &hub() : ?Hub
         {
-            return $this->known_hub;
+            return $this->idno_hub;
         }
 
         /**
@@ -728,7 +729,7 @@ namespace Idno\Core {
                     $this->config()->update_version = $machine_version;
                     $this->config()->save();
 
-                    $this->logging()->info("Known upgraded from $last_update to $machine_version");
+                    $this->logging()->info("Idno upgraded from $last_update to $machine_version");
                 } else {
                     $this->logging()->error("There was a problem applying an update.");
                 }

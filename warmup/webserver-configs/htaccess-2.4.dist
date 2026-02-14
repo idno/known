@@ -1,4 +1,4 @@
-## BEGIN Known Webserver Config (don't remove)
+## BEGIN Idno Webserver Config (don't remove)
 
 <IfModule mod_rewrite.c>
     RewriteEngine on
@@ -80,4 +80,4 @@ AddType video/ogg .ogv
 AddType video/mp4 .mp4
 AddType video/webm .webm
 
-## END Known Webserver Config (don't remove)
+## END Idno Webserver Config (don't remove)

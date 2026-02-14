@@ -29,7 +29,7 @@ namespace Idno\Core {
             Idno::site()->routes()->addRoute('/account/password/?', '\Idno\Pages\Account\Password', true);
             Idno::site()->routes()->addRoute('/account/password/reset/?', '\Idno\Pages\Account\Password\Reset', true);
 
-            // Known feedback
+            // Idno feedback
             Idno::site()->routes()->addRoute('/account/settings/feedback/?', '\Idno\Pages\Account\Settings\Feedback');
             Idno::site()->routes()->addRoute('/account/settings/feedback/confirm/?', '\Idno\Pages\Account\Settings\FeedbackConfirm');
 

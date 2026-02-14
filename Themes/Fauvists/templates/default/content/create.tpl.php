@@ -54,10 +54,10 @@ if (empty($vars['items']) && sizeof($vars['contentTypes']) <= 1 &&
             <div class="col-md-6 col-md-offset-3">
                 <div class="welcome">
                     <p>
-                        <a href="https://withknown.com/" target="_blank"><img src="https://withknown.com/img/logo_k.png" style="width: 4em; border: 0"></a>
+                        <a href="https://idno.co/" target="_blank"><img src="https://idno.co/img/logo_k.png" style="width: 4em; border: 0"></a>
                     </p>
                     <p>
-                        <?= \Idno\Core\Idno::site()->language()->_('Welcome to your Known site!'); ?><br />
+                        <?= \Idno\Core\Idno::site()->language()->_('Welcome to your Idno site!'); ?><br />
                         <a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/"><?= \Idno\Core\Idno::site()->language()->_('Click here to start configuring your site'); ?></a>.
                     </p>
                 </div>

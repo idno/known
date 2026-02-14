@@ -521,7 +521,7 @@ namespace Idno\Core {
                     } else {
                         \Idno\Core\Idno::site()->logging()->debug("API auth failed signature validation for user: " . $user->getName());
                         \Idno\Core\Idno::site()->logging()->debug("Expected signature formed over base64_encode(hash_hmac('sha256', '{$_SERVER['REQUEST_URI']}', \$key, true)) = '$compare_hmac', but got '$hmac'. ");
-                        \Idno\Core\Idno::site()->logging()->debug("Please read http://docs.withknown.com/en/latest/developers/plugins/api/ for further details.");
+                        \Idno\Core\Idno::site()->logging()->debug("Please read http://docs.idno.co/en/latest/developers/plugins/api/ for further details.");
                     }
                 } else {
                     \Idno\Core\Idno::site()->logging()->debug("API User given in X_IDNO_USERNAME ('{$apiUsername}') could not be found.");

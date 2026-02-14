@@ -15,8 +15,8 @@ namespace Idno\Core {
         public $config = array(
             'database'               => 'mysql',
             'dbstring'               => 'mongodb://localhost:27017',
-            'dbname'                 => 'known', // Default MongoDB database
-            'sessionname'            => 'known', // Default session name
+            'dbname'                 => 'idno', // Default MongoDB database
+            'sessionname'            => 'idno', // Default session name
             'boolean_search'         => true, // Should search be boolean?
             'open_registration'      => true, // Can anyone register for this system?
             'initial_plugins'        => array('Status', 'Text', 'Photo', 'IndiePub'),
@@ -298,6 +298,8 @@ namespace Idno\Core {
             unset($array['proxy_string']);
             unset($array['proxy_type']);
             unset($array['disable_ssl_verify']);
+            unset($array['idno_hub']);
+            unset($array['idno_hubs']);
             unset($array['known_hub']);
             unset($array['known_hubs']);
             unset($array['directloadplugins']);
@@ -326,13 +328,15 @@ namespace Idno\Core {
             $this->path                      = dirname(dirname(dirname(__FILE__))); // Base path
             $this->url                       = $this->detectBaseURL();
             $this->static_url                = false;
-            $this->title                     = 'New Known site'; // A default name for the site
-            $this->description               = 'A social website powered by Known'; // Default description
+            $this->title                     = 'New Idno site'; // A default name for the site
+            $this->description               = 'A social website powered by Idno'; // Default description
             $this->timezone                  = 'UTC';
             $this->host                      = parse_url($this->url, PHP_URL_HOST); // The site hostname, without parameters etc
             $this->feed                      = $this->getDisplayURL() . 'content/all/?_t=rss';
             $this->indieweb_citation         = false;
             $this->indieweb_reference        = false;
+            $this->idno_hub                  = false;
+            $this->idno_hubs                 = [];
             $this->known_hub                 = false;
             $this->known_hubs                = [];
             $this->hub                       = 'https://withknown.superfeedr.com/';
@@ -356,7 +360,7 @@ namespace Idno\Core {
                 $host         = $this->host;
                 $this->dbname = preg_replace('/[^0-9a-z\.\-\_]/i', '', $host);
 
-                // Known now defaults to not including periods in database names for multitenant installs. Add
+                // Idno now defaults to not including periods in database names for multitenant installs. Add
                 // 'multitenant_periods = true' to config.ini if you wish to override this.
                 if (empty($this->multitenant_periods)) {
                     $this->dbname = str_replace('.', '_', $this->dbname);
@@ -383,7 +387,7 @@ namespace Idno\Core {
         }
 
         /**
-         * Attempt to detect your known configuration's server name.
+         * Attempt to detect your idno configuration's server name.
          */
         protected function detectBaseURL()
         {
@@ -478,7 +482,7 @@ namespace Idno\Core {
         }
 
         /**
-         * Returns the upload path for Known.
+         * Returns the upload path for Idno.
          *
          * @return string
          */
@@ -488,7 +492,7 @@ namespace Idno\Core {
         }
 
         /**
-         * Returns the installation path for Known.
+         * Returns the installation path for Idno.
          *
          * @return string
          */

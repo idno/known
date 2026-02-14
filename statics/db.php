@@ -8,14 +8,14 @@ if (empty($message)) {
 }
     $body = "
         <p>
-            This probably means that the database settings changed, this Known site hasn't been set up yet, or
+            This probably means that the database settings changed, this Idno site hasn't been set up yet, or
             there's a database problem.
         </p>
         $message
         
     ";
     $helplink = "
-        <a href=\"http://docs.withknown.com\">See the Known documentation for help.</a>
+        <a href=\"http://docs.idno.co\">See the Idno documentation for help.</a>
     ";
 
    require_once dirname(__FILE__) . '/error-page.php';

@@ -1,7 +1,7 @@
 {
     "name": "idno/indiepub",
-    "description": "Support IndieAuth and Micropub for single-user Known sites. Must be used with a single-user theme.",
-    "type": "known-plugin",
+    "description": "Support IndieAuth and Micropub for single-user Idno sites. Must be used with a single-user theme.",
+    "type": "idno-plugin",
     "version": "0.10",
     "require": {
         "composer/installers": "~1.0"

@@ -1,7 +1,7 @@
 {
     "name": "idno/events",
     "description": "A lightweight way to post or reply to events.",
-    "type": "known-plugin",
+    "type": "idno-plugin",
     "version": "1.0.2",
     "require": {
         "composer/installers": "~1.0"

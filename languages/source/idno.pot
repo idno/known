@@ -63,7 +63,7 @@ msgid "Site entity for \"%s\" could not be created"
 msgstr ""
 
 #: ./Idno/Core/Service.php:25
-msgid "Missing X-Known-Service-Signature, service call is not possible."
+msgid "Missing X-Idno-Service-Signature, service call is not possible."
 msgstr ""
 
 #: ./Idno/Core/Service.php:29
@@ -375,7 +375,7 @@ msgid "Tools and Apps"
 msgstr ""
 
 #: ./Idno/Pages/Admin/About.php:20
-msgid "About Known"
+msgid "About Idno"
 msgstr ""
 
 #: ./Idno/Pages/Admin/Dependencies.php:20
@@ -587,7 +587,7 @@ msgid "Following"
 msgstr ""
 
 #: ./Idno/Pages/Onboarding/Begin.php:24
-msgid "Welcome to Known"
+msgid "Welcome to Idno"
 msgstr ""
 
 #: ./Idno/Pages/Onboarding/Connect.php:26
@@ -671,7 +671,7 @@ msgid "Export your data"
 msgstr ""
 
 #: ./templates/default/account/export.tpl.php:19
-msgid "You can download an RSS version of everything you've posted on this site. This file is suitable for importing into content management systems like WordPress, or another Known site."
+msgid "You can download an RSS version of everything you've posted on this site. This file is suitable for importing into content management systems like WordPress, or another Idno site."
 msgstr ""
 
 #: ./templates/default/account/export.tpl.php:24
@@ -835,7 +835,7 @@ msgid "Thanks for sending along your thoughts. We'll read them right away."
 msgstr ""
 
 #: ./templates/default/account/settings/feedback/confirm.tpl.php:22
-msgid "Feedback is a gift.  For more information about Known, <a href=\"https://withknown.com/\">please visit our homepage</a>"
+msgid "Feedback is a gift.  For more information about Idno, <a href=\"https://idno.co/\">please visit our homepage</a>"
 msgstr ""
 
 #: ./templates/default/account/settings/feedback.tpl.php:5
@@ -843,7 +843,7 @@ msgid "Share your feedback"
 msgstr ""
 
 #: ./templates/default/account/settings/feedback.tpl.php:9
-msgid "Want to share something with the Known team? We'd love to read your thoughts, suggestions, or ideas. We will personally read all of your feedback."
+msgid "Want to share something with the Idno team? We'd love to read your thoughts, suggestions, or ideas. We will personally read all of your feedback."
 msgstr ""
 
 #: ./templates/default/account/settings/feedback.tpl.php:21
@@ -851,7 +851,7 @@ msgid "From"
 msgstr ""
 
 #: ./templates/default/account/settings/feedback.tpl.php:29
-msgid "Feedback for the Known team"
+msgid "Feedback for the Idno team"
 msgstr ""
 
 #: ./templates/default/account/settings/feedback.tpl.php:32
@@ -927,7 +927,7 @@ msgid "Bookmarklet"
 msgstr ""
 
 #: ./templates/default/account/settings/tools.tpl.php:22
-msgid "The Known bookmarklet is the best way to save links, reply to posts, and share articles."
+msgid "The Idno bookmarklet is the best way to save links, reply to posts, and share articles."
 msgstr ""
 
 #: ./templates/default/account/settings/tools.tpl.php:23
@@ -1023,7 +1023,7 @@ msgid "Save updates"
 msgstr ""
 
 #: ./templates/default/admin/about.tpl.php:15
-msgid "Known"
+msgid "Idno"
 msgstr ""
 
 #: ./templates/default/admin/about.tpl.php:15
@@ -1047,7 +1047,7 @@ msgid "(v%s required)"
 msgstr ""
 
 #: ./templates/default/admin/dependencies.tpl.php:8
-msgid "The following are system components that are required for Known to fully run. It's worth checking to make sure that they're all installed. If you need help installing any required packages, ask your web host or system administrator."
+msgid "The following are system components that are required for Idno to fully run. It's worth checking to make sure that they're all installed. If you need help installing any required packages, ask your web host or system administrator."
 msgstr ""
 
 #: ./templates/default/admin/dependencies.tpl.php:17
@@ -1067,7 +1067,7 @@ msgid "These extend the way PHP works, and are required for functionality like d
 msgstr ""
 
 #: ./templates/default/admin/diagnostics.tpl.php:9
-msgid "This page provides you with information that may help you or others diagnose any problems you may be experiencing with your Known install."
+msgid "This page provides you with information that may help you or others diagnose any problems you may be experiencing with your Idno install."
 msgstr ""
 
 #: ./templates/default/admin/diagnostics.tpl.php:45
@@ -1083,7 +1083,7 @@ msgid "Email settings"
 msgstr ""
 
 #: ./templates/default/admin/email.tpl.php:9
-msgid "Known tries to send email using your server's default email settings. If you'd like it to do something else - for example, if you'd like to send email using an external provider - enter the new SMTP settings below. You can also <a href=\"%s\">change your notification settings</a>."
+msgid "Idno tries to send email using your server's default email settings. If you'd like it to do something else - for example, if you'd like to send email using an external provider - enter the new SMTP settings below. You can also <a href=\"%s\">change your notification settings</a>."
 msgstr ""
 
 #: ./templates/default/admin/email.tpl.php:20
@@ -1187,7 +1187,7 @@ msgid "Export content"
 msgstr ""
 
 #: ./templates/default/admin/export.tpl.php:17
-msgid "Export your published Known content as an RSS file. You can import this file into Known or WordPress."
+msgid "Export your published Idno content as an RSS file. You can import this file into Idno or WordPress."
 msgstr ""
 
 #: ./templates/default/admin/export.tpl.php:20
@@ -1363,23 +1363,23 @@ msgid "Import content"
 msgstr ""
 
 #: ./templates/default/admin/import.tpl.php:12
-msgid "Import your content from other sites into Known. All imported content will be treated as a post, with a title and body content."
+msgid "Import your content from other sites into Idno. All imported content will be treated as a post, with a title and body content."
 msgstr ""
 
 #: ./templates/default/admin/import.tpl.php:27
-msgid "Upload a Known RSS export file and turn it into Known posts."
+msgid "Upload a Idno RSS export file and turn it into Idno posts."
 msgstr ""
 
 #: ./templates/default/admin/import.tpl.php:28
-msgid "How do I get my Known RSS file?"
+msgid "How do I get my Idno RSS file?"
 msgstr ""
 
 #: ./templates/default/admin/import.tpl.php:32
-msgid "To get your Known RSS file"
+msgid "To get your Idno RSS file"
 msgstr ""
 
 #: ./templates/default/admin/import.tpl.php:35
-msgid "Log into your Known site"
+msgid "Log into your Idno site"
 msgstr ""
 
 #: ./templates/default/admin/import.tpl.php:36
@@ -1395,7 +1395,7 @@ msgid "Download your RSS file"
 msgstr ""
 
 #: ./templates/default/admin/import.tpl.php:44
-msgid "Select Known export file"
+msgid "Select Idno export file"
 msgstr ""
 
 #: ./templates/default/admin/import.tpl.php:50
@@ -1407,7 +1407,7 @@ msgid "WordPress"
 msgstr ""
 
 #: ./templates/default/admin/import.tpl.php:67
-msgid "Upload a WordPress XML file and turn it into Known posts."
+msgid "Upload a WordPress XML file and turn it into Idno posts."
 msgstr ""
 
 #: ./templates/default/admin/import.tpl.php:68
@@ -1447,7 +1447,7 @@ msgid "Blogger"
 msgstr ""
 
 #: ./templates/default/admin/import.tpl.php:108
-msgid "Upload a Blogger XML file and turn it into Known posts."
+msgid "Upload a Blogger XML file and turn it into Idno posts."
 msgstr ""
 
 #: ./templates/default/admin/import.tpl.php:108
@@ -1515,11 +1515,11 @@ msgid "Disabled"
 msgstr ""
 
 #: ./templates/default/admin/plugins/plugin.tpl.php:58
-msgid "Known Version"
+msgid "Idno Version"
 msgstr ""
 
 #: ./templates/default/admin/plugins/plugin.tpl.php:71
-msgid "Known Build"
+msgid "Idno Build"
 msgstr ""
 
 #: ./templates/default/admin/plugins/plugin.tpl.php:84
@@ -1539,11 +1539,11 @@ msgid "Enable"
 msgstr ""
 
 #: ./templates/default/admin/plugins.tpl.php:9
-msgid "Plugins allow you to add features to your site. These include new kinds of content, options to syndicate content to different sites, and features to change the way Known behaves. To enable or disable a plugin, just click its enable or disable button."
+msgid "Plugins allow you to add features to your site. These include new kinds of content, options to syndicate content to different sites, and features to change the way Idno behaves. To enable or disable a plugin, just click its enable or disable button."
 msgstr ""
 
 #: ./templates/default/admin/statistics.tpl.php:9
-msgid "This page provides you with information and statistics about your Known site."
+msgid "This page provides you with information and statistics about your Idno site."
 msgstr ""
 
 #: ./templates/default/admin/themes/theme.tpl.php:41
@@ -1919,7 +1919,7 @@ msgid "Next"
 msgstr ""
 
 #: ./templates/default/onboarding/begin.tpl.php:8
-msgid "Known is your space for sharing content and discussing ideas."
+msgid "Idno is your space for sharing content and discussing ideas."
 msgstr ""
 
 #: ./templates/default/onboarding/begin.tpl.php:13
@@ -2183,10 +2183,10 @@ msgid "If you have any questions at all, please don't hesitate to contact us by 
 msgstr ""
 
 #: ./known.php:110
-msgid "Returns the current Known version as defined in version.known"
+msgid "Returns the current Idno version as defined in version.idno"
 msgstr ""
 
 #: ./known.php:119
-msgid "WARNING: Your build of Known is behind the latest version from Github (%s - %s). If you're having problems, you may want to try updating to the latest version.\nUpdate now: https://github.com/idno/Known\n"
+msgid "WARNING: Your build of Idno is behind the latest version from Github (%s - %s). If you're having problems, you may want to try updating to the latest version.\nUpdate now: https://github.com/idno/idno\n"
 msgstr ""
 

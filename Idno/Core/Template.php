@@ -79,7 +79,7 @@ namespace Idno\Core {
          * Replace a core template with another template. eg, template "plugin/atemplate"
          * could replace "core/atemplate"; if this is the case, the results of
          * $template->draw('plugin/atemplate') will be displayed instead of
-         * $template->draw('core/atemplate'). Usually this isn't required - Known replaces
+         * $template->draw('core/atemplate'). Usually this isn't required - Idno replaces
          * templates automatically if you create one in your plugin with the same name -
          * but this function enables conditional replacements.
          *

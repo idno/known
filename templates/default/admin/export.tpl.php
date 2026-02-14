@@ -14,7 +14,7 @@
 <div class="row">
     <div class="col-md-10 col-md-offset-1">
         <p class="explanation">
-            <?php echo \Idno\Core\Idno::site()->language()->_('Export your published Known content as an RSS file. You can import this file into Known or WordPress.'); ?>
+            <?php echo \Idno\Core\Idno::site()->language()->_('Export your published Idno content as an RSS file. You can import this file into Idno or WordPress.'); ?>
         </p>
         <h3>
             <?php echo \Idno\Core\Idno::site()->language()->_('Generate RSS file'); ?>

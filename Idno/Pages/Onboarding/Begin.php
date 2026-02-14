@@ -21,7 +21,7 @@ namespace Idno\Pages\Onboarding {
             echo $t->__(
                 array(
                 'body'     => $t->draw('onboarding/begin'),
-                'title'    => \Idno\Core\Idno::site()->language()->_('Welcome to Known'),
+                'title'    => \Idno\Core\Idno::site()->language()->_('Welcome to Idno'),
                 'messages' => \Idno\Core\Idno::site()->session()->getAndFlushMessages()
                 )
             )->draw('shell/simple');

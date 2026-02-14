@@ -5,7 +5,7 @@ for most users.
 
 ## Asynchronous Event Queue
 
-Known uses event queues to dispatch things like Webmention pings. 
+Idno uses event queues to dispatch things like Webmention pings. 
 
 By default, this dispatching is synchronous. However, you it is possible to enqueue events and have them dispatched later in an asynchronous fashion, enabling faster page loading.
 
@@ -19,7 +19,7 @@ event_queue = 'AsynchronousQueue'
 
 ### Running the dispatch service
 
-Next, you need to run the Known event queue dispatching service using the Known console tool:
+Next, you need to run the Idno event queue dispatching service using the Idno console tool:
 
 ```
 sudo -u www-data KNOWN_DOMAIN='your.domain' ./known service-event-queue
@@ -32,15 +32,15 @@ sudo -u www-data KNOWN_DOMAIN='your.domain' ./known service-event-queue
     export KNOWN_DOMAIN='your.domain.name'
     ```
 
-!!! warning "Updating Known"
-    When you update Known core or any plugins (especially syndication plugins), it is important to restart your event queue so that
+!!! warning "Updating Idno"
+    When you update Idno core or any plugins (especially syndication plugins), it is important to restart your event queue so that
     the queue runs the updated code.
 
 ## Periodic Execution Service
 
 Sometimes it is desirable to execute actions in the background and periodic intervals, the advanced periodic execution services allows you to do this.
 
-After completing the configuration step for enabling the [Asynchronous Event Queue](#asynchronous-event-queue), you can then run the Known console periodic execution service:
+After completing the configuration step for enabling the [Asynchronous Event Queue](#asynchronous-event-queue), you can then run the Idno console periodic execution service:
 
 ```
 sudo -u www-data KNOWN_DOMAIN='your.domain' ./known.php service-cron
@@ -51,5 +51,5 @@ Once running, this service will periodically trigger an event to which code can 
 !!! note "Service User"
     You should run both ```service-event-queue``` and ```service-cron``` as the webserver user so that it can read and write to files. On Debian this is usually ```www-data```.
 
-!!! warning "Updating Known"
-    When you update Known core or any plugins (especially syndication plugins), it is important to restart your cron service to take advantage of the new code!
+!!! warning "Updating Idno"
+    When you update Idno core or any plugins (especially syndication plugins), it is important to restart your cron service to take advantage of the new code!

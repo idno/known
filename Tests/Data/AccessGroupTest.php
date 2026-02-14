@@ -32,7 +32,7 @@ namespace Tests\Data {
                 // Create user B
                 $user = new \Idno\Entities\User();
                 $user->handle = 'testuserb';
-                $user->email = 'hello@withknown.com';
+                $user->email = 'hello@idno.co';
                 $user->setPassword(md5(rand())); // Set password to something random to mitigate security holes if cleanup fails
                 $user->setTitle('Test User B');
 
@@ -123,7 +123,7 @@ namespace Tests\Data {
         }
 
         /**
-         * Ensure duplicate slugs aren't possible with ACLed entities, see https://github.com/idno/Known/issues/1864
+         * Ensure duplicate slugs aren't possible with ACLed entities, see https://github.com/idno/idno/issues/1864
          */
         public function testSlugGeneration()
         {

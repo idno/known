@@ -21,7 +21,7 @@
             echo $this->__(
                 [
                 'body' => \Idno\Core\Idno::site()->language()->_(
-                    "Welcome to your new Known site! I'm Aleph, your very own welcome robot. Let's get started by <%s>adding your first status update</a>!",
+                    "Welcome to your new Idno site! I'm Aleph, your very own welcome robot. Let's get started by <%s>adding your first status update</a>!",
                     [
                           "a href=\"#\" onclick=\"event.preventDefault(); contentCreateForm('status', '" .
                           \Idno\Core\Idno::site()->config()->getDisplayURL() . "status/edit/'); return false;\""

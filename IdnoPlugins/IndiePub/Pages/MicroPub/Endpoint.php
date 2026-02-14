@@ -13,7 +13,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
     {
 
         /**
-         * Fetch syndication endpoints from a Known hub.
+         * Fetch syndication endpoints from an Idno hub.
          *
          * @param array $account_strings flat list of syndication
          *   IDs
@@ -175,7 +175,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                     $visibility = $visibility[0];
                 }
 
-                // Since Known does support multiple photos
+                // Since Idno does support multiple photos
                 /*
                 if(is_array($photo_url) && array_key_exists(0, $photo_url)) {
                     $photo_url = $photo_url[0];
@@ -186,7 +186,7 @@ namespace IdnoPlugins\IndiePub\Pages\MicroPub {
                 }
                 */
 
-                // Since Known does not support multiple videos, use the first if more than one was given.
+                // Since Idno does not support multiple videos, use the first if more than one was given.
                 if(is_array($video_url) && array_key_exists(0, $video_url)) {
                     $video_url = $video_url[0];
                 }

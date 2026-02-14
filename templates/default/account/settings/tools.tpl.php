@@ -19,7 +19,7 @@
 <div class="row">
     <div class="col-md-4 col-md-offset-1">
             <p>
-                <?php echo \Idno\Core\Idno::site()->language()->_('The Known bookmarklet is the best way to save links, reply to posts, and share articles.'); ?></p> 
+                <?php echo \Idno\Core\Idno::site()->language()->_('The Idno bookmarklet is the best way to save links, reply to posts, and share articles.'); ?></p> 
                 <p><?php echo \Idno\Core\Idno::site()->language()->_("Just drag the bookmarklet button below into your browser's Bookmark Bar."); ?>
             </p>
             <p>

@@ -104,7 +104,7 @@ namespace Idno\Pages {
             if (!empty(\Idno\Core\Idno::site()->config()->description)) {
                 $description = \Idno\Core\Idno::site()->config()->description;
             } else {
-                $description = 'An independent social website, powered by Known.';
+                $description = 'An independent social website, powered by Idno.';
             }
 
             // If we have a feed, set our last modified flag to the time of the latest returned entry

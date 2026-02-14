@@ -1,13 +1,13 @@
 Events
 ====
 
-A Known plugin that give you a lightweight way to post or reply to events.
+An Idno plugin that give you a lightweight way to post or reply to events.
 
 Installation
 ------------
 
-* Drop the "Events" folder into the "IdnoPlugins" folder of your Known installation.
-* Log into Known and click on Administration.
+* Drop the "Events" folder into the "IdnoPlugins" folder of your Idno installation.
+* Log into Idno and click on Administration.
 * Click "enable" next to the Events plugin.
 
 License

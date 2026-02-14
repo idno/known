@@ -1,6 +1,6 @@
 # Making and accepting API calls
 
-Every page in Known doubles as an API endpoint, some endpoints can be used to retrieve useful information, and others to post updates. 
+Every page in Idno doubles as an API endpoint, some endpoints can be used to retrieve useful information, and others to post updates. 
 
 All pages that are accessible via the web interface are also API endpoints, so for example, if you were to make a 
 POST request to ```/status/edit``` with the same form values as that submitted when submitting the form via your web browser, you will create a new 
@@ -37,7 +37,7 @@ curl -s \
 ## Authenticated requests
 
 Almost all requests that you make will require some sort of access credentials, and so must be signed. 
-The default method for doing this is through HTTP header variables, however Known also includes a built in [OAuth2 server](https://github.com/mapkyca/KnownOAuth2)).
+The default method for doing this is through HTTP header variables, however Idno also includes a built in [OAuth2 server](https://github.com/mapkyca/KnownOAuth2)).
 
 The headers are:
 
@@ -56,7 +56,7 @@ $signature = base64_encode(
 
 ## Working examples
 
-Here are a few examples, using cURL, for calling common API endpoints available on most Known installations (assuming the appropriate plugins are activated).
+Here are a few examples, using cURL, for calling common API endpoints available on most Idno installations (assuming the appropriate plugins are activated).
 
 ### Making a Status post
 

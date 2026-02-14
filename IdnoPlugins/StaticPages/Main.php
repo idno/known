@@ -73,7 +73,7 @@ namespace IdnoPlugins\StaticPages {
         }
 
         /**
-         * Removes a previously set static page from acting as the homepage. This will re-enable Known's default
+         * Removes a previously set static page from acting as the homepage. This will re-enable Idno's default
          * behavior.
          * @return bool
          */

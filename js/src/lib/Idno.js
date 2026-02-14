@@ -2,22 +2,22 @@
 
 /*
  * Shim so that JS functions can get the current site URL
- * @deprecated Use known.config.displayUrl
+ * @deprecated Use idno.config.displayUrl
  */
 function wwwroot() {
-    //Logger.deprecated("wwwroot() is deprecated, use known.config.displayUrl");
-    return known.config.displayUrl;
+    //Logger.deprecated("wwwroot() is deprecated, use idno.config.displayUrl");
+    return idno.config.displayUrl;
 }
 
 /**
  * Shim so JS functions can tell if this is a logged in session or not.
- * @deprecated Use known.session.loggedin
+ * @deprecated Use idno.session.loggedin
  * @returns {Boolean}
  */
 function isLoggedIn() {
-    //Logger.deprecated("isLoggedIn() is deprecated, use known.session.loggedin");
-    if (typeof known !== 'undefined')
-	if (known.session.loggedIn) {
+    //Logger.deprecated("isLoggedIn() is deprecated, use idno.session.loggedin");
+    if (typeof idno !== 'undefined')
+	if (idno.session.loggedIn) {
 	    return true;
 	}
     return false;

@@ -647,7 +647,7 @@ namespace Idno\Entities {
 
         /**
          * Does this user have everything he or she needs to be a fully-fledged
-         * Known member? This method checks to make sure the minimum number of
+         * Idno member? This method checks to make sure the minimum number of
          * fields are filled in.
          *
          * @return true|false

@@ -10,7 +10,7 @@ namespace Idno\Core {
     {
 
         private static $remoteDetails = [];
-        private static $remoteVersion = 'https://raw.githubusercontent.com/idno/Known/master/version.idno';
+        private static $remoteVersion = 'https://raw.githubusercontent.com/idno/idno/master/version.idno';
 
         protected static function parse()
         {

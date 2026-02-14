@@ -5,7 +5,7 @@
         <?php echo $this->draw('admin/menu')?>
         <div class="explanation">
             <p>
-                <?php echo \Idno\Core\Idno::site()->language()->_("The following are system components that are required for Known to fully run. It's worth checking to make sure that they're all installed. If you need help installing any required packages, ask your web host or system administrator."); ?>
+                <?php echo \Idno\Core\Idno::site()->language()->_("The following are system components that are required for Idno to fully run. It's worth checking to make sure that they're all installed. If you need help installing any required packages, ask your web host or system administrator."); ?>
             </p>
         </div>
     </div>

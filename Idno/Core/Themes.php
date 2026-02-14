@@ -117,10 +117,10 @@ namespace Idno\Core {
                 'Theme description' => array(
                     'name'         => 'Default theme',
                     'version'      => '0.1',
-                    'author'       => "Known",
-                    'author_email' => "hello@withknown.com",
-                    'author_url'   => "https://withknown.com",
-                    'description'  => 'The default Known theme, built to be used as a basis for your designs.'
+                    'author'       => "Idno",
+                    'author_email' => "hello@idno.co",
+                    'author_url'   => "https://idno.co",
+                    'description'  => 'The default Idno theme, built to be used as a basis for your designs.'
                 )
             );
 

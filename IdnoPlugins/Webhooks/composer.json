@@ -1,7 +1,7 @@
 {
     "name": "idno/webhooks",
     "description": "Syndicate via Webhooks.",
-    "type": "known-plugin",
+    "type": "idno-plugin",
     "version": "1.0.1",
     "require": {
         "composer/installers": "~1.0"

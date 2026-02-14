@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest an idea to improve Known.
+about: Suggest an idea to improve Idno.
 ---
 
 ## Is your feature request related to a problem? Please describe.

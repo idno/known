@@ -80,7 +80,7 @@ namespace Idno\Pages\Admin {
                 $mail->setHTMLBodyFromTemplate('admin/import');
                 $mail->setTextBodyFromTemplate('admin/import');
                 $mail->addTo(\Idno\Core\Idno::site()->session()->currentUser()->email);
-                $mail->setSubject("Known - Your data import is complete");
+                $mail->setSubject("Idno - Your data import is complete");
                 $mail->send();
             } else {
                 \Idno\Core\Idno::site()->logging()->error("Import completed, but may not have been successful");
@@ -89,7 +89,7 @@ namespace Idno\Pages\Admin {
                 $mail->setHTMLBodyFromTemplate('admin/import_failure');
                 $mail->setTextBodyFromTemplate('admin/import_failure');
                 $mail->addTo(\Idno\Core\Idno::site()->session()->currentUser()->email);
-                $mail->setSubject("Known - Problem with your import");
+                $mail->setSubject("Idno - Problem with your import");
                 $mail->send();
             }
 

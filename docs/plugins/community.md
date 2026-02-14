@@ -1,18 +1,18 @@
 # Community Plugins
 
 The following plugins were created by members of the open source community. Like any open source plugin directory,
-listings here do not imply endorsement by the Known project team in any way.
+listings here do not imply endorsement by the Idno project team in any way.
 
 ## Plugin listings
 
 
 ### Content types
 
-* [Video](https://github.com/cweiske/withknownVideo) – Post videos to your Known site, by [Christian Weiske][]
-* [Recipe](https://github.com/cleverdevil/Known-Recipes) – Post recipes to your Known site, by [Jonathan LaCour][]
-* [Review](https://github.com/cleverdevil/Known-Reviews) – Post reviews to your Known site, by [Jonathan LaCour][]
-* [Food](https://github.com/cleverdevil/Known-Food) – Log your eating and drinking to your Known site, by [Jonathan LaCour][]
-* [Watching](https://github.com/cleverdevil/Known-Watching) - Log what you watch (movies and TV) to your Known site, including an experimental Plex webhook, by [Jonathan LaCour][]
+* [Video](https://github.com/cweiske/withknownVideo) – Post videos to your Idno site, by [Christian Weiske][]
+* [Recipe](https://github.com/cleverdevil/Known-Recipes) – Post recipes to your Idno site, by [Jonathan LaCour][]
+* [Review](https://github.com/cleverdevil/Known-Reviews) – Post reviews to your Idno site, by [Jonathan LaCour][]
+* [Food](https://github.com/cleverdevil/Known-Food) – Log your eating and drinking to your Idno site, by [Jonathan LaCour][]
+* [Watching](https://github.com/cleverdevil/Known-Watching) - Log what you watch (movies and TV) to your Idno site, including an experimental Plex webhook, by [Jonathan LaCour][]
 * [Reactions](https://github.com/kylewm/KnownReactions) – Indieweb–style likes and reposts, by [Kyle Mahan][] 
 
 ### Syndication plugins
@@ -26,14 +26,14 @@ listings here do not imply endorsement by the Known project team in any way.
     by [Marcus Povey][]
 * [App.net](https://github.com/mapkyca/KnownAppNet) – Syndicate to App.net (note: ADN shut down on 2017-03-15), 
     by [Marcus Povey][]
-* [Known Crosspost](https://github.com/mapkyca/KnownKnown) – Crosspost content to another Known site via the API, 
+* [Idno Crosspost](https://github.com/mapkyca/KnownKnown) – Crosspost content to another Idno site via the API,
     by [Marcus Povey][]
 * [Diaspora](https://github.com/Phyks/KnownDiaspora) – Crosspost content to a Diaspora site, by [Lukas Verney][]
 * [IRC](https://github.com/mapkyca/KnownIRC) – Post messages and links into IRC channels, 
     by [Marcus Povey][]
 * [IndieSyndicate](https://github.com/kylewm/KnownIndieSyndicate) – Syndicate via Micropub and Webmention, by [Kyle Mahan][]
 * [Pinboard](https://github.com/egoexpress/known-pinboard) - Syndicate your bookmarks to [Pinboard.in](https://pinboard.in), by [Björn Stierand][]
-* [Archive.org/WayBackMachine](https://github.com/mapkyca/KnownWaybackMachine) – Provides Wayback Machine archive.org support for Known, 
+* [Archive.org/WayBackMachine](https://github.com/mapkyca/KnownWaybackMachine) – Provides Wayback Machine archive.org support for Idno,
     by [Marcus Povey][]
 * [Pnut.io](https://github.com/dg01d/KnownPnut) – Syndicate to [pnut.io](https://pnut.io/), 
     by [Daniel Goldsmith][] 
@@ -73,8 +73,8 @@ listings here do not imply endorsement by the Known project team in any way.
 
 ### Themes
 
-* [Material](https://github.com/physcocode/Material) – Google Material design style theme for known , by [Pranjal Pandey][]
-* [Nature](https://github.com/physcocode/nature) – Warm natural theme for known , by [Pranjal Pandey][]
+* [Material](https://github.com/physcocode/Material) – Google Material design style theme for Idno, by [Pranjal Pandey][]
+* [Nature](https://github.com/physcocode/nature) – Warm natural theme for Idno, by [Pranjal Pandey][]
 
 
 ### Misc
@@ -82,10 +82,10 @@ listings here do not imply endorsement by the Known project team in any way.
 * [Gist Support](https://github.com/mapkyca/IdnoGist) – Automatically render gist links in your content, 
     by [Marcus Povey][]
 * [UserColors](https://github.com/misuba/UserColors) – Let users choose the colors on their profile pages on multi–user
-    Known sites, by [Mike Sugarbaker][]
-* [Pushover](https://github.com/timmmmyboy/Pushover) – Push notifications from Known to your iOS and Android devices via
+    Idno sites, by [Mike Sugarbaker][]
+* [Pushover](https://github.com/timmmmyboy/Pushover) – Push notifications from Idno to your iOS and Android devices via
    the Pushover.net service, by [Tim Owens][]
-* [KnownTracks](https://github.com/klermor/KnownTracks) – View GPS Exchange (GPX) files from your Known site, by
+* [KnownTracks](https://github.com/klermor/KnownTracks) – View GPS Exchange (GPX) files from your Idno site, by
    [Yann Sallou][]
 * [Markdown](https://github.com/mapkyca/IdnoMarkdown) – Adds Markdown support for status and blog posts, 
    by [Marcus Povey][]

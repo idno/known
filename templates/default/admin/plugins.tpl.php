@@ -6,7 +6,7 @@
 
         <div class="explanation">
             <p>
-                <?php echo \Idno\Core\Idno::site()->language()->_('Plugins allow you to add features to your site. These include new kinds of content, options to syndicate content to different sites, and features to change the way Known behaves. To enable or disable a plugin, just click its enable or disable button.'); ?>
+                <?php echo \Idno\Core\Idno::site()->language()->_('Plugins allow you to add features to your site. These include new kinds of content, options to syndicate content to different sites, and features to change the way Idno behaves. To enable or disable a plugin, just click its enable or disable button.'); ?>
             </p>
         </div>
         <?php

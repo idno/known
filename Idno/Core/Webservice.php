@@ -112,7 +112,7 @@ namespace Idno\Core {
             curl_setopt($curl_handle, CURLOPT_CONNECTTIMEOUT, 5);
             curl_setopt($curl_handle, CURLOPT_AUTOREFERER, true);
             curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl_handle, CURLOPT_USERAGENT, "Known https://withknown.com");
+            curl_setopt($curl_handle, CURLOPT_USERAGENT, "Idno https://idno.co");
             curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($curl_handle, CURLINFO_HEADER_OUT, 1);
             curl_setopt($curl_handle, CURLOPT_HEADER, 1);

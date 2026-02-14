@@ -67,7 +67,7 @@ switch ($var) {
 ## Variables
 
 * You should try and make use of [type hinting](https://www.php.net/manual/en/functions.arguments.php#functions.arguments.type-declaration) in your function arguments.
-* Since Known now no longer supports PHP < 7, you should also try and make use of return type hinting where appropriate (advanced warning, in future we will turn on strict type checking for this!)
+* Since Idno now no longer supports PHP < 7, you should also try and make use of return type hinting where appropriate (advanced warning, in future we will turn on strict type checking for this!)
 
 ## Error handling
 

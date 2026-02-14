@@ -1,13 +1,13 @@
 Like
 ====
 
-A Known plugin that allows you to bookmark pages and other content.
+An Idno plugin that allows you to bookmark pages and other content.
 
 Installation
 ------------
 
-* Drop the "Like" folder into the "IdnoPlugins" folder of your Known installation.
-* Log into Known and click on Administration.
+* Drop the "Like" folder into the "IdnoPlugins" folder of your Idno installation.
+* Log into Idno and click on Administration.
 * Click "enable" next to the Like plugin.
 
 License

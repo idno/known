@@ -1,7 +1,7 @@
 {
     "name": "idno/photo",
-    "description": "Simple photo uploader for Known.",
-    "type": "known-plugin",
+    "description": "Simple photo uploader for Idno.",
+    "type": "idno-plugin",
     "version": "1.0.4",
     "require": {
         "composer/installers": "~1.0"

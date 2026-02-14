@@ -6,7 +6,7 @@
 
         <div class="explanation">
             <p>
-                <?php echo \Idno\Core\Idno::site()->language()->_('This page provides you with information and statistics about your Known site.'); ?>
+                <?php echo \Idno\Core\Idno::site()->language()->_('This page provides you with information and statistics about your Idno site.'); ?>
             </p>
         </div>
 

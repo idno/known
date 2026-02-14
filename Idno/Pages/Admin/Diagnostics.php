@@ -20,7 +20,7 @@ namespace Idno\Pages\Admin {
             // Create diagnostics report
             if ($this->xhr) {
 
-                $report = "Known Diagnostics: Version " . \Idno\Core\Version::version() . '+' . \Idno\Core\Version::build() . " \nDate: " . date('r') . "\n\n";
+                $report = "Idno Diagnostics: Version " . \Idno\Core\Version::version() . '+' . \Idno\Core\Version::build() . " \nDate: " . date('r') . "\n\n";
                 $report .= "*** WARNING: This report contains sensitive information. Be careful about how you transmit it, and to whom. ***\n\n";
                 $report .= "Basics:\n-------\n\n";
 
@@ -69,13 +69,13 @@ namespace Idno\Pages\Admin {
                 'report' => [],
             ];
 
-            // Check Known version
+            // Check Idno version
             if ($remoteVersion = \Idno\Core\RemoteVersion::build()) {
                 if (\Idno\Core\Version::build() < $remoteVersion) {
                     $basics['status']             = 'Failure';
                     $basics['report']['version'] = [
                         'status'  => 'Warning',
-                        'message' => 'Your build of Known is behind the latest version from Github, if you\'re having problems you might try updating to the latest version!<br /> <a href="https://github.com/idno/Known" target="_blank">Update now.</a>'
+                        'message' => 'Your build of Idno is behind the latest version from Github, if you\'re having problems you might try updating to the latest version!<br /> <a href="https://github.com/idno/idno" target="_blank">Update now.</a>'
                     ];
 
                 } else {
@@ -94,7 +94,7 @@ namespace Idno\Pages\Admin {
                 $basics['status']             = 'Failure';
                 $basics['report']['package'] = [
                     'status'  => 'Warning',
-                    'message' => 'You appear to be running directly from a git checkout. While this is fine, you might find a pre-packaged version of Known more stable.'
+                    'message' => 'You appear to be running directly from a git checkout. While this is fine, you might find a pre-packaged version of Idno more stable.'
                 ];
             }
 
@@ -117,12 +117,12 @@ namespace Idno\Pages\Admin {
                 $basics['status']             = 'Failure';
                 $basics['report']['php-version'] = [
                     'status'  => 'Warning',
-                    'message' => 'You are running Known using a very old version of PHP (' . phpversion() . '), which is no longer actively supported. Although Known will currently still install, some features may not work, so you should upgrade soon. You may need to ask your server administrator to upgrade PHP for you.'
+                    'message' => 'You are running Idno using a very old version of PHP (' . phpversion() . '), which is no longer actively supported. Although Idno will currently still install, some features may not work, so you should upgrade soon. You may need to ask your server administrator to upgrade PHP for you.'
                 ];
             } else {
                 $basics['report']['php-version'] = [
                     'status'  => 'Failure',
-                    'message' => 'You are running PHP version ' . phpversion() . ', which cannot run Known. You may need to ask your server administrator to upgrade PHP for you.'
+                    'message' => 'You are running PHP version ' . phpversion() . ', which cannot run Idno. You may need to ask your server administrator to upgrade PHP for you.'
                 ];
                 $basics['status']                = 'Failure';
             }

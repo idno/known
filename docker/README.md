@@ -1,4 +1,4 @@
-This is a way to run Known using Docker and Tailscale for local development.
+This is a way to run Idno using Docker and Tailscale for local development.
 
 Copy docker/sample.env to .env and adjust as appropriate
 

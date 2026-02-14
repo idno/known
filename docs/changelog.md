@@ -1,6 +1,6 @@
 # Changes by Version
 
-Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Known.
+Starting with version 0.6.4, this is a list of changes in the self-hosted, open source version of Idno.
 
 0.9.9
 -----
@@ -90,19 +90,19 @@ October 13, 2015
 * A slew of indieweb improvements, including upgraded micropub support for actions like likes and reshares
 * A command line tool (with extensible plugin interface) to automatically create a config.ini file, among other things
 * Themes now take template precedence over plugins - so a theme can create a new style for a plugin-provided feature
-* Known now works better under FastCGI on some shared hosts
+* Idno now works better under FastCGI on some shared hosts
 * Lots of API fixes and consistency changes under the hood
 
 0.8.4
 -----
 September 28, 2015
 
-* See who you've invited to Known, and resend or rescind invitations
+* See who you've invited to Idno, and resend or rescind invitations
 * Hashtag linking improvements
 * Added support for SIP, Bitcoin and Spotify profile fields
 * SVG upload support
 * Numerous interface improvements
-* Fixed aggressive caching of Known posts
+* Fixed aggressive caching of Idno posts
 * Assorted API fixes and improvements
 * Introduced HTML purifier component
 * Webmentions no longer strip HTML
@@ -154,7 +154,7 @@ It's been a while! Additions and fixes include:
 * You can reply to multiple Twitter accounts more easily.
 * The public comment form is more robot-proof.
 * An upgraded, all-new interface framework using Bootstrap 3 and the latest Font Awesome fonts.
-* You can now install Known in a subdirectory.
+* You can now install Idno in a subdirectory.
 * The installer now does more checking to make sure you have the right server configuration.
 * A handy diagnostics tool to give you more information if something's gone wrong with your installation.
 * Developers have access to more tests.

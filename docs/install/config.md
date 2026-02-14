@@ -1,6 +1,6 @@
-# Using config.ini to Configure Known
+# Using config.ini to Configure Idno
 
-Known is configured through config.ini, a simple file that is stored in the ```/configuration``` directory.
+Idno is configured through config.ini, a simple file that is stored in the ```/configuration``` directory.
 
 Usually, config.ini is created automatically during installation. There is no need to create a config.ini file manually.
 However, sometimes you may wish to add values here.
@@ -24,10 +24,10 @@ Config.ini files use the [INI file format](https://en.wikipedia.org/wiki/INI_fil
 
 ## Common config.ini directives
 
-The following directives are most commonly used to configure Known.
+The following directives are most commonly used to configure Idno.
 
 **database**<br>
-The database engine used by Known. eg, "MongoDB" or "MySQL".
+The database engine used by Idno. eg, "MongoDB" or "MySQL".
 
 **dbhost**<br>
 The database host. This is most commonly "localhost".
@@ -50,7 +50,7 @@ The file system to use. This is most commonly "local", for local storage. Other 
 If you are using MongoDB, you can leave this option blank to use GridFS storage.
 
 **uploadpath**<br>
-The full path used by Known to upload files. This path must be writeable by the web server.
+The full path used by Idno to upload files. This path must be writeable by the web server.
 
 **smtp_host, smtp_port, smtp_username, smtp_secure, from_email**<br>
 Configuration for SMTP server.  Without these set (here or in the UI)
@@ -107,9 +107,9 @@ by default.
     multi_syndication = false
 
 **multitenant**<br>
-Allows you to power more than one Known site from the same installation. If this is the case, Known will expect the
+Allows you to power more than one Idno site from the same installation. If this is the case, Idno will expect the
 database name to be the site host. "www" is always stripped, so for example, if the website address was www.yourdomain.com,
-Known would expect the database name to be yourdomain.com. In most cases, you should leave the default value here.
+Idno would expect the database name to be yourdomain.com. In most cases, you should leave the default value here.
 
     multitenant = true
 

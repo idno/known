@@ -19,7 +19,7 @@ msgid "is a service that pulls social interactions - such as likes and retweets 
 msgstr ""
 
 #: ./templates/default/bridgy/account.tpl.php:16
-msgid "If you send content from Known to Facebook or Twitter, use Bridgy to save comments and interactions from those networks to the original post on your Known site."
+msgid "If you send content from Idno to Facebook or Twitter, use Bridgy to save comments and interactions from those networks to the original post on your Idno site."
 msgstr ""
 
 #: ./templates/default/bridgy/account.tpl.php:18
@@ -63,7 +63,7 @@ msgid "Connect Brid.gy"
 msgstr ""
 
 #: ./templates/default/bridgy/facebook.tpl.php:8
-msgid "Brid.gy imports comments and likes from Facebook and stores them on your Known site."
+msgid "Brid.gy imports comments and likes from Facebook and stores them on your Idno site."
 msgstr ""
 
 #: ./templates/default/bridgy/twitter.tpl.php:6
@@ -71,6 +71,6 @@ msgid "Import replies and retweets"
 msgstr ""
 
 #: ./templates/default/bridgy/twitter.tpl.php:8
-msgid "Brid.gy imports replies, favorites and retweets from Twitter and stores them on your Known site."
+msgid "Brid.gy imports replies, favorites and retweets from Twitter and stores them on your Idno site."
 msgstr ""
 

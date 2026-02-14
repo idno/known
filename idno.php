@@ -119,7 +119,7 @@ $console
             $remoteVersion = \Idno\Core\RemoteVersion::build();
             if (\Idno\Core\Version::build() < $remoteVersion) {
                 $version = \Idno\Core\RemoteVersion::version();
-                $output->writeln(\Idno\Core\Idno::site()->language()->_("WARNING: Your build of Idno is behind the latest version from Github (%s - %s). If you're having problems, you may want to try updating to the latest version.\nUpdate now: https://github.com/idno/Known\n", [$version, $remoteVersion]));
+                $output->writeln(\Idno\Core\Idno::site()->language()->_("WARNING: Your build of Idno is behind the latest version from Github (%s - %s). If you're having problems, you may want to try updating to the latest version.\nUpdate now: https://github.com/idno/idno\n", [$version, $remoteVersion]));
             }
         }
     );

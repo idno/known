@@ -33,7 +33,7 @@ before_script:
   # Enable vhost
   - sudo cp -f Tests/build/travis-ci-apache /etc/apache2/sites-available/000-default.conf
   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/000-default.conf
-  # Configure Known
+  # Configure Idno
   - if [[ "$DB" == "pgsql" ]]; then echo "PROVISIONING WITH PostgreSQL"; fi
   - if [[ "$DB" == "pgsql" ]]; then sudo cp -f Tests/build/config_pgsql.ini $TRAVIS_BUILD_DIR/configuration/config.ini; fi
   - if [[ "$DB" == "pgsql" ]]; then psql -c 'create database known_unittest;' -U postgres; fi
@@ -71,7 +71,7 @@ after_failure:
 
 notifications:
   email:
-    - hello@withknown.com
+    - hello@idno.co
   irc:
     channels:
       - "irc.freenode.net#knownchat"

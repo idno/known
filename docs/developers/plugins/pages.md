@@ -1,4 +1,4 @@
-# Pages in Known
+# Pages in Idno
 
 Plugins will often have to define new pages, or override pages provided by the core platform. Here's how it's done.
 
@@ -100,10 +100,10 @@ Handling a POST request is very similar to handling GET requests. You just call 
     }
 
 !!! warning "Warning"
-    You can't simply call a POST request in Known. You need to [sign your requests](forms.md) otherwise Known will reject your content.
+    You can't simply call a POST request in Idno. You need to [sign your requests](forms.md) otherwise Idno will reject your content.
 
 Because POST requests [can accept JSON or POST data](forms.md) via an API call or a standard form submission, every
-page in Known that accepts POST requests is also an API endpoint.
+page in Idno that accepts POST requests is also an API endpoint.
 
 If your POST request is being submitted via JSON, the response template will automatically be set to JSON, and any
 response data will come back to the user as structured JSON.

@@ -1,7 +1,7 @@
 {
     "name": "idno/styles",
     "description": "A custom CSS stylesheet editor to modify the visual style of your site.",
-    "type": "known-plugin",
+    "type": "idno-plugin",
     "version": "1.0.0",
     "require": {
         "composer/installers": "~1.0"

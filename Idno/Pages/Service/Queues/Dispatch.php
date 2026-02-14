@@ -22,7 +22,7 @@ namespace Idno\Pages\Service\Queues {
 
             $eventqueue = \Idno\Core\Idno::site()->queue();
             if (!$eventqueue instanceof \Idno\Core\AsynchronousQueue) {
-                throw new \RuntimeException("Service can't run unless Known's queue is Asynchronous!");
+                throw new \RuntimeException("Service can't run unless Idno's queue is Asynchronous!");
             }
 
             $result = $eventqueue->dispatch($object);

@@ -1,10 +1,10 @@
 ---
 name: Point of View
-about: Describe a Known user to help us build a solution for their needs. (It could be you, or someone else.)
+about: Describe an Idno user to help us build a solution for their needs. (It could be you, or someone else.)
 
 ---
 
-<!-- This type of issue helps us understand who we're building Known for. -->
+<!-- This type of issue helps us understand who we're building Idno for. -->
 
 ## What's their name and what do they do?
 

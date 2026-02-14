@@ -61,9 +61,9 @@ namespace Idno\Common {
         function init()
         {
             if (!defined('IDNO_UNIT_TEST')) { // Don't do header stuff in unit tests
-                header('X-Powered-By: https://withknown.com');
+                header('X-Powered-By: https://idno.co');
                 header('X-Clacks-Overhead: GNU Terry Pratchett');
-                header('X-Known-Build-Fingerprint: ' . \Idno\Core\TokenProvider::truncateToken(\Idno\Core\Version::fingerprint()));
+                header('X-Idno-Build-Fingerprint: ' . \Idno\Core\TokenProvider::truncateToken(\Idno\Core\Version::fingerprint()));
             }
             if ($template = $this->getInput('_t')) {
                 if (\Idno\Core\Idno::site()->template()->templateTypeExists($template)) {
@@ -516,8 +516,8 @@ namespace Idno\Common {
                 }
 
                 /*
-                 * TODO: find a more granular way to do this. But some Known functions depend on
-                 * redirection to other sites (eg a Known hub).
+                 * TODO: find a more granular way to do this. But some Idno functions depend on
+                 * redirection to other sites (eg an Idno hub).
 
                 if (!Entity::isLocalUUID($location)) {
                     throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Attempted to redirect page to a non local URL.'));
@@ -564,7 +564,7 @@ namespace Idno\Common {
                     }
                     echo json_encode($location);
                 } elseif (!\Idno\Core\Idno::site()->session()->isAPIRequest() || $this->response == 200) {
-                    if (!empty($call_trace)) { header('X-Known-Forward-Trace: ' . $call_trace);
+                    if (!empty($call_trace)) { header('X-Idno-Forward-Trace: ' . $call_trace);
                     }
                     header('Location: ' . $location);
                 }
@@ -804,8 +804,8 @@ namespace Idno\Common {
             $this->setResponse(410);
             http_response_code($this->response);
 
-            header_remove('X-Known-CSRF-Ts');
-            header_remove('X-Known-CSRF-Token');
+            header_remove('X-Idno-CSRF-Ts');
+            header_remove('X-Idno-CSRF-Token');
 
             $t = \Idno\Core\Idno::site()->template();
             $t->__(array('body' => $t->draw('pages/410'), 'title' => \Idno\Core\Idno::site()->language()->_('This content isn\'t here.')))->drawPage();
@@ -820,8 +820,8 @@ namespace Idno\Common {
             $this->setResponse(404);
             http_response_code($this->response);
 
-            header_remove('X-Known-CSRF-Ts');
-            header_remove('X-Known-CSRF-Token');
+            header_remove('X-Idno-CSRF-Ts');
+            header_remove('X-Idno-CSRF-Token');
 
             $t = \Idno\Core\Idno::site()->template();
             $t->__(array('body' => $t->draw('pages/404'), 'title' => \Idno\Core\Idno::site()->language()->_('This page can\'t be found.')))->drawPage();
@@ -862,8 +862,8 @@ namespace Idno\Common {
             $this->setResponse(403);
             http_response_code($this->response);
 
-            header_remove('X-Known-CSRF-Ts');
-            header_remove('X-Known-CSRF-Token');
+            header_remove('X-Idno-CSRF-Ts');
+            header_remove('X-Idno-CSRF-Token');
 
             $t = \Idno\Core\Idno::site()->template();
             $t->__(array('body' => $t->draw('pages/403'), 'title' => $title))->drawPage();
@@ -1050,10 +1050,10 @@ namespace Idno\Common {
         }
 
         /**
-         * Helper function to see if the given Known base path matches the current page URL.
+         * Helper function to see if the given Idno base path matches the current page URL.
          * This is useful for setting active on menus in subdirectory installs.
          *
-         * @param  type $path Path, relative to the Known base
+         * @param  type $path Path, relative to the Idno base
          * @return bool
          */
         public function doesPathMatch($path)

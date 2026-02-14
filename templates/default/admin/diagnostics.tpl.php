@@ -6,7 +6,7 @@
 
         <div class="explanation">
             <p>
-                <?php echo \Idno\Core\Idno::site()->language()->_('This page provides you with information that may help you or others diagnose any problems you may be experiencing with your Known install.'); ?>
+                <?php echo \Idno\Core\Idno::site()->language()->_('This page provides you with information that may help you or others diagnose any problems you may be experiencing with your Idno install.'); ?>
             </p>
         </div>
         

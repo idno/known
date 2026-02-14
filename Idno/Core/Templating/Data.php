@@ -52,7 +52,7 @@ namespace Idno\Core\Templating {
         }
 
         /**
-         * Get the modified time of a Known file.
+         * Get the modified time of an Idno file.
          * Primarily used by cache busting, this method returns when a file was last modified.
          *
          * @param type $file The file, relative to the known path.

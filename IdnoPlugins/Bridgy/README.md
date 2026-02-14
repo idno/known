@@ -1,23 +1,23 @@
 Bridgy
 ======
 
-A Known plugin that allows you to send and receive comments from external services on your Known site.
+An Idno plugin that allows you to send and receive comments from external services on your Idno site.
 
 For more information see: <https://brid.gy/about>.
 
-> **Note** If you have set up a Bridgy account, you can simply webmention their endpoints in your posts and Known will [send a webmention request to Bridgy](https://brid.gy/about#webmentions) and it will take of republishing your content. Please refer to the Bridgy documentation for more information on how this works.
+> **Note** If you have set up a Bridgy account, you can simply webmention their endpoints in your posts and Idno will [send a webmention request to Bridgy](https://brid.gy/about#webmentions) and it will take of republishing your content. Please refer to the Bridgy documentation for more information on how this works.
 
 Installation
 ------------
 
-* Drop the "Bridgy" folder into the "IdnoPlugins" folder of your Known installation.
-* Log into Known and click on "Site Configuration".
+* Drop the "Bridgy" folder into the "IdnoPlugins" folder of your Idno installation.
+* Log into Idno and click on "Site Configuration".
 * Click "enable" next to the Bridgy plugin.
 
 Configuration
 -------------
 
-* Log into Known and click on "Account Settings".
+* Log into Idno and click on "Account Settings".
 * Click next on "Interactions" (/account/bridgy/).
 * Click on the "Twitter" button to link up your Twitter account.
 

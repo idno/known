@@ -1,7 +1,7 @@
 /**
  * Sample language Gruntfile.
  * 
- * Copy this to your Known plugin root, rename to Gruntfile.js, and create a package.json 
+ * Copy this to your Idno plugin root, rename to Gruntfile.js, and create a package.json 
  * with an appropriate "name" variable (usually your package namespace).
  */
 

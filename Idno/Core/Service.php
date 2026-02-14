@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Tools for Known services.
+ * Tools for Idno services.
  *
  * @package    idno
  * @subpackage core

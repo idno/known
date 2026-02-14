@@ -17,8 +17,8 @@ Developed as part of the [Indieweb Hackday September 2019](https://summerofhacks
 Installation
 ------------
 
-* Drop the "Checkin" folder into the "IdnoPlugins" folder of your Known installation.
-* Log into Known and click on Administration.
+* Drop the "Checkin" folder into the "IdnoPlugins" folder of your Idno installation.
+* Log into Idno and click on Administration.
 * Click "enable" next to the Checkin plugin.
 
 License

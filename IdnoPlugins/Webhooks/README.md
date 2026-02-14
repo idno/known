@@ -1,13 +1,13 @@
-Webhooks for Known
+Webhooks for Idno
 ==================
 
-This plugin provides syndication support for Known to any arbitary webhook URL (eg a Slack channel).
+This plugin provides syndication support for Idno to any arbitary webhook URL (eg a Slack channel).
 
 Installation
 ------------
 
-* Drop the Webhooks folder into the IdnoPlugins folder of your Known installation.
-* Log into Known and click **Site Configuration**.
+* Drop the Webhooks folder into the IdnoPlugins folder of your Idno installation.
+* Log into Idno and click **Site Configuration**.
 * On the **Site Features** tab, click **Enable** next to Webhooks. A **Webhooks**
   entry is added to the site configuration menu.
 * Click **Webhooks** in the site configuration menu. Set up your custom webhook URLs.
