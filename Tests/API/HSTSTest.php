@@ -7,7 +7,7 @@ namespace Tests\API {
      *
      * @TODO: mock endpoints rather than having them call real sites; what if the user really does have HSTS headers on localhost?
      */
-    class HSTSTest extends \Tests\KnownTestCase
+    class HSTSTest extends \Tests\IdnoTestCase
     {
 
         function setUp(): void

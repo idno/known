@@ -2,7 +2,7 @@
 
 namespace Tests\Data;
 
-class MutateTest extends \Tests\KnownTestCase
+class MutateTest extends \Tests\IdnoTestCase
 {
 
     public function testMutation()

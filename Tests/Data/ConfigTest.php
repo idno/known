@@ -5,7 +5,7 @@ namespace Tests\Data {
     /**
      * Test running configuration and save / load.
      */
-    class ConfigTest extends \Tests\KnownTestCase
+    class ConfigTest extends \Tests\IdnoTestCase
     {
 
         /**

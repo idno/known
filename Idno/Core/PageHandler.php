@@ -38,11 +38,11 @@ namespace Idno\Core {
          */
         function addRoute(string $pattern, string $handler, bool $public = false)
         {
-            if (defined('KNOWN_SUBDIRECTORY')) {
+            if (defined('IDNO_SUBDIRECTORY')) {
                 if (substr($pattern, 0, 1) != '/') {
                     $pattern = '/' . $pattern;
                 }
-                $pattern = '/' . KNOWN_SUBDIRECTORY . $pattern;
+                $pattern = '/' . IDNO_SUBDIRECTORY . $pattern;
             }
             $pattern = strtr($pattern, $this->routeTokens());
             if (class_exists($handler)) {

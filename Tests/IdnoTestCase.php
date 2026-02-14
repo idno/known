@@ -2,7 +2,7 @@
 
 namespace Tests {
 
-    class KnownTestCase extends \PHPUnit\Framework\TestCase
+    class IdnoTestCase extends \PHPUnit\Framework\TestCase
     {
 
         /// Admin user
@@ -123,5 +123,8 @@ namespace Tests {
             }
         }
     }
+
+    // Backwards compatibility alias
+    class_alias('Tests\IdnoTestCase', 'Tests\KnownTestCase');
 
 }

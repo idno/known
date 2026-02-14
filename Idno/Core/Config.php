@@ -186,8 +186,9 @@ namespace Idno\Core {
                             }
                         }
                     }
-                    if (array_key_exists('KNOWN_DATABASE_URL', $_ENV)) {
-                        $parsed = parse_url($_ENV['KNOWN_DATABASE_URL']);
+                    $dbUrl = $_ENV['IDNO_DATABASE_URL'] ?? $_ENV['KNOWN_DATABASE_URL'] ?? null;
+                    if ($dbUrl) {
+                        $parsed = parse_url($dbUrl);
                         $this->ini_config['database'] = $parsed['scheme'];
                         $this->ini_config['dbname'] = basename($parsed['path']);
                         $this->ini_config['dbuser'] = $parsed['user'];
@@ -197,7 +198,7 @@ namespace Idno\Core {
                     }
 
                     $cloudcube = array_key_exists('CLOUDCUBE_URL', $_ENV);
-                    $aws_s3 = array_key_exists('KNOWN_AWS_S3_BUCKET', $_ENV);
+                    $aws_s3 = array_key_exists('IDNO_AWS_S3_BUCKET', $_ENV) || array_key_exists('KNOWN_AWS_S3_BUCKET', $_ENV);
                     $bucket = '';
 
                     if ($cloudcube) {
@@ -210,12 +211,12 @@ namespace Idno\Core {
                         $this->ini_config['aws_region'] = $bucket == 'cloud-cube-eu' ? 'eu-west-1' : 'us-east-1';
                         $path = $parsed['path'];
                     } elseif ($aws_s3) {
-                        $bucket = $_ENV['KNOWN_AWS_S3_BUCKET'];
-                        $this->ini_config['aws_key'] = $_ENV['KNOWN_AWS_S3_ACCESS_KEY_ID'];
-                        $this->ini_config['aws_secret'] = $_ENV['KNOWN_AWS_S3_SECRET_ACCESS_KEY'];
+                        $bucket = $_ENV['IDNO_AWS_S3_BUCKET'] ?? $_ENV['KNOWN_AWS_S3_BUCKET'];
+                        $this->ini_config['aws_key'] = $_ENV['IDNO_AWS_S3_ACCESS_KEY_ID'] ?? $_ENV['KNOWN_AWS_S3_ACCESS_KEY_ID'];
+                        $this->ini_config['aws_secret'] = $_ENV['IDNO_AWS_S3_SECRET_ACCESS_KEY'] ?? $_ENV['KNOWN_AWS_S3_SECRET_ACCESS_KEY'];
                         $this->ini_config['aws_bucket'] = $bucket;
-                        $this->ini_config['aws_region'] = $_ENV['KNOWN_AWS_S3_REGION'];
-                        $path = str_replace('//', '/', '/'.$_ENV['KNOWN_AWS_S3_PATH_PREFIX']);
+                        $this->ini_config['aws_region'] = $_ENV['IDNO_AWS_S3_REGION'] ?? $_ENV['KNOWN_AWS_S3_REGION'];
+                        $path = str_replace('//', '/', '/'.($_ENV['IDNO_AWS_S3_PATH_PREFIX'] ?? $_ENV['KNOWN_AWS_S3_PATH_PREFIX']));
                     }
 
                     if (($cloudcube || $aws_s3) && (!empty($bucket))) {
@@ -223,12 +224,14 @@ namespace Idno\Core {
                         $this->ini_config['uploadpath'] = "s3://{$bucket}{$path}";
                     }
 
-                    if (array_key_exists('KNOWN_AWS_S3_REGION', $_ENV)) {
-                        $this->ini_config['aws_region'] = $_ENV['KNOWN_AWS_S3_REGION'];
+                    $awsRegion = $_ENV['IDNO_AWS_S3_REGION'] ?? $_ENV['KNOWN_AWS_S3_REGION'] ?? null;
+                    if ($awsRegion) {
+                        $this->ini_config['aws_region'] = $awsRegion;
                     }
 
-                    if (array_key_exists('KNOWN_UPLOAD_PATH', $_ENV)) {
-                        $this->ini_config['uploadpath'] = $_ENV['KNOWN_UPLOAD_PATH'];
+                    $uploadPath = $_ENV['IDNO_UPLOAD_PATH'] ?? $_ENV['KNOWN_UPLOAD_PATH'] ?? null;
+                    if ($uploadPath) {
+                        $this->ini_config['uploadpath'] = $uploadPath;
                     }
 
                     // Per domain configuration
@@ -241,11 +244,20 @@ namespace Idno\Core {
                 }
 
                 // Check environment variables and set as appropriate
+                // IDNO_ prefixed variables take precedence over KNOWN_ prefixed ones
+                foreach ($_SERVER as $name => $val) {
+                    if (substr($name, 0, 5) == 'IDNO_') {
+                        $configName = strtolower(str_replace('IDNO_', '', $name));
+                        $this->ini_config[$configName] = $val;
+                    }
+                }
+                // Backwards compat: also process KNOWN_ but don't override IDNO_ values
                 foreach ($_SERVER as $name => $val) {
                     if (substr($name, 0, 6) == 'KNOWN_') {
-                        $name                    = strtolower(str_replace('KNOWN_', '', $name));
-                        $val                     = $val;
-                        $this->ini_config[$name] = $val;
+                        $configName = strtolower(str_replace('KNOWN_', '', $name));
+                        if (!isset($this->ini_config[$configName])) {
+                            $this->ini_config[$configName] = $val;
+                        }
                     }
                 }
 
@@ -390,21 +402,21 @@ namespace Idno\Core {
                         $url .= ':' . $_SERVER['SERVER_PORT'];
                     }
                 }
-                if (defined('KNOWN_SUBDIRECTORY')) {
-                    $url .= '/' . KNOWN_SUBDIRECTORY;
+                if (defined('IDNO_SUBDIRECTORY')) {
+                    $url .= '/' . IDNO_SUBDIRECTORY;
                 }
                 $url .= '/'; // A naive default base URL
                 return $url;
             }
 
-            $domain = getenv('KNOWN_DOMAIN');
+            $domain = getenv('IDNO_DOMAIN') ?: getenv('KNOWN_DOMAIN');
             if (!empty($domain)) {
                 // Server domain specified in environment variable, for cases when SERVER_NAME isn't specified.
                 // This allows things like the console plugins to access the correct site when using domain
                 // specific configurations.
 
                 $url = (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $domain;
-                $port = getenv('KNOWN_PORT');
+                $port = getenv('IDNO_PORT') ?: getenv('KNOWN_PORT');
                 if (!$port) {
                     $port = 80;
                 }
@@ -413,8 +425,8 @@ namespace Idno\Core {
                     $url .= ':' . $port;
                 }
 
-                if (defined('KNOWN_SUBDIRECTORY')) {
-                    $url .= '/' . KNOWN_SUBDIRECTORY;
+                if (defined('IDNO_SUBDIRECTORY')) {
+                    $url .= '/' . IDNO_SUBDIRECTORY;
                 }
                 $url .= '/'; // A naive default base URL
                 return $url;

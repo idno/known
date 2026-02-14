@@ -6,7 +6,7 @@ namespace Tests\Data {
     /**
      * Test the acls
      */
-    class AccessGroupTest extends \Tests\KnownTestCase
+    class AccessGroupTest extends \Tests\IdnoTestCase
     {
 
         static $acl;

@@ -2,7 +2,7 @@
 
 namespace Tests\Core {
 
-    class FilesystemTest extends \Tests\KnownTestCase
+    class FilesystemTest extends \Tests\IdnoTestCase
     {
 
 

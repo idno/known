@@ -71,7 +71,7 @@
     );
 
     // This is a good time to see if we're running in a subdirectory
-    if (!defined('KNOWN_UNIT_TEST')) {
+    if (!defined('IDNO_UNIT_TEST')) {
         if (!empty($_SERVER['PHP_SELF'])) {
             if ($subdir = dirname($_SERVER['PHP_SELF'])) {
                 if ($subdir != DIRECTORY_SEPARATOR) {
@@ -82,7 +82,10 @@
                         $subdir = substr($subdir, 1);
                     }
                     $subdir = str_replace(DIRECTORY_SEPARATOR, '/', $subdir);
-                    define('KNOWN_SUBDIRECTORY', $subdir);
+                    define('IDNO_SUBDIRECTORY', $subdir);
+                    if (!defined('KNOWN_SUBDIRECTORY')) {
+                        define('KNOWN_SUBDIRECTORY', IDNO_SUBDIRECTORY);
+                    }
                 }
             }
         }
@@ -112,7 +115,10 @@
     if (!empty($_SERVER['HTTP_HOST'])) {
         $host = strtolower($_SERVER['HTTP_HOST']);
         $host = str_replace('www.', '', $host);
-        define('KNOWN_MULTITENANT_HOST', $host);
+        define('IDNO_MULTITENANT_HOST', $host);
+        if (!defined('KNOWN_MULTITENANT_HOST')) {
+            define('KNOWN_MULTITENANT_HOST', IDNO_MULTITENANT_HOST);
+        }
     }
 
     // Shims

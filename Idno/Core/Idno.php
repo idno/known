@@ -143,7 +143,7 @@ namespace Idno\Core {
             $this->cache = $this->componentFactory($this->config->cache, "Idno\\Caching\\Cache", "Idno\\Caching\\", $cache_default);
 
             // No URL is a critical error, default base fallback is now a warning (Refs #526)
-            if (!defined('KNOWN_CONSOLE')) {
+            if (!defined('IDNO_CONSOLE')) {
                 if (!$this->config->url) { throw new \Idno\Exceptions\ConfigurationException('Known was unable to work out your base URL! You might try setting url="http://yourdomain.com/" in your config.ini');
                 }
                 if ($this->config->url == '/') {

@@ -5,7 +5,7 @@ namespace Tests\Core {
     /**
      * Test gatekeepers
      */
-    class GatekeeperTest extends \Tests\KnownTestCase
+    class GatekeeperTest extends \Tests\IdnoTestCase
     {
 
         public function testGatekeeper()
@@ -16,13 +16,13 @@ namespace Tests\Core {
             $this->assertEmpty($result['error'], 'The result\'s error property should be empty.');
             $this->assertEquals($response, 403, 'The response should have returned a 403 HTTP response.');
 
-            $user = \Tests\KnownTestCase::user();
+            $user = \Tests\IdnoTestCase::user();
             $this->assertIsObject(\Idno\Core\Idno::site()->session()->logUserOn($user));
 
             $result = \Idno\Core\Webservice::get(
                 \Idno\Core\Idno::site()->config()->url . 'account/settings/', [], [
-                'X-KNOWN-USERNAME: ' . $user->handle,
-                'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', '/account/settings/', $user->getAPIkey(), true)),
+                'X-IDNO-USERNAME: ' . $user->handle,
+                'X-IDNO-SIGNATURE: ' . base64_encode(hash_hmac('sha256', '/account/settings/', $user->getAPIkey(), true)),
 
                 ]
             );
@@ -42,15 +42,15 @@ namespace Tests\Core {
             $this->assertEmpty($result['error'], 'The result\'s error property should be empty.');
             $this->assertEquals($response, 403, 'The response should have returned a 403 HTTP response.');
 
-            $user = \Tests\KnownTestCase::user();
+            $user = \Tests\IdnoTestCase::user();
             $this->assertIsObject(\Idno\Core\Idno::site()->session()->logUserOn($user));
 
             // Try normal user
             \Idno\Core\Idno::site()->session()->logUserOff();
             $result = \Idno\Core\Webservice::get(
                 \Idno\Core\Idno::site()->config()->url . 'admin/', [], [
-                'X-KNOWN-USERNAME: ' . $user->handle,
-                'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', '/admin/', $user->getAPIkey(), true)),
+                'X-IDNO-USERNAME: ' . $user->handle,
+                'X-IDNO-SIGNATURE: ' . base64_encode(hash_hmac('sha256', '/admin/', $user->getAPIkey(), true)),
 
                 ]
             );
@@ -60,13 +60,13 @@ namespace Tests\Core {
             $this->assertEquals($response, 403, 'The response should have returned a 403 HTTP response.');
 
             // Try admin
-            $user = \Tests\KnownTestCase::admin();
+            $user = \Tests\IdnoTestCase::admin();
             $this->assertIsObject(\Idno\Core\Idno::site()->session()->logUserOn($user));
 
             $result = \Idno\Core\Webservice::get(
                 \Idno\Core\Idno::site()->config()->url . 'admin/', [], [
-                'X-KNOWN-USERNAME: ' . $user->handle,
-                'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', '/admin/', $user->getAPIkey(), true)),
+                'X-IDNO-USERNAME: ' . $user->handle,
+                'X-IDNO-SIGNATURE: ' . base64_encode(hash_hmac('sha256', '/admin/', $user->getAPIkey(), true)),
 
                 ]
             );

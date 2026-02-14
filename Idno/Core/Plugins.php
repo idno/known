@@ -165,8 +165,8 @@ namespace Idno\Core {
                     }
                 }
             }
-            if (defined('KNOWN_MULTITENANT_HOST')) {
-                $host = KNOWN_MULTITENANT_HOST;
+            if (defined('IDNO_MULTITENANT_HOST')) {
+                $host = IDNO_MULTITENANT_HOST;
                 if (file_exists(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/IdnoPlugins')) {
                     if ($folders = scandir(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/IdnoPlugins')) {
                         foreach ($folders as $folder) {
@@ -314,8 +314,8 @@ namespace Idno\Core {
         public function exists($plugin)
         {
 
-            if (defined('KNOWN_MULTITENANT_HOST')) {
-                $host = KNOWN_MULTITENANT_HOST;
+            if (defined('IDNO_MULTITENANT_HOST')) {
+                $host = IDNO_MULTITENANT_HOST;
             }
 
             if (!preg_match('/^[a-zA-Z0-9]+$/', $plugin)) {

@@ -4,7 +4,7 @@ namespace Tests\Core {
 
     use Idno\Core\DefaultTemplate;
 
-    class TemplateTest extends \Tests\KnownTestCase
+    class TemplateTest extends \Tests\IdnoTestCase
     {
         function parseURLsProvider()
         {

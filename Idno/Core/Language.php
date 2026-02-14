@@ -223,7 +223,7 @@ namespace Idno\Core {
             }
 
             // If running as console app, detect via environment
-            if (defined('KNOWN_CONSOLE')) {
+            if (defined('IDNO_CONSOLE')) {
 
                 $lang = getenv('LANGUAGE');
                 if (empty($lang)) {

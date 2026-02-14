@@ -12,11 +12,16 @@ if (file_exists(dirname(dirname(__FILE__)) . '/.env')) {
     $dotenv->load();
 }
 
-define('KNOWN_UNIT_TEST', true);
+define('IDNO_UNIT_TEST', true);
+if (!defined('KNOWN_UNIT_TEST')) {
+    define('KNOWN_UNIT_TEST', IDNO_UNIT_TEST);
+}
 
-// Set some environment: Use export KNOWN_DOMAIN / KNOWN_PORT to override from the command line
+// Set some environment: Use export IDNO_DOMAIN / IDNO_PORT to override from the command line
 $domain = 'localhost';
-if (isset($_SERVER['KNOWN_DOMAIN'])) {
+if (isset($_SERVER['IDNO_DOMAIN'])) {
+    $domain = $_SERVER['IDNO_DOMAIN'];
+} elseif (isset($_SERVER['KNOWN_DOMAIN'])) {
     $domain = $_SERVER['KNOWN_DOMAIN'];
 }
 
@@ -26,7 +31,7 @@ if (!$domain && isset($_SERVER['SERVER_NAME'])) {
 
 $_SERVER['SERVER_NAME'] = $domain;
 
-$port = getenv('KNOWN_PORT');
+$port = getenv('IDNO_PORT') ?: getenv('KNOWN_PORT');
 if (!$port && isset($_SERVER['SERVER_PORT'])) {
     $port = $_SERVER['SERVER_PORT'];
 }
@@ -36,7 +41,7 @@ if (!$port) {
 $_SERVER['SERVER_PORT'] = $port;
 
 try {
-    // Load Known framework
+    // Load Idno framework
     include_once dirname(dirname(__FILE__)) . '/Idno/start.php';
 
 } catch (Exception $ex) {

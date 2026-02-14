@@ -27,7 +27,10 @@ namespace Idno\Pages\Admin {
         {
             $this->adminGatekeeper();
 
-            define('KNOWN_NOMENTION', true);
+            define('IDNO_NOMENTION', true);
+            if (!defined('KNOWN_NOMENTION')) {
+                define('KNOWN_NOMENTION', IDNO_NOMENTION);
+            }
 
             $import_type = $this->getInput('import_type');
 

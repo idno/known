@@ -5,7 +5,7 @@ namespace Tests\Core {
     /**
      * Test session handling code.
      */
-    class SessionTest extends \Tests\KnownTestCase
+    class SessionTest extends \Tests\IdnoTestCase
     {
 
         /**

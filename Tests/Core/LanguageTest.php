@@ -26,7 +26,7 @@ namespace Tests\Core {
 
     }
 
-    class LanguageTest extends \Tests\KnownTestCase
+    class LanguageTest extends \Tests\IdnoTestCase
     {
 
         public function testLanguageString()

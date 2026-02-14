@@ -60,7 +60,7 @@ namespace Idno\Common {
 
         function init()
         {
-            if (!defined('KNOWN_UNIT_TEST')) { // Don't do header stuff in unit tests
+            if (!defined('IDNO_UNIT_TEST')) { // Don't do header stuff in unit tests
                 header('X-Powered-By: https://withknown.com');
                 header('X-Clacks-Overhead: GNU Terry Pratchett');
                 header('X-Known-Build-Fingerprint: ' . \Idno\Core\TokenProvider::truncateToken(\Idno\Core\Version::fingerprint()));
