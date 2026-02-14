@@ -11,6 +11,7 @@ class AsynchronousQueue extends EventQueue
     function registerPages()
     {
         \Idno\Core\Idno::site()->routes()->addRoute('/service/queue/list/?', '\Idno\Pages\Service\Queues\Queue');
+        \Idno\Core\Idno::site()->routes()->addRoute('/service/queue/dispatch/([^\/]+)/?', '\Idno\Pages\Service\Queues\Dispatch');
         \Idno\Core\Idno::site()->routes()->addRoute('/service/queue/gc/?', '\Idno\Pages\Service\Queues\GC');
     }
 
