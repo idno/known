@@ -19,7 +19,7 @@
     </p>
 
         <p align="center">
-            <?php echo \Idno\Core\Idno::site()->language()->_('Feedback is a gift.  For more information about Known, <a href="https://withknown.com/">please visit our homepage</a>'); ?></a>.
+            <?php echo \Idno\Core\Idno::site()->language()->_('Feedback is a gift.  For more information about Idno, <a href="https://idno.co/">please visit our homepage</a>'); ?></a>.
         </p>
 
     </div>

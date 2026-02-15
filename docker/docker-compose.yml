@@ -3,10 +3,10 @@ version: '3.4'
 services:
   tailscale:
     image: tailscale/tailscale:latest
-    hostname: known
+    hostname: idno
     env_file: ../.env
     environment:
-      - TS_SERVE_CONFIG=/config/known.json
+      - TS_SERVE_CONFIG=/config/idno.json
       - TS_STATE_DIR=/var/lib/tailscale
     volumes:
       - tailscalestate:/var/lib/tailscale
@@ -26,8 +26,8 @@ services:
       - caddy_config:/config
     restart: unless-stopped
 
-  known:
-    image: jimwins/known
+  idno:
+    image: jimwins/idno
     env_file: ../.env
     expose:
       - "9000"

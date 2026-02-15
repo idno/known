@@ -7,7 +7,7 @@ msgid "Custom CSS"
 msgstr ""
 
 #: ./templates/default/styles/admin.tpl.php:9
-msgid "The site styles CSS editor lets you easily modify the visual style of your Known site by overriding the default CSS. With Custom CSS, you have more control over the fonts, colors, and visual impact of your site."
+msgid "The site styles CSS editor lets you easily modify the visual style of your Idno site by overriding the default CSS. With Custom CSS, you have more control over the fonts, colors, and visual impact of your site."
 msgstr ""
 
 #: ./templates/default/styles/admin.tpl.php:17
@@ -15,7 +15,7 @@ msgid "Stylesheet editor"
 msgstr ""
 
 #: ./templates/default/styles/admin.tpl.php:22
-msgid "Add your changes to Known's core CSS below."
+msgid "Add your changes to Idno's core CSS below."
 msgstr ""
 
 #: ./templates/default/styles/admin.tpl.php:24

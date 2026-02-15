@@ -1,7 +1,7 @@
 {
     "name": "idno/status",
-    "description": "Simple status updates for Known.",
-    "type": "known-plugin",
+    "description": "Simple status updates for Idno.",
+    "type": "idno-plugin",
     "version": "1.0.6",
     "require": {
         "composer/installers": "~1.0"

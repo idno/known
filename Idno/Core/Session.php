@@ -83,7 +83,7 @@ namespace Idno\Core {
             } catch (\Exception $ex) {
                 // Session didn't validate, log & destroy
                 \Idno\Core\Idno::site()->logging()->error('Error validating session', ['error' => $ex->getMessage()]);
-                header('X-KNOWN-DEBUG: Tilt!');
+                header('X-IDNO-DEBUG: Tilt!');
 
                 $_SESSION = [];
                 session_destroy();
@@ -418,7 +418,7 @@ namespace Idno\Core {
 
             // Really log the user off by destroying the cookie
             // See https://secure.php.net/manual/en/function.session-destroy.php
-            if (!defined('KNOWN_UNIT_TEST')) {
+            if (!defined('IDNO_UNIT_TEST')) {
                 if (!$this->isAPIRequest()) { // #1365 - we need to destroy the session, but resetting cookie causes problems with the api
                     if (ini_get("session.use_cookies")) {
                         $params = session_get_cookie_params();
@@ -490,8 +490,10 @@ namespace Idno\Core {
             // attempt to delegate auth to a plugin (note: plugin is responsible for calling setIsAPIRequest or not)
             $return = \Idno\Core\Idno::site()->events()->triggerEvent('user/auth/request', [], false);
 
-            // auth standard API requests
-            if (!$return && !empty($_SERVER['HTTP_X_KNOWN_USERNAME']) && !empty($_SERVER['HTTP_X_KNOWN_SIGNATURE'])) {
+            // auth standard API requests (check X-IDNO-* headers first, fall back to X-KNOWN-* for backwards compat)
+            $apiUsername = $_SERVER['HTTP_X_IDNO_USERNAME'] ?? $_SERVER['HTTP_X_KNOWN_USERNAME'] ?? null;
+            $apiSignature = $_SERVER['HTTP_X_IDNO_SIGNATURE'] ?? $_SERVER['HTTP_X_KNOWN_SIGNATURE'] ?? null;
+            if (!$return && !empty($apiUsername) && !empty($apiSignature)) {
                 \Idno\Core\Idno::site()->logging()->debug("Attempting to auth via API credentials");
 
                 $this->setIsAPIRequest(true);
@@ -501,14 +503,14 @@ namespace Idno\Core {
                     \Idno\Core\Idno::site()->template()->setTemplateType('json');
                 }
 
-                $user = \Idno\Entities\User::getByHandle($_SERVER['HTTP_X_KNOWN_USERNAME']);
-                if (empty($user)) { $user = \Idno\Entities\User::getByEmail($_SERVER['HTTP_X_KNOWN_USERNAME']);
+                $user = \Idno\Entities\User::getByHandle($apiUsername);
+                if (empty($user)) { $user = \Idno\Entities\User::getByEmail($apiUsername);
                 }
                 if (!empty($user)) {
-                    \Idno\Core\Idno::site()->logging()->debug("API auth found user by username: {$_SERVER['HTTP_X_KNOWN_USERNAME']} - " . $user->getName());
+                    \Idno\Core\Idno::site()->logging()->debug("API auth found user by username: {$apiUsername} - " . $user->getName());
 
                     $key  = $user->getAPIkey();
-                    $hmac = trim($_SERVER['HTTP_X_KNOWN_SIGNATURE']);
+                    $hmac = trim($apiSignature);
                     //$compare_hmac = base64_encode(hash_hmac('sha256', explode('?', $_SERVER['REQUEST_URI'])[0], $key, true));
                     $compare_hmac = base64_encode(hash_hmac('sha256', ($_SERVER['REQUEST_URI']), $key, true));
 
@@ -519,10 +521,10 @@ namespace Idno\Core {
                     } else {
                         \Idno\Core\Idno::site()->logging()->debug("API auth failed signature validation for user: " . $user->getName());
                         \Idno\Core\Idno::site()->logging()->debug("Expected signature formed over base64_encode(hash_hmac('sha256', '{$_SERVER['REQUEST_URI']}', \$key, true)) = '$compare_hmac', but got '$hmac'. ");
-                        \Idno\Core\Idno::site()->logging()->debug("Please read http://docs.withknown.com/en/latest/developers/plugins/api/ for further details.");
+                        \Idno\Core\Idno::site()->logging()->debug("Please read http://docs.idno.co/en/latest/developers/plugins/api/ for further details.");
                     }
                 } else {
-                    \Idno\Core\Idno::site()->logging()->debug("API User given in X_KNOWN_USERNAME ('{$_SERVER['HTTP_X_KNOWN_USERNAME']}') could not be found.");
+                    \Idno\Core\Idno::site()->logging()->debug("API User given in X_IDNO_USERNAME ('{$apiUsername}') could not be found.");
                 }
             }
 

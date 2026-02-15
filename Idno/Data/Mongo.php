@@ -1,7 +1,7 @@
 <?php
 
     /**
-     * MongoDB back-end for Known data.
+     * MongoDB back-end for Idno data.
      *
      * This is a wrapper for DataConcierge, but begins to move mongo specific settings
      * to its own class.

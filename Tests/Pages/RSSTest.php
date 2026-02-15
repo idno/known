@@ -2,7 +2,7 @@
 
 namespace Tests\Pages {
 
-    class RSSTest extends \Tests\KnownTestCase
+    class RSSTest extends \Tests\IdnoTestCase
     {
 
         function testFeedLoadsAndIsValid()
@@ -21,7 +21,7 @@ namespace Tests\Pages {
                 }
             }
 
-            $this->assertEmpty($output, 'Loading the feed should return the feed contents. If this is failing, you may need to set KNOWN_DOMAIN.');
+            $this->assertEmpty($output, 'Loading the feed should return the feed contents. If this is failing, you may need to set IDNO_DOMAIN.');
         }
 
     }

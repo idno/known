@@ -1,5 +1,5 @@
 --
--- Base Known schema
+-- Base Idno schema
 --
 
 --

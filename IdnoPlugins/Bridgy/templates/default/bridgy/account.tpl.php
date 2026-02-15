@@ -13,7 +13,7 @@
         <p class="explanation">
             <a href="https://www.brid.gy"><?php echo \Idno\Core\Idno::site()->language()->_('Bridgy'); ?></a> <?php echo \Idno\Core\Idno::site()->language()->_('is a service that pulls social interactions - such as likes and retweets - back to your website.'); ?></p>
 
-        <p class="explanation"><?php echo \Idno\Core\Idno::site()->language()->_('If you send content from Known to Facebook or Twitter, use Bridgy to save comments and interactions from those networks to the original post on your Known site.'); ?></p>
+        <p class="explanation"><?php echo \Idno\Core\Idno::site()->language()->_('If you send content from Idno to Facebook or Twitter, use Bridgy to save comments and interactions from those networks to the original post on your Idno site.'); ?></p>
 
         <p class="explanation"><?php echo \Idno\Core\Idno::site()->language()->_('To get started, activate Bridgy for the social network.'); ?></p>
 

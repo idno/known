@@ -1,14 +1,14 @@
-# Templates in Known
+# Templates in Idno
 
-Known splits templating into *templates* and *template types*.
+Idno splits templating into *templates* and *template types*.
 
 ## Templates
 
 Templates are the styling information for each individual page element.
 
-These have names of the form `foo`, or `foo/bar`, and may be split up with an indefinite number of forward-slashes. They are structured like relative folder paths; whatever works in a UNIX-style relative folder path, works in a Known template name.
+These have names of the form `foo`, or `foo/bar`, and may be split up with an indefinite number of forward-slashes. They are structured like relative folder paths; whatever works in a UNIX-style relative folder path, works in an Idno template name.
 
-By convention, Known uses lower-case template names.
+By convention, Idno uses lower-case template names.
 
 Examples:
 
@@ -20,7 +20,7 @@ Examples:
 
 The template type is the *kind* or *category* of template we're dealing with.
 
-By default, Known assumes we're talking HTML5 (referred to internally as the `default` template type).
+By default, Idno assumes we're talking HTML5 (referred to internally as the `default` template type).
 
 However, if you want to build an RSS feed, for example, your template type might be `rss`.
 
@@ -34,7 +34,7 @@ All template files are PHP scripts with the extension `.tpl.php`. These script f
 * `page/navigation` would sit in `templates/rss/page/navigation.tpl.php` for the `rss` template type
 * `page/navigation` would sit in `templates/comicsans/page/navigation.tpl.php` for the `comicsans` template type (hey, you never know)
 
-You can have multiple top-level `templates` folders; Known will search them in the order they were added using `Bon::additionalPath($path)`, falling back to the main Known folder at the end.
+You can have multiple top-level `templates` folders; Idno will search them in the order they were added using `Bon::additionalPath($path)`, falling back to the main Idno folder at the end.
 
 ## Template variables
 

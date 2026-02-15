@@ -1,7 +1,7 @@
 {
     "name": "idno/staticpages",
-    "description": "Host static pages in Known.",
-    "type": "known-plugin",
+    "description": "Host static pages in Idno.",
+    "type": "idno-plugin",
     "version": "1.0.1",
     "require": {
         "composer/installers": "~1.0"

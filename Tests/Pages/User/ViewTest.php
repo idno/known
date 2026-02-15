@@ -4,7 +4,7 @@ namespace Tests\Pages\User {
 
     use Idno\Core\Idno;
 
-    class ViewTest extends \Tests\KnownTestCase
+    class ViewTest extends \Tests\IdnoTestCase
     {
         function testWebmentionContent()
         {

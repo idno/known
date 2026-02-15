@@ -1,13 +1,13 @@
 StaticPages
 ===========
 
-A Known plugin that allows you to add static pages of content to your Known site.
+An Idno plugin that allows you to add static pages of content to your Idno site.
 
 Installation
 ------------
 
-* Drop the StaticPages folder into the IdnoPlugins folder of your Known installation.
-* Log into Known and click on Administration.
+* Drop the StaticPages folder into the IdnoPlugins folder of your Idno installation.
+* Log into Idno and click on Administration.
 * Click "enable" next to Static Pages.
 
 License

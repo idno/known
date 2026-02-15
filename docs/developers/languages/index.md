@@ -1,7 +1,7 @@
-# Translating Known
+# Translating Idno
 
-Known has a mechanism for translating strings used into other languages. When Known boots, 
-it creates a new Language() object on the Idno object for the current language, which is addressable 
+Idno has a mechanism for translating strings used into other languages. When Idno boots,
+it creates a new Language() object on the Idno object for the current language, which is addressable
 by ```\Idno\Core\Idno::site()->language();```.
 
 Your code/plugin can add strings to this object for later use, usually by registering them on the ```registerTranslations()``` 
@@ -9,7 +9,7 @@ method hook.
 
 ## Adding a translation for a language
 
-Known supports [gettext](https://en.wikipedia.org/wiki/Gettext), which is a widely supported localisation platform. This is the recommended method for adding 
+Idno supports [gettext](https://en.wikipedia.org/wiki/Gettext), which is a widely supported localisation platform. This is the recommended method for adding
 translations to your code.
 
 ### Creating .POT file
@@ -33,7 +33,7 @@ composer require mapkyca/known-language-tools --dev
 This will parse all your plugin's PHP files and extract translatable strings.
 
 !!! note "Note"
-    If you have added a new translation string to Known's core code or templates, you should use the Grunt ```build-lang``` task in Known's project root to update the ```known.pot``` file.
+    If you have added a new translation string to Idno's core code or templates, you should use the Grunt ```build-lang``` task in Idno's project root to update the ```idno.pot``` file.
 
 
 ### Creating your translation
@@ -80,7 +80,7 @@ If you don't want to go the Gettext route for whatever reason, you can quickly a
 
 In order to add a translation, you need to register a ```Translation``` object for a given language short code. To do this you need to extend ```Idno/Core/ArrayKeyTranslation``` for each language you want to translate, and then implement its ```getStrings()``` method.
 
-It is then possible to add them all at once for each language (this way, Known will automatically select the appropriate translation for the loaded language).
+It is then possible to add them all at once for each language (this way, Idno will automatically select the appropriate translation for the loaded language).
 
 E.g.
 

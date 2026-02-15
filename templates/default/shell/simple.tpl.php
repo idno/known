@@ -24,7 +24,7 @@ if (empty($vars['description'])) {
         <title><?php echo htmlspecialchars($vars['title']); ?></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="<?php echo htmlspecialchars(strip_tags($vars['description'])) ?>">
-        <meta name="generator" content="Known https://withknown.com">
+        <meta name="generator" content="Idno https://idno.co">
         <?php echo $this->draw('shell/favicon'); ?>
         <link rel="schema.DC" href="http://purl.org/dc/elements/1.1/">
         <meta name="DC.title" content="<?php echo htmlspecialchars($vars['title']) ?>">
@@ -53,7 +53,7 @@ if (empty($vars['description'])) {
               href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>content/all?_t=rss"/>
         <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>webmention/" rel="http://webmention.org/"/>
         <link href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>webmention/" rel="webmention"/>
-        <link href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>css/known-simple.min.css" rel="stylesheet">
+        <link href="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>css/idno-simple.min.css" rel="stylesheet">
         <link href="//fonts.googleapis.com/css?family=Pontano+Sans" rel="stylesheet" type="text/css">
         <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel='stylesheet' type='text/css'>
         <script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/npm-asset/jquery/dist/jquery.min.js"></script>

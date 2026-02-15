@@ -86,7 +86,7 @@ if (!empty($vars['class'])) {
         </div>
     </form>
 
-    <div class="search-sort hidden"> <!-- Not actually possible atm with Known's native object search functions -->
+    <div class="search-sort hidden"> <!-- Not actually possible atm with Idno's native object search functions -->
         <div class="btn-group sort">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Sort <span class="caret"></span>

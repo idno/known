@@ -6,7 +6,7 @@ namespace Idno\Core {
     {
 
         /**
-         * Retrieve notices (eg notifications that a new version has been released) from Known HQ
+         * Retrieve notices (eg notifications that a new version has been released) from Idno HQ
          *
          * @return string
          */
@@ -18,7 +18,7 @@ namespace Idno\Core {
             }
 
             $results = Webservice::post(
-                'https://withknown.com/vendor-services/messages/', [
+                'https://idno.co/vendor-services/messages/', [
                         'version' => Version::version(),
                 ]
             );

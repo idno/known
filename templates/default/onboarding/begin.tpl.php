@@ -3,9 +3,9 @@
     <div>
 
         <div class="h-register"><img src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>gfx/onboarding/logo_black.png"
-                                     alt="Known" class="img-responsive"></div>
+                                     alt="Idno" class="img-responsive"></div>
 
-        <p class="p-register"><?php echo \Idno\Core\Idno::site()->language()->_('Known is your space for sharing content and discussing ideas.'); ?></p>
+        <p class="p-register"><?php echo \Idno\Core\Idno::site()->language()->_('Idno is your space for sharing content and discussing ideas.'); ?></p>
 
         <div class="container" style="margin-bottom: 1 em; margin-top: 2em">
             <div class="row row-centered">

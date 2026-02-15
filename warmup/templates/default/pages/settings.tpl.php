@@ -32,8 +32,8 @@
     } else {
 
         $canary = '<p>Rewriting appears to be disabled. Usually this means "AllowOverride None" is set in apache2.conf ';
-        $canary .= 'which prevents Known\'s .htaccess from doing its thing. We tried to fetch a URL that should redirect ';
-        $canary .= 'to known.min.js</p>';
+        $canary .= 'which prevents Idno\'s .htaccess from doing its thing. We tried to fetch a URL that should redirect ';
+        $canary .= 'to idno.min.js</p>';
         $canary .= '<p>You can usually fix this by setting <code>AllowOverride All</code> in your Apache configuration.</p>';
         $canary .= '<p>If you think this is an error, you can continue, but you might have problems later on.</p>';
 
@@ -83,8 +83,8 @@
             </h3>
 
             <p class="control-label">
-                Known needs a single MySQL database, with a MySQL user that can connect to it. We recommend that this
-                is a user you have created just for Known, rather than one you share with other applications.
+                Idno needs a single MySQL database, with a MySQL user that can connect to it. We recommend that this
+                is a user you have created just for Idno, rather than one you share with other applications.
                 <br><br>
                 You should create your database before entering the details here. If you're using a shared host,
                 you may have an option called "MySQL Database Wizard" that will speed you through the process.
@@ -128,7 +128,7 @@
 
             <p>
                 <label class="control-label" for="upload_path">
-                    The full path to a folder that Known can upload to. By default this is the "Uploads" folder -
+                    The full path to a folder that Idno can upload to. By default this is the "Uploads" folder -
                     you should leave this as-is unless you're an experienced system administrator. You need to make
                     sure the web server can save data to it. In your file manager, you should be able
                     to select the folder, and click to enable "group" write access.

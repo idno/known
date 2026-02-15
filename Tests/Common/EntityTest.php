@@ -6,7 +6,7 @@ use Idno\Entities\GenericDataItem;
 use Idno\Core\Idno;
 use Idno\Core\Webservice;
 
-class EntityTest extends \Tests\KnownTestCase
+class EntityTest extends \Tests\IdnoTestCase
 {
 
     public function setUp(): void

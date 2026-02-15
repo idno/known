@@ -30,8 +30,8 @@ namespace Idno\Pages\Admin {
             $this->adminGatekeeper(); // Admins only
             $theme  = $this->getInput('theme');
             $action = $this->getInput('action');
-            if (defined('KNOWN_MULTITENANT_HOST')) {
-                $host = KNOWN_MULTITENANT_HOST;
+            if (defined('IDNO_MULTITENANT_HOST')) {
+                $host = IDNO_MULTITENANT_HOST;
             }
             if ((                preg_match('/^[a-zA-Z0-9]+$/', $theme)
                 && (                file_exists(\Idno\Core\Idno::site()->config()->path . '/Themes/' . $theme)

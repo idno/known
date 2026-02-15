@@ -17,10 +17,10 @@ namespace Idno\Core {
                 return static::$details;
             }
 
-            $versionfile = dirname(dirname(dirname(__FILE__))) . '/version.known';
+            $versionfile = dirname(dirname(dirname(__FILE__))) . '/version.idno';
 
             if (!file_exists($versionfile)) {
-                throw new \Idno\Exceptions\ConfigurationException("Version file $versionfile could not be found, Known doesn't appear to be installed correctly.");
+                throw new \Idno\Exceptions\ConfigurationException("Version file $versionfile could not be found, Idno doesn't appear to be installed correctly.");
             }
 
             static::$details = @parse_ini_file($versionfile);

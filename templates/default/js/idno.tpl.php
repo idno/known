@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Constructs a copy of the Known environment and make it available to javascript.
+ * Constructs a copy of the Idno environment and make it available to javascript.
  *
  * @todo: Add more information as necessary
  * @todo: Consider doing this via ajax.
@@ -11,7 +11,7 @@
  * Environment array.
  * Later json_encoded to ensure it's natively escaped.
  */
-$known = [
+$idno = [
     'session' => [
         'loggedIn' => \Idno\Core\Idno::site()->session()->isLoggedIn(),
         'admin' => \Idno\Core\Idno::site()->session()->isAdmin()
@@ -29,5 +29,6 @@ $known = [
 
 ?>
 <script>
-    var known = <?php echo json_encode($known); ?>; 
+    var idno = <?php echo json_encode($idno); ?>;
+    var known = idno; // Backwards compatibility alias
 </script>

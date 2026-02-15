@@ -1,10 +1,10 @@
-<?php echo $this->draw('js/known'); ?>
+<?php echo $this->draw('js/idno'); ?>
 
 <script
     src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>js/modernizr/modernizr-custom.js"></script>
 
-<!-- Default Known JavaScript -->
-<script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>js/<?php echo $this->getModifiedTS('js/known.min.js'); ?>/known.min.js"></script>
+<!-- Default Idno JavaScript -->
+<script src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>js/<?php echo $this->getModifiedTS('js/idno.min.js'); ?>/idno.min.js"></script>
 
 <script
     src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/npm-asset/bootstrap-toggle/js/bootstrap-toggle.js"></script>

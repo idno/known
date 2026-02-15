@@ -10,7 +10,7 @@
     <div id="form-div">
         <h2>Requirements</h2>
         <p>
-            Known needs a few system components and PHP extensions in order to run properly. We'll check them now.
+            Idno needs a few system components and PHP extensions in order to run properly. We'll check them now.
         </p>
         <p>
             (If you have everything you need, there's a "continue" button at the bottom of the page.)
@@ -25,10 +25,10 @@
                 $text = 'You are running PHP version ' . phpversion() . '.';
             } else if ($phpversion == 'warn') {
                 $class = 'warning';
-                $text = 'You are running Known using a very old version of PHP (' . phpversion() . '), which is no longer actively supported. Although Known will currently still install, some features may not work, so you should upgrade soon. You may need to ask your server administrator to upgrade PHP for you.';
+                $text = 'You are running Idno using a very old version of PHP (' . phpversion() . '), which is no longer actively supported. Although Idno will currently still install, some features may not work, so you should upgrade soon. You may need to ask your server administrator to upgrade PHP for you.';
             } else {
                 $class = 'failure';
-                $text = 'You are running PHP version ' . phpversion() . ', which cannot run Known. You may need to ask your server administrator to upgrade PHP for you.';
+                $text = 'You are running PHP version ' . phpversion() . ', which cannot run Idno. You may need to ask your server administrator to upgrade PHP for you.';
                 $ok = false;
             }
 
@@ -46,7 +46,7 @@
 
             if (Idno\Common\Page::isSSL()) {
                 $class = 'success';
-                $text = 'You are running Known on a secure site.';
+                $text = 'You are running Idno on a secure site.';
             } else {
                 if ($sslrequired) {
                     $class = 'failure';
@@ -72,7 +72,7 @@
                     $text = 'mod_rewrite is installed and enabled.';
                 } else {
                     $class = 'failure';
-                    $text = 'mod_rewrite is not installed. Known cannot process page URLs without it.';
+                    $text = 'mod_rewrite is not installed. Idno cannot process page URLs without it.';
                     $ok = false;
                 }
                 ?>
@@ -91,7 +91,7 @@
 
                     <h3>Apache mod_rewrite</h3>
                     <p>
-                        We couldn't detect if mod_rewrite was installed. Known cannot process page URLs without it. Proceed with caution.
+                        We couldn't detect if mod_rewrite was installed. Idno cannot process page URLs without it. Proceed with caution.
                     </p>
 
                 </div>
@@ -135,7 +135,7 @@ if ($ok) {
             <a class="btn btn-primary btn-lg btn-responsive" href="?stage=settings">Hooray! Let's get you set up.</a>
         </p>
         <p>
-            <small><a href="http://docs.withknown.com/">Want to get set up manually? Here's our documentation.</a></small>
+            <small><a href="http://docs.idno.co/">Want to get set up manually? Here's our documentation.</a></small>
         </p>
     </div>
     <?php
@@ -149,11 +149,11 @@ if ($ok) {
         </h2>
         <p>
             Unfortunately it looks like you need to install a few things. If you need to, ask your system administrator.
-            Scroll up for more details, and <a href="https://withknown.com">check out our website</a> for more services
+            Scroll up for more details, and <a href="https://idno.co">check out our website</a> for more services
             and information.
         </p>
         <p>
-            <small><a href="http://docs.withknown.com/">Want more information? Here's our documentation.</a></small>
+            <small><a href="http://docs.idno.co/">Want more information? Here's our documentation.</a></small>
         </p>
     </div>
     <?php

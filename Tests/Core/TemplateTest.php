@@ -4,7 +4,7 @@ namespace Tests\Core {
 
     use Idno\Core\DefaultTemplate;
 
-    class TemplateTest extends \Tests\KnownTestCase
+    class TemplateTest extends \Tests\IdnoTestCase
     {
         function parseURLsProvider()
         {
@@ -31,7 +31,7 @@ namespace Tests\Core {
          */
         function testParseURLs($expected, $text)
         {
-            // adapted test cases from brevity (Known requires the http(s) prefix)
+            // adapted test cases from brevity (Idno requires the http(s) prefix)
             $t = new DefaultTemplate();
 
             $this->assertEquals($expected, $t->parseURLs($text), 'URLs should parse from supplied post body.');

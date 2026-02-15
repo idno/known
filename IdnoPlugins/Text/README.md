@@ -1,11 +1,11 @@
 # Idno/Text
 
-A Known plugin that allows post status updates with a light-weight _blogging engine_.
+An Idno plugin that allows post status updates with a light-weight _blogging engine_.
 
 ## Installation
 
-* Drop the `Text` folder into the `IdnoPlugins` folder of your Known installation.
-* Log into Known and click on Administration.
+* Drop the `Text` folder into the `IdnoPlugins` folder of your Idno installation.
+* Log into Idno and click on Administration.
 * Click "enable" next to the Text plugin.
 
 ## Development

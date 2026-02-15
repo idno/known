@@ -6,7 +6,7 @@ namespace Tests {
      * @TODO This isn't a unit test and I'm not sure we need this file.
      */
 
-    class EnvironmentTest extends KnownTestCase
+    class EnvironmentTest extends IdnoTestCase
     {
 
         /**
@@ -39,7 +39,7 @@ namespace Tests {
         /**
          * Assert that the configuration has been loaded correctly
          */
-        function testKnownConfig()
+        function testIdnoConfig()
         {
             $this->assertFalse(\Idno\Core\Idno::site()->config()->isDefaultConfig());
         }

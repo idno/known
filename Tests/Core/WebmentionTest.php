@@ -4,7 +4,7 @@ namespace Tests\Core {
 
     use Idno\Core\Webmention;
 
-    class WebmentionTest extends \Tests\KnownTestCase
+    class WebmentionTest extends \Tests\IdnoTestCase
     {
 
         function testAddSyndicatedReplyTargets()

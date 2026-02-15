@@ -5,7 +5,7 @@ namespace Tests\Pages {
     use Idno\Core\Idno;
     use Idno\Core\Webservice;
 
-    class HomepageTest extends \Tests\KnownTestCase
+    class HomepageTest extends \Tests\IdnoTestCase
     {
 
         function testHomepageLoads()
@@ -14,7 +14,7 @@ namespace Tests\Pages {
             $contents = file_get_contents(\Idno\Core\Idno::site()->config()->getDisplayURL());
 
             // Make sure it's not empty
-            $this->assertNotEmpty($contents, 'The homepage load should not be empty. If this is failing, you may need to set KNOWN_DOMAIN.');
+            $this->assertNotEmpty($contents, 'The homepage load should not be empty. If this is failing, you may need to set IDNO_DOMAIN.');
         }
 
         function test404Page()

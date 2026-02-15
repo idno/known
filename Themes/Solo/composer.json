@@ -1,7 +1,7 @@
 {
     "name": "idno/theme-solo",
     "description": "A simple black and white single-user theme.",
-    "type": "known-theme",
+    "type": "idno-theme",
     "version": "1.0.0",
     "require": {
         "composer/installers": "~1.0"

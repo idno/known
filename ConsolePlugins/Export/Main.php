@@ -100,7 +100,7 @@ use Idno\Entities\User;
 
         public function getDescription()
         {
-            return \Idno\Core\Idno::site()->language()->_('Exports Known posts to a simple JSON format.');
+            return \Idno\Core\Idno::site()->language()->_('Exports Idno posts to a simple JSON format.');
         }
 
         public function getParameters()

@@ -1,10 +1,10 @@
 <?php
 
     /**
-     * Known webmention client.
+     * Idno webmention client.
      *
      * This class extends the IndieWeb webmention client and better integrates it
-     * with Known core.
+     * with Idno core.
      *
      * @package    idno
      * @subpackage core

@@ -24,8 +24,8 @@ namespace Idno\Core {
 
             if (!empty(site()->config()->theme)) {
                 $this->theme = site()->config()->theme;
-                if (defined('KNOWN_MULTITENANT_HOST')) {
-                    $host = KNOWN_MULTITENANT_HOST;
+                if (defined('IDNO_MULTITENANT_HOST')) {
+                    $host = IDNO_MULTITENANT_HOST;
                     if (file_exists(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/Themes/' . $this->theme)) {
                         \Idno\Core\Bonita\Main::additionalPath(site()->config()->path . '/hosts/' . $host . '/Themes/' . $this->theme);
                         $config = parse_ini_file(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/Themes/' . $this->theme . '/theme.ini', true);
@@ -96,8 +96,8 @@ namespace Idno\Core {
                     }
                 }
             }
-            if (defined('KNOWN_MULTITENANT_HOST')) {
-                $host = KNOWN_MULTITENANT_HOST;
+            if (defined('IDNO_MULTITENANT_HOST')) {
+                $host = IDNO_MULTITENANT_HOST;
                 if (file_exists(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/Themes')) {
                     if ($folders = scandir(\Idno\Core\Idno::site()->config()->path . '/hosts/' . $host . '/Themes')) {
                         foreach ($folders as $folder) {
@@ -117,10 +117,10 @@ namespace Idno\Core {
                 'Theme description' => array(
                     'name'         => 'Default theme',
                     'version'      => '0.1',
-                    'author'       => "Known",
-                    'author_email' => "hello@withknown.com",
-                    'author_url'   => "https://withknown.com",
-                    'description'  => 'The default Known theme, built to be used as a basis for your designs.'
+                    'author'       => "Idno",
+                    'author_email' => "hello@idno.co",
+                    'author_url'   => "https://idno.co",
+                    'description'  => 'The default Idno theme, built to be used as a basis for your designs.'
                 )
             );
 

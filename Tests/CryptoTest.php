@@ -5,7 +5,7 @@ namespace Tests {
     /**
      * Test basic crypto functions.
      */
-    class CryptoTest extends KnownTestCase
+    class CryptoTest extends IdnoTestCase
     {
 
         /**

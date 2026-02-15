@@ -1,7 +1,7 @@
 <?php
 
     /**
-     * MySQL back-end for Known data.
+     * MySQL back-end for Idno data.
      *
      * @package    idno
      * @subpackage data

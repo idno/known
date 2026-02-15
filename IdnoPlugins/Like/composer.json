@@ -1,7 +1,7 @@
 {
     "name": "idno/like",
-    "description": "Bookmark a page in Known.",
-    "type": "known-plugin",
+    "description": "Bookmark a page in Idno.",
+    "type": "idno-plugin",
     "version": "1.0.2",
     "require": {
         "composer/installers": "~1.0"

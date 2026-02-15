@@ -1,6 +1,6 @@
-# Contributors to Known
+# Contributors to Idno
 
-The following individuals have made major contributions to Known.
+The following individuals have made major contributions to Idno.
 
 ## Core team
 
@@ -8,15 +8,15 @@ The following individuals have made major contributions to Known.
 * Erin Jo Richey [https://erinjorichey.com/](https://erinjorichey.com/)
 * Marcus Povey [https://www.marcus-povey.co.uk](https://www.marcus-povey.co.uk)
 
-Homepage: [https://withknown.com/](https://withknown.com/)
+Homepage: [https://idno.co/](https://idno.co/)
 
 ## Community contributors
 
-[https://github.com/idno/Known/graphs/contributors](https://github.com/idno/Known/graphs/contributors)
+[https://github.com/idno/idno/graphs/contributors](https://github.com/idno/idno/graphs/contributors)
 
 ## How can I contribute?
 
-* Visit Known on GitHub: [https://github.com/idno/known](https://github.com/idno/known)
+* Visit Idno on GitHub: [https://github.com/idno/idno](https://github.com/idno/idno)
 * Check and file issues
 * Submit pull requests
 * Not a coder? No problem. Design, text copy, workflows, documentation and bug hunting are just as important as code. Ask us how!

@@ -5,7 +5,7 @@ namespace Tests\Data {
     /**
      * Test the currently configured DataConcierge.
      */
-    class DataConciergeTest extends \Tests\KnownTestCase
+    class DataConciergeTest extends \Tests\IdnoTestCase
     {
 
         public static $object;

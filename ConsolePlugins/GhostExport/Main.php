@@ -159,7 +159,7 @@ use IdnoPlugins\Like\Like;
                     $user_obj = [
                         'id' => count($this->author_map),
                         'slug' => $user->getHandle(),
-                        'bio' => '', // Known bios are too long for Ghost
+                        'bio' => '', // Idno bios are too long for Ghost
                         'website' => null,
                         'created_at' => date('Y-m-d\TH:i:sP', $user->created),
                         'email' => $user->email,
@@ -202,7 +202,7 @@ use IdnoPlugins\Like\Like;
 
         public function getDescription()
         {
-            return \Idno\Core\Idno::site()->language()->_('Exports Known posts to Ghost\'s Lexical JSON format.');
+            return \Idno\Core\Idno::site()->language()->_('Exports Idno posts to Ghost\'s Lexical JSON format.');
         }
 
         public function getParameters()

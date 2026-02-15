@@ -110,11 +110,11 @@ namespace Idno\Pages\Account {
                     if (!\Idno\Entities\User::get()) {
                         $user->setAdmin(true);
                         $user->robot_state = '1';
-                        if (\Idno\Core\Idno::site()->config()->title == 'New Known site') {
+                        if (\Idno\Core\Idno::site()->config()->title == 'New Idno site') {
                             if (!empty($set_name)) {
                                 \Idno\Core\Idno::site()->config()->title = $set_name;
                             } else {
-                                \Idno\Core\Idno::site()->config()->title = $user->getTitle() . '\'s Known';
+                                \Idno\Core\Idno::site()->config()->title = $user->getTitle() . '\'s Idno';
                             }
                             \Idno\Core\Idno::site()->config()->open_registration = false;
                             \Idno\Core\Idno::site()->config()->from_email        = $user->email;

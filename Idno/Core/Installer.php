@@ -3,7 +3,7 @@
 namespace Idno\Core {
 
     /**
-     * Installation tools for installing Known and validating requirements.
+     * Installation tools for installing Idno and validating requirements.
      */
     abstract class Installer
     {
@@ -98,8 +98,8 @@ namespace Idno\Core {
         protected function writeApacheConfig()
         {
 
-            $begin_mark = "## BEGIN Known Webserver Config (don't remove)";
-            $end_mark = "## END Known Webserver Config (don't remove)";
+            $begin_mark = "## BEGIN Idno Webserver Config (don't remove)";
+            $end_mark = "## END Idno Webserver Config (don't remove)";
 
             if (file_exists($this->root_path . '/.htaccess')) {
                 if (is_writable($this->root_path . '/.htaccess')) {

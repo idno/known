@@ -7,7 +7,7 @@
 namespace Idno\Common {
 
     /**
-     * Define a Known interface for storing Sessions
+     * Define an Idno interface for storing Sessions
      */
     interface SessionStorageInterface
     {

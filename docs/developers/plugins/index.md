@@ -1,9 +1,9 @@
-# Getting started writing Known plugins
+# Getting started writing Idno plugins
 
-Plugins allow you to extend Known's functionality.
+Plugins allow you to extend Idno's functionality.
 
-In fact, it's recommended that every piece of functionality or design that you add to Known is done through a plugin,
-so  that you can upgrade the core Known platform without jeopardizing your customizations. We've made this extremely
+In fact, it's recommended that every piece of functionality or design that you add to Idno is done through a plugin,
+so  that you can upgrade the core Idno platform without jeopardizing your customizations. We've made this extremely
 simple.
 
 ## Layout
@@ -36,36 +36,36 @@ The plugin.ini file contains a number of text entries:
     author_url =        "http://authors-url/"
     description =       "A short description that will be displayed in the administration panel"
 
-More may be added over time. These entries are displayed in Known's administration panel but may also be displayed in
+More may be added over time. These entries are displayed in Idno's administration panel but may also be displayed in
 a future plugin directory.
 
 Plugin authors can include a `[requirements]` section with
-dependencies on PHP extensions and on other Known plugins (optionally
+dependencies on PHP extensions and on other Idno plugins (optionally
 specifying a minimum version of those plugins):
 
     [requirements]
     extension[] =       "php extension"
     extension[] =       "second php extension"
-    plugin[] =          "Known plugin"
-    plugin[] =          "Another Known plugin,0.8"
+    plugin[] =          "Idno plugin"
+    plugin[] =          "Another Idno plugin,0.8"
 
 
 !!! note "Note"
     Your plugin name is the name of the plugin's main directory/namespace, e.g. ```Status``` for the status plugin.
 
 The requirements section may also define a minimum PHP version and
-Known core version.
+Idno core version.
 
     php =               5.5
     known =              0.9
 
-This plugin requires PHP >= 5.5 or higher and Known >= 0.9.
+This plugin requires PHP >= 5.5 or higher and Idno >= 0.9.
 
 You can also further refine the known requirements by specifying a build version.
 
     build =   2017020301
 
-Which will specify a Known install with a machine version (build) greater than or
+Which will specify an Idno install with a machine version (build) greater than or
 equal to 2017020301.
 
 At this time, these requirements are informational only: You can still
@@ -80,7 +80,7 @@ namespace maps exactly to the plugin's file location - so, for example, IdnoPlug
 /IdnoPlugins/Banana/Main.php. Please do not write a banana plugin. (Or do. We're not the boss of you. Whatever has
 appeal.)
 
-If the plugin is not installed, only plugin.ini is ever read by Known, and then only on the plugin administration page.
+If the plugin is not installed, only plugin.ini is ever read by Idno, and then only on the plugin administration page.
 
 If the plugin is installed, the plugin is loaded before any output is written to the screen, as follows:
 
@@ -95,8 +95,8 @@ If the plugin is installed, the plugin is loaded before any output is written to
 
 ## Templates
 
-Each plugin contains its own template directory, which overrides [Known templates](../templating/index.md) from the
+Each plugin contains its own template directory, which overrides [Idno templates](../templating/index.md) from the
 core system. For example, you could create a whole new page shell by saving a template in `/IdnoPlugins/Banana/templates/default/page/shell.tpl.php`.
 
 This is a powerful system that, together with the other methods available to plugins, allows you to completely change
-the look and feel, and overall functionality, of your Known site.
+the look and feel, and overall functionality, of your Idno site.

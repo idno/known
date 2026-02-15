@@ -1,7 +1,7 @@
 <?php
 
     /**
-     * Known loader and all-purpose conductor
+     * Idno loader and all-purpose conductor
      *
      * @package    idno
      * @subpackage core
@@ -34,8 +34,8 @@
                 $error_message = "Fatal Error: {$error['file']}:{$error['line']} - \"{$error['message']}\", on page {$server_name}{$request_uri}";
                 $message_text = explode("\n", $error['message'])[0];
 
-                $title = $heading = "Oh no! Known experienced a problem!";
-                $body = "<p>Known experienced a problem with this page and couldn't continue.</p>";
+                $title = $heading = "Oh no! Idno experienced a problem!";
+                $body = "<p>Idno experienced a problem with this page and couldn't continue.</p>";
                 $body .= "<p><strong>$message_text</strong></p>";
                 $body .= "<p>The technical details are as follows:</p>";
                 $body .= "<pre>$error_message</pre>";
@@ -43,7 +43,7 @@
                 if (file_exists(dirname(dirname(__FILE__)) . '/support.inc')) {
                     include dirname(dirname(__FILE__)) . '/support.inc';
                 } else {
-                    $helplink = '<a href="https://withknown.com/opensource" target="_blank">Connect to other open source users for help.</a>';
+                    $helplink = '<a href="https://idno.co/opensource" target="_blank">Connect to other open source users for help.</a>';
                 }
 
                 include dirname(dirname(__FILE__)) . '/statics/error-page.php';
@@ -60,7 +60,7 @@
                 }
 
                 try {
-                    \Idno\Core\Logging::oopsAlert($error_message, 'Oh no! Known experienced a problem!');
+                    \Idno\Core\Logging::oopsAlert($error_message, 'Oh no! Idno experienced a problem!');
                 } catch (Exception $ex) {
                     error_log($ex->getMessage());
                 }
@@ -71,7 +71,7 @@
     );
 
     // This is a good time to see if we're running in a subdirectory
-    if (!defined('KNOWN_UNIT_TEST')) {
+    if (!defined('IDNO_UNIT_TEST')) {
         if (!empty($_SERVER['PHP_SELF'])) {
             if ($subdir = dirname($_SERVER['PHP_SELF'])) {
                 if ($subdir != DIRECTORY_SEPARATOR) {
@@ -82,7 +82,10 @@
                         $subdir = substr($subdir, 1);
                     }
                     $subdir = str_replace(DIRECTORY_SEPARATOR, '/', $subdir);
-                    define('KNOWN_SUBDIRECTORY', $subdir);
+                    define('IDNO_SUBDIRECTORY', $subdir);
+                    if (!defined('KNOWN_SUBDIRECTORY')) {
+                        define('KNOWN_SUBDIRECTORY', IDNO_SUBDIRECTORY);
+                    }
                 }
             }
         }
@@ -100,9 +103,9 @@
         http_response_code(500);
 
         $title = 'Installation incomplete';
-        $heading = 'Your Known installation is incomplete!';
-        $body = '<p>It looks like you\'re running Known directly from a GitHub checkout. You need to run "composer install" to fetch other required packages!</p>';
-        $helplink = "<a href=\"http://docs.withknown.com/en/latest/install/instructions/\">Read installation instructions.</a>";
+        $heading = 'Your Idno installation is incomplete!';
+        $body = '<p>It looks like you\'re running Idno directly from a GitHub checkout. You need to run "composer install" to fetch other required packages!</p>';
+        $helplink = "<a href=\"http://docs.idno.co/en/latest/install/instructions/\">Read installation instructions.</a>";
 
         include dirname(dirname(__FILE__)) . '/statics/error-page.php';
         exit();
@@ -112,7 +115,10 @@
     if (!empty($_SERVER['HTTP_HOST'])) {
         $host = strtolower($_SERVER['HTTP_HOST']);
         $host = str_replace('www.', '', $host);
-        define('KNOWN_MULTITENANT_HOST', $host);
+        define('IDNO_MULTITENANT_HOST', $host);
+        if (!defined('KNOWN_MULTITENANT_HOST')) {
+            define('KNOWN_MULTITENANT_HOST', IDNO_MULTITENANT_HOST);
+        }
     }
 
     // Shims

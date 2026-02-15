@@ -1,7 +1,7 @@
 <?php
 
     /**
-     * All Known theme controllers should extend this component.
+     * All Idno theme controllers should extend this component.
      *
      * @package    idno
      * @subpackage core

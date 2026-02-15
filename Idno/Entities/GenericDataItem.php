@@ -2,7 +2,7 @@
 
     /**
      * Generic data storage item.
-     * A data item for storing arbitrary data using the Known data handling methods.
+     * A data item for storing arbitrary data using the Idno data handling methods.
      *
      * @package    idno
      * @subpackage core

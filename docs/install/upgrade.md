@@ -1,17 +1,17 @@
-# Upgrading Known
+# Upgrading Idno
 
-Upgrading Known is designed to be very simple.
+Upgrading Idno is designed to be very simple.
 
-1. Take a backup of your Known directory and database.
-2. Overwrite your Known files _except_ your upload directory and your config.ini file.
-3. Access your Known site homepage.
+1. Take a backup of your Idno directory and database.
+2. Overwrite your Idno files _except_ your upload directory and your config.ini file.
+3. Access your Idno site homepage.
 
 That's it!
 
 !!! note "GitHub users"
     If you're using a direct checkout from GitHub (rather than using one of the prepared packages), you need to update any dependencies using ```composer update```
 
-If you are upgrading from a significantly older version of Known, or if a config.ini file no longer exists in your
+If you are upgrading from a significantly older version of Idno, or if a config.ini file no longer exists in your
 installation directory, you may need to perform the following additional steps:
 
 4. Click on the set up button
@@ -22,5 +22,5 @@ installation directory, you may need to perform the following additional steps:
 Thanks to [Chris Aldich](http://stream.boffosocko.com/2015/upgrading-withknown-on-ones-own-server) for this point.
 
 !!! warning "MongoDB Users"
-    * Previous releases of Known (<0.9.5) used a now deprecated mongo driver. If you are running your site on Mongo, you will first need to make sure that you have installed the new [PHP MongoDB driver](https://secure.php.net/manual/en/set.mongodb.php).
+    * Previous releases of Idno (<0.9.5) used a now deprecated mongo driver. If you are running your site on Mongo, you will first need to make sure that you have installed the new [PHP MongoDB driver](https://secure.php.net/manual/en/set.mongodb.php).
     * Additionally, the 0.9.9 release changed the default database engine, so you'll need to specify ```database = 'mongo'``` in your config.ini

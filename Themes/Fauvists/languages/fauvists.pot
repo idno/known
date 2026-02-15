@@ -3,7 +3,7 @@ msgid "published this"
 msgstr ""
 
 #: ./templates/default/content/create.tpl.php:60
-msgid "Welcome to your Known site!"
+msgid "Welcome to your Idno site!"
 msgstr ""
 
 #: ./templates/default/content/create.tpl.php:61

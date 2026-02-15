@@ -1,7 +1,7 @@
 Ooops!
 ======
 
-An error occured on your Known site <?php echo $vars['site']; ?>!
+An error occured on your Idno site <?php echo $vars['site']; ?>!
 
 <?php echo $vars['message']; ?>
 

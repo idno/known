@@ -47,7 +47,7 @@ namespace Idno\Core {
             }
 
             if ($current_page = \Idno\Core\Idno::site()->currentPage()) {
-                if ($nowebmention = $current_page->getInput('nomention') || defined('KNOWN_NOMENTION')) {
+                if ($nowebmention = $current_page->getInput('nomention') || defined('IDNO_NOMENTION')) {
                     return true;
                 }
             }

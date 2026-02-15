@@ -1,20 +1,20 @@
-[![Build Status](https://travis-ci.org/idno/known.svg?branch=master)](https://travis-ci.org/idno/known)
+[![Build Status](https://travis-ci.org/idno/idno.svg?branch=master)](https://travis-ci.org/idno/idno)
 
-# Known: a social group platform
+# Idno: a social group platform
 
-![Known - A social group platform](https://withknown.com/img/home/screens.png)
+![Idno - A social group platform](https://idno.co/img/home/screens.png)
 
 ## Installation 
 
-### One-click Known sites
+### One-click Idno sites
 
 If you want to install on your own web space, we recommend [Reclaim Hosting](https://portal.reclaimhosting.com/aff.php?aff=013),
-which includes one-click Known installation. Known is also known to work on [DreamHost](https://dreamhost.com), a high-quality
+which includes one-click Idno installation. Idno is also known to work on [DreamHost](https://dreamhost.com), a high-quality
 web hosting provider.
 
 ### Installing
 
-Known is under active development and requires PHP 8.1+ with selected extensions, together with a supported database backend. You can find detailed installation instructions here: <http://docs.withknown.com/en/latest/install/index.html>
+Idno is under active development and requires PHP 8.1+ with selected extensions, together with a supported database backend. You can find detailed installation instructions here: <http://docs.idno.co/en/latest/install/index.html>
 
 #### Installing from packages
 
@@ -22,20 +22,20 @@ _Unofficial_ install packages, which are periodically built from the latest code
 
 #### Installing from Github
 
-You can opt to check out the work-in-progress development code from the git repository: <https://github.com/idno/known>
+You can opt to check out the work-in-progress development code from the git repository: <https://github.com/idno/idno>
 
-* Check out the repo: ```git clone https://github.com/idno/known.git```
-* Fetch dependencies: ```cd known; composer install```
+* Check out the repo: ```git clone https://github.com/idno/idno.git```
+* Fetch dependencies: ```cd idno; composer install```
 
 #### Installing with composer
 
-You can install Known directly from composer using: ``` composer create-project idno/known ```
+You can install Idno directly from composer using: ``` composer create-project idno/idno ```
 
-Optionally, you can install the latest bleeding edge code the same way: ``` composer create-project idno/known -s dev ```
+Optionally, you can install the latest bleeding edge code the same way: ``` composer create-project idno/idno -s dev ```
 
 ### Setting up the async pipeline
 
-By default, Known processes events like Webmention pings and syndication to external services synchronously during page requests. You can enable asynchronous event processing to improve page load times by deferring these operations to a background worker.
+By default, Idno processes events like Webmention pings and syndication to external services synchronously during page requests. You can enable asynchronous event processing to improve page load times by deferring these operations to a background worker.
 
 #### 1. Enable the async queue
 
@@ -47,7 +47,7 @@ event_queue = 'AsynchronousQueue'
 
 #### 2. Run the event queue worker
 
-Start the dispatch service using the Known console tool. Run it as your web server user so it can read and write files:
+Start the dispatch service using the Idno console tool. Run it as your web server user so it can read and write files:
 
 ```bash
 sudo -u www-data KNOWN_DOMAIN='your.domain' ./known service-event-queue
@@ -63,13 +63,13 @@ If you need periodic background tasks (triggered via `cron/minute`, `cron/hourly
 sudo -u www-data KNOWN_DOMAIN='your.domain' ./known.php service-cron
 ```
 
-**Important:** When you update Known core or any plugins, restart both `service-event-queue` and `service-cron` so they run the updated code.
+**Important:** When you update Idno core or any plugins, restart both `service-event-queue` and `service-cron` so they run the updated code.
 
 For more details, see the [advanced configuration docs](docs/install/advanced.md).
 
 ### Support us
 
-* [Star us on GitHub](https://github.com/idno/known)
+* [Star us on GitHub](https://github.com/idno/idno)
 * [Like us on alternativeto.net](http://alternativeto.net/software/known/)
 * [Contribute](CONTRIBUTING.md)
 
@@ -79,33 +79,33 @@ For more details, see the [advanced configuration docs](docs/install/advanced.md
 
 ## Community links
 
-* Learn more and sign up to get updates: <https://withknown.com>
-* Full project documentation: <http://docs.withknown.com/>
+* Learn more and sign up to get updates: <https://idno.co>
+* Full project documentation: <http://docs.idno.co/>
 * Join the development mailing list: <https://groups.google.com/forum/#!forum/known-dev>
 * Join the IRC channel: [#knownchat](https://webchat.freenode.net/?channels=knownchat) on Freenode
 
-For details on contributing to the Known project, please read [CONTRIBUTING.md](CONTRIBUTING.md).
+For details on contributing to the Idno project, please read [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 
-See [contributors on GitHub](https://github.com/idno/known/graphs/contributors).
+See [contributors on GitHub](https://github.com/idno/idno/graphs/contributors).
 
 ## Copyright and License
 
-Except for included third-party projects, Known is (c) Known, Inc.
+Except for included third-party projects, Idno is (c) Idno, Inc.
 
-Unless otherwise stated, Known is licensed under the Apache Software License 2.0. See [LICENSE](LICENSE) for more information.
+Unless otherwise stated, Idno is licensed under the Apache Software License 2.0. See [LICENSE](LICENSE) for more information.
 
-Known logos are (c) Known, Inc. Permission from Known, Inc is required to use the Known name or logo as part of any
-project, product, service, domain or company name, except as included in official themes distributed by Known.
+Idno logos are (c) Idno, Inc. Permission from Idno, Inc is required to use the Idno name or logo as part of any
+project, product, service, domain or company name, except as included in official themes distributed by Idno.
 
 Logos of external services are (c) their respective owners. All rights reserved.
 
 Third party libraries are licensed separately.
 
-### Known also contains
+### Idno also contains
 
 * Twitter Bootstrap, which is distributed under the Apache 2.0 license. Source: https://github.com/twitter/bootstrap
 * jQuery, which is distributed under the MIT License. Source: https://github.com/jquery/jquery

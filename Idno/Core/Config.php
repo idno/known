@@ -15,8 +15,8 @@ namespace Idno\Core {
         public $config = array(
             'database'               => 'mysql',
             'dbstring'               => 'mongodb://localhost:27017',
-            'dbname'                 => 'known', // Default MongoDB database
-            'sessionname'            => 'known', // Default session name
+            'dbname'                 => 'idno', // Default MongoDB database
+            'sessionname'            => 'idno', // Default session name
             'boolean_search'         => true, // Should search be boolean?
             'open_registration'      => true, // Can anyone register for this system?
             'initial_plugins'        => array('Status', 'Text', 'Photo', 'IndiePub'),
@@ -186,8 +186,9 @@ namespace Idno\Core {
                             }
                         }
                     }
-                    if (array_key_exists('KNOWN_DATABASE_URL', $_ENV)) {
-                        $parsed = parse_url($_ENV['KNOWN_DATABASE_URL']);
+                    $dbUrl = $_ENV['IDNO_DATABASE_URL'] ?? $_ENV['KNOWN_DATABASE_URL'] ?? null;
+                    if ($dbUrl) {
+                        $parsed = parse_url($dbUrl);
                         $this->ini_config['database'] = $parsed['scheme'];
                         $this->ini_config['dbname'] = basename($parsed['path']);
                         $this->ini_config['dbuser'] = $parsed['user'];
@@ -197,7 +198,7 @@ namespace Idno\Core {
                     }
 
                     $cloudcube = array_key_exists('CLOUDCUBE_URL', $_ENV);
-                    $aws_s3 = array_key_exists('KNOWN_AWS_S3_BUCKET', $_ENV);
+                    $aws_s3 = array_key_exists('IDNO_AWS_S3_BUCKET', $_ENV) || array_key_exists('KNOWN_AWS_S3_BUCKET', $_ENV);
                     $bucket = '';
 
                     if ($cloudcube) {
@@ -210,12 +211,12 @@ namespace Idno\Core {
                         $this->ini_config['aws_region'] = $bucket == 'cloud-cube-eu' ? 'eu-west-1' : 'us-east-1';
                         $path = $parsed['path'];
                     } elseif ($aws_s3) {
-                        $bucket = $_ENV['KNOWN_AWS_S3_BUCKET'];
-                        $this->ini_config['aws_key'] = $_ENV['KNOWN_AWS_S3_ACCESS_KEY_ID'];
-                        $this->ini_config['aws_secret'] = $_ENV['KNOWN_AWS_S3_SECRET_ACCESS_KEY'];
+                        $bucket = $_ENV['IDNO_AWS_S3_BUCKET'] ?? $_ENV['KNOWN_AWS_S3_BUCKET'];
+                        $this->ini_config['aws_key'] = $_ENV['IDNO_AWS_S3_ACCESS_KEY_ID'] ?? $_ENV['KNOWN_AWS_S3_ACCESS_KEY_ID'];
+                        $this->ini_config['aws_secret'] = $_ENV['IDNO_AWS_S3_SECRET_ACCESS_KEY'] ?? $_ENV['KNOWN_AWS_S3_SECRET_ACCESS_KEY'];
                         $this->ini_config['aws_bucket'] = $bucket;
-                        $this->ini_config['aws_region'] = $_ENV['KNOWN_AWS_S3_REGION'];
-                        $path = str_replace('//', '/', '/'.$_ENV['KNOWN_AWS_S3_PATH_PREFIX']);
+                        $this->ini_config['aws_region'] = $_ENV['IDNO_AWS_S3_REGION'] ?? $_ENV['KNOWN_AWS_S3_REGION'];
+                        $path = str_replace('//', '/', '/'.($_ENV['IDNO_AWS_S3_PATH_PREFIX'] ?? $_ENV['KNOWN_AWS_S3_PATH_PREFIX']));
                     }
 
                     if (($cloudcube || $aws_s3) && (!empty($bucket))) {
@@ -223,12 +224,14 @@ namespace Idno\Core {
                         $this->ini_config['uploadpath'] = "s3://{$bucket}{$path}";
                     }
 
-                    if (array_key_exists('KNOWN_AWS_S3_REGION', $_ENV)) {
-                        $this->ini_config['aws_region'] = $_ENV['KNOWN_AWS_S3_REGION'];
+                    $awsRegion = $_ENV['IDNO_AWS_S3_REGION'] ?? $_ENV['KNOWN_AWS_S3_REGION'] ?? null;
+                    if ($awsRegion) {
+                        $this->ini_config['aws_region'] = $awsRegion;
                     }
 
-                    if (array_key_exists('KNOWN_UPLOAD_PATH', $_ENV)) {
-                        $this->ini_config['uploadpath'] = $_ENV['KNOWN_UPLOAD_PATH'];
+                    $uploadPath = $_ENV['IDNO_UPLOAD_PATH'] ?? $_ENV['KNOWN_UPLOAD_PATH'] ?? null;
+                    if ($uploadPath) {
+                        $this->ini_config['uploadpath'] = $uploadPath;
                     }
 
                     // Per domain configuration
@@ -241,11 +244,20 @@ namespace Idno\Core {
                 }
 
                 // Check environment variables and set as appropriate
+                // IDNO_ prefixed variables take precedence over KNOWN_ prefixed ones
+                foreach ($_SERVER as $name => $val) {
+                    if (substr($name, 0, 5) == 'IDNO_') {
+                        $configName = strtolower(str_replace('IDNO_', '', $name));
+                        $this->ini_config[$configName] = $val;
+                    }
+                }
+                // Backwards compat: also process KNOWN_ but don't override IDNO_ values
                 foreach ($_SERVER as $name => $val) {
                     if (substr($name, 0, 6) == 'KNOWN_') {
-                        $name                    = strtolower(str_replace('KNOWN_', '', $name));
-                        $val                     = $val;
-                        $this->ini_config[$name] = $val;
+                        $configName = strtolower(str_replace('KNOWN_', '', $name));
+                        if (!isset($this->ini_config[$configName])) {
+                            $this->ini_config[$configName] = $val;
+                        }
                     }
                 }
 
@@ -286,6 +298,8 @@ namespace Idno\Core {
             unset($array['proxy_string']);
             unset($array['proxy_type']);
             unset($array['disable_ssl_verify']);
+            unset($array['idno_hub']);
+            unset($array['idno_hubs']);
             unset($array['known_hub']);
             unset($array['known_hubs']);
             unset($array['directloadplugins']);
@@ -314,13 +328,15 @@ namespace Idno\Core {
             $this->path                      = dirname(dirname(dirname(__FILE__))); // Base path
             $this->url                       = $this->detectBaseURL();
             $this->static_url                = false;
-            $this->title                     = 'New Known site'; // A default name for the site
-            $this->description               = 'A social website powered by Known'; // Default description
+            $this->title                     = 'New Idno site'; // A default name for the site
+            $this->description               = 'A social website powered by Idno'; // Default description
             $this->timezone                  = 'UTC';
             $this->host                      = parse_url($this->url, PHP_URL_HOST); // The site hostname, without parameters etc
             $this->feed                      = $this->getDisplayURL() . 'content/all/?_t=rss';
             $this->indieweb_citation         = false;
             $this->indieweb_reference        = false;
+            $this->idno_hub                  = false;
+            $this->idno_hubs                 = [];
             $this->known_hub                 = false;
             $this->known_hubs                = [];
             $this->hub                       = 'https://withknown.superfeedr.com/';
@@ -344,7 +360,7 @@ namespace Idno\Core {
                 $host         = $this->host;
                 $this->dbname = preg_replace('/[^0-9a-z\.\-\_]/i', '', $host);
 
-                // Known now defaults to not including periods in database names for multitenant installs. Add
+                // Idno now defaults to not including periods in database names for multitenant installs. Add
                 // 'multitenant_periods = true' to config.ini if you wish to override this.
                 if (empty($this->multitenant_periods)) {
                     $this->dbname = str_replace('.', '_', $this->dbname);
@@ -371,7 +387,7 @@ namespace Idno\Core {
         }
 
         /**
-         * Attempt to detect your known configuration's server name.
+         * Attempt to detect your idno configuration's server name.
          */
         protected function detectBaseURL()
         {
@@ -390,21 +406,21 @@ namespace Idno\Core {
                         $url .= ':' . $_SERVER['SERVER_PORT'];
                     }
                 }
-                if (defined('KNOWN_SUBDIRECTORY')) {
-                    $url .= '/' . KNOWN_SUBDIRECTORY;
+                if (defined('IDNO_SUBDIRECTORY')) {
+                    $url .= '/' . IDNO_SUBDIRECTORY;
                 }
                 $url .= '/'; // A naive default base URL
                 return $url;
             }
 
-            $domain = getenv('KNOWN_DOMAIN');
+            $domain = getenv('IDNO_DOMAIN') ?: getenv('KNOWN_DOMAIN');
             if (!empty($domain)) {
                 // Server domain specified in environment variable, for cases when SERVER_NAME isn't specified.
                 // This allows things like the console plugins to access the correct site when using domain
                 // specific configurations.
 
                 $url = (\Idno\Common\Page::isSSL() ? 'https://' : 'http://') . $domain;
-                $port = getenv('KNOWN_PORT');
+                $port = getenv('IDNO_PORT') ?: getenv('KNOWN_PORT');
                 if (!$port) {
                     $port = 80;
                 }
@@ -413,8 +429,8 @@ namespace Idno\Core {
                     $url .= ':' . $port;
                 }
 
-                if (defined('KNOWN_SUBDIRECTORY')) {
-                    $url .= '/' . KNOWN_SUBDIRECTORY;
+                if (defined('IDNO_SUBDIRECTORY')) {
+                    $url .= '/' . IDNO_SUBDIRECTORY;
                 }
                 $url .= '/'; // A naive default base URL
                 return $url;
@@ -466,7 +482,7 @@ namespace Idno\Core {
         }
 
         /**
-         * Returns the upload path for Known.
+         * Returns the upload path for Idno.
          *
          * @return string
          */
@@ -476,7 +492,7 @@ namespace Idno\Core {
         }
 
         /**
-         * Returns the installation path for Known.
+         * Returns the installation path for Idno.
          *
          * @return string
          */

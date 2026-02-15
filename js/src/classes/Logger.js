@@ -1,5 +1,5 @@
 
-/** Known Javascript logging */
+/** Idno Javascript logging */
 var Logger = Logger || {};
 
 Logger.log = function (message, level) {

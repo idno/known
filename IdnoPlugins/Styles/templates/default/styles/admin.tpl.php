@@ -6,7 +6,7 @@
         </h1>
         <div class="explanation">
             <p>
-                <?php echo \Idno\Core\Idno::site()->language()->_('The site styles CSS editor lets you easily modify the visual style of your Known site by overriding the default CSS. With Custom CSS, you have more control over the fonts, colors, and visual impact of your site.'); ?>
+                <?php echo \Idno\Core\Idno::site()->language()->_('The site styles CSS editor lets you easily modify the visual style of your Idno site by overriding the default CSS. With Custom CSS, you have more control over the fonts, colors, and visual impact of your site.'); ?>
             </p>
         </div>
     </div>
@@ -19,7 +19,7 @@
     </div>
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <p><?php echo \Idno\Core\Idno::site()->language()->_("Add your changes to Known's core CSS below."); ?> </p>
+            <p><?php echo \Idno\Core\Idno::site()->language()->_("Add your changes to Idno's core CSS below."); ?> </p>
             <p>
                 <?php echo \Idno\Core\Idno::site()->language()->_("Do you have an existing stylesheet that you'd like to use? Import a CSS file from your computer."); ?>
                 <span class="btn btn-primary btn-file upload">

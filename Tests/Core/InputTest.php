@@ -6,7 +6,7 @@ namespace Tests\Core {
     {
     }
 
-    class InputTest extends \Tests\KnownTestCase
+    class InputTest extends \Tests\IdnoTestCase
     {
 
         public function testInputDefaults()

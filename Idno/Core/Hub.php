@@ -1,7 +1,7 @@
 <?php
 
     /**
-     * Hubs are central, or semi-central servers, that provide functionality for groups of Known users.
+     * Hubs are central, or semi-central servers, that provide functionality for groups of Idno users.
      * Functionality may include managed cron jobs, feed parsing, social syndication, discovery, and more.
      */
 
@@ -55,7 +55,7 @@ namespace Idno\Core {
         }
 
         /**
-         * Register the current user with the Known hub. The site must have been registered first.
+         * Register the current user with the Idno hub. The site must have been registered first.
          *
          * @param  bool $user
          * @return bool
@@ -171,7 +171,7 @@ namespace Idno\Core {
         }
 
         /**
-         * Register this Known site with the Known hub
+         * Register this Idno site with the Idno hub
          *
          * @return bool
          */
@@ -208,7 +208,7 @@ namespace Idno\Core {
         }
 
         /**
-         * Retrieves a token for use in registering this Known site with a hub. Tokens last for 10 minutes.
+         * Retrieves a token for use in registering this Idno site with a hub. Tokens last for 10 minutes.
          *
          * @return string
          */

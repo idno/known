@@ -1,5 +1,5 @@
 {
-    "name": "Known",
+    "name": "Idno",
     "version": "1.6.2",
     "devDependencies": {
         "@babel/cli": "^7.14.8",

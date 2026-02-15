@@ -15,7 +15,7 @@ namespace Idno\Core {
     /**
      * Hybrid twig template management class.
      *
-     * This class extends the Known template to, in addition to supporting the Known php based templates, to support
+     * This class extends the Idno template to, in addition to supporting the Idno php based templates, to support
      * the more standard twig templates.
      */
     class HybridTwigTemplate extends DefaultTemplate

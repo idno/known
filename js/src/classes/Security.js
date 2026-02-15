@@ -1,5 +1,5 @@
 
-/** Known security object */
+/** Idno security object */
 var Security = Security || {};
 
 /** Cached tokens */

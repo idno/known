@@ -5,7 +5,7 @@ namespace Tests\API {
     /**
      * Initial api tests.
      */
-    class BasicAPITest extends \Tests\KnownTestCase
+    class BasicAPITest extends \Tests\IdnoTestCase
     {
 
         /**
@@ -14,7 +14,7 @@ namespace Tests\API {
         public function testConnection()
         {
 
-            $user = \Tests\KnownTestCase::user();
+            $user = \Tests\IdnoTestCase::user();
             $endpoint = \Idno\Core\Idno::site()->config()->getDisplayURL() . '';
 
             $result = \Idno\Core\Webservice::get(
@@ -27,7 +27,7 @@ namespace Tests\API {
             $response = $result['response'];
 
             $this->assertEmpty($result['error'], 'The result\'s error property should be empty.');
-            $this->assertNotEmpty($content, 'Retrieved content should not be empty. Have you set the KNOWN_DOMAIN environment variable? Endpoint: ' . $endpoint);
+            $this->assertNotEmpty($content, 'Retrieved content should not be empty. Have you set the IDNO_DOMAIN environment variable? Endpoint: ' . $endpoint);
             $this->assertEquals($response, 200, 'The response should have returned a 200 HTTP response.');
 
         }
@@ -38,7 +38,7 @@ namespace Tests\API {
         public function testAuthenticatedPost()
         {
 
-            $user = \Tests\KnownTestCase::user();
+            $user = \Tests\IdnoTestCase::user();
             $endpoint = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'status/edit';
 
             $result = \Idno\Core\Webservice::post(
@@ -46,8 +46,8 @@ namespace Tests\API {
                 'body' => "Making a test post via the API",
                 ], [
                 'Accept: application/json',
-                'X-KNOWN-USERNAME: ' . $user->handle,
-                'X-KNOWN-SIGNATURE: ' . base64_encode(hash_hmac('sha256', '/status/edit', $user->getAPIkey(), true)),
+                'X-IDNO-USERNAME: ' . $user->handle,
+                'X-IDNO-SIGNATURE: ' . base64_encode(hash_hmac('sha256', '/status/edit', $user->getAPIkey(), true)),
                 ]
             );
 
@@ -55,7 +55,7 @@ namespace Tests\API {
             $response = $result['response'];
 
             $this->assertEmpty($result['error'], 'The result\'s error property should be empty.');
-            $this->assertNotEmpty($content, 'Retrieved content should not be empty. Have you set the KNOWN_DOMAIN environment variable? Endpoint: ' . $endpoint);
+            $this->assertNotEmpty($content, 'Retrieved content should not be empty. Have you set the IDNO_DOMAIN environment variable? Endpoint: ' . $endpoint);
             $this->assertNotEmpty($content->location, 'Response should contain the location of the post.');
             $this->assertEquals($response, 200, 'The response should have returned a 200 HTTP response.');
 

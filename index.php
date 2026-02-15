@@ -1,14 +1,14 @@
 <?php
 
 /**
- * Known index page and router.
+ * Idno index page and router.
  * It all starts here!
  *
  * If you're wondering what this is all about, you could do worse than
  * check out the README.md file.
  *
- * Project homepage:    https://withknown.com/
- * Project repo:        https://github.com/idno/known
+ * Project homepage:    https://idno.co/
+ * Project repo:        https://github.com/idno/idno
  *
  * @package    idno
  * @subpackage core
@@ -19,7 +19,7 @@ if (version_compare(phpversion(), '7.2', '<')) {
     http_response_code(500);
     $body = "Sorry, this version of PHP (".phpversion().") is not supported. This probably means that you should update your server to the latest stable PHP release.";
     $heading = "PHP Version not supported";
-    $helplink = '<a href="http://docs.withknown.com/en/latest/install/requirements/" target="_blank">Read system requirements</a>';
+    $helplink = '<a href="http://docs.idno.co/en/latest/install/requirements/" target="_blank">Read system requirements</a>';
 
     include dirname(__FILE__) . '/statics/error-page.php';
     exit;

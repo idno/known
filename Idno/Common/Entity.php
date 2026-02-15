@@ -1422,8 +1422,8 @@ namespace Idno\Common {
          * @param string $service The name of the service
          * @param string $url The URL of the post
          * @param string $identifier A human-readable account identifier
-         * @param string $item_id A Known-readable item identifier
-         * @param string $account_id A Known-readable account identifier
+         * @param string $item_id An Idno-readable item identifier
+         * @param string $account_id An Idno-readable account identifier
          * @param array $other_properties (optional) additional properties to store with the link
          * @return bool
          */
@@ -1985,7 +1985,7 @@ namespace Idno\Common {
             $rssItem->appendChild($page->createElement('guid', $item->getUUID()));
             $rssItem->appendChild($page->createElement('pubDate', date(DATE_RSS, $item->created)));
 
-            // Needed for WP import into Known
+            // Needed for WP import into Idno
             $rssItem->appendChild($page->createElement('wp:post_type', 'post'));
             $rssItem->appendChild($page->createElement('wp:status', 'publish'));
 
@@ -2694,7 +2694,7 @@ namespace Idno\Common {
 
         /**
          * Retrieves a list of UUIDs of annotation owners
-         * @param bool $local If set to true, only returns UUIDs of users who belong to this Known site
+         * @param bool $local If set to true, only returns UUIDs of users who belong to this Idno site
          * @return array
          */
         function getAnnotationOwnerUUIDs($local = false)

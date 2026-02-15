@@ -2,7 +2,7 @@
 
 namespace Tests {
 
-    class KnownTestCase extends \PHPUnit\Framework\TestCase
+    class IdnoTestCase extends \PHPUnit\Framework\TestCase
     {
 
         /// Admin user
@@ -34,7 +34,7 @@ namespace Tests {
             // No user there, so create one
             $user = new \Idno\Entities\User();
             $user->handle = 'testuser';
-            $user->email = 'hello@withknown.com';
+            $user->email = 'hello@idno.co';
             $user->setPassword(md5(rand())); // Set password to something random to mitigate security holes if cleanup fails
             $user->setTitle('Test User');
 
@@ -68,7 +68,7 @@ namespace Tests {
             // No user there, so create one
             $user = new \Idno\Entities\User();
             $user->handle = 'testadmin';
-            $user->email = 'hello@withknown.com';
+            $user->email = 'hello@idno.co';
             $user->setPassword(md5(rand())); // Set password to something random to mitigate security holes if cleanup fails
             $user->setTitle('Test Admin User');
             $user->setAdmin(true);
@@ -123,5 +123,8 @@ namespace Tests {
             }
         }
     }
+
+    // Backwards compatibility alias
+    class_alias('Tests\IdnoTestCase', 'Tests\KnownTestCase');
 
 }

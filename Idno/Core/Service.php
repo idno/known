@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Tools for Known services.
+ * Tools for Idno services.
  *
  * @package    idno
  * @subpackage core
@@ -20,9 +20,9 @@ namespace Idno\Core {
          */
         public static function gatekeeper()
         {
-            $service_signature = $_SERVER['HTTP_X_KNOWN_SERVICE_SIGNATURE'];
+            $service_signature = $_SERVER['HTTP_X_IDNO_SERVICE_SIGNATURE'] ?? $_SERVER['HTTP_X_KNOWN_SERVICE_SIGNATURE'] ?? null;
             if (empty($service_signature)) {
-                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Missing X-Known-Service-Signature, service call is not possible.'));
+                throw new \RuntimeException(\Idno\Core\Idno::site()->language()->_('Missing X-Idno-Service-Signature, service call is not possible.'));
             }
 
             if ($service_signature != static::generateToken(\Idno\Core\Idno::site()->currentPage()->currentUrl())) {
@@ -85,7 +85,7 @@ namespace Idno\Core {
 
             if ($result = \Idno\Core\Webservice::get(
                 $endpoint, $params, [
-                'X-KNOWN-SERVICE-SIGNATURE: ' . $signature
+                'X-IDNO-SERVICE-SIGNATURE: ' . $signature
                 ]
             )
             ) {

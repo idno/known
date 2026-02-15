@@ -1,7 +1,7 @@
 {
     "name": "idno/theme-marketstreet",
     "description": "A modern, white theme for bloggers.",
-    "type": "known-theme",
+    "type": "idno-theme",
     "version": "1.0.0",
     "require": {
         "composer/installers": "~1.0"

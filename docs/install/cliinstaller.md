@@ -1,12 +1,12 @@
 # Command Line Installer
 
-Known allows you to install Known via the command line, this can be handy for scripted installs, using non-MySQL database backends, or when installing over a terminal connection to a remote server.
+Idno allows you to install Idno via the command line, this can be handy for scripted installs, using non-MySQL database backends, or when installing over a terminal connection to a remote server.
 
 # The Basics
 
 Go in to ```/warmup/CLI```, and you'll see ```CLIInstaller```.
 
-To install a brand new Known using an interactive install simply run 
+To install a brand new Idno using an interactive install simply run 
 
 ```
 ./CLIInstaller install
@@ -38,7 +38,7 @@ The CLI installer has a few other options that might be useful:
 
 ## Checking requirements
 
-If you just want to check that your server has the necessary requirements to run Known, you can execute:
+If you just want to check that your server has the necessary requirements to run Idno, you can execute:
 
 ```
 ./CLIInstaller.php check-requirements

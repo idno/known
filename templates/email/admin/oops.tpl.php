@@ -1,5 +1,5 @@
 <div style="font-weight: bold; font-size: 30px; line-height: 32px; color: #333" align="center">
-    An error occured on your Known site <?php echo $vars['site']; ?>!
+    An error occured on your Idno site <?php echo $vars['site']; ?>!
 </div><br>
 <hr/>
 <br>

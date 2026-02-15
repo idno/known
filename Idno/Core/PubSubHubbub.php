@@ -271,7 +271,7 @@ namespace Idno\Core {
         }
 
         /**
-         * If this Known installation has a PubSubHubbub hub, send a publish notification to the hub
+         * If this Idno installation has a PubSubHubbub hub, send a publish notification to the hub
          *
          * @param  \Idno\Common\Entity $object
          * @return array

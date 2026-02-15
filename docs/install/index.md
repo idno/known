@@ -1,18 +1,18 @@
-# Installing Known
+# Installing Idno
 
 * [Instructions](instructions.md)
 * [System requirements](requirements.md)
 * [Instructions for common shared hosting providers](sharedhost.md)
 
-# Upgrading Known
+# Upgrading Idno
 
 * [Upgrade instructions](upgrade.md)
 
-# Configuring Known
+# Configuring Idno
 
-* [Using config.ini to configure Known](config.md)
+* [Using config.ini to configure Idno](config.md)
 
-# Debugging Known
+# Debugging Idno
 
 * [Using logs](debugging.md)
 * [Diagnostics](debugging.md)

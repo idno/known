@@ -1,6 +1,6 @@
 <?php
 
-class FilesystemCacheTest extends \Tests\KnownTestCase
+class FilesystemCacheTest extends \Tests\IdnoTestCase
 {
 
     /**

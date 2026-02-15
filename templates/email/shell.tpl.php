@@ -69,7 +69,7 @@ if (!empty($vars['preheader'])) {
                         ?>
 
                         <p style="text-align: center; margin-top: 15px;">
-                        <em style="font-style:italic; font-size: 12px; color: #aaa; text-decoration: center;"><?php echo \Idno\Core\Idno::site()->language()->_('Powered by') ?> <a href="https://withknown.com/?utm_source=transactional&utm_medium=email&utm_campaign=e<?php echo $path?>" style="color: #4c93cb; text-decoration: none;">Known</a>.</em>
+                        <em style="font-style:italic; font-size: 12px; color: #aaa; text-decoration: center;"><?php echo \Idno\Core\Idno::site()->language()->_('Powered by') ?> <a href="https://idno.co/?utm_source=transactional&utm_medium=email&utm_campaign=e<?php echo $path?>" style="color: #4c93cb; text-decoration: none;">Idno</a>.</em>
                         </p>
                         <br><br>
 
@@ -82,7 +82,7 @@ if (!empty($vars['preheader'])) {
     </tr>
     <tr>
         <td align="center" valign="top" bgcolor="#ebebeb" style="background-color: #ebebeb; padding-bottom: 3em;">
-            <p style="color: #999999; font-size: 12px;">Known, Inc. 421 Bryant St, San Francisco, CA, 94107</p>
+            <p style="color: #999999; font-size: 12px;">Idno, Inc. 421 Bryant St, San Francisco, CA, 94107</p>
         </td>
     </tr>    
 </table>

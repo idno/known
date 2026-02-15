@@ -1,7 +1,7 @@
 /**
- * Gruntfile for Known project.
- * 
- * This is a grunt task for building various aspects of Known. You'll only need to 
+ * Gruntfile for Idno project.
+ *
+ * This is a grunt task for building various aspects of Idno. You'll only need to
  * use this if you're a developer working on the core.
  * 
  * Installation
@@ -34,14 +34,14 @@ module.exports = function (grunt) {
 	},
 	dev: {
 	    files: {
-	        'css/known.css': 'css/scss/known.scss',
-		'css/known-simple.css': 'css/scss/known-simple.scss'
+	        'css/idno.css': 'css/scss/idno.scss',
+		'css/idno-simple.css': 'css/scss/idno-simple.scss'
 	    },
 	},
 	dist: {
 	    files: {
-	        'css/known.min.css': 'css/scss/known.scss',
-		'css/known-simple.min.css': 'css/scss/known-simple.scss'
+	        'css/idno.min.css': 'css/scss/idno.scss',
+		'css/idno-simple.min.css': 'css/scss/idno-simple.scss'
 	    },
 	    options: {
 	      outputStyle: 'compressed'
@@ -53,10 +53,10 @@ module.exports = function (grunt) {
       },
       js: {
         files: {
-          'js/known.es6': [
+          'js/idno.es6': [
 	      'js/src/classes/Security.js',
 	      'js/src/classes/Logger.js',
-	      'js/src/lib/Known.js',
+	      'js/src/lib/Idno.js',
 	      'js/src/classes/Unfurl.js',
 	      'js/src/classes/Image.js',
 	      'js/src/lib/Image.js',
@@ -132,7 +132,7 @@ module.exports = function (grunt) {
       }
     },
     stylelint: {
-      all: ['css/scss/*.scss', 'css/scss/known/*.scss']
+      all: ['css/scss/*.scss', 'css/scss/idno/*.scss']
     },
     jshint: {
       // define the files to lint
@@ -150,7 +150,7 @@ module.exports = function (grunt) {
           module: true,
           document: true,
           "$": false,
-          known: false,
+          idno: false,
           wwwroot: true,
           base64ToArrayBuffer: true,
 
@@ -214,7 +214,7 @@ module.exports = function (grunt) {
     execSync('rm ./languages/source/' + pot); // Remove existing
 
     execSync('find ./Idno ./templates -type f -regex ".*\.php" | sort | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from idno core
-    execSync('echo ./known.php | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from console
+    execSync('echo ./idno.php | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from console
   });
 
   // Default task(s).

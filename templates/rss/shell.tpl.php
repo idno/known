@@ -9,7 +9,7 @@ if (empty($vars['title'])) {
     if (!empty($vars['description'])) {
         $vars['title'] = implode(' ', array_slice(explode(' ', strip_tags($vars['description'])), 0, 10));
     } else {
-        $vars['title'] = 'Known site';
+        $vars['title'] = 'Idno site';
     }
 }
 
@@ -75,7 +75,7 @@ if (!empty(\Idno\Core\Idno::site()->config()->hub)) {
     $self->setAttribute('rel', 'self');
     $self->setAttribute('type', 'application/rss+xml');
     $channel->appendChild($self);
-    $channel->appendChild($page->createElement('generator', 'Known https://withknown.com'));
+    $channel->appendChild($page->createElement('generator', 'Idno https://idno.co'));
 
     // In case this isn't a feed page, find any objects
 if (empty($vars['items']) && !empty($vars['object'])) {

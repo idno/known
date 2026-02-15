@@ -9,30 +9,30 @@
             <?php echo \Idno\Core\Idno::site()->language()->_('Import content'); ?>
         </h1>
         <p class="explanation">
-            <?php echo \Idno\Core\Idno::site()->language()->_('Import your content from other sites into Known. All imported content will be treated as a post, with a title and body content.'); ?>
+            <?php echo \Idno\Core\Idno::site()->language()->_('Import your content from other sites into Idno. All imported content will be treated as a post, with a title and body content.'); ?>
         </p>        
     </div>
 </div>
 <div class="row import">
     <div class="col-md-1 col-md-offset-1">
-        <img src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>gfx/other/known.png" alt="Known" class="img-responsive">
+        <img src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>gfx/other/idno.png" alt="Idno" class="img-responsive">
     </div>
     <div class="col-md-9">
         <form action="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL()?>admin/import/" method="post" enctype="multipart/form-data">
 
             <h3>
-                <?php echo \Idno\Core\Idno::site()->language()->_('Known'); ?>
+                <?php echo \Idno\Core\Idno::site()->language()->_('Idno'); ?>
             </h3>
             <p>
-                <?php echo \Idno\Core\Idno::site()->language()->_('Upload a Known RSS export file and turn it into Known posts.'); ?>
-                <a href="#" onclick="$('#known-explanation').show(); return false;"><?php echo \Idno\Core\Idno::site()->language()->_('How do I get my Known RSS file?'); ?></a>
+                <?php echo \Idno\Core\Idno::site()->language()->_('Upload an Idno RSS export file and turn it into Idno posts.'); ?>
+                <a href="#" onclick="$('#known-explanation').show(); return false;"><?php echo \Idno\Core\Idno::site()->language()->_('How do I get my Idno RSS file?'); ?></a>
             </p>
             <div id="known-explanation" class="well" style="display:none">
                 <p>
-                    <?php echo \Idno\Core\Idno::site()->language()->_('To get your Known RSS file'); ?>:
+                    <?php echo \Idno\Core\Idno::site()->language()->_('To get your Idno RSS file'); ?>:
                 </p>
                 <ol>
-                    <li><?php echo \Idno\Core\Idno::site()->language()->_('Log into your Known site'); ?></li>
+                    <li><?php echo \Idno\Core\Idno::site()->language()->_('Log into your Idno site'); ?></li>
                     <li><?php echo \Idno\Core\Idno::site()->language()->_('Click on Site Configuration'); ?></li>
                     <li><?php echo \Idno\Core\Idno::site()->language()->_('Click on Export'); ?></li>
                     <li><?php echo \Idno\Core\Idno::site()->language()->_('Download your RSS file'); ?></li>
@@ -41,7 +41,7 @@
             <p>
                 <label>
                     <span class="btn btn-primary btn-file" id="known-filename-wrapper">
-                        <span id="known-filename"><?php echo \Idno\Core\Idno::site()->language()->_('Select Known export file'); ?></span> 
+                        <span id="known-filename"><?php echo \Idno\Core\Idno::site()->language()->_('Select Idno export file'); ?></span> 
                         <input type="file" name="import" id="known-file" accept=".atom,.rss" onchange="$('#known-filename').html($('#known-file').val()); $('#known-filename-wrapper').css('background-color','#aaa'); $('#known-filename-wrapper').css('border','0'); $('#known-submit').show(); $('#known-submit').addClass('btn-primary')"/>
                     </span>
                 </label>
@@ -64,7 +64,7 @@
                 <?php echo \Idno\Core\Idno::site()->language()->_('WordPress'); ?>
             </h3>
             <p>
-                <?php echo \Idno\Core\Idno::site()->language()->_('Upload a WordPress XML file and turn it into Known posts.'); ?>
+                <?php echo \Idno\Core\Idno::site()->language()->_('Upload a WordPress XML file and turn it into Idno posts.'); ?>
                 <a href="#" onclick="$('#wordpress-explanation').show(); return false;"><?php echo \Idno\Core\Idno::site()->language()->_('How do I get my WordPress XML file?'); ?></a>
             </p>
             <div id="wordpress-explanation" class="well" style="display:none">
@@ -105,7 +105,7 @@
                 <?php echo \Idno\Core\Idno::site()->language()->_('Blogger'); ?>
             </h3>
             <p>
-                <?php echo \Idno\Core\Idno::site()->language()->_('Upload a Blogger XML file and turn it into Known posts.'); ?> <a href="#" onclick="$('#blogger-explanation').show(); return false;"><?php echo \Idno\Core\Idno::site()->language()->_('How do I get my Blogger XML file?'); ?></a>
+                <?php echo \Idno\Core\Idno::site()->language()->_('Upload a Blogger XML file and turn it into Idno posts.'); ?> <a href="#" onclick="$('#blogger-explanation').show(); return false;"><?php echo \Idno\Core\Idno::site()->language()->_('How do I get my Blogger XML file?'); ?></a>
             </p>
             <div id="blogger-explanation" class="well" style="display:none">
                 <p>

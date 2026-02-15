@@ -207,7 +207,7 @@ namespace Idno\Core {
         }
 
         /**
-         * Given the path to a Known export, creates a complete .tar.gz file and returns the path to that.
+         * Given the path to an Idno export, creates a complete .tar.gz file and returns the path to that.
          * If $save_path is false, will save to the temporary folder.
          *
          * @param  $path
@@ -253,7 +253,7 @@ namespace Idno\Core {
         }
 
         /**
-         * Wrapper function that exports Known data and returns the path to the archive of it.
+         * Wrapper function that exports Idno data and returns the path to the archive of it.
          *
          * @param  $dir Path to export
          * @return bool|string
@@ -289,7 +289,7 @@ namespace Idno\Core {
         }
 
         /**
-         * Given the XML source of an export, imports each post into Known.
+         * Given the XML source of an export, imports each post into Idno.
          *
          * @param $xml
          */
@@ -404,7 +404,7 @@ namespace Idno\Core {
         }
 
         /**
-         * Given the XML source of a Blogger export, imports each post into Known.
+         * Given the XML source of a Blogger export, imports each post into Idno.
          *
          * @param $xml
          */
@@ -414,7 +414,7 @@ namespace Idno\Core {
         }
 
         /**
-         * Given the XML source of a WordPress export, imports each post into Known.
+         * Given the XML source of a WordPress export, imports each post into Idno.
          *
          * @param $xml
          */

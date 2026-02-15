@@ -16,7 +16,7 @@
                 Export to WordPress
             </h2>-->
             <p class="explanation">
-                <?php echo \Idno\Core\Idno::site()->language()->_("You can download an RSS version of everything you've posted on this site. This file is suitable for importing into content management systems like WordPress, or another Known site."); ?>
+                <?php echo \Idno\Core\Idno::site()->language()->_("You can download an RSS version of everything you've posted on this site. This file is suitable for importing into content management systems like WordPress, or another Idno site."); ?>
             </p>
 
             <div class="row">

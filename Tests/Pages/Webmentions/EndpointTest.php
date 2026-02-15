@@ -5,7 +5,7 @@ namespace Tests\Pages\Webmentions;
 use Idno\Core\Idno;
 use Idno\Entities\GenericDataItem;
 
-class EndpointTest extends \Tests\KnownTestCase
+class EndpointTest extends \Tests\IdnoTestCase
 {
     protected $toDelete = [];
 

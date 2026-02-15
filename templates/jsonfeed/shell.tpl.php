@@ -12,7 +12,7 @@ if (empty($vars['title'])) {
     if (!empty($vars['description'])) {
         $json['title'] = implode(' ', array_slice(explode(' ', strip_tags($vars['description'])), 0, 10));
     } else {
-        $json['title'] = 'Known site';
+        $json['title'] = 'Idno site';
     }
 } else {
     $json['title'] = $vars['description'];

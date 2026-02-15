@@ -1,8 +1,8 @@
 # Form input
 
-Form submissions and API calls in Known are both handled by pages. In effect, every page is also an API handler.
+Form submissions and API calls in Idno are both handled by pages. In effect, every page is also an API handler.
 
-* Prerequisites: [you should read about page handling in Known.](pages.md)
+* Prerequisites: [you should read about page handling in Idno.](pages.md)
 
 ## Browser-based form submission
 
@@ -49,7 +49,7 @@ For example, the code for the logout button is as follows:
                                                  'Sign out')); ?>
 
 `$data_to_include` is an optional array of key => value pairs that will be sent with the POST request.
-`$extra_configuration` is an optional array of options that help Known decide how to style the link. These include:
+`$extra_configuration` is an optional array of options that help Idno decide how to style the link. These include:
 
 * `class`: a CSS class to apply
 * `confirm`: if true, will prompt the user to confirm their action before submitting the POST request

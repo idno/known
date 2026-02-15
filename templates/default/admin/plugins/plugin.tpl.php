@@ -55,7 +55,7 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                     <?php
                     if (isset($requirements['known'])) {
                         ?>
-                        <p><label><?php echo \Idno\Core\Idno::site()->language()->_('Known Version'); ?>: <?php echo $this->__(
+                        <p><label><?php echo \Idno\Core\Idno::site()->language()->_('Idno Version'); ?>: <?php echo $this->__(
                             [
                             'version' => $requirements['known'],
                             ]
@@ -68,7 +68,7 @@ foreach (['php', 'known', 'idno', 'build', 'extension', 'plugin'] as $field) {
                     <?php
                     if (isset($requirements['build'])) {
                         ?>
-                        <p><label><?php echo \Idno\Core\Idno::site()->language()->_('Known Build'); ?>: <?php echo $this->__(
+                        <p><label><?php echo \Idno\Core\Idno::site()->language()->_('Idno Build'); ?>: <?php echo $this->__(
                             [
                             'version' => $requirements['build'],
                             ]
