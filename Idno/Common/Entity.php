@@ -1968,6 +1968,7 @@ namespace Idno\Common {
         {
 
             $item = $this;
+            $wxr_mode = !empty($vars['wxr_mode']);
 
             $page = new \DOMDocument();
 
@@ -1989,38 +1990,57 @@ namespace Idno\Common {
             $rssItem->appendChild($page->createElement('wp:post_type', 'post'));
             $rssItem->appendChild($page->createElement('wp:status', 'publish'));
 
+            // WXR-specific item elements
+            if ($wxr_mode) {
+                $rssItem->appendChild($page->createElement('wp:post_id', (string)$item->getID()));
+                $rssItem->appendChild($page->createElement('wp:post_date', date('Y-m-d H:i:s', $item->created)));
+                $rssItem->appendChild($page->createElement('wp:post_date_gmt', gmdate('Y-m-d H:i:s', $item->created)));
+
+                $slug = $item->getSlug();
+                if (empty($slug)) {
+                    $slug = preg_replace('/[^a-z0-9]+/', '-', strtolower(trim($title)));
+                    $slug = trim($slug, '-');
+                    if (empty($slug)) {
+                        $slug = (string)$item->getID();
+                    }
+                }
+                $rssItem->appendChild($page->createElement('wp:post_name', htmlspecialchars($slug)));
+            }
+
             $owner = $item->getOwner();
             if (!empty($owner)) {
                 $rssItem->appendChild($page->createElement('dc:creator', "{$owner->title}"));
             } else {
                 $rssItem->appendChild($page->createElement('dc:creator', "Deleted User"));
             }
-            //$rssItem->appendChild($page->createElement('dc:creator', $owner->title));
+
+            // Draw content once and reuse for both description and content:encoded
+            $drawn_content = $item->draw(true);
 
             $description = $page->createElement('description');
             if (empty($vars['nocdata'])) {
-                $description->appendChild($page->createCDATASection($item->draw(true)));
+                $description->appendChild($page->createCDATASection($drawn_content));
             } else {
-                //$description->appendChild($page->create($item->draw(true)));
-                //$description->textContent = $item->draw(true);
                 $tpl = new \DOMDocument;
-                $tpl->loadHtml($item->draw(true), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-                //$body->appendChild($dom->importNode($tpl->documentElement, TRUE));
+                $tpl->loadHtml($drawn_content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
                 $description->appendChild($page->importNode($tpl->documentElement, true));
+                unset($tpl);
             }
             $rssItem->appendChild($description);
+
+            // WXR: add content:encoded (WordPress reads this preferentially over description)
+            if ($wxr_mode) {
+                $contentEncoded = $page->createElement('content:encoded');
+                $contentEncoded->appendChild($page->createCDATASection($drawn_content));
+                $rssItem->appendChild($contentEncoded);
+            }
+
+            unset($drawn_content);
+
             if (!empty($item->lat) && !empty($item->long)) {
                 $rssItem->appendChild($page->createElement('geo:lat', $item->lat));
                 $rssItem->appendChild($page->createElement('geo:long', $item->long));
             }
-            /*
-             * Some feed readers choke on references to webmention, so this is removed for now
-             *
-                $webmentionItem = $page->createElement('atom:link');
-                $webmentionItem->setAttribute('rel', 'webmention');
-                $webmentionItem->setAttribute('href', \Idno\Core\Idno::site()->config()->getDisplayURL() . 'webmention/');
-                $rssItem->appendChild($webmentionItem);
-            */
             if ($attachments = $item->getAttachments()) {
                 foreach($attachments as $attachment) {
                     if (!empty($attachment['url'])) { // Only include attachments with set URLs
@@ -2036,6 +2056,55 @@ namespace Idno\Common {
                 foreach($tags as $tag) {
                     $tagItem = $page->createElement('category', $tag);
                     $rssItem->appendChild($tagItem);
+                }
+            }
+
+            // WXR: export comments from annotations
+            if ($wxr_mode) {
+                $allAnnotations = $item->getAllAnnotations();
+                if (!empty($allAnnotations)) {
+                    $commentId = 1;
+                    foreach ($allAnnotations as $subtype => $annotations) {
+                        if (!in_array($subtype, ['reply', 'comment'])) {
+                            continue;
+                        }
+                        foreach ($annotations as $annotation) {
+                            $wpComment = $page->createElement('wp:comment');
+                            $wpComment->appendChild(
+                                $page->createElement('wp:comment_id', (string)$commentId++)
+                            );
+                            $wpComment->appendChild(
+                                $page->createElement('wp:comment_author',
+                                    htmlspecialchars(!empty($annotation['owner_name']) ? $annotation['owner_name'] : 'Anonymous'))
+                            );
+                            $wpComment->appendChild(
+                                $page->createElement('wp:comment_author_url',
+                                    htmlspecialchars(!empty($annotation['owner_url']) ? $annotation['owner_url'] : ''))
+                            );
+
+                            $commentContent = $page->createElement('wp:comment_content');
+                            $commentContent->appendChild(
+                                $page->createCDATASection(!empty($annotation['content']) ? $annotation['content'] : '')
+                            );
+                            $wpComment->appendChild($commentContent);
+
+                            $commentDate = !empty($annotation['time']) ? $annotation['time'] : time();
+                            $wpComment->appendChild(
+                                $page->createElement('wp:comment_date', date('Y-m-d H:i:s', $commentDate))
+                            );
+                            $wpComment->appendChild(
+                                $page->createElement('wp:comment_date_gmt', gmdate('Y-m-d H:i:s', $commentDate))
+                            );
+                            $wpComment->appendChild(
+                                $page->createElement('wp:comment_approved', '1')
+                            );
+                            $wpComment->appendChild(
+                                $page->createElement('wp:comment_type', 'comment')
+                            );
+
+                            $rssItem->appendChild($wpComment);
+                        }
+                    }
                 }
             }
 

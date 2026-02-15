@@ -36,6 +36,7 @@ namespace Idno\Core {
             // Per-user export
             Idno::site()->routes()->addRoute('/account/export/?', '\Idno\Pages\Account\Export');
             Idno::site()->routes()->addRoute('/account/export/rss/?', '\Idno\Pages\Account\Export\RSS');
+            Idno::site()->routes()->addRoute('/account/export/wxr/?', '\Idno\Pages\Account\Export\WXR');
 
             // Override the page shell
             Idno::site()->template()->addUrlShellOverride('account', 'settings-shell');

@@ -29,6 +29,7 @@ if (empty($vars['base_url'])) {
     $rss->setAttribute('xmlns:dc', 'http://purl.org/dc/elements/1.1/');
     $rss->setAttribute('xmlns:itunes', 'http://www.itunes.com/dtds/podcast-1.0.dtd');
     $rss->setAttribute('xmlns:wp', 'http://wordpress.org/export/1.2/');
+    $rss->setAttribute('xmlns:content', 'http://purl.org/rss/1.0/modules/content/');
     $channel = $page->createElement('channel');
     $channel->appendChild($page->createElement('title', htmlspecialchars($vars['title'])));
     $channel->appendChild($page->createElement('itunes:author', htmlspecialchars($vars['title'])));
@@ -76,6 +77,13 @@ if (!empty(\Idno\Core\Idno::site()->config()->hub)) {
     $self->setAttribute('type', 'application/rss+xml');
     $channel->appendChild($self);
     $channel->appendChild($page->createElement('generator', 'Idno https://idno.co'));
+
+if (!empty($vars['wxr_mode'])) {
+    $channel->appendChild($page->createElement('wp:wxr_version', '1.2'));
+    $wxr_base_url = !empty($vars['base_url']) ? $vars['base_url'] : \Idno\Core\Idno::site()->config()->getDisplayURL();
+    $channel->appendChild($page->createElement('wp:base_site_url', htmlspecialchars($wxr_base_url)));
+    $channel->appendChild($page->createElement('wp:base_blog_url', htmlspecialchars($wxr_base_url)));
+}
 
     // In case this isn't a feed page, find any objects
 if (empty($vars['items']) && !empty($vars['object'])) {

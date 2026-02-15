@@ -15,18 +15,18 @@ namespace Idno\Pages\Admin\Export {
 
             set_time_limit(0);
 
-            header('Content-type: text/rss');
-            header('Content-disposition: attachment; filename=export.rss');
-
             $hide_private = true;
             if ($private = $this->getInput('allposts')) {
                 $hide_private = false;
             }
 
-            if ($f = Migration::getExportRSS($hide_private)) {
+            $f = Migration::getExportRSS($hide_private);
 
+            if ($f) {
                 $stats = fstat($f);
 
+                header('Content-type: text/rss');
+                header('Content-disposition: attachment; filename=export.rss');
                 header('Content-Length: ' . $stats['size']);
 
                 while ($content = fgets($f)) {
@@ -34,6 +34,12 @@ namespace Idno\Pages\Admin\Export {
                 }
 
                 fclose($f);
+            } else {
+                \Idno\Core\Idno::site()->session()->addMessage(
+                    \Idno\Core\Idno::site()->language()->_('There was a problem generating the export. Please try again later.'),
+                    'alert-danger'
+                );
+                $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/export/');
             }
             exit;
 
