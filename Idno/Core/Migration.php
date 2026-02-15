@@ -554,9 +554,10 @@ namespace Idno\Core {
          *
          * @param  bool|true $hide_private Should we hide private posts? Default: true.
          * @param  string    $user_uuid    User UUID to export for. Default: all users.
+         * @param  bool|false $wxr_mode    Generate WXR (WordPress eXtended RSS) format. Default: false.
          * @return resource a file pointer resource on success, false on error
          */
-        static function getExportRSS($hide_private = true, $user_uuid = '')
+        static function getExportRSS($hide_private = true, $user_uuid = '', $wxr_mode = false)
         {
             $types = \Idno\Common\ContentType::getRegisteredClasses();
             if ($hide_private) {
@@ -602,6 +603,8 @@ namespace Idno\Core {
 
             $f = fopen($rss_path . 'items.rss.fragment', 'wb');
 
+            $rssVars = $wxr_mode ? ['wxr_mode' => true] : [];
+
             while ($feed = \Idno\Common\Entity::getFromX($types, $search, array(), $limit, $offset, $groups)) {
 
                 foreach ($feed as $item) {
@@ -609,15 +612,20 @@ namespace Idno\Core {
                     $tmp = new \DOMDocument();
                     $tmp->formatOutput = true;
 
-                    fwrite($f, $tmp->saveXML($tmp->importNode($item->rssSerialise(), true)) . "\n");
+                    $rssNode = $item->rssSerialise($rssVars);
+                    fwrite($f, $tmp->saveXML($tmp->importNode($rssNode, true)) . "\n");
+                    unset($rssNode, $tmp);
                 }
 
+                unset($feed);
+                gc_collect_cycles();
                 $offset += $limit;
             }
 
             fclose($f);
 
-            // Build the empty export template
+            // Build the empty export template (items are injected from the fragment file,
+            // not from the template, so pass an empty items array)
             $rss_theme = new DefaultTemplate();
             $rss_theme->setTemplateType('rss');
 
@@ -628,14 +636,15 @@ namespace Idno\Core {
                         'description' => $description,
                         'body' => $rss_theme->__(
                             array(
-                            'items' => $feed,
+                            'items' => [],
                             'offset' => 0,
-                            'count' => sizeof($feed),
+                            'count' => 0,
                             'subject' => [],
-                            //'nocdata'  => true,
-                            'base_url' => $base_url
+                            'base_url' => $base_url,
+                            'wxr_mode' => $wxr_mode,
                             )
                         )->draw('pages/home'),
+                        'wxr_mode' => $wxr_mode,
                     )
                 )->drawPage(false)
             );

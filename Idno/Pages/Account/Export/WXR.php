@@ -6,7 +6,7 @@ namespace Idno\Pages\Account\Export {
     use Idno\Core\Idno;
     use Idno\Core\Migration;
 
-    class RSS extends Page
+    class WXR extends Page
     {
 
         function postContent()
@@ -21,13 +21,17 @@ namespace Idno\Pages\Account\Export {
                 $hide_private = false;
             }
 
-            $f = Migration::getExportRSS($hide_private, Idno::site()->session()->currentUserUUID());
+            $f = Migration::getExportRSS(
+                $hide_private,
+                Idno::site()->session()->currentUserUUID(),
+                true // wxr_mode
+            );
 
             if ($f) {
                 $stats = fstat($f);
 
-                header('Content-type: text/rss');
-                header('Content-disposition: attachment; filename=user_export.rss');
+                header('Content-type: application/xml');
+                header('Content-disposition: attachment; filename=user_export.xml');
                 header('Content-Length: ' . $stats['size']);
 
                 while ($content = fgets($f)) {
@@ -37,7 +41,7 @@ namespace Idno\Pages\Account\Export {
                 fclose($f);
             } else {
                 Idno::site()->session()->addMessage(
-                    Idno::site()->language()->_('There was a problem generating your export. Please try again later.'),
+                    Idno::site()->language()->_('There was a problem generating your WXR export. Please try again later.'),
                     'alert-danger'
                 );
                 $this->forward(Idno::site()->config()->getDisplayURL() . 'account/export/');
@@ -49,4 +53,3 @@ namespace Idno\Pages\Account\Export {
     }
 
 }
-

@@ -27,6 +27,7 @@ namespace Idno\Core {
             \Idno\Core\Idno::site()->routes()->addRoute('/admin/export/generate/?', '\Idno\Pages\Admin\Export\Generate');
             //\Idno\Core\Idno::site()->routes()->addRoute('/admin/export/download/?', '\Idno\Pages\Admin\Export\Download');
             \Idno\Core\Idno::site()->routes()->addRoute('/admin/export/rss/?', '\Idno\Pages\Admin\Export\RSS');
+            \Idno\Core\Idno::site()->routes()->addRoute('/admin/export/wxr/?', '\Idno\Pages\Admin\Export\WXR');
             \Idno\Core\Idno::site()->routes()->addRoute('/admin/import/?', '\Idno\Pages\Admin\Import');
             \Idno\Core\Idno::site()->routes()->addRoute('/admin/diagnostics/?', '\Idno\Pages\Admin\Diagnostics');
             \Idno\Core\Idno::site()->routes()->addRoute('/admin/statistics/?', '\Idno\Pages\Admin\Statistics');
