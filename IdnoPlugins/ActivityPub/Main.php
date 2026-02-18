@@ -1,0 +1,199 @@
+<?php
+
+namespace IdnoPlugins\ActivityPub;
+
+use Idno\Common\Plugin;
+use Idno\Entities\User;
+use IdnoPlugins\ActivityPub\Entities\ActivityPubFollower;
+
+/**
+ * ActivityPub federation plugin for Known.
+ *
+ * Enables outbound ActivityPub federation:
+ * - Profiles can be followed from Mastodon and other compatible platforms
+ * - Published content is delivered to followers' inboxes
+ * - Deletions and updates propagate to followers
+ * - Incoming Follow/Undo/Delete activities are handled synchronously
+ * - Outgoing deliveries are handled via the async queue
+ */
+class Main extends Plugin
+{
+
+    function registerTranslations()
+    {
+        // Future: register translation files
+    }
+
+    function registerPages()
+    {
+        // Per-user endpoints (marked public so they work even on non-public sites)
+        \Idno\Core\Idno::site()->routes()->addRoute('/actor/([^\/]+)/inbox/?', '\IdnoPlugins\ActivityPub\Pages\Inbox', true);
+        \Idno\Core\Idno::site()->routes()->addRoute('/actor/([^\/]+)/outbox/?', '\IdnoPlugins\ActivityPub\Pages\Outbox', true);
+        \Idno\Core\Idno::site()->routes()->addRoute('/actor/([^\/]+)/followers/?', '\IdnoPlugins\ActivityPub\Pages\Followers', true);
+        \Idno\Core\Idno::site()->routes()->addRoute('/actor/([^\/]+)/following/?', '\IdnoPlugins\ActivityPub\Pages\Following', true);
+
+        // Shared inbox
+        \Idno\Core\Idno::site()->routes()->addRoute('/inbox/?', '\IdnoPlugins\ActivityPub\Pages\SharedInbox', true);
+
+        // NodeInfo (public discovery endpoints)
+        \Idno\Core\Idno::site()->routes()->addRoute('/.well-known/nodeinfo/?', '\IdnoPlugins\ActivityPub\Pages\NodeInfoIndex', true);
+        \Idno\Core\Idno::site()->routes()->addRoute('/nodeinfo/2\\.0/?', '\IdnoPlugins\ActivityPub\Pages\NodeInfo', true);
+
+        // Admin
+        \Idno\Core\Idno::site()->routes()->addRoute('/admin/activitypub/?', '\IdnoPlugins\ActivityPub\Pages\Admin');
+
+        // Admin menu item
+        \Idno\Core\Idno::site()->template()->extendTemplate('admin/menu/items', 'activitypub/admin/menu');
+    }
+
+    function registerEventHooks()
+    {
+
+        // -------------------------------------------------------
+        // Mark ActivityPub inbox requests as API requests to bypass CSRF
+        // -------------------------------------------------------
+        \Idno\Core\Idno::site()->events()->addListener('user/auth/request', function (\Idno\Core\Event $event) {
+
+            $contentType = $_SERVER['CONTENT_TYPE'] ?? $_SERVER['HTTP_CONTENT_TYPE'] ?? '';
+            $path = $_SERVER['REQUEST_URI'] ?? '';
+
+            // Detect ActivityPub inbox POSTs by content type or path
+            $isActivityPub = (
+                stripos($contentType, 'application/activity+json') !== false ||
+                stripos($contentType, 'application/ld+json') !== false
+            );
+
+            $isInboxPath = (
+                preg_match('#/actor/[^/]+/inbox#', $path) ||
+                preg_match('#^/inbox/?$#', $path)
+            );
+
+            if ($isActivityPub && $isInboxPath) {
+                \Idno\Core\Idno::site()->session()->setIsAPIRequest(true);
+            }
+        });
+
+        // -------------------------------------------------------
+        // Eager key generation for new users
+        // -------------------------------------------------------
+        \Idno\Core\Idno::site()->events()->addListener('saved', function (\Idno\Core\Event $event) {
+
+            $eventdata = $event->data();
+            $object = $eventdata['object'];
+
+            if ($object instanceof User && empty($object->publicKeyPem)) {
+                $object->generateKeyPair();
+                \Idno\Core\Idno::site()->logging()->debug('ActivityPub: Generated key pair for new user ' . $object->getHandle());
+            }
+        });
+
+        // -------------------------------------------------------
+        // Deliver Create activity when a new entity is first saved
+        // -------------------------------------------------------
+        \Idno\Core\Idno::site()->events()->addListener('saved', function (\Idno\Core\Event $event) {
+
+            $eventdata = $event->data();
+            $object = $eventdata['object'];
+
+            // Skip non-content entities
+            if ($object instanceof User) return;
+            if ($object instanceof ActivityPubFollower) return;
+            if ($object instanceof \Idno\Entities\AsynchronousQueuedEvent) return;
+
+            // Only federate public, published content
+            if (!$object->isPublic()) return;
+            if ($object->getPublishStatus() !== 'published') return;
+
+            // Must have a real content type
+            $type = $object->getActivityStreamsObjectType();
+            if (empty($type) || $type === 'entity') return;
+
+            $user = $object->getOwner();
+            if (!$user || !($user instanceof User)) return;
+
+            try {
+                $activity = ActivityBuilder::buildCreate($object);
+                Delivery::deliverToFollowers($user, $activity);
+            } catch (\Exception $e) {
+                \Idno\Core\Idno::site()->logging()->error('ActivityPub: Error building Create activity: ' . $e->getMessage());
+            }
+        });
+
+        // -------------------------------------------------------
+        // Deliver Update activity when an existing entity is updated
+        // -------------------------------------------------------
+        \Idno\Core\Idno::site()->events()->addListener('updated', function (\Idno\Core\Event $event) {
+
+            $eventdata = $event->data();
+            $object = $eventdata['object'];
+
+            if ($object instanceof User) return;
+            if ($object instanceof ActivityPubFollower) return;
+            if ($object instanceof \Idno\Entities\AsynchronousQueuedEvent) return;
+
+            if (!$object->isPublic()) return;
+            if ($object->getPublishStatus() !== 'published') return;
+
+            $type = $object->getActivityStreamsObjectType();
+            if (empty($type) || $type === 'entity') return;
+
+            $user = $object->getOwner();
+            if (!$user || !($user instanceof User)) return;
+
+            try {
+                $activity = ActivityBuilder::buildUpdate($object);
+                Delivery::deliverToFollowers($user, $activity);
+            } catch (\Exception $e) {
+                \Idno\Core\Idno::site()->logging()->error('ActivityPub: Error building Update activity: ' . $e->getMessage());
+            }
+        });
+
+        // -------------------------------------------------------
+        // Deliver Delete activity when an entity is about to be deleted
+        // (We hook 'delete' not 'deleted' so we still have entity data)
+        // -------------------------------------------------------
+        \Idno\Core\Idno::site()->events()->addListener('delete', function (\Idno\Core\Event $event) {
+
+            $eventdata = $event->data();
+            $object = $eventdata['object'];
+
+            if ($object instanceof User) return;
+            if ($object instanceof ActivityPubFollower) return;
+            if ($object instanceof \Idno\Entities\AsynchronousQueuedEvent) return;
+
+            $type = $object->getActivityStreamsObjectType();
+            if (empty($type) || $type === 'entity') return;
+
+            $user = $object->getOwner();
+            if (!$user || !($user instanceof User)) return;
+
+            try {
+                $activity = ActivityBuilder::buildDelete($object);
+                Delivery::deliverToFollowers($user, $activity);
+            } catch (\Exception $e) {
+                \Idno\Core\Idno::site()->logging()->error('ActivityPub: Error building Delete activity: ' . $e->getMessage());
+            }
+        });
+
+        // -------------------------------------------------------
+        // Handle queued delivery (dispatched by the async queue)
+        // -------------------------------------------------------
+        \Idno\Core\Idno::site()->events()->addListener('activitypub/deliver', function (\Idno\Core\Event $event) {
+
+            $data = $event->data();
+
+            if (empty($data['user_uuid']) || empty($data['activity']) || empty($data['inbox'])) {
+                \Idno\Core\Idno::site()->logging()->warning('ActivityPub: Incomplete delivery event data');
+                return;
+            }
+
+            $user = User::getByUUID($data['user_uuid']);
+            if (!$user) {
+                \Idno\Core\Idno::site()->logging()->warning('ActivityPub: User not found for delivery: ' . $data['user_uuid']);
+                return;
+            }
+
+            Delivery::deliver($user, $data['activity'], $data['inbox']);
+        });
+    }
+}

@@ -19,7 +19,7 @@ namespace Idno\Core {
             'sessionname'            => 'idno', // Default session name
             'boolean_search'         => true, // Should search be boolean?
             'open_registration'      => true, // Can anyone register for this system?
-            'initial_plugins'        => array('Status', 'Text', 'Photo', 'IndiePub'),
+            'initial_plugins'        => array('Status', 'Text', 'Photo', 'IndiePub', 'ActivityPub'),
             'plugins'                => array(), // Default plugins
             'assets'                 => [      // Assets to be included
                                                'mediaelementplayer' => true,
