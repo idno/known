@@ -93,8 +93,6 @@ class AsynchronousQueue extends EventQueue
 
             $event->result = serialize($result);
 
-            \Idno\Core\Idno::site()->session()->logUserOff();
-
         } catch (\Exception $e) {
             \Idno\Core\Idno::site()->logging()->error($e->getMessage());
             $event->error = $e->getMessage();
@@ -103,7 +101,12 @@ class AsynchronousQueue extends EventQueue
         $event->complete = true;
         $event->completedTs = time();
 
-        return $event->save();
+        // Save before logging off so the canEdit() check in Entity::save() passes
+        $saved = $event->save();
+
+        \Idno\Core\Idno::site()->session()->logUserOff();
+
+        return $saved;
     }
 
     /**
@@ -116,7 +119,7 @@ class AsynchronousQueue extends EventQueue
 
         $search = [
             'completedTs' => [
-                '&lt' => time() - $timeago
+                '$lt' => time() - $timeago
             ],
             'complete' => true,
         ];
