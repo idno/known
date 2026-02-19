@@ -167,7 +167,7 @@ See [contributors on GitHub](https://github.com/idno/idno/graphs/contributors).
 
 ## Copyright and License
 
-Except for included third-party projects, Idno is (c) Ben Werdmuller.
+Except for included third-party projects, Idno is (c) The Open Community Company LLC.
 
 Unless otherwise stated, Idno is licensed under the Apache Software License 2.0. See [LICENSE](LICENSE) for more information.
 
