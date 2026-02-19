@@ -27,10 +27,12 @@ class Main extends Plugin
     function registerPages()
     {
         // Per-user endpoints (marked public so they work even on non-public sites)
+        // Sub-path routes must be registered before the actor profile route
         \Idno\Core\Idno::site()->routes()->addRoute('/actor/([^\/]+)/inbox/?', '\IdnoPlugins\ActivityPub\Pages\Inbox', true);
         \Idno\Core\Idno::site()->routes()->addRoute('/actor/([^\/]+)/outbox/?', '\IdnoPlugins\ActivityPub\Pages\Outbox', true);
         \Idno\Core\Idno::site()->routes()->addRoute('/actor/([^\/]+)/followers/?', '\IdnoPlugins\ActivityPub\Pages\Followers', true);
         \Idno\Core\Idno::site()->routes()->addRoute('/actor/([^\/]+)/following/?', '\IdnoPlugins\ActivityPub\Pages\Following', true);
+        \Idno\Core\Idno::site()->routes()->addRoute('/actor/([^\/]+)/?', '\IdnoPlugins\ActivityPub\Pages\Actor', true);
 
         // Shared inbox
         \Idno\Core\Idno::site()->routes()->addRoute('/inbox/?', '\IdnoPlugins\ActivityPub\Pages\SharedInbox', true);
