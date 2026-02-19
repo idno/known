@@ -55,16 +55,21 @@ namespace Idno\Entities {
                           'href' => $user->getActivityPubActorID()
                         ],
                         [
-                          'rel'  => 'http://webfinger.net/rel/avatar',
-                          'type' => parent::getMediaMimeType($user->getIcon()),
-                          'href' => $user->getIcon()
-                        ],
-                        [
                           'rel'  => 'http://webfinger.net/rel/profile-page',
                           'type' => 'text/html',
                           'href' => $user->getURL()
                         ]
                         ];
+
+                        $iconUrl = $user->getIcon();
+                        $iconMime = parent::getMediaMimeType($iconUrl);
+                        if ($iconUrl && $iconMime) {
+                            $links[] = [
+                              'rel'  => 'http://webfinger.net/rel/avatar',
+                              'type' => $iconMime,
+                              'href' => $iconUrl
+                            ];
+                        }
                     }
 
                     $event->setResponse($links);
