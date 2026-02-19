@@ -131,8 +131,9 @@ class ActivityHandler
         $existing = ActivityPubFollower::getByActorAndUser($actorUri, $user->getUUID());
         if ($existing) {
             \Idno\Core\Idno::site()->logging()->debug('ActivityPub: Duplicate Follow from ' . $actorUri);
-            // Still send Accept for idempotency
-            self::sendAccept($activity, $user, $actorUri);
+            // Still send Accept for idempotency — use the stored inbox URL, not the actor URI
+            $inbox = $existing->actor_inbox ?: $actorUri;
+            self::sendAccept($activity, $user, $inbox);
             return ['status' => 200, 'body' => ''];
         }
 
