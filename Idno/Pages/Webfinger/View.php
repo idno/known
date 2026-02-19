@@ -1,13 +1,13 @@
 <?php
 
     /**
-     * Webfinger
+     * Webfinger (RFC 7033)
      */
 
 namespace Idno\Pages\Webfinger {
 
     /**
-     * Default class to serve the homepage
+     * Serves WebFinger JRD responses for local user discovery.
      */
     class View extends \Idno\Common\Page
     {
@@ -28,17 +28,24 @@ namespace Idno\Pages\Webfinger {
             if (empty($links)) {
                 $links = array();
             }
-            $t = \Idno\Core\Idno::site()->template();
-            $t->setTemplateType('json');
-            echo $t->__(
-                array(
-                'properties' => [
-                  'http://webfinger.example/ns/name' => $user->getName(),
-                ],
+
+            $jrd = [
                 'subject' => $acct,
-                'links'   => $links
-                )
-            )->draw('shell');
+                'aliases' => [
+                    $user->getURL(),
+                    $user->getActivityPubActorID(),
+                ],
+                'links'   => $links,
+            ];
+
+            // Remove duplicate aliases
+            $jrd['aliases'] = array_values(array_unique($jrd['aliases']));
+
+            header('Content-Type: application/jrd+json');
+            header('Access-Control-Allow-Origin: *');
+
+            echo json_encode($jrd, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
+            exit;
         }
 
         function postContent()
@@ -48,4 +55,3 @@ namespace Idno\Pages\Webfinger {
     }
 
 }
-
