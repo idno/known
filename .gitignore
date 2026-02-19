@@ -60,6 +60,7 @@ IdnoPlugins/
 !IdnoPlugins/Styles
 !IdnoPlugins/Text
 !IdnoPlugins/Webhooks
+!IdnoPlugins/ActivityPub
 
 ConsolePlugins/*
 !ConsolePlugins/Export

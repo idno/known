@@ -55,16 +55,21 @@ namespace Idno\Entities {
                           'href' => $user->getActivityPubActorID()
                         ],
                         [
-                          'rel'  => 'http://webfinger.net/rel/avatar',
-                          'type' => parent::getMediaMimeType($user->getIcon()),
-                          'href' => $user->getIcon()
-                        ],
-                        [
                           'rel'  => 'http://webfinger.net/rel/profile-page',
                           'type' => 'text/html',
                           'href' => $user->getURL()
                         ]
                         ];
+
+                        $iconUrl = $user->getIcon();
+                        $iconMime = parent::getMediaMimeType($iconUrl);
+                        if ($iconUrl && $iconMime) {
+                            $links[] = [
+                              'rel'  => 'http://webfinger.net/rel/avatar',
+                              'type' => $iconMime,
+                              'href' => $iconUrl
+                            ];
+                        }
                     }
 
                     $event->setResponse($links);
@@ -228,9 +233,19 @@ namespace Idno\Entities {
          * @return string
          */
 
-        function getAcivityPubEndpoints()
+        function getActivityPubEndpoints()
         {
-            return [ 'sharedInbox' => \Idno\Core\Idno::site()->config()->getURL() . 'inbox'];
+            return [ 'sharedInbox' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'inbox'];
+        }
+
+        /**
+         * Get the ActivityPub followers collection URL for this user
+         *
+         * @return string
+         */
+        function getActivityPubFollowersURL()
+        {
+            return $this->getActivityPubActorID() . '/followers';
         }
 
         /**
@@ -436,7 +451,7 @@ namespace Idno\Entities {
          *
          * @return string
          */
-        private function getPrivateKey()
+        public function getPrivateKey()
         {
             if (empty($this->privateKey)) {
                 $this->generateKeyPair();
