@@ -63,7 +63,7 @@ processed inline during the web request.
 #### 2. Start the event queue worker
 
 ```bash
-sudo -u www-data KNOWN_DOMAIN='your.domain' ./known service-event-queue
+sudo -u www-data KNOWN_DOMAIN='your.domain' ./idno.php service-event-queue
 ```
 
 | Option       | Default   | Description                                |
@@ -86,7 +86,8 @@ They will be processed once the worker is restarted.
 #### 3. Keep it alive with systemd (recommended)
 
 The worker must stay running permanently. The simplest way is a systemd service
-unit. Create `/etc/systemd/system/idno-queue.service`:
+unit. Create `/etc/systemd/system/idno-queue.service`, taking care to replace the
+values here with your own paths, users, and domains:
 
 ```ini
 [Unit]
@@ -98,7 +99,7 @@ Type=simple
 User=www-data
 Environment=KNOWN_DOMAIN=your.domain
 WorkingDirectory=/var/www/idno
-ExecStart=/var/www/idno/known service-event-queue
+ExecStart=/var/www/idno/idno.php service-event-queue #replace with your path
 Restart=always
 RestartSec=5
 
@@ -126,7 +127,7 @@ If you need periodic background tasks (triggered via `cron/minute`,
 `cron/hourly`, and `cron/daily` events), start the cron service the same way:
 
 ```bash
-sudo -u www-data KNOWN_DOMAIN='your.domain' ./known.php service-cron
+sudo -u www-data KNOWN_DOMAIN='your.domain' ./idno.php service-cron
 ```
 
 You can create a second systemd unit (`idno-cron.service`) following the same
@@ -155,8 +156,6 @@ sudo systemctl restart idno-queue idno-cron
 
 * Learn more and sign up to get updates: <https://idno.co>
 * Full project documentation: <http://docs.idno.co/>
-* Join the development mailing list: <https://groups.google.com/forum/#!forum/known-dev>
-* Join the IRC channel: [#knownchat](https://webchat.freenode.net/?channels=knownchat) on Freenode
 
 For details on contributing to the Idno project, please read [CONTRIBUTING.md](CONTRIBUTING.md).
 
@@ -168,7 +167,7 @@ See [contributors on GitHub](https://github.com/idno/idno/graphs/contributors).
 
 ## Copyright and License
 
-Except for included third-party projects, Idno is (c) Idno, Inc.
+Except for included third-party projects, Idno is (c) Ben Werdmuller.
 
 Unless otherwise stated, Idno is licensed under the Apache Software License 2.0. See [LICENSE](LICENSE) for more information.
 
@@ -181,7 +180,7 @@ Third party libraries are licensed separately.
 
 ### Idno also contains
 
-* Twitter Bootstrap, which is distributed under the Apache 2.0 license. Source: https://github.com/twitter/bootstrap
+* Bootstrap, which is distributed under the Apache 2.0 license. Source: https://github.com/twitter/bootstrap
 * jQuery, which is distributed under the MIT License. Source: https://github.com/jquery/jquery
 * Portions of Symfony, which is distributed under the MIT license.
   * EventDispatcher. Source: https://github.com/symfony/EventDispatcher
