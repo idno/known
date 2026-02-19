@@ -35,37 +35,111 @@ Optionally, you can install the latest bleeding edge code the same way: ``` comp
 
 ### Setting up the async pipeline
 
-By default, Idno processes events like Webmention pings and syndication to external services synchronously during page requests. You can enable asynchronous event processing to improve page load times by deferring these operations to a background worker.
+By default, Idno processes events **synchronously** — that is, things like
+Webmention pings, syndication, and ActivityPub delivery all happen inside the
+web request that triggered them. This works, but it makes page saves slow and
+means a timeout or crash loses the work.
+
+Enabling the **asynchronous queue** moves all of that into a background worker.
+The web request just drops an event into the database and returns immediately;
+the worker picks it up and processes it separately.
+
+> **This is required for ActivityPub.** Follow-accept delivery,
+> post distribution to followers, and update/delete propagation are all
+> dispatched through the queue. If the worker is not running, those events
+> sit in the database unprocessed and remote servers will never receive them.
 
 #### 1. Enable the async queue
 
-Add the following line to your `config.ini`:
+Add this line to your `config.ini`:
 
 ```ini
 event_queue = 'AsynchronousQueue'
 ```
 
-#### 2. Run the event queue worker
+Without this line (or with the default `SynchronousQueue`), all events are
+processed inline during the web request.
 
-Start the dispatch service using the Idno console tool. Run it as your web server user so it can read and write files:
+#### 2. Start the event queue worker
 
 ```bash
 sudo -u www-data KNOWN_DOMAIN='your.domain' ./known service-event-queue
 ```
 
-This process must stay running to dispatch queued events. Use a process manager (e.g., systemd, supervisord) to keep it alive.
+| Option       | Default   | Description                                |
+|--------------|-----------|--------------------------------------------|
+| `--queue`    | `default` | Named queue to process                     |
+| `--interval` | `1`       | Seconds to sleep between polling cycles    |
 
-#### 3. Run the periodic cron service (optional)
+**How it works:** The worker runs an infinite loop. Each cycle it:
 
-If you need periodic background tasks (triggered via `cron/minute`, `cron/hourly`, and `cron/daily` events), start the cron service:
+1. Queries the database for up to 50 pending events.
+2. Dispatches each one via an internal HTTP call to `/service/queue/dispatch/{id}`,
+   which triggers the event handler (e.g., signing and POSTing an ActivityPub
+   activity to a remote inbox).
+3. Runs garbage collection to remove completed events older than 5 minutes.
+4. Sleeps for `--interval` seconds, then repeats.
+
+**If the worker dies, queued events pile up in the database but are not lost.**
+They will be processed once the worker is restarted.
+
+#### 3. Keep it alive with systemd (recommended)
+
+The worker must stay running permanently. The simplest way is a systemd service
+unit. Create `/etc/systemd/system/idno-queue.service`:
+
+```ini
+[Unit]
+Description=Idno async event queue worker
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Environment=KNOWN_DOMAIN=your.domain
+WorkingDirectory=/var/www/idno
+ExecStart=/var/www/idno/known service-event-queue
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Then enable and start it:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable --now idno-queue
+```
+
+Check status any time with:
+
+```bash
+sudo systemctl status idno-queue
+sudo journalctl -u idno-queue -f   # tail the logs
+```
+
+#### 4. Run the periodic cron service (optional)
+
+If you need periodic background tasks (triggered via `cron/minute`,
+`cron/hourly`, and `cron/daily` events), start the cron service the same way:
 
 ```bash
 sudo -u www-data KNOWN_DOMAIN='your.domain' ./known.php service-cron
 ```
 
-**Important:** When you update Idno core or any plugins, restart both `service-event-queue` and `service-cron` so they run the updated code.
+You can create a second systemd unit (`idno-cron.service`) following the same
+pattern as above if you want it managed automatically.
 
-For more details, see the [advanced configuration docs](docs/install/advanced.md).
+#### 5. After updates — restart the workers
+
+When you update Idno core or any plugins, **restart both services** so they
+pick up the new code:
+
+```bash
+sudo systemctl restart idno-queue idno-cron
+```
 
 ### Support us
 
