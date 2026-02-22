@@ -68,7 +68,10 @@ class Actor extends \Idno\Common\Page
         }
 
         header('Content-Type: application/activity+json');
+        header('Access-Control-Allow-Origin: *');
+        header('Cache-Control: max-age=180, public');
         echo json_encode($person, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        exit;
     }
 
     function postContent()

@@ -43,6 +43,7 @@ class NodeInfo extends \Idno\Common\Page
 
         header('Content-Type: application/json; profile="http://nodeinfo.diaspora.software/ns/schema/2.0#"');
         echo json_encode($response, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        exit;
     }
 
     function postContent()

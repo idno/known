@@ -25,6 +25,7 @@ class NodeInfoIndex extends \Idno\Common\Page
 
         header('Content-Type: application/json');
         echo json_encode($response, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        exit;
     }
 
     function postContent()

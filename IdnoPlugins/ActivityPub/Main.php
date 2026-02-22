@@ -67,20 +67,26 @@ class Main extends Plugin
         \Idno\Core\Idno::site()->events()->addListener('user/auth/request', function (\Idno\Core\Event $event) {
 
             $contentType = $_SERVER['CONTENT_TYPE'] ?? $_SERVER['HTTP_CONTENT_TYPE'] ?? '';
+            $method = $_SERVER['REQUEST_METHOD'] ?? '';
             $path = $_SERVER['REQUEST_URI'] ?? '';
-
-            // Detect ActivityPub inbox POSTs by content type or path
-            $isActivityPub = (
-                stripos($contentType, 'application/activity+json') !== false ||
-                stripos($contentType, 'application/ld+json') !== false
-            );
 
             $isInboxPath = (
                 preg_match('#/actor/[^/]+/inbox#', $path) ||
                 preg_match('#^/inbox/?$#', $path)
             );
 
-            if ($isActivityPub && $isInboxPath) {
+            // Log all requests to inbox paths for debugging federation
+            if ($isInboxPath) {
+                \Idno\Core\Idno::site()->logging()->info(
+                    'ActivityPub: Inbox request: ' . $method . ' ' . $path .
+                    ' Content-Type: ' . $contentType
+                );
+            }
+
+            // For POST requests to inbox paths, always treat as API request
+            // to bypass CSRF token validation. Some AP implementations send
+            // non-standard content types, so we match on path alone.
+            if ($isInboxPath && strtoupper($method) === 'POST') {
                 \Idno\Core\Idno::site()->session()->setIsAPIRequest(true);
             }
         });

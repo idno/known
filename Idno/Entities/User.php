@@ -185,10 +185,8 @@ namespace Idno\Entities {
          */
         function getActivityPubActorID()
         {
-            if (!empty($this->url)) {
-                return $this->url;
-            }
-
+            // Always use the canonical actor path, never the user's profile URL.
+            // The actor URL must match the route registered by the ActivityPub plugin.
             return \Idno\Core\Idno::site()->config()->getDisplayURL() . 'actor/' . $this->getHandle();
         }
 
