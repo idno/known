@@ -276,6 +276,53 @@ namespace IdnoPlugins\ActivityPub\Tests {
         }
 
         /**
+         * Test signGet + verify round-trip (simulates signed actor fetch).
+         */
+        public function testSignGetAndVerifyRoundtrip()
+        {
+            $config = [
+                'digest_alg'       => 'sha512',
+                'private_key_bits' => 2048,
+                'private_key_type' => OPENSSL_KEYTYPE_RSA,
+            ];
+            $key = openssl_pkey_new($config);
+            $privateKey = '';
+            openssl_pkey_export($key, $privateKey);
+            $detail = openssl_pkey_get_details($key);
+            $publicKey = $detail['key'];
+
+            $keyId = 'https://example.com/actor/test#main-key';
+            $url = 'https://remote.example/actor/alice';
+
+            // Sign the GET request
+            $headers = HTTPSignature::signGet($privateKey, $keyId, $url);
+            $this->assertNotEmpty($headers);
+
+            // Parse into headerMap
+            $headerMap = [];
+            foreach ($headers as $header) {
+                $parts = explode(': ', $header, 2);
+                if (count($parts) === 2) {
+                    $headerMap[strtolower($parts[0])] = $parts[1];
+                }
+            }
+
+            // Add host (signGet includes it in the signing string but not as a returned header)
+            $headerMap['host'] = 'remote.example';
+
+            // Verify — signGet uses (request-target), host, date
+            $result = HTTPSignature::verify(
+                $publicKey,
+                $headerMap,
+                '',          // GET requests have no body
+                'GET',
+                '/actor/alice'
+            );
+
+            $this->assertTrue($result, 'signGet signature should verify correctly');
+        }
+
+        /**
          * Test that verify rejects a signature made with a different key.
          */
         public function testSignatureRejectsWrongKey()

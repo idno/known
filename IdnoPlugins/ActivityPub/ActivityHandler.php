@@ -86,8 +86,20 @@ class ActivityHandler
             return false;
         }
 
-        // Fetch the remote actor's public key
-        $publicKey = RemoteActor::fetchPublicKey($sigParams['keyId']);
+        // Try to resolve the local target user for signed key fetching.
+        // This is needed for remote instances that require authorized fetch.
+        $localUser = null;
+        $object = $activity['object'] ?? '';
+        $targetActorId = is_string($object) ? $object : ($object['id'] ?? '');
+        if (!empty($targetActorId)) {
+            $localUser = self::resolveLocalUser($targetActorId);
+            if ($localUser === false) {
+                $localUser = null;
+            }
+        }
+
+        // Fetch the remote actor's public key (using signed GET when possible)
+        $publicKey = RemoteActor::fetchPublicKey($sigParams['keyId'], $localUser);
         if (!$publicKey) {
             \Idno\Core\Idno::site()->logging()->warning('ActivityPub: Could not fetch public key for ' . $sigParams['keyId']);
             return false;

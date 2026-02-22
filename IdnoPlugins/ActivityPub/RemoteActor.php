@@ -3,6 +3,7 @@
 namespace IdnoPlugins\ActivityPub;
 
 use Idno\Core\Webservice;
+use Idno\Entities\User;
 
 /**
  * Fetches and parses remote ActivityPub actor profiles.
@@ -12,21 +13,42 @@ class RemoteActor
 
     /**
      * Fetch a remote actor's profile by their ActivityPub ID.
+     * Uses a signed GET when a local user is available, which is required by
+     * instances that enable "authorized fetch" (secure mode).
      *
-     * @param string $actorUri The remote actor's ID URI
+     * @param string    $actorUri The remote actor's ID URI
+     * @param User|null $asUser   Optional local user whose key signs the request
      * @return array|false Structured actor data, or false on failure
      */
-    public static function fetch(string $actorUri)
+    public static function fetch(string $actorUri, ?User $asUser = null)
     {
         if (empty($actorUri) || !filter_var($actorUri, FILTER_VALIDATE_URL)) {
             \Idno\Core\Idno::site()->logging()->warning('ActivityPub: Invalid actor URI: ' . $actorUri);
             return false;
         }
 
+        // Resolve a signing user: prefer the caller-supplied user, fall back to any local user
+        if (!$asUser) {
+            $asUser = self::getSigningUser();
+        }
+
         try {
-            $response = Webservice::get($actorUri, null, [
+            $headers = [
                 'Accept: application/activity+json, application/ld+json; profile="https://www.w3.org/ns/activitystreams"',
-            ]);
+            ];
+
+            // Use a signed GET when we have a user with keys (required for authorized fetch)
+            if ($asUser && $asUser->getPrivateKey()) {
+                $keyId = $asUser->getPublicKey()['id'];
+                $signedHeaders = HTTPSignature::signGet($asUser->getPrivateKey(), $keyId, $actorUri);
+                // signGet includes its own Accept header; replace it with our more comprehensive one
+                $signedHeaders = array_filter($signedHeaders, function ($h) {
+                    return stripos($h, 'Accept:') !== 0;
+                });
+                $headers = array_merge($signedHeaders, $headers);
+            }
+
+            $response = Webservice::get($actorUri, null, $headers);
 
             if (empty($response['content']) || $response['response'] < 200 || $response['response'] >= 300) {
                 \Idno\Core\Idno::site()->logging()->warning('ActivityPub: Failed to fetch actor ' . $actorUri . ' (HTTP ' . ($response['response'] ?? 'unknown') . ')');
@@ -88,15 +110,16 @@ class RemoteActor
      * Fetch the public key for a remote actor given a key ID.
      * The key ID is typically in the format "actorUri#main-key".
      *
-     * @param string $keyId The public key ID from the Signature header
+     * @param string    $keyId  The public key ID from the Signature header
+     * @param User|null $asUser Optional local user whose key signs the request
      * @return string|false PEM-encoded public key, or false on failure
      */
-    public static function fetchPublicKey(string $keyId)
+    public static function fetchPublicKey(string $keyId, ?User $asUser = null)
     {
         // Strip the fragment to get the actor URI
         $actorUri = preg_replace('/#.*$/', '', $keyId);
 
-        $actorData = self::fetch($actorUri);
+        $actorData = self::fetch($actorUri, $asUser);
         if (!$actorData || empty($actorData['publicKey'])) {
             return false;
         }
@@ -114,5 +137,30 @@ class RemoteActor
         }
 
         return $publicKey['publicKeyPem'] ?? false;
+    }
+
+    /**
+     * Get any local user with a keypair for signing outbound requests.
+     *
+     * @return User|null
+     */
+    private static function getSigningUser(): ?User
+    {
+        // Prefer the currently logged-in user
+        if (\Idno\Core\Idno::site()->session()->isLoggedIn()) {
+            return \Idno\Core\Idno::site()->session()->currentUser();
+        }
+
+        // Fall back to the first user with keys
+        $users = User::get([], [], 1);
+        if (!empty($users) && is_array($users)) {
+            $user = $users[0];
+            // Ensure the user has a keypair (generates one if needed)
+            if ($user instanceof User && $user->getPrivateKey()) {
+                return $user;
+            }
+        }
+
+        return null;
     }
 }

@@ -29,9 +29,18 @@ class AsynchronousQueue extends EventQueue
         $queuedEvent->complete = false;
         $queuedEvent->queuedTs = time();
 
-        \Idno\Core\Idno::site()->logging()->debug("Enqueued asynchronous event $eventName on queue $queueName");
+        // Use save(true) to bypass canEdit() — queue events are system-level
+        // entities and must be saveable even when no user is logged in (e.g.
+        // federation inbox requests from remote servers).
+        $result = $queuedEvent->save(true);
 
-        return $queuedEvent->save();
+        if ($result) {
+            \Idno\Core\Idno::site()->logging()->debug("Enqueued asynchronous event $eventName on queue $queueName");
+        } else {
+            \Idno\Core\Idno::site()->logging()->error("Failed to enqueue asynchronous event $eventName on queue $queueName");
+        }
+
+        return $result;
     }
 
     function isComplete($id)
