@@ -37,6 +37,9 @@ class Main extends Plugin
         // Shared inbox
         \Idno\Core\Idno::site()->routes()->addRoute('/inbox/?', '\IdnoPlugins\ActivityPub\Pages\SharedInbox', true);
 
+        // Quote authorization stamp endpoint (FEP-044f)
+        \Idno\Core\Idno::site()->routes()->addRoute('/activitypub/quote-stamp/?', '\IdnoPlugins\ActivityPub\Pages\QuoteStamp', true);
+
         // NodeInfo (public discovery endpoints)
         \Idno\Core\Idno::site()->routes()->addRoute('/.well-known/nodeinfo/?', '\IdnoPlugins\ActivityPub\Pages\NodeInfoIndex', true);
         \Idno\Core\Idno::site()->routes()->addRoute('/nodeinfo/2\\.0/?', '\IdnoPlugins\ActivityPub\Pages\NodeInfo', true);
