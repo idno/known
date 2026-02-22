@@ -223,14 +223,29 @@ class ActivityBuilder
     {
         $actorId = $user->getActivityPubActorID();
 
-        return [
+        // Strip @context from the embedded Follow so it inherits the Accept's
+        // context cleanly.  Nested @context creates a JSON-LD scope override
+        // that can prevent Fedify-based implementations (e.g. Ghost) from
+        // deserializing the object as a Follow instance.
+        $followObject = $followActivity;
+        unset($followObject['@context']);
+
+        $accept = [
             '@context'  => self::CONTEXT,
             'id'        => $actorId . '#accept-' . md5($followActivity['id'] ?? time()),
             'type'      => 'Accept',
             'actor'     => $actorId,
-            'object'    => $followActivity,
+            'object'    => $followObject,
             'published' => date(\DateTime::RFC3339),
         ];
+
+        // Address the Accept to the remote actor who sent the Follow
+        $followerActor = $followActivity['actor'] ?? '';
+        if (!empty($followerActor)) {
+            $accept['to'] = $followerActor;
+        }
+
+        return $accept;
     }
 
     /**

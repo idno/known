@@ -166,18 +166,21 @@ class ActivityHandler
             return ['status' => 400, 'body' => json_encode(['error' => 'Target mismatch'])];
         }
 
-        // Check for existing follower record (idempotent)
-        $existing = ActivityPubFollower::getByActorAndUser($actorUri, $user->getUUID());
-        if ($existing) {
-            \Idno\Core\Idno::site()->logging()->debug('ActivityPub: Duplicate Follow from ' . $actorUri . ' — already accepted, skipping');
-            return ['status' => 200, 'body' => ''];
-        }
-
-        // Fetch remote actor data
+        // Fetch remote actor data (needed for both new and duplicate follows)
         $actorData = RemoteActor::fetch($actorUri);
         if (!$actorData) {
             \Idno\Core\Idno::site()->logging()->warning('ActivityPub: Could not resolve remote actor: ' . $actorUri);
             return ['status' => 400, 'body' => json_encode(['error' => 'Could not resolve actor'])];
+        }
+
+        // Check for existing follower record (idempotent).
+        // Re-send the Accept in case the remote server never received it
+        // (e.g. the original delivery failed or was lost).
+        $existing = ActivityPubFollower::getByActorAndUser($actorUri, $user->getUUID());
+        if ($existing) {
+            \Idno\Core\Idno::site()->logging()->debug('ActivityPub: Duplicate Follow from ' . $actorUri . ' — re-sending Accept');
+            self::sendAccept($activity, $user, $actorData['inbox']);
+            return ['status' => 200, 'body' => ''];
         }
 
         // Create follower record
@@ -200,8 +203,7 @@ class ActivityHandler
 
         \Idno\Core\Idno::site()->logging()->info('ActivityPub: New follower ' . $actorData['handle'] . ' for user ' . $user->getHandle());
 
-        // Auto-accept: queue Accept delivery (passing user UUID explicitly
-        // because no user is logged in during federation inbox requests)
+        // Auto-accept: deliver Accept to the remote actor's inbox
         self::sendAccept($activity, $user, $actorData['inbox']);
 
         return ['status' => 202, 'body' => ''];
@@ -209,6 +211,8 @@ class ActivityHandler
 
     /**
      * Send an Accept activity in response to a Follow.
+     * Delivers synchronously so the remote server receives the Accept
+     * promptly, then also enqueues a backup delivery via the async pipeline.
      *
      * @param array  $followActivity The original Follow activity
      * @param User   $user           The local user accepting the follow
@@ -218,15 +222,21 @@ class ActivityHandler
     {
         $acceptActivity = ActivityBuilder::buildAccept($followActivity, $user);
 
-        // Queue Accept delivery via async pipeline.
-        // Pass user UUID as runAsUser because no session user is logged in
-        // during federation inbox requests — without this, the queued event
-        // has no runAsContext and dispatch() can't mark it complete.
-        \Idno\Core\Idno::site()->queue()->enqueue('default', 'activitypub/deliver', [
-            'user_uuid' => $user->getUUID(),
-            'activity'  => $acceptActivity,
-            'inbox'     => $targetInbox,
-        ], $user->getUUID());
+        // Deliver synchronously first — timely Accept delivery is important
+        // for implementations like Ghost that check follow state on reload.
+        $delivered = Delivery::deliverNow($user, $acceptActivity, $targetInbox);
+
+        if ($delivered) {
+            \Idno\Core\Idno::site()->logging()->debug('ActivityPub: Accept delivered synchronously to ' . $targetInbox);
+        } else {
+            // Synchronous delivery failed — fall back to async queue.
+            \Idno\Core\Idno::site()->logging()->warning('ActivityPub: Synchronous Accept delivery failed, falling back to queue for ' . $targetInbox);
+            \Idno\Core\Idno::site()->queue()->enqueue('default', 'activitypub/deliver', [
+                'user_uuid' => $user->getUUID(),
+                'activity'  => $acceptActivity,
+                'inbox'     => $targetInbox,
+            ], $user->getUUID());
+        }
     }
 
     /**
