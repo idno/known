@@ -14,10 +14,29 @@ class Inbox extends \Idno\Common\Page
 
     function getContent()
     {
-        $this->setResponse(405);
-        http_response_code(405);
-        header('Allow: POST');
-        echo json_encode(['error' => 'Method not allowed. POST to this endpoint.']);
+        $handle = $this->arguments[0] ?? '';
+        $user = \Idno\Entities\User::getByHandle($handle);
+
+        if (!$user) {
+            $this->noContent();
+            return;
+        }
+
+        $actorId = $user->getActivityPubActorID();
+        $inboxUrl = $actorId . '/inbox';
+
+        // Per spec, inbox MUST be an OrderedCollection.
+        // We return an empty one since received activities are not publicly exposed.
+        $collection = [
+            '@context'     => 'https://www.w3.org/ns/activitystreams',
+            'id'           => $inboxUrl,
+            'type'         => 'OrderedCollection',
+            'totalItems'   => 0,
+            'orderedItems' => [],
+        ];
+
+        header('Content-Type: application/activity+json');
+        echo json_encode($collection, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
         exit;
     }
 

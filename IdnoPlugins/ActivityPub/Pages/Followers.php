@@ -73,5 +73,11 @@ class Followers extends \Idno\Common\Page
 
     function postContent()
     {
+        $this->setResponse(405);
+        http_response_code(405);
+        header('Content-Type: application/json');
+        header('Allow: GET');
+        echo json_encode(['error' => 'Method not allowed']);
+        exit;
     }
 }
