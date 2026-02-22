@@ -68,6 +68,7 @@ class Followers extends \Idno\Common\Page
 
         header('Content-Type: application/activity+json');
         echo json_encode($collection, JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+        exit;
     }
 
     function postContent()

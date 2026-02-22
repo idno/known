@@ -18,6 +18,7 @@ class Inbox extends \Idno\Common\Page
         http_response_code(405);
         header('Allow: POST');
         echo json_encode(['error' => 'Method not allowed. POST to this endpoint.']);
+        exit;
     }
 
     function postContent()
@@ -38,6 +39,7 @@ class Inbox extends \Idno\Common\Page
         http_response_code($result['status']);
         header('Content-Type: application/json');
         echo $result['body'];
+        exit;
     }
 
     /**
