@@ -215,8 +215,9 @@ Each content plugin has an `Entry.php` entity class that defines
 
 ## Indieweb compatibility
 
-All content is published as HTML, with Microformats2 markup. Any new content should
-include appropriate microformats classes: h-entry, h-card, h-event as appropriate.
+All content is published as HTML, with Microformats2 markup. Any new content types 
+that are publicly accessible should  include appropriate microformats classes: 
+h-entry, h-card, h-event as appropriate.
 
 ## Agents code
 
