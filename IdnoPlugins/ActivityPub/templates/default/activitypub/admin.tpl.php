@@ -4,6 +4,16 @@
 
         <h1><?php echo \Idno\Core\Idno::site()->language()->_('ActivityPub Federation'); ?></h1>
 
+        <?php if (empty($vars['queue_ok'])) { ?>
+        <div class="alert alert-danger">
+            <strong><?php echo \Idno\Core\Idno::site()->language()->_('Asynchronous queue required'); ?></strong>
+            <p>
+                <?php echo \Idno\Core\Idno::site()->language()->_('ActivityPub needs the asynchronous event queue to deliver posts and accept follows from other platforms.'); ?>
+                <?php echo \Idno\Core\Idno::site()->language()->_('Please see the <a href="https://github.com/idno/idno#setting-up-the-async-pipeline">setup instructions</a> in the README to enable it.'); ?>
+            </p>
+        </div>
+        <?php } ?>
+
         <p class="explanation">
             <?php echo \Idno\Core\Idno::site()->language()->_('ActivityPub federation allows users on this site to be followed from Mastodon and other compatible platforms. When users publish content, it is automatically delivered to their followers on the fediverse.'); ?>
         </p>

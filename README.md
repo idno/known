@@ -63,7 +63,7 @@ processed inline during the web request.
 #### 2. Start the event queue worker
 
 ```bash
-sudo -u www-data KNOWN_DOMAIN='your.domain' ./idno.php service-event-queue
+sudo -u www-data IDNO_DOMAIN='your.domain' ./idno.php service-event-queue
 ```
 
 | Option       | Default   | Description                                |
@@ -97,7 +97,7 @@ After=network.target
 [Service]
 Type=simple
 User=www-data
-Environment=KNOWN_DOMAIN=your.domain
+Environment=IDNO_DOMAIN=your.domain
 WorkingDirectory=/var/www/idno
 ExecStart=/var/www/idno/idno.php service-event-queue #replace with your path
 Restart=always
@@ -121,13 +121,26 @@ sudo systemctl status idno-queue
 sudo journalctl -u idno-queue -f   # tail the logs
 ```
 
+#### Alternative: use cron instead of systemd
+
+If you don't have access to systemd (e.g. shared hosting), you can use cron
+instead. The `--once` flag makes the worker process one batch of pending events
+and exit, which is ideal for cron:
+
+```
+* * * * * sudo -u www-data IDNO_DOMAIN='your.domain' /var/www/idno/idno.php service-event-queue --once >> /var/log/idno-queue.log 2>&1
+```
+
+This processes pending events once per minute. Events may take up to 60 seconds
+to be delivered (compared to ~1 second with the systemd worker above).
+
 #### 4. Run the periodic cron service (optional)
 
 If you need periodic background tasks (triggered via `cron/minute`,
 `cron/hourly`, and `cron/daily` events), start the cron service the same way:
 
 ```bash
-sudo -u www-data KNOWN_DOMAIN='your.domain' ./idno.php service-cron
+sudo -u www-data IDNO_DOMAIN='your.domain' ./idno.php service-cron
 ```
 
 You can create a second systemd unit (`idno-cron.service`) following the same

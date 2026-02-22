@@ -34,7 +34,8 @@ class Outbox extends \Idno\Common\Page
         if ($page > 0) {
             // Return a page of activities
             $offset = ($page - 1) * $perPage;
-            $entities = Entity::getFromAll(
+            $entities = Entity::getFromX(
+                ActivityBuilder::NON_CONTENT_SUBTYPES,
                 [
                     'owner'          => $user->getUUID(),
                     'publish_status' => 'published',
@@ -48,7 +49,6 @@ class Outbox extends \Idno\Common\Page
             $items = [];
             if (is_array($entities)) {
                 foreach ($entities as $entity) {
-                    if ($entity instanceof User) continue;
                     $items[] = ActivityBuilder::buildCreate($entity);
                 }
             }
@@ -72,11 +72,14 @@ class Outbox extends \Idno\Common\Page
 
         } else {
             // Return the collection summary
-            $totalItems = Entity::countFromAll([
-                'owner'          => $user->getUUID(),
-                'publish_status' => 'published',
-                'access'         => 'PUBLIC',
-            ]);
+            $totalItems = Entity::countFromX(
+                ActivityBuilder::NON_CONTENT_SUBTYPES,
+                [
+                    'owner'          => $user->getUUID(),
+                    'publish_status' => 'published',
+                    'access'         => 'PUBLIC',
+                ]
+            );
 
             $collection = [
                 '@context'   => 'https://www.w3.org/ns/activitystreams',

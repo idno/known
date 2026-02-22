@@ -18,6 +18,10 @@ class Admin extends \Idno\Common\Page
 
         $t = \Idno\Core\Idno::site()->template();
 
+        // Check queue configuration
+        $queue = \Idno\Core\Idno::site()->queue();
+        $queueOk = ($queue instanceof \Idno\Core\AsynchronousQueue);
+
         // Gather stats
         $users = User::get([], [], PHP_INT_MAX);
         $totalUsers = is_array($users) ? count($users) : 0;
@@ -43,6 +47,7 @@ class Admin extends \Idno\Common\Page
                 'total_users'    => $totalUsers,
                 'total_followers' => $totalFollowers,
                 'user_stats'     => $userStats,
+                'queue_ok'       => $queueOk,
                 'description'    => 'ActivityPub federation allows users on this site to be followed from Mastodon and other compatible platforms.',
             ]
         )->draw('activitypub/admin');

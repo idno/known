@@ -2,7 +2,10 @@
 
 namespace IdnoPlugins\ActivityPub\Pages;
 
+use Idno\Common\Entity;
 use Idno\Entities\User;
+use IdnoPlugins\ActivityPub\ActivityBuilder;
+use IdnoPlugins\ActivityPub\Entities\ActivityPubFollower;
 
 /**
  * ActivityPub actor profile endpoint.
@@ -23,11 +26,17 @@ class Actor extends \Idno\Common\Page
         }
 
         $actorId = $user->getActivityPubActorID();
+        $followersCount = ActivityPubFollower::getFollowerCount($user->getUUID());
+        $statusesCount = self::getContentCount($user);
 
         $person = [
             '@context' => [
                 'https://www.w3.org/ns/activitystreams',
                 'https://w3id.org/security/v1',
+                [
+                    'toot'         => 'http://joinmastodon.org/ns#',
+                    'discoverable' => 'toot:discoverable',
+                ],
             ],
             'id'                        => $actorId,
             'type'                      => 'Person',
@@ -36,12 +45,16 @@ class Actor extends \Idno\Common\Page
             'name'                      => $user->getName(),
             'summary'                   => $user->getDescription(),
             'manuallyApprovesFollowers' => false,
+            'discoverable'              => true,
             'inbox'                     => $actorId . '/inbox',
             'outbox'                    => $actorId . '/outbox',
             'followers'                 => $actorId . '/followers',
             'following'                 => $actorId . '/following',
             'publicKey'                 => $user->getPublicKey(),
             'endpoints'                 => $user->getActivityPubEndpoints(),
+            'followersCount'            => $followersCount,
+            'followingCount'            => 0,
+            'statusesCount'             => $statusesCount,
         ];
 
         $icon = $user->getIcon();
@@ -60,5 +73,20 @@ class Actor extends \Idno\Common\Page
 
     function postContent()
     {
+    }
+
+    /**
+     * Count public published content entities for a user, excluding non-content entities.
+     *
+     * @param User $user
+     * @return int
+     */
+    private static function getContentCount(User $user): int
+    {
+        return (int) Entity::countFromX(ActivityBuilder::NON_CONTENT_SUBTYPES, [
+            'owner'          => $user->getUUID(),
+            'publish_status' => 'published',
+            'access'         => 'PUBLIC',
+        ]);
     }
 }
