@@ -100,7 +100,9 @@ class Outbox extends \Idno\Common\Page
         // Outbox POST (C2S) is not implemented
         $this->setResponse(405);
         http_response_code(405);
+        header('Content-Type: application/json');
         header('Allow: GET');
         echo json_encode(['error' => 'Client-to-server posting is not supported']);
+        exit;
     }
 }
