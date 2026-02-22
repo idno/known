@@ -88,7 +88,7 @@ class Delivery
                 'user_uuid' => $user->getUUID(),
                 'activity'  => $activity,
                 'inbox'     => $inbox,
-            ]);
+            ], $user->getUUID());
         }
     }
 

@@ -197,7 +197,8 @@ class ActivityHandler
 
         \Idno\Core\Idno::site()->logging()->info('ActivityPub: New follower ' . $actorData['handle'] . ' for user ' . $user->getHandle());
 
-        // Auto-accept: queue Accept delivery
+        // Auto-accept: queue Accept delivery (passing user UUID explicitly
+        // because no user is logged in during federation inbox requests)
         self::sendAccept($activity, $user, $actorData['inbox']);
 
         return ['status' => 202, 'body' => ''];
@@ -214,12 +215,15 @@ class ActivityHandler
     {
         $acceptActivity = ActivityBuilder::buildAccept($followActivity, $user);
 
-        // Queue Accept delivery via async pipeline
+        // Queue Accept delivery via async pipeline.
+        // Pass user UUID as runAsUser because no session user is logged in
+        // during federation inbox requests — without this, the queued event
+        // has no runAsContext and dispatch() can't mark it complete.
         \Idno\Core\Idno::site()->queue()->enqueue('default', 'activitypub/deliver', [
             'user_uuid' => $user->getUUID(),
             'activity'  => $acceptActivity,
             'inbox'     => $targetInbox,
-        ]);
+        ], $user->getUUID());
     }
 
     /**
