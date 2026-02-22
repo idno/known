@@ -17,6 +17,25 @@ class ActivityBuilder
         'https://w3id.org/security/v1',
     ];
 
+    /**
+     * Extended context including GoToSocial namespace for interaction policies
+     * and FEP-044f terms for quote post support.
+     */
+    const CONTEXT_WITH_QUOTES = [
+        'https://www.w3.org/ns/activitystreams',
+        'https://w3id.org/security/v1',
+        [
+            'gts'                  => 'https://gotosocial.org/ns#',
+            'interactionPolicy'    => ['@id' => 'gts:interactionPolicy', '@type' => '@id'],
+            'canQuote'             => ['@id' => 'gts:canQuote', '@type' => '@id'],
+            'automaticApproval'    => ['@id' => 'gts:automaticApproval', '@type' => '@id'],
+            'QuoteAuthorization'   => 'https://w3id.org/fep/044f#QuoteAuthorization',
+            'QuoteRequest'         => 'https://w3id.org/fep/044f#QuoteRequest',
+            'interactingObject'    => ['@id' => 'gts:interactingObject', '@type' => '@id'],
+            'interactionTarget'    => ['@id' => 'gts:interactionTarget', '@type' => '@id'],
+        ],
+    ];
+
     const PUBLIC_AUDIENCE = 'https://www.w3.org/ns/activitystreams#Public';
 
     /**
@@ -107,6 +126,13 @@ class ActivityBuilder
                 $object['inReplyTo'] = is_array($replyUrls) ? $replyUrls[0] : $replyUrls;
             }
         }
+
+        // Interaction policy: allow anyone to quote (FEP-044f)
+        $object['interactionPolicy'] = [
+            'canQuote' => [
+                'automaticApproval' => [self::PUBLIC_AUDIENCE],
+            ],
+        ];
 
         // Location data (for checkins)
         if ($idnoType === 'place' || !empty($entity->lat)) {
@@ -208,6 +234,50 @@ class ActivityBuilder
     }
 
     /**
+     * Build an Accept activity in response to a QuoteRequest (FEP-044f).
+     *
+     * @param array  $quoteRequest The original QuoteRequest activity
+     * @param User   $user         The local user whose post is being quoted
+     * @param string $stampUrl     The QuoteAuthorization stamp URL
+     * @return array ActivityPub Accept activity
+     */
+    public static function buildQuoteAccept(array $quoteRequest, User $user, string $stampUrl): array
+    {
+        $actorId = $user->getActivityPubActorID();
+
+        return [
+            '@context'  => self::CONTEXT_WITH_QUOTES,
+            'id'        => $actorId . '#quote-accept-' . md5($quoteRequest['id'] ?? time()),
+            'type'      => 'Accept',
+            'actor'     => $actorId,
+            'to'        => $quoteRequest['actor'] ?? '',
+            'object'    => $quoteRequest,
+            'result'    => $stampUrl,
+            'published' => date(\DateTime::RFC3339),
+        ];
+    }
+
+    /**
+     * Generate a QuoteAuthorization stamp URL for a quote approval (FEP-044f).
+     * Uses HMAC to produce deterministic, unforgeable stamp URLs without database storage.
+     *
+     * @param string $interactionTarget The URI of the quoted post
+     * @param string $interactingObject The URI of the quoting post
+     * @return string The stamp URL
+     */
+    public static function buildQuoteStampUrl(string $interactionTarget, string $interactingObject): string
+    {
+        $siteUrl = \Idno\Core\Idno::site()->config()->getDisplayURL();
+        $secret = \Idno\Core\Idno::site()->config()->site_secret ?? \Idno\Core\Idno::site()->config()->getDisplayURL();
+        $sig = hash_hmac('sha256', $interactionTarget . "\n" . $interactingObject, $secret);
+
+        return $siteUrl . 'activitypub/quote-stamp'
+            . '?target=' . urlencode($interactionTarget)
+            . '&object=' . urlencode($interactingObject)
+            . '&sig=' . $sig;
+    }
+
+    /**
      * Wrap an object in an activity.
      *
      * @param string    $type   Activity type (Create, Update, Delete, etc.)
@@ -221,7 +291,7 @@ class ActivityBuilder
         $actorId = $actor ? $actor->getActivityPubActorID() : '';
 
         $activity = [
-            '@context'  => self::CONTEXT,
+            '@context'  => self::CONTEXT_WITH_QUOTES,
             'id'        => $id ?: ($actorId . '#activity-' . md5(time() . mt_rand())),
             'type'      => $type,
             'actor'     => $actorId,

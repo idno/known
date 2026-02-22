@@ -65,6 +65,9 @@ class ActivityHandler
             case 'Delete':
                 return self::handleDelete($activity);
 
+            case 'QuoteRequest':
+                return self::handleQuoteRequest($activity);
+
             case 'Accept':
                 // We don't currently initiate follows, so just acknowledge
                 return ['status' => 200, 'body' => ''];
@@ -316,6 +319,88 @@ class ActivityHandler
         }
 
         return ['status' => 200, 'body' => ''];
+    }
+
+    /**
+     * Handle an incoming QuoteRequest activity (FEP-044f).
+     * Auto-accepts all quote requests and sends back an Accept with a stamp URL.
+     *
+     * @param array $activity The QuoteRequest activity
+     * @return array
+     */
+    private static function handleQuoteRequest(array $activity): array
+    {
+        $actorUri = $activity['actor'] ?? '';
+        $quotedPostUri = $activity['object'] ?? '';
+        $instrument = $activity['instrument'] ?? [];
+
+        // The object is the URI of our post being quoted
+        if (empty($actorUri) || empty($quotedPostUri)) {
+            return ['status' => 400, 'body' => json_encode(['error' => 'Missing actor or object'])];
+        }
+
+        // The instrument contains the quoting post
+        $quotingPostUri = '';
+        if (is_array($instrument)) {
+            $quotingPostUri = $instrument['id'] ?? '';
+        } elseif (is_string($instrument)) {
+            $quotingPostUri = $instrument;
+        }
+
+        if (empty($quotingPostUri)) {
+            \Idno\Core\Idno::site()->logging()->warning('ActivityPub: QuoteRequest missing instrument (quoting post URI)');
+            return ['status' => 400, 'body' => json_encode(['error' => 'Missing instrument'])];
+        }
+
+        // Resolve the quoted post URI to find the local post owner
+        $quotedPostId = is_string($quotedPostUri) ? $quotedPostUri : ($quotedPostUri['id'] ?? '');
+
+        // Try to find the local entity by UUID/URL
+        $entity = \Idno\Common\Entity::getByUUID($quotedPostId);
+        if (!$entity) {
+            // Try by URL as fallback
+            $entity = \Idno\Common\Entity::getBySlug($quotedPostId);
+        }
+
+        if (!$entity) {
+            \Idno\Core\Idno::site()->logging()->warning('ActivityPub: QuoteRequest for unknown post: ' . $quotedPostId);
+            return ['status' => 404, 'body' => json_encode(['error' => 'Quoted post not found'])];
+        }
+
+        $user = $entity->getOwner();
+        if (!$user || !($user instanceof User)) {
+            return ['status' => 404, 'body' => json_encode(['error' => 'Post owner not found'])];
+        }
+
+        \Idno\Core\Idno::site()->logging()->info(
+            'ActivityPub: QuoteRequest from ' . $actorUri .
+            ' to quote ' . $quotedPostId .
+            ' with post ' . $quotingPostUri . ' — auto-approving'
+        );
+
+        // Generate the stamp URL
+        $stampUrl = ActivityBuilder::buildQuoteStampUrl($quotedPostId, $quotingPostUri);
+
+        // Build and deliver the Accept
+        $acceptActivity = ActivityBuilder::buildQuoteAccept($activity, $user, $stampUrl);
+
+        // Fetch the remote actor's inbox for delivery
+        $remoteActor = RemoteActor::fetch($actorUri, $user);
+        if (!$remoteActor) {
+            \Idno\Core\Idno::site()->logging()->warning('ActivityPub: Could not resolve QuoteRequest actor: ' . $actorUri);
+            return ['status' => 202, 'body' => ''];
+        }
+
+        $inbox = $remoteActor['inbox'] ?? '';
+        if (!empty($inbox)) {
+            \Idno\Core\Idno::site()->queue()->enqueue('default', 'activitypub/deliver', [
+                'user_uuid' => $user->getUUID(),
+                'activity'  => $acceptActivity,
+                'inbox'     => $inbox,
+            ], $user->getUUID());
+        }
+
+        return ['status' => 202, 'body' => ''];
     }
 
     /**
