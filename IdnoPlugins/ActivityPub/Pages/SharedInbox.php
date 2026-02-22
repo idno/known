@@ -32,10 +32,36 @@ class SharedInbox extends \Idno\Common\Page
         exit;
     }
 
-    function postContent()
+    /**
+     * Override the framework's post() to bypass CSRF, parseJSONPayload(),
+     * and other framework machinery that interferes with federation inbox handling.
+     */
+    function post()
     {
-        \Idno\Core\Idno::site()->session()->setApplyRecaptcha(false);
+        $arguments = func_get_args();
+        if (!empty($arguments)) {
+            $this->arguments = $arguments;
+        }
 
+        try {
+            $this->handleInboxPost();
+        } catch (\Throwable $e) {
+            \Idno\Core\Idno::site()->logging()->error(
+                'ActivityPub SharedInbox: Uncaught error: ' . $e->getMessage() .
+                ' in ' . $e->getFile() . ':' . $e->getLine()
+            );
+            http_response_code(500);
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'Internal server error']);
+            exit;
+        }
+    }
+
+    /**
+     * Handle the shared inbox POST request directly.
+     */
+    private function handleInboxPost()
+    {
         $rawBody = file_get_contents('php://input');
         $headers = HTTPSignature::getRequestHeaders();
         $method = $_SERVER['REQUEST_METHOD'] ?? 'POST';
@@ -54,15 +80,14 @@ class SharedInbox extends \Idno\Common\Page
             'ActivityPub SharedInbox: Response status=' . $result['status']
         );
 
-        $this->setResponse($result['status']);
         http_response_code($result['status']);
         header('Content-Type: application/json');
         echo $result['body'];
         exit;
     }
 
-    function csrfGatekeeper()
+    function postContent()
     {
-        return true;
+        // Not used — post() is overridden to bypass the framework.
     }
 }

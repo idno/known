@@ -40,13 +40,46 @@ class Inbox extends \Idno\Common\Page
         exit;
     }
 
-    function postContent()
+    /**
+     * Override the framework's post() to bypass CSRF, parseJSONPayload(),
+     * template detection, and other framework machinery that interferes
+     * with federation inbox handling.
+     *
+     * The framework's default post() calls parseJSONPayload() which
+     * consumes php://input before postContent() can read it, and runs
+     * CSRF token validation that can fail for unsigned federation requests.
+     */
+    function post()
     {
-        // Disable CSRF verification for incoming federation requests
-        \Idno\Core\Idno::site()->session()->setApplyRecaptcha(false);
+        // Capture route arguments (handle) from Toro regex matches
+        $arguments = func_get_args();
+        if (!empty($arguments)) {
+            $this->arguments = $arguments;
+        }
 
+        try {
+            $this->handleInboxPost();
+        } catch (\Throwable $e) {
+            \Idno\Core\Idno::site()->logging()->error(
+                'ActivityPub Inbox: Uncaught error: ' . $e->getMessage() .
+                ' in ' . $e->getFile() . ':' . $e->getLine()
+            );
+            http_response_code(500);
+            header('Content-Type: application/json');
+            echo json_encode(['error' => 'Internal server error']);
+            exit;
+        }
+    }
+
+    /**
+     * Handle the inbox POST request directly.
+     */
+    private function handleInboxPost()
+    {
         $handle = $this->arguments[0] ?? '';
 
+        // Read php://input exactly once — the framework's parseJSONPayload()
+        // is bypassed so this is the only read.
         $rawBody = file_get_contents('php://input');
         $headers = HTTPSignature::getRequestHeaders();
         $method = $_SERVER['REQUEST_METHOD'] ?? 'POST';
@@ -65,18 +98,14 @@ class Inbox extends \Idno\Common\Page
             'ActivityPub Inbox: Response status=' . $result['status'] . ' for handle=' . $handle
         );
 
-        $this->setResponse($result['status']);
         http_response_code($result['status']);
         header('Content-Type: application/json');
         echo $result['body'];
         exit;
     }
 
-    /**
-     * Override to disable CSRF token verification for federation endpoints.
-     */
-    function csrfGatekeeper()
+    function postContent()
     {
-        return true;
+        // Not used — post() is overridden to bypass the framework.
     }
 }
