@@ -52,6 +52,16 @@ class Main extends Plugin
     {
 
         // -------------------------------------------------------
+        // Require asynchronous queue for ActivityPub federation
+        // -------------------------------------------------------
+        $queue = \Idno\Core\Idno::site()->queue();
+        if (!($queue instanceof \Idno\Core\AsynchronousQueue)) {
+            \Idno\Core\Idno::site()->logging()->warning(
+                'ActivityPub requires the asynchronous event queue. Federation is disabled.'
+            );
+        }
+
+        // -------------------------------------------------------
         // Mark ActivityPub inbox requests as API requests to bypass CSRF
         // -------------------------------------------------------
         \Idno\Core\Idno::site()->events()->addListener('user/auth/request', function (\Idno\Core\Event $event) {

@@ -35,6 +35,17 @@ class ActivityBuilder
     ];
 
     /**
+     * Entity subtypes that are not publishable content and should be excluded
+     * from outbox counts and content queries.
+     * Uses '!' prefix for DB-level exclusion via Entity::countFromX/getFromX.
+     */
+    const NON_CONTENT_SUBTYPES = [
+        '!Idno\\Entities\\User',
+        '!IdnoPlugins\\ActivityPub\\Entities\\ActivityPubFollower',
+        '!Idno\\Entities\\AsynchronousQueuedEvent',
+    ];
+
+    /**
      * Convert an Idno entity to an ActivityPub object (Note, Article, etc.).
      *
      * @param Entity $entity The Idno entity

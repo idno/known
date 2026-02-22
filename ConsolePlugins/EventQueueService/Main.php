@@ -20,10 +20,16 @@ namespace ConsolePlugins\EventQueueService {
                 return 1;
             }
 
-            $output->writeln("Starting event queue worker for queue '$queue' (polling every {$interval}s)...");
-            $output->writeln('Press Ctrl+C to stop.');
+            $once = $input->getOption('once');
 
-            while (true) {
+            if ($once) {
+                $output->writeln("Processing pending events from queue '$queue' (single run)...");
+            } else {
+                $output->writeln("Starting event queue worker for queue '$queue' (polling every {$interval}s)...");
+                $output->writeln('Press Ctrl+C to stop.');
+            }
+
+            do {
                 $pending = AsynchronousQueuedEvent::getPendingFromQueue($queue, 50, 0);
 
                 if (!empty($pending)) {
@@ -52,8 +58,10 @@ namespace ConsolePlugins\EventQueueService {
                     }
                 }
 
-                sleep($interval);
-            }
+                if (!$once) {
+                    sleep($interval);
+                }
+            } while (!$once);
         }
 
         public function getCommand()
@@ -71,6 +79,7 @@ namespace ConsolePlugins\EventQueueService {
             return [
                 new \Symfony\Component\Console\Input\InputOption('queue', null, \Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL, 'The named queue to process', 'default'),
                 new \Symfony\Component\Console\Input\InputOption('interval', null, \Symfony\Component\Console\Input\InputOption::VALUE_OPTIONAL, 'Polling interval in seconds', 1),
+                new \Symfony\Component\Console\Input\InputOption('once', null, \Symfony\Component\Console\Input\InputOption::VALUE_NONE, 'Process one batch of pending events and exit (for use with cron)'),
             ];
         }
 
