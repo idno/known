@@ -15,7 +15,7 @@ class AsynchronousQueue extends EventQueue
         \Idno\Core\Idno::site()->routes()->addRoute('/service/queue/gc/?', '\Idno\Pages\Service\Queues\GC');
     }
 
-    function enqueue($queueName, $eventName, array $eventData)
+    function enqueue($queueName, $eventName, array $eventData, $runAsUser = null)
     {
         if (empty($queueName)) {
             $queueName = 'default';
@@ -25,7 +25,10 @@ class AsynchronousQueue extends EventQueue
         $queuedEvent->queue = $queueName;
         $queuedEvent->event = $eventName;
         $queuedEvent->eventData = serialize($eventData);
-        $queuedEvent->runAsContext = \Idno\Core\Idno::site()->session()->currentUserUUID();
+        // Use explicit user context if provided (needed for unauthenticated
+        // callers like ActivityPub inbox handlers), otherwise fall back to
+        // the currently logged-in user.
+        $queuedEvent->runAsContext = $runAsUser ?: \Idno\Core\Idno::site()->session()->currentUserUUID();
         $queuedEvent->complete = false;
         $queuedEvent->queuedTs = time();
 
@@ -110,8 +113,12 @@ class AsynchronousQueue extends EventQueue
         $event->complete = true;
         $event->completedTs = time();
 
-        // Save before logging off so the canEdit() check in Entity::save() passes
-        $saved = $event->save();
+        // Use save(true) to bypass canEdit() — queue events are system-level
+        // entities.  When runAsContext is empty (e.g. events queued from an
+        // unauthenticated federation request) no user is logged in, so a
+        // normal save() would fail the canEdit() check and silently drop the
+        // "complete" flag, causing the event to be re-dispatched forever.
+        $saved = $event->save(true);
 
         \Idno\Core\Idno::site()->session()->logUserOff();
 
