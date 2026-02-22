@@ -5,6 +5,12 @@ notes, articles, photos, events, bookmarks, check-ins, and media on their own
 domain and syndicate to social networks. It federates with the Fediverse via
 ActivityPub.
 
+## A note about the name
+
+This system was originally called Idno. For a startup in 2014-2026, it was called Known. You
+may find references to both in the codebase, but any new code should refer to the
+system as Idno.
+
 ## Build & Test
 
 ```bash
@@ -206,3 +212,15 @@ Each content plugin has an `Entry.php` entity class that defines
 - `vendor/` is gitignored — use `composer install` to restore
 - New plugin files must be `git add -f` due to the gitignore pattern
 - `*.json` is gitignored (except `composer.json` which was tracked before the rule)
+
+## Indieweb compatibility
+
+All content is published as HTML, with Microformats2 markup. Any new content should
+include appropriate microformats classes: h-entry, h-card, h-event as appropriate.
+
+## Agents code
+
+Idno allows code that has been generated using AI models. When new code is written, 
+it should be tested using the existing test suite. New tests MUST always be written
+for new code, and existing tests MUST always pass. When there are architectural changes, 
+the existing tests MUST be updated, and appropriate edits MUST be made to AGENTS.md.
