@@ -33,7 +33,18 @@ class Inbox extends \Idno\Common\Page
         $method = $_SERVER['REQUEST_METHOD'] ?? 'POST';
         $path = $_SERVER['REQUEST_URI'] ?? '/';
 
+        \Idno\Core\Idno::site()->logging()->info(
+            'ActivityPub Inbox: POST for handle=' . $handle .
+            ' body_length=' . strlen($rawBody) .
+            ' from=' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown') .
+            ' content_type=' . ($headers['content-type'] ?? 'none')
+        );
+
         $result = ActivityHandler::handle($rawBody, $headers, $method, $path, $handle);
+
+        \Idno\Core\Idno::site()->logging()->info(
+            'ActivityPub Inbox: Response status=' . $result['status'] . ' for handle=' . $handle
+        );
 
         $this->setResponse($result['status']);
         http_response_code($result['status']);

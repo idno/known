@@ -31,8 +31,18 @@ class SharedInbox extends \Idno\Common\Page
         $method = $_SERVER['REQUEST_METHOD'] ?? 'POST';
         $path = $_SERVER['REQUEST_URI'] ?? '/';
 
+        \Idno\Core\Idno::site()->logging()->info(
+            'ActivityPub SharedInbox: POST body_length=' . strlen($rawBody) .
+            ' from=' . ($_SERVER['REMOTE_ADDR'] ?? 'unknown') .
+            ' content_type=' . ($headers['content-type'] ?? 'none')
+        );
+
         // No target handle — shared inbox accepts for any user
         $result = ActivityHandler::handle($rawBody, $headers, $method, $path, null);
+
+        \Idno\Core\Idno::site()->logging()->info(
+            'ActivityPub SharedInbox: Response status=' . $result['status']
+        );
 
         $this->setResponse($result['status']);
         http_response_code($result['status']);

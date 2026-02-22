@@ -27,15 +27,31 @@ class ActivityHandler
         // Parse the activity
         $activity = json_decode($rawBody, true);
         if (empty($activity) || empty($activity['type'])) {
+            \Idno\Core\Idno::site()->logging()->warning(
+                'ActivityPub: Invalid activity body (length=' . strlen($rawBody) . '): ' .
+                substr($rawBody, 0, 200)
+            );
             return ['status' => 400, 'body' => json_encode(['error' => 'Invalid activity'])];
         }
 
-        \Idno\Core\Idno::site()->logging()->debug('ActivityPub: Received ' . $activity['type'] . ' activity from ' . ($activity['actor'] ?? 'unknown'));
+        \Idno\Core\Idno::site()->logging()->info(
+            'ActivityPub: Received ' . $activity['type'] . ' activity from ' .
+            ($activity['actor'] ?? 'unknown') . ' id=' . ($activity['id'] ?? 'none')
+        );
 
         // Verify HTTP signature
         if (!self::verifySignature($headers, $rawBody, $method, $path, $activity)) {
+            \Idno\Core\Idno::site()->logging()->warning(
+                'ActivityPub: Signature verification FAILED for ' . $activity['type'] .
+                ' from ' . ($activity['actor'] ?? 'unknown')
+            );
             return ['status' => 401, 'body' => json_encode(['error' => 'Invalid signature'])];
         }
+
+        \Idno\Core\Idno::site()->logging()->info(
+            'ActivityPub: Signature verified for ' . $activity['type'] .
+            ' from ' . ($activity['actor'] ?? 'unknown')
+        );
 
         // Route by activity type
         $type = $activity['type'];
@@ -99,13 +115,21 @@ class ActivityHandler
         }
 
         // Fetch the remote actor's public key (using signed GET when possible)
+        \Idno\Core\Idno::site()->logging()->debug('ActivityPub: Fetching public key for ' . $sigParams['keyId']);
         $publicKey = RemoteActor::fetchPublicKey($sigParams['keyId'], $localUser);
         if (!$publicKey) {
             \Idno\Core\Idno::site()->logging()->warning('ActivityPub: Could not fetch public key for ' . $sigParams['keyId']);
             return false;
         }
 
-        return HTTPSignature::verify($publicKey, $headers, $body, $method, $path);
+        $result = HTTPSignature::verify($publicKey, $headers, $body, $method, $path);
+        if (!$result) {
+            \Idno\Core\Idno::site()->logging()->warning(
+                'ActivityPub: Signature crypto verification failed for keyId=' . $sigParams['keyId'] .
+                ' method=' . $method . ' path=' . $path
+            );
+        }
+        return $result;
     }
 
     /**
