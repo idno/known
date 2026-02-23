@@ -223,26 +223,44 @@ class ActivityBuilder
     {
         $actorId = $user->getActivityPubActorID();
 
-        // Strip @context from the embedded Follow so it inherits the Accept's
-        // context cleanly.  Nested @context creates a JSON-LD scope override
-        // that can prevent Fedify-based implementations (e.g. Ghost) from
-        // deserializing the object as a Follow instance.
-        $followObject = $followActivity;
-        unset($followObject['@context']);
+        // Build a minimal embedded Follow object containing only the standard
+        // ActivityPub properties.  The original Follow from the remote server
+        // may include implementation-specific fields whose short names are
+        // defined in contexts we don't carry.  Echoing those fields back
+        // without their original context causes strict JSON-LD processors
+        // (e.g. Fedify, used by Ghost) to fail deserialization.  Keeping
+        // only id/type/actor/object ensures every term resolves under the
+        // Accept's own ActivityStreams context.
+        $followObject = [
+            'id'     => $followActivity['id'] ?? '',
+            'type'   => $followActivity['type'] ?? 'Follow',
+            'actor'  => is_string($followActivity['actor'] ?? null)
+                            ? $followActivity['actor']
+                            : ($followActivity['actor']['id'] ?? ''),
+            'object' => is_string($followActivity['object'] ?? null)
+                            ? $followActivity['object']
+                            : ($followActivity['object']['id'] ?? ''),
+        ];
+
+        $followerActor = $followObject['actor'];
 
         $accept = [
-            '@context'  => self::CONTEXT,
+            // Use only the ActivityStreams context — the security/v1 context
+            // is not needed for Accept activities and adding unnecessary
+            // contexts can cause issues with strict JSON-LD processors.
+            '@context'  => 'https://www.w3.org/ns/activitystreams',
             'id'        => $actorId . '#accept-' . md5($followActivity['id'] ?? time()),
             'type'      => 'Accept',
             'actor'     => $actorId,
             'object'    => $followObject,
-            'published' => date(\DateTime::RFC3339),
         ];
 
-        // Address the Accept to the remote actor who sent the Follow
-        $followerActor = $followActivity['actor'] ?? '';
+        // Address the Accept to the remote actor who sent the Follow.
+        // Use an array for the `to` field per ActivityStreams convention —
+        // while JSON-LD normalizes strings and arrays equivalently, some
+        // implementations pre-process addressing fields expecting arrays.
         if (!empty($followerActor)) {
-            $accept['to'] = $followerActor;
+            $accept['to'] = [$followerActor];
         }
 
         return $accept;
