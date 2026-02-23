@@ -2,6 +2,7 @@
 
 namespace IdnoPlugins\ActivityPub\Tests {
 
+    use Idno\Entities\User;
     use IdnoPlugins\ActivityPub\ActivityBuilder;
     use IdnoPlugins\ActivityPub\HTTPSignature;
     use PHPUnit\Framework\TestCase;
@@ -128,6 +129,197 @@ namespace IdnoPlugins\ActivityPub\Tests {
             $activity = ActivityBuilder::wrapActivity('Create', null, $object, $explicitId);
 
             $this->assertEquals($explicitId, $activity['id']);
+        }
+
+        // -----------------------------------------------------------------
+        // ActivityBuilder::buildAccept
+        // -----------------------------------------------------------------
+
+        /**
+         * Helper: create a mock User that returns a fixed actor ID.
+         */
+        private function createMockUser(string $actorId = 'https://example.com/actor/testuser'): User
+        {
+            $user = $this->createMock(User::class);
+            $user->method('getActivityPubActorID')->willReturn($actorId);
+            return $user;
+        }
+
+        /**
+         * Test that buildAccept uses only the ActivityStreams context string.
+         * The security/v1 context is not needed and extra contexts can cause
+         * issues with strict JSON-LD processors like Fedify.
+         */
+        public function testBuildAcceptUsesSimpleContext()
+        {
+            $follow = [
+                '@context' => 'https://www.w3.org/ns/activitystreams',
+                'id'       => 'https://remote.example/follow/1',
+                'type'     => 'Follow',
+                'actor'    => 'https://remote.example/users/alice',
+                'object'   => 'https://example.com/actor/testuser',
+            ];
+
+            $accept = ActivityBuilder::buildAccept($follow, $this->createMockUser());
+
+            $this->assertEquals(
+                'https://www.w3.org/ns/activitystreams',
+                $accept['@context'],
+                'Accept should use only the ActivityStreams context string'
+            );
+        }
+
+        /**
+         * Test that buildAccept produces the correct structure.
+         */
+        public function testBuildAcceptStructure()
+        {
+            $follow = [
+                '@context' => 'https://www.w3.org/ns/activitystreams',
+                'id'       => 'https://remote.example/follow/1',
+                'type'     => 'Follow',
+                'actor'    => 'https://remote.example/users/alice',
+                'object'   => 'https://example.com/actor/testuser',
+            ];
+
+            $accept = ActivityBuilder::buildAccept($follow, $this->createMockUser());
+
+            $this->assertEquals('Accept', $accept['type']);
+            $this->assertEquals('https://example.com/actor/testuser', $accept['actor']);
+            $this->assertStringStartsWith('https://example.com/actor/testuser#accept-', $accept['id']);
+            $this->assertArrayHasKey('object', $accept);
+        }
+
+        /**
+         * Test that the embedded Follow in the Accept contains only the
+         * essential standard properties (id, type, actor, object) and no
+         * implementation-specific fields from the original Follow.
+         */
+        public function testBuildAcceptSanitizesEmbeddedFollow()
+        {
+            $follow = [
+                '@context'       => ['https://www.w3.org/ns/activitystreams', 'https://custom.context/v1'],
+                'id'             => 'https://remote.example/follow/1',
+                'type'           => 'Follow',
+                'actor'          => 'https://remote.example/users/alice',
+                'object'         => 'https://example.com/actor/testuser',
+                'customProperty' => 'should be stripped',
+                'published'      => '2026-01-01T00:00:00Z',
+            ];
+
+            $accept = ActivityBuilder::buildAccept($follow, $this->createMockUser());
+            $embedded = $accept['object'];
+
+            // Only standard Follow properties should be present
+            $this->assertEquals('https://remote.example/follow/1', $embedded['id']);
+            $this->assertEquals('Follow', $embedded['type']);
+            $this->assertEquals('https://remote.example/users/alice', $embedded['actor']);
+            $this->assertEquals('https://example.com/actor/testuser', $embedded['object']);
+
+            // @context and implementation-specific fields must NOT be in the embedded Follow
+            $this->assertArrayNotHasKey('@context', $embedded, 'Embedded Follow must not have @context');
+            $this->assertArrayNotHasKey('customProperty', $embedded, 'Implementation-specific fields must be stripped');
+            $this->assertArrayNotHasKey('published', $embedded, 'Non-essential fields must be stripped');
+
+            // Verify the embedded Follow has exactly 4 keys
+            $this->assertCount(4, $embedded, 'Embedded Follow should have exactly id, type, actor, object');
+        }
+
+        /**
+         * Test that the to field in the Accept is an array, not a string.
+         * Some implementations (notably Fedify/Ghost) pre-process addressing
+         * fields expecting arrays before JSON-LD normalization.
+         */
+        public function testBuildAcceptToFieldIsArray()
+        {
+            $follow = [
+                'id'     => 'https://remote.example/follow/1',
+                'type'   => 'Follow',
+                'actor'  => 'https://remote.example/users/alice',
+                'object' => 'https://example.com/actor/testuser',
+            ];
+
+            $accept = ActivityBuilder::buildAccept($follow, $this->createMockUser());
+
+            $this->assertArrayHasKey('to', $accept);
+            $this->assertIsArray($accept['to'], 'The to field must be an array');
+            $this->assertEquals(['https://remote.example/users/alice'], $accept['to']);
+        }
+
+        /**
+         * Test that buildAccept does not include a published field.
+         * Mastodon and other implementations that work with Ghost do not
+         * include published in Accept activities.
+         */
+        public function testBuildAcceptDoesNotIncludePublished()
+        {
+            $follow = [
+                'id'     => 'https://remote.example/follow/1',
+                'type'   => 'Follow',
+                'actor'  => 'https://remote.example/users/alice',
+                'object' => 'https://example.com/actor/testuser',
+            ];
+
+            $accept = ActivityBuilder::buildAccept($follow, $this->createMockUser());
+
+            $this->assertArrayNotHasKey('published', $accept, 'Accept should not include published');
+        }
+
+        /**
+         * Test that buildAccept handles Follow with actor/object as objects
+         * (not just string URIs) by extracting the id.
+         */
+        public function testBuildAcceptHandlesObjectActorAsObject()
+        {
+            $follow = [
+                'id'     => 'https://remote.example/follow/2',
+                'type'   => 'Follow',
+                'actor'  => ['id' => 'https://remote.example/users/bob', 'type' => 'Person'],
+                'object' => ['id' => 'https://example.com/actor/testuser', 'type' => 'Person'],
+            ];
+
+            $accept = ActivityBuilder::buildAccept($follow, $this->createMockUser());
+            $embedded = $accept['object'];
+
+            $this->assertEquals('https://remote.example/users/bob', $embedded['actor']);
+            $this->assertEquals('https://example.com/actor/testuser', $embedded['object']);
+            $this->assertEquals(['https://remote.example/users/bob'], $accept['to']);
+        }
+
+        /**
+         * Test that buildAccept generates a deterministic ID based on the
+         * Follow activity's ID.
+         */
+        public function testBuildAcceptDeterministicId()
+        {
+            $follow = [
+                'id'     => 'https://remote.example/follow/stable-id',
+                'type'   => 'Follow',
+                'actor'  => 'https://remote.example/users/alice',
+                'object' => 'https://example.com/actor/testuser',
+            ];
+
+            $user = $this->createMockUser();
+            $accept1 = ActivityBuilder::buildAccept($follow, $user);
+            $accept2 = ActivityBuilder::buildAccept($follow, $user);
+
+            $this->assertEquals($accept1['id'], $accept2['id'], 'Accept ID should be deterministic for the same Follow');
+        }
+
+        /**
+         * Test that buildAccept omits the to field when the Follow has no actor.
+         */
+        public function testBuildAcceptOmitsToWhenNoActor()
+        {
+            $follow = [
+                'id'     => 'https://remote.example/follow/1',
+                'type'   => 'Follow',
+                'object' => 'https://example.com/actor/testuser',
+            ];
+
+            $accept = ActivityBuilder::buildAccept($follow, $this->createMockUser());
+
+            $this->assertArrayNotHasKey('to', $accept, 'Accept should not have to field when Follow has no actor');
         }
 
         // -----------------------------------------------------------------
