@@ -41,6 +41,11 @@ namespace Tests\Core {
             $this->assertNotFalse(strpos($contents, 'hamstring baseball duckbill firecracker'), 'The specified string should have been found in the entity body. If this is failing, IDNO_DOMAIN may not be set.');
 
             $entity->delete();
+
+            // Reset permalink structure to default so subsequent tests
+            // are not affected by the /:year/:month/:slug change above
+            \Idno\Core\Idno::site()->config()->permalink_structure = null;
+            \Idno\Core\Idno::site()->config()->save();
         }
     }
 
