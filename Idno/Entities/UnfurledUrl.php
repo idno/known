@@ -60,6 +60,17 @@ namespace Idno\Entities {
                 return false;
             }
 
+            // Block requests to private/reserved IP ranges (SSRF protection)
+            $host = parse_url($url, PHP_URL_HOST);
+            if (empty($host)) {
+                return false;
+            }
+            $ip = gethostbyname($host);
+            if (!filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
+                \Idno\Core\Idno::site()->logging()->warning("Blocked unfurl request to private/reserved address: {$url}");
+                return false;
+            }
+
             $contents = \Idno\Core\Webservice::file_get_contents($url);
             if (!empty($contents)) {
 
