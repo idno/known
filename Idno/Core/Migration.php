@@ -366,37 +366,63 @@ namespace Idno\Core {
 
         static function importImagesFromBodyHTML(string $body, string $src_url): string
         {
+            $allowed_extensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
             $doc = new \DOMDocument();
             if (@$doc->loadHTML($body)) {
                 if ($images = $doc->getElementsByTagName('img')) {
                     foreach ($images as $image) {
                         $src = $image->getAttribute('src');
-                        if (substr_count($src, $src_url)) {
-                            $dir = Idno::site()->config()->getTempDir();
-                            $name = md5($src);
-                            $newname = $dir . $name . basename($src);
-                            if (@file_put_contents($newname, fopen($src, 'r'))) {
-                                switch (strtolower(pathinfo($src, PATHINFO_EXTENSION))) {
-                                    case 'jpg':
-                                    case 'jpeg':
-                                        $mime = 'image/jpg';
-                                        break;
-                                    case 'gif':
-                                        $mime = 'image/gif';
-                                        break;
-                                    case 'png':
-                                        $mime = 'image/png';
-                                        break;
-                                    default:
-                                        $mime = 'application/octet-stream';
-                                }
-                                if ($file = File::createFromFile($newname, basename($src), $mime, true)) {
-                                    $newsrc = \Idno\Core\Idno::site()->config()->getURL() . 'file/' . $file->file['_id'];
-                                    $body = str_replace($src, $newsrc, $body);
-                                    @unlink($newname);
-                                }
+
+                        // Validate the URL hostname matches the expected source domain
+                        $parsed_url = parse_url($src);
+                        if (empty($parsed_url['host'])) {
+                            continue;
+                        }
+                        $host = strtolower($parsed_url['host']);
+                        $expected_domain = strtolower($src_url);
+                        if ($host !== $expected_domain && substr($host, -(strlen($expected_domain) + 1)) !== '.' . $expected_domain) {
+                            continue;
+                        }
+
+                        // Validate file extension is an allowed image type
+                        $path_part = isset($parsed_url['path']) ? $parsed_url['path'] : '';
+                        $extension = strtolower(pathinfo($path_part, PATHINFO_EXTENSION));
+                        if (!in_array($extension, $allowed_extensions)) {
+                            continue;
+                        }
+
+                        // Use tempnam() for safe temp file creation
+                        $dir = Idno::site()->config()->getTempDir();
+                        $newname = tempnam($dir, 'import_');
+                        if ($newname === false) {
+                            continue;
+                        }
+
+                        if (@file_put_contents($newname, fopen($src, 'r'))) {
+                            switch ($extension) {
+                                case 'jpg':
+                                case 'jpeg':
+                                    $mime = 'image/jpg';
+                                    break;
+                                case 'gif':
+                                    $mime = 'image/gif';
+                                    break;
+                                case 'png':
+                                    $mime = 'image/png';
+                                    break;
+                                case 'webp':
+                                    $mime = 'image/webp';
+                                    break;
+                                default:
+                                    $mime = 'application/octet-stream';
+                            }
+                            if ($file = File::createFromFile($newname, basename($path_part), $mime, true)) {
+                                $newsrc = \Idno\Core\Idno::site()->config()->getURL() . 'file/' . $file->file['_id'];
+                                $body = str_replace($src, $newsrc, $body);
                             }
                         }
+                        @unlink($newname);
                     }
                 }
             }
