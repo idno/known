@@ -496,8 +496,6 @@ namespace Idno\Core {
             if (!$return && !empty($apiUsername) && !empty($apiSignature)) {
                 \Idno\Core\Idno::site()->logging()->debug("Attempting to auth via API credentials");
 
-                $this->setIsAPIRequest(true);
-
                 $t = \Idno\Core\Input::getInput('_t');
                 if (empty($t)) {
                     \Idno\Core\Idno::site()->template()->setTemplateType('json');
@@ -515,6 +513,7 @@ namespace Idno\Core {
                     $compare_hmac = base64_encode(hash_hmac('sha256', ($_SERVER['REQUEST_URI']), $key, true));
 
                     if ($hmac == $compare_hmac) {
+                        $this->setIsAPIRequest(true);
                         \Idno\Core\Idno::site()->logging()->debug("API auth verified signature for user: " . $user->getName());
                         // TODO maybe this should set the current user without modifying $_SESSION?
                         $return = $this->refreshSessionUser($user);
