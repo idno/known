@@ -18,7 +18,7 @@ fi
 cd "$CLAUDE_PROJECT_DIR"
 
 echo "Running phpcs before push..."
-if ! vendor/bin/phpcs; then
+if ! vendor/bin/phpcs -n; then
     echo "phpcs failed. Fix code style issues before pushing." >&2
     exit 2
 fi
