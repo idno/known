@@ -1,0 +1,90 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: ['*']
+  push:
+    branches: [dev, stable]
+
+jobs:
+  phpcs:
+    name: PHP CodeSniffer
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          tools: composer
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run phpcs
+        run: vendor/bin/phpcs
+
+  phpunit:
+    name: PHPUnit (${{ matrix.db }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        db: [mysql, mongo]
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: known_unittest
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+      mongo:
+        image: mongo:6
+        ports:
+          - 27017:27017
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: >-
+            curl, dom, gd, json, libxml, mbstring, pdo, pdo_mysql,
+            session, simplexml, openssl, gettext, mongodb
+          tools: composer
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Configure MySQL database
+        if: matrix.db == 'mysql'
+        run: |
+          mysql -h 127.0.0.1 -uroot -e "GRANT ALL ON known_unittest.* TO 'root'@'%';"
+          mysql -h 127.0.0.1 -uroot known_unittest < warmup/schemas/mysql/mysql.sql
+          cp Tests/build/config_mysql.ini configuration/config.ini
+          sed -i "s/dbuser = 'travis'/dbuser = 'root'/" configuration/config.ini
+          sed -i "s/dbhost = 'localhost'/dbhost = '127.0.0.1'/" configuration/config.ini
+
+      - name: Configure MongoDB
+        if: matrix.db == 'mongo'
+        run: |
+          cp Tests/build/config_default.ini configuration/config.ini
+
+      - name: Set up htaccess
+        run: cp warmup/webserver-configs/htaccess.dist .htaccess
+
+      - name: Run PHPUnit
+        run: vendor/bin/phpunit
