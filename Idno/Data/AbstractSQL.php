@@ -183,9 +183,10 @@ namespace Idno\Data {
             }
 
             // Make sure we're only getting objects that we're allowed to see
-            if (!\Idno\Core\Idno::site()->session()->isAdmin()) {
+            $session = \Idno\Core\Idno::site()->session();
+            if (!$session || !$session->isAdmin()) {
                 if (empty($readGroups)) {
-                    $readGroups = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
+                    $readGroups = $session ? $session->getReadAccessGroupIDs() : ['PUBLIC'];
                 }
                 $query_parameters['access'] = array('$in' => $readGroups);
             }
@@ -265,8 +266,9 @@ namespace Idno\Data {
             }
 
             // Make sure we're only getting objects that we're allowed to see
-            if (!\Idno\Core\site()->session()->isAdmin()) {
-                $readGroups                 = \Idno\Core\Idno::site()->session()->getReadAccessGroupIDs();
+            $session = \Idno\Core\Idno::site()->session();
+            if (!$session || !$session->isAdmin()) {
+                $readGroups                 = $session ? $session->getReadAccessGroupIDs() : ['PUBLIC'];
                 $query_parameters['access'] = array('$in' => $readGroups);
             }
 

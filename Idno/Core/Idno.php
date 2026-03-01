@@ -106,7 +106,11 @@ namespace Idno\Core {
             }
 
             $this->logging = new Logging();
-            $this->config->load();
+            try {
+                $this->config->load();
+            } catch (\Throwable $e) {
+                error_log('Idno: Failed to load config from database: ' . $e->getMessage());
+            }
 
             if (isset($this->config->loglevel) && $this->logging instanceof Logging) {
                 $this->logging->setLogLevel($this->config->loglevel);
