@@ -66,9 +66,11 @@ namespace Idno\Core {
         public static function timezoneDiff($timezone1, $timezone2)
         {
 
-            if (empty($timezone1)) { return false;
+            if (empty($timezone1)) {
+                return false;
             }
-            if (empty($timezone2)) { return false;
+            if (empty($timezone2)) {
+                return false;
             }
 
             $offset1 = self::timezoneToGMTOffset($timezone1);

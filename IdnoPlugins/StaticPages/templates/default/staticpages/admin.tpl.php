@@ -46,29 +46,29 @@
     <div class="col-md-10 col-md-offset-1">
         <?php
 
-            if (!empty($vars['pages'])) {
+        if (!empty($vars['pages'])) {
 
-                ?>
+            ?>
                 <table style="width: 100%; margin-bottom: 3em">
                     <thead>
                         <tr class="pages">
                             <td class="pages" width="30%"><?php echo \Idno\Core\Idno::site()->language()->_('Title'); ?></td>
                             <td class="pages" width="30%"><?php echo \Idno\Core\Idno::site()->language()->_('Category'); ?></td>
-                            <td class="pages" width="10%">&nbsp;</td>                            
+                            <td class="pages" width="10%">&nbsp;</td>
                             <td class="pages" width="15%">&nbsp;</td>
                             <td class="pages" width="15%">&nbsp;</td>
                         </tr>
                     </thead>
                     <?php
 
-                        $categories = [];
-                        foreach ($vars['pages'] as $category => $pages) {
+                    $categories = [];
+                    foreach ($vars['pages'] as $category => $pages) {
 
-                            $categories[$category] = sizeof($pages);
+                        $categories[$category] = count($pages);
 
 
-                            if (!empty($pages)) {
-                                ?>
+                        if (!empty($pages)) {
+                            ?>
                                 <tbody class="sortable-pages" data-value="<?php echo $category ?>">
                                     <?php
                                     foreach ($pages as $page) {
@@ -94,33 +94,33 @@
 
                                                 }
 
-                                            ?>
-                                            </td>                                            
+                                                ?>
+                                            </td>
                                             <td>
-                                            	<a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>staticpage/edit/<?php echo $page->_id ?>" title="<?php echo \Idno\Core\Idno::site()->language()->_('Edit page'); ?>"><icon class="fa fa-pencil"></icon><?php echo \Idno\Core\Idno::site()->language()->_('Edit'); ?></a>
+                                                <a href="<?php echo \Idno\Core\Idno::site()->config()->getDisplayURL() ?>staticpage/edit/<?php echo $page->_id ?>" title="<?php echo \Idno\Core\Idno::site()->language()->_('Edit page'); ?>"><icon class="fa fa-pencil"></icon><?php echo \Idno\Core\Idno::site()->language()->_('Edit'); ?></a>
                                             </td>
                                             <td>
                                                 <?php echo  \Idno\Core\Idno::site()->actions()->createLink($page->getDeleteURL(), '<icon class="fa fa-trash-o"></icon>' . \Idno\Core\Idno::site()->language()->_('Delete'), array(), array('method' => 'POST', 'class' => 'edit', 'title' => \Idno\Core\Idno::site()->language()->_('Delete page'), 'confirm' => true, 'confirm-text' => \Idno\Core\Idno::site()->language()->_('Are you sure you want to permanently delete this page?')));?>
                                             </td>
                                         </tr>
-                                    <?php
+                                        <?php
 
                                     }
 
-                                ?>
+                                    ?>
                                 </tbody>
                             <?php
 
-                            }
-
                         }
+
+                    }
 
                     ?>
                 </table>
             <?php
 
 
-            }
+        }
 
         ?>
     </div>
@@ -159,9 +159,9 @@
 
         <?php
 
-            if (!empty($categories)) {
+        if (!empty($categories)) {
 
-                ?>
+            ?>
                 <table style="width: 100%; margin-bottom: 3em">
                     <thead>
                         <tr class="pages">
@@ -173,12 +173,18 @@
                     </thead><tbody class="sortable-categories">
                     <?php
 
-                        foreach ($categories as $category => $count) {
+                    foreach ($categories as $category => $count) {
 
-                            $unique_id = md5($category . rand(0,999));
+                        $unique_id = md5($category . rand(0, 999));
 
-                            ?>
-                            <tr class="items <?php if ($category == 'No Category') { echo 'pages-no-category'; } ?>" <?php if ($category != 'No Category') { echo ' data-value="'.$category.'"'; } ?>>
+                        ?>
+                            <tr class="items <?php
+                            if ($category == 'No Category') {
+                                echo 'pages-no-category';
+                            } ?>" <?php
+if ($category != 'No Category') {
+    echo ' data-value="'.$category.'"';
+} ?>>
                                 <td>
                                     <div id="category-name-<?php echo $unique_id?>"><?php echo $category ?></div>
                                     <div id="edit-category-<?php echo $unique_id?>" style="display: none">
@@ -196,40 +202,40 @@
                                 <td>
                                     <?php
 
-                                        if ($category != 'No Category') {
+                                    if ($category != 'No Category') {
 
-                                            ?>
+                                        ?>
                                             <i class="fa fa-pencil"></i>
                                             <a href="#" onclick="$('#category-name-<?php echo $unique_id?>').hide(); $('#edit-category-<?php echo $unique_id?>').show(); return false;"><?php echo \Idno\Core\Idno::site()->language()->_('Edit'); ?></a>
                                         <?php
 
-                                        }
+                                    }
 
                                     ?>
                                 </td>
                                 <td>
                                     <?php
 
-                                        if ($category != 'No Category') {
+                                    if ($category != 'No Category') {
 
-                                    ?><i class="fa fa-trash-o"></i>
-                                    <?php echo  \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/staticpages/delete/', \Idno\Core\Idno::site()->language()->_('Delete'), array('category' => $category), array('method' => 'POST', 'class' => 'edit', 'confirm' => true, 'confirm-text' => \Idno\Core\Idno::site()->language()->_('Are you sure you want to permanently delete this category?')));?>
+                                        ?><i class="fa fa-trash-o"></i>
+                                        <?php echo  \Idno\Core\Idno::site()->actions()->createLink(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/staticpages/delete/', \Idno\Core\Idno::site()->language()->_('Delete'), array('category' => $category), array('method' => 'POST', 'class' => 'edit', 'confirm' => true, 'confirm-text' => \Idno\Core\Idno::site()->language()->_('Are you sure you want to permanently delete this category?')));?>
                                         <?php
 
-                                        }
+                                    }
 
                                     ?>
                                 </td>
                             </tr>
                         <?php
 
-                        }
+                    }
 
                     ?></tbody>
                 </table>
             <?php
 
-            }
+        }
 
         ?>
         <script type="text/javascript" src="<?php echo \Idno\Core\Idno::site()->config()->getStaticURL() ?>IdnoPlugins/StaticPages/external/html5sortable/html.sortable.min.js"></script>

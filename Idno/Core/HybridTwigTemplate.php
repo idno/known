@@ -79,7 +79,7 @@ namespace Idno\Core {
                 }
             }
             $replaced = false;
-            foreach(['*', $this->getTemplateType()] as $templateType) {
+            foreach (['*', $this->getTemplateType()] as $templateType) {
                 if (!empty($this->replacements[$templateName][$templateType]) && $replacements == true) {
                     foreach ($templateTypes as $type) {
                         try {

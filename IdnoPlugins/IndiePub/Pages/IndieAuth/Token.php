@@ -35,7 +35,7 @@ namespace IdnoPlugins\IndiePub\Pages\IndieAuth {
             $redirect_uri = $this->getInput('redirect_uri');
             $state        = $this->getInput('state');
             $client_id    = $this->getInput('client_id');
-            
+
             $headers      = self::getallheaders();
 
             $verified = Auth::verifyCode($code, $client_id, $redirect_uri, $state);

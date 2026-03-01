@@ -26,7 +26,7 @@ namespace IdnoPlugins\Webhooks\Pages
             $titles = $this->getInput('titles');
             $webhook_syndication = array();
             if (is_array($hooks) && !empty($hooks)) {
-                foreach($hooks as $key => $hook) {
+                foreach ($hooks as $key => $hook) {
 
                     $hook = trim($hook);
                     if (!empty($hook)) {

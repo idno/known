@@ -144,7 +144,8 @@ namespace Idno\Core {
 
             // No URL is a critical error, default base fallback is now a warning (Refs #526)
             if (!defined('IDNO_CONSOLE')) {
-                if (!$this->config->url) { throw new \Idno\Exceptions\ConfigurationException('Idno was unable to work out your base URL! You might try setting url="http://yourdomain.com/" in your config.ini');
+                if (!$this->config->url) {
+                    throw new \Idno\Exceptions\ConfigurationException('Idno was unable to work out your base URL! You might try setting url="http://yourdomain.com/" in your config.ini');
                 }
                 if ($this->config->url == '/') {
                     $this->logging->warning(
@@ -546,7 +547,8 @@ namespace Idno\Core {
          */
         function canEdit($user_id = '')
         {
-            if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) { return false;
+            if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) {
+                return false;
             }
 
             if (empty($user_id)) {
@@ -585,7 +587,8 @@ namespace Idno\Core {
          */
         function canWrite($user_id = '')
         {
-            if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) { return false;
+            if (!\Idno\Core\Idno::site()->session()->isLoggedOn()) {
+                return false;
             }
 
             if (empty($user_id)) {

@@ -320,7 +320,8 @@ namespace Idno\Core {
         {
 
             $return = $variable;
-            if (empty($return)) { $return = [];
+            if (empty($return)) {
+                $return = [];
             }
             if (!empty($return) && !is_array($return)) {
                 $return = [$return];

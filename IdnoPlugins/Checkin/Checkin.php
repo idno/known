@@ -9,7 +9,7 @@ namespace IdnoPlugins\Checkin {
         // Cache lat/long so same random result appears between calls on the same page
         private $_lat;
         private $_lng;
-        
+
         function getTitle()
         {
             return \Idno\Core\Idno::site()->language()->_('Checked into %s', [
@@ -45,81 +45,86 @@ namespace IdnoPlugins\Checkin {
             return 'place';
         }
 
-        function isAnonymous() : bool {
+        function isAnonymous() : bool
+        {
             return $this->anonymity == 'Yes';
         }
-        
-        /** 
+
+        /**
          * Reduce the precision of a lat/long dimension by rounding it off and adding some jitter.
          * @param float $location
          * @return float
          */
-        protected function reducePrecision(float $location) : float {
-            
+        protected function reducePrecision(float $location) : float
+        {
+
             // Add some jitter
-            $jitter = rand(-100,100);
+            $jitter = rand(-100, 100);
             $jitter = (float)($jitter /  10000);
-            
+
             return $location + $jitter;
         }
-        
-        function canSeePreciseLocation() : bool {
-            
+
+        function canSeePreciseLocation() : bool
+        {
+
             if (!$this->isAnonymous()) return true; // This isn't anonymous
-            
+
             if ($this->created < time() - (60*60*24)) return true; // Or it's older than 24 hours
-            
+
             if (\Idno\Core\Idno::site()->session()->currentUser()) return true; // Or we're logged in
-            
+
             return false; // Otherwise we add some jitter.
         }
-        
-        function lat() : ?float {
+
+        function lat() : ?float
+        {
             if (!empty($this->_lat)) return $this->_lat;
-            
+
             if (!empty($this->lat)) {
-                
+
                 if ($this->canSeePreciseLocation()) {
                     $this->_lat = $this->lat;
                 } else {
                     $this->_lat = $this->reducePrecision($this->lat);
                 }
-                
+
                 return $this->lat();
             }
-            
+
             return null;
         }
-        
-        
-        function long() : ?float {
-            
+
+
+        function long() : ?float
+        {
+
             if (!empty($this->_lng)) return $this->_lng;
-            
+
             if (!empty($this->long)) {
-                
+
                 if ($this->canSeePreciseLocation()) {
                     $this->_lng = $this->long;
                 } else {
                     $this->_lng = $this->reducePrecision($this->long);
                 }
-                
+
                 return $this->long();
             }
-            
+
             return null;
         }
-        
-        function jsonSerialize(): mixed 
+
+        function jsonSerialize(): mixed
         {
             $object = parent::jsonSerialize();
-            
+
             $object['latitude'] = (string)$this->lat();
             $object['longitude'] = (string)$this->long();
-            
-            return $object;        
+
+            return $object;
         }
-        
+
         /**
          * Saves changes to this object based on user input
          * @return true|false

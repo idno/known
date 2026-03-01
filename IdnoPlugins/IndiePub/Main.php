@@ -71,12 +71,12 @@ namespace IdnoPlugins\IndiePub {
                 }
                 $user = \Idno\Entities\User::getOne(array('admin' => true));
                 if ($user)
-                    if ($token == $user->getAPIkey()) {
-                        \Idno\Core\Idno::site()->session()->setIsAPIRequest(true);
-                        \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
+                if ($token == $user->getAPIkey()) {
+                    \Idno\Core\Idno::site()->session()->setIsAPIRequest(true);
+                    \Idno\Core\Idno::site()->session()->refreshSessionUser($user);
 
-                        return $user;
-                    }
+                    return $user;
+                }
             }
 
             return false;

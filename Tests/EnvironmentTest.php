@@ -28,7 +28,7 @@ namespace Tests {
                      //'curl','date','dom','gd','json','libxml','mbstring','pdo','pdo_mysql','reflection','session','simplexml', 'openssl'
                      \Idno\Core\Installer::requiredModules()
                       as $extension) {
-                echo "$extension " .var_export(extension_loaded($extension), true). "\n";
+                echo "$extension " . (extension_loaded($extension) ? 'true' : 'false') . "\n";
                 $this->assertTrue(extension_loaded($extension));
             }
 

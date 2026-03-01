@@ -42,9 +42,9 @@ namespace Idno\Pages\Admin {
                 $config->config['site_secret']     = '** REDACTED **';
                 $config->config['smtp_password']   = '** REDACTED **';
 
-                $report .= "\nRunning config:\n---------------\n" . var_export($config, true) . "\n\n";
-                $report .= "\$_SESSION:\n----------\n" . var_export($_SESSION, true) . "\n\n";
-                $report .= "\$_SERVER:\n---------\n" . var_export($_SERVER, true) . "\n\n";
+                $report .= "\nRunning config:\n---------------\n" . json_encode($config, JSON_PRETTY_PRINT) . "\n\n";
+                $report .= "\$_SESSION:\n----------\n" . json_encode($_SESSION, JSON_PRETTY_PRINT) . "\n\n";
+                $report .= "\$_SERVER:\n---------\n" . json_encode($_SERVER, JSON_PRETTY_PRINT) . "\n\n";
 
                 // Hook so other plugins and subsystems can add their own data to the report.
                 $report = \Idno\Core\Idno::site()->events()->triggerEvent('diagnostics/report', [], $report);

@@ -41,7 +41,8 @@ namespace Idno\Core {
                 }
             }
             if (!empty(\Idno\Core\Idno::site()->config()->alwaysplugins)) {
-                if (empty(\Idno\Core\Idno::site()->config()->plugins)) { \Idno\Core\Idno::site()->config()->plugins = [];
+                if (empty(\Idno\Core\Idno::site()->config()->plugins)) {
+                    \Idno\Core\Idno::site()->config()->plugins = [];
                 }
                 \Idno\Core\Idno::site()->config()->plugins = array_merge(\Idno\Core\Idno::site()->config()->plugins, \Idno\Core\Idno::site()->config()->alwaysplugins);
             }
@@ -71,7 +72,8 @@ namespace Idno\Core {
          */
         public function __get($name)
         {
-            if (!empty($this->plugins[$name])) { return $this->plugins[$name];
+            if (!empty($this->plugins[$name])) {
+                return $this->plugins[$name];
             }
 
             return null;
@@ -86,7 +88,8 @@ namespace Idno\Core {
          */
         public function __isset($name)
         {
-            if (!empty($this->plugins[$name])) { return true;
+            if (!empty($this->plugins[$name])) {
+                return true;
             }
 
             return false;

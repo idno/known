@@ -19,9 +19,11 @@ namespace Idno\Pages\Entity {
             if (!empty($this->arguments[0])) {
                 $object = \Idno\Common\Entity::getByID($this->arguments[0]);
             }
-            if (empty($object)) { $this->forward(); // TODO: 404
+            if (empty($object)) {
+                $this->forward(); // TODO: 404
             }
-            if (!$object->canEdit()) { $this->forward($object->getDisplayURL());
+            if (!$object->canEdit()) {
+                $this->forward($object->getDisplayURL());
             }
 
             if ($owner = $object->getOwner()) {

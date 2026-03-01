@@ -322,9 +322,11 @@ namespace Idno\Core {
                             switch ($type) {
                                 case 'h-card':
                                     if (!empty($item['properties'])) {
-                                        if (!empty($item['properties']['name'])) { $mentions['owner']['name'] = $item['properties']['name'][0];
+                                        if (!empty($item['properties']['name'])) {
+                                            $mentions['owner']['name'] = $item['properties']['name'][0];
                                         }
-                                        if (!empty($item['properties']['url'])) { $mentions['owner']['url'] = $item['properties']['url'][0];
+                                        if (!empty($item['properties']['url'])) {
+                                            $mentions['owner']['url'] = $item['properties']['url'][0];
                                         }
                                         if (!empty($item['properties']['photo'])) {
 

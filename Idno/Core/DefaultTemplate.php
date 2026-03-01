@@ -102,7 +102,7 @@ namespace Idno\Core {
                 }
             }
             $replaced = false;
-            foreach(['*', $this->getTemplateType()] as $templateType) {
+            foreach (['*', $this->getTemplateType()] as $templateType) {
                 if (!empty($this->replacements[$templateName][$templateType]) && $replacements == true) {
                     $result .= parent::draw($this->replacements[$templateName][$templateType], $returnBlank);
                     $replaced = true;
@@ -122,15 +122,17 @@ namespace Idno\Core {
 
             if ($templateName == 'shell' && !empty(Idno::site()->config()->filter_shell)) {
                 if (is_array(Idno::site()->config()->filter_shell)) {
-                    foreach(Idno::site()->config()->filter_shell as $search => $replace) {
+                    foreach (Idno::site()->config()->filter_shell as $search => $replace) {
                         $result = str_replace($search, $replace, $result);
                     }
                 }
             }
 
-            if (!empty($result)) { return $result;
+            if (!empty($result)) {
+                return $result;
             }
-            if ($returnBlank) { return '';
+            if ($returnBlank) {
+                return '';
             }
 
             return false;
@@ -190,9 +192,11 @@ namespace Idno\Core {
          */
         function drawPagination($count, $items_per_page = null, array $vars = [])
         {
-            if (empty($vars)) { $vars = [];
+            if (empty($vars)) {
+                $vars = [];
             }
-            if ($items_per_page == null) { $items_per_page = \Idno\Core\Idno::site()->config()->items_per_page;
+            if ($items_per_page == null) {
+                $items_per_page = \Idno\Core\Idno::site()->config()->items_per_page;
             }
             $page   = \Idno\Core\Idno::site()->currentPage();
             $offset = (int)$page->getInput('offset');

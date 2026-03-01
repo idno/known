@@ -177,7 +177,7 @@ namespace Idno\Core {
                 if ($context) {
                     // borrowed from Monolog's LineFormatter
                     if (is_bool($context)) {
-                        $context = var_export($context, true);
+                        $context = $context ? 'true' : 'false';
                     } else if (is_scalar($context)) {
                         $context = (string) $context;
                     } else {
@@ -332,7 +332,8 @@ namespace Idno\Core {
             if (!empty($config) && !empty($config->oops_notify)) {
 
                 $notify = $config->oops_notify;
-                if (!is_array($notify)) { $notify = [$notify];
+                if (!is_array($notify)) {
+                    $notify = [$notify];
                 }
 
                 $title = $config->host . ": $title";

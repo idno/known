@@ -186,7 +186,8 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) { $this->arguments = $arguments;
+            if (!empty($arguments)) {
+                $this->arguments = $arguments;
             }
             $this->xhr = true;
 
@@ -202,7 +203,8 @@ namespace Idno\Common {
             $this->parseJSONPayload();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) { $this->arguments = $arguments;
+            if (!empty($arguments)) {
+                $this->arguments = $arguments;
             }
 
             \Idno\Core\Idno::site()->events()->triggerEvent('page/head', array('page_class' => get_called_class(), 'arguments' => $arguments));
@@ -294,7 +296,8 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) { $this->arguments = $arguments;
+            if (!empty($arguments)) {
+                $this->arguments = $arguments;
             }
             $this->xhr = true;
             $this->get();
@@ -315,7 +318,8 @@ namespace Idno\Common {
             $this->parseJSONPayload();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) { $this->arguments = $arguments;
+            if (!empty($arguments)) {
+                $this->arguments = $arguments;
             }
 
             \Idno\Core\Idno::site()->events()->triggerEvent('page/head', array('page' => $this));
@@ -365,7 +369,7 @@ namespace Idno\Common {
                     \Idno\Core\Bonita\Forms::token('', $ts)
                 )
             ];
-            \Idno\Core\Idno::site()->logging()->error("Token was not valid:\n\nDebug:". print_r($debug, true));
+            \Idno\Core\Idno::site()->logging()->error("Token was not valid:\n\nDebug:" . json_encode($debug));
         }
 
         /**
@@ -379,7 +383,8 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) { $this->arguments = $arguments;
+            if (!empty($arguments)) {
+                $this->arguments = $arguments;
             }
             $this->xhr     = true;
             $this->forward = false;
@@ -398,7 +403,8 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) { $this->arguments = $arguments;
+            if (!empty($arguments)) {
+                $this->arguments = $arguments;
             }
 
             \Idno\Core\Idno::site()->events()->triggerEvent('page/head', array('page' => $this));
@@ -539,10 +545,12 @@ namespace Idno\Common {
 
                         if (!empty($trace[1])) {
                             $trace_file = 'UNKNOWN';
-                            if (!empty($trace[1]['file'])) { $trace_file = $trace[1]['file'];
+                            if (!empty($trace[1]['file'])) {
+                                $trace_file = $trace[1]['file'];
                             }
                             $trace_line = 'xxx';
-                            if (!empty($trace[1]['line'])) { $trace_line = $trace[1]['line'];
+                            if (!empty($trace[1]['line'])) {
+                                $trace_line = $trace[1]['line'];
                             }
 
                             $call_trace .= ", called by {$trace[1]['function']} in {$trace_file}:{$trace_line}";
@@ -564,7 +572,8 @@ namespace Idno\Common {
                     }
                     echo json_encode($location);
                 } elseif (!\Idno\Core\Idno::site()->session()->isAPIRequest() || $this->response == 200) {
-                    if (!empty($call_trace)) { header('X-Idno-Forward-Trace: ' . $call_trace);
+                    if (!empty($call_trace)) {
+                        header('X-Idno-Forward-Trace: ' . $call_trace);
                     }
                     header('Location: ' . $location);
                 }
@@ -601,7 +610,8 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) { $this->arguments = $arguments;
+            if (!empty($arguments)) {
+                $this->arguments = $arguments;
             }
             $this->xhr     = true;
             $this->forward = false;
@@ -620,7 +630,8 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) { $this->arguments = $arguments;
+            if (!empty($arguments)) {
+                $this->arguments = $arguments;
             }
 
             \Idno\Core\Idno::site()->events()->triggerEvent('page/head', array('page' => $this));
@@ -690,7 +701,8 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) { $this->arguments = $arguments;
+            if (!empty($arguments)) {
+                $this->arguments = $arguments;
             }
             $this->xhr     = true;
             $this->forward = false;
@@ -709,7 +721,8 @@ namespace Idno\Common {
             \Idno\Core\Idno::site()->template()->autodetectTemplateType();
 
             $arguments = func_get_args();
-            if (!empty($arguments)) { $this->arguments = $arguments;
+            if (!empty($arguments)) {
+                $this->arguments = $arguments;
             }
 
             \Idno\Core\Idno::site()->events()->triggerEvent('page/head', array('page' => $this));
@@ -974,7 +987,8 @@ namespace Idno\Common {
         function setPermalink(bool $status = true, Entity $entity = null)
         {
             $this->isPermalinkPage = $status;
-            if ($status && $entity) { $this->setEntity($entity);
+            if ($status && $entity) {
+                $this->setEntity($entity);
             }
         }
 
@@ -1157,7 +1171,8 @@ namespace Idno\Common {
 
                 if ($ignore_priority) {
                     if (!empty($headers['Accept'])) {
-                        if (substr_count($headers['Accept'], $contentType)) { return true;
+                        if (substr_count($headers['Accept'], $contentType)) {
+                            return true;
                         }
                     }
                 } else {
@@ -1172,7 +1187,8 @@ namespace Idno\Common {
                                 list($accept, $q) = explode(';q=', $accept);
                             }
 
-                            while (in_array($q, $types)) { $q -= 000000000001;
+                            while (in_array($q, $types)) {
+                                $q -= 000000000001;
                             } // fudge to give equal values order priority. TODO: do this a better way
 
                             $types[$accept] = $q;
@@ -1246,9 +1262,11 @@ namespace Idno\Common {
          */
         public function setAsset(string $name, string $value, string $class)
         {
-            if (!isset($this->assets) || !is_array($this->assets)) { $this->assets = array();
+            if (!isset($this->assets) || !is_array($this->assets)) {
+                $this->assets = array();
             }
-            if (!isset($this->assets[$class]) || !is_array($this->assets)) { $this->assets[$class] = array();
+            if (!isset($this->assets[$class]) || !is_array($this->assets)) {
+                $this->assets[$class] = array();
             }
 
             $this->assets[$class][$name] = $value;

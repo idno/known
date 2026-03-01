@@ -82,7 +82,8 @@ namespace Idno\Pages\User {
             if (!empty($this->arguments[0])) {
                 $user = \Idno\Entities\User::getByHandle($this->arguments[0]);
             }
-            if (empty($user)) { $this->forward(); // TODO: 404
+            if (empty($user)) {
+                $this->forward(); // TODO: 404
             }
             if ($user->saveDataFromInput()) {
                 if ($onboarding = $this->getInput('onboarding')) {
@@ -100,7 +101,8 @@ namespace Idno\Pages\User {
             if (!empty($this->arguments[0])) {
                 $object = \Idno\Common\Entity::getByID($this->arguments[0]);
             }
-            if (empty($object)) { $this->forward(); // TODO: 404
+            if (empty($object)) {
+                $this->forward(); // TODO: 404
             }
             if ($object->delete()) {
                 \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->esc_('%s was deleted.', [$object->getTitle()]));

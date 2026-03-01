@@ -38,7 +38,7 @@ namespace IdnoPlugins\IndiePub\Pages\IndieAuth {
                 $user->indieauth_codes = $indieauth_codes;
                 $user->save();
 
-                if (strpos($redirect_uri, '?') === false){
+                if (strpos($redirect_uri, '?') === false) {
                     $redirect_uri .= '?';
                 } else {
                     $redirect_uri .= '&';

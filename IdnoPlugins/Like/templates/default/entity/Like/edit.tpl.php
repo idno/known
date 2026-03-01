@@ -52,7 +52,9 @@
 
                 ?>
                 <div class="bookmark-title-container" for="title"
-                        <?php if (empty($vars['object']->pageTitle) && empty($vars['object']->_id) && (empty($vars['url']) && empty($vars['object']->body))) { ?>style="display:none"<?php
+                        <?php
+                        if (empty($vars['object']->pageTitle) && empty($vars['object']->_id) && (empty($vars['url']) && empty($vars['object']->body))) {
+                            ?>style="display:none"<?php
                         } ?>>
                     <label for="title">
                         <?php echo \Idno\Core\Idno::site()->language()->_('Title'); ?><br/>
@@ -64,11 +66,11 @@
                             'value' => $vars['object']->pageTitle,
                             'required' => true,
                     'class' => 'form-control bookmark-title'])->draw('forms/input/input'); ?>
-                    
+
                 </div>
 
                 <?php echo $this->draw('content/unfurl'); ?>
-                
+
                 <?php echo $this->__([
                     'name'        => 'description',
                     'value'       => $vars['object']->description,
@@ -86,8 +88,8 @@
             } ?>
             <?php echo $this->draw('content/extra'); ?>
             <?php echo $this->draw('content/access'); ?>
-            
-    
+
+
             <p class="button-bar">
                 <?php echo \Idno\Core\Idno::site()->actions()->signForm('/like/edit') ?>
                 <input type="button" class="btn btn-cancel" value="<?php echo \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="hideContentCreateForm();"/>
@@ -97,7 +99,7 @@
         </div>
 
     </div>
-    
+
 </form>
 <?php echo $this->draw('entity/edit/footer'); ?>
 <script language="javascript">
@@ -118,11 +120,11 @@
                         $('.bookmark-title').val(data.value);
                         $('.bookmark-spinner-container').html(" ");
                         $('.bookmark-title-container').show();
-                        
+
                         var unfurl = $('.bookmark-url').closest('form').find('.unfurl');
                         unfurl.attr('data-url', $('.bookmark-url').val());
                         Unfurl.unfurl(unfurl);
-                        
+
                     },
                     error: function () {
                         $('.bookmark-spinner-container').html(" ");

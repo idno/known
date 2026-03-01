@@ -242,8 +242,6 @@ namespace Tests\Data {
         protected function validateObject($obj)
         {
 
-            var_export($obj);
-            var_export(self::$uuid);
             $this->assertInstanceOf('\Idno\Entities\GenericDataItem', $obj);
 
             $this->assertEquals("" . self::$object->getID(), "" . $obj->getID(), 'The object should have a matching ID.');

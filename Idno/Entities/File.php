@@ -293,7 +293,7 @@ namespace Idno\Entities {
          */
         public static function isFileFreeFromScriptTags($file_path, $file_name = '')
         {
-            foreach([$file_name, file_get_contents($file_path)] as $contents) {
+            foreach ([$file_name, file_get_contents($file_path)] as $contents) {
                 $contents = strtolower($contents);
                 if (stripos($contents, '<script') !== false || stripos($contents, '<?php') !== false) {
                     return false;

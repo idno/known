@@ -80,7 +80,8 @@ namespace Idno\Core {
                     curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $params);
                     curl_setopt($curl_handle, CURLOPT_HTTPHEADER, array("Content-type: multipart/form-data"));
                 case 'head':
-                    if ($verb == 'head') { curl_setopt($curl_handle, CURLOPT_NOBODY, true);
+                    if ($verb == 'head') {
+                        curl_setopt($curl_handle, CURLOPT_NOBODY, true);
                     }
                 case 'get':
                 default:
@@ -185,7 +186,8 @@ namespace Idno\Core {
             // Allow plugins and other services to extend headers, allowing for plugable authentication methods on calls
             $new_headers = \Idno\Core\Idno::site()->events()->triggerEvent('webservice:headers', array('headers' => $headers, 'verb' => $verb));
             if (!empty($new_headers) && (is_array($new_headers))) {
-                if (empty($headers)) { $headers = array();
+                if (empty($headers)) {
+                    $headers = array();
                 }
                 $headers = array_merge($headers, $new_headers);
             }
@@ -568,7 +570,7 @@ namespace Idno\Core {
             }
 
             $status = null;
-            \Idno\Core\Idno::site()->logging()->debug("Valid HSTS found, no need to store" . print_r($headers, true));
+            \Idno\Core\Idno::site()->logging()->debug("Valid HSTS found, no need to store", $headers);
             // Parse out
             if (!empty($headers)) {
                 foreach ($headers as $line) {
@@ -593,7 +595,7 @@ namespace Idno\Core {
                             'includeSubDomains' => $includesubdomains
                         ];
 
-                        \Idno\Core\Idno::site()->logging()->debug("HSTS Headers are " . print_r($status, true));
+                        \Idno\Core\Idno::site()->logging()->debug("HSTS Headers are", $status);
                     }
 
                 }

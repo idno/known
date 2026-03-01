@@ -307,7 +307,7 @@ namespace Idno\Entities {
                 $description       = strip_tags($tagline);
                 $description_words = explode(' ', $description);
                 $description       = implode(' ', array_slice($description_words, 0, $words));
-                if (sizeof($description_words) > $words) {
+                if (count($description_words) > $words) {
                     $description .= ' ...';
                 }
 
@@ -504,9 +504,11 @@ namespace Idno\Entities {
          */
         function isAdmin()
         {
-            if (\Idno\Core\Idno::site()->session()->isAPIRequest()) { return false; // Refs #831 - limit admin access on API
+            if (\Idno\Core\Idno::site()->session()->isAPIRequest()) {
+                return false; // Refs #831 - limit admin access on API
             }
-            if (!empty($this->admin)) { return true;
+            if (!empty($this->admin)) {
+                return true;
             }
 
             return false;
@@ -538,14 +540,16 @@ namespace Idno\Entities {
         function canEdit($user_id = '')
         {
 
-            if (!parent::canEdit($user_id)) { return false;
+            if (!parent::canEdit($user_id)) {
+                return false;
             }
 
             if (empty($user_id)) {
                 $user_id = \Idno\Core\Idno::site()->session()->currentUserUUID();
             }
 
-            if ($user_id == $this->getUUID()) { return true;
+            if ($user_id == $this->getUUID()) {
+                return true;
             }
 
             return \Idno\Core\Idno::site()->events()->triggerEvent('canEdit/user', ['object' => $this, 'user_id' => $user_id], false);
@@ -670,7 +674,8 @@ namespace Idno\Entities {
         {
             $handle = $this->getHandle();
             $title  = $this->getTitle();
-            if (!empty($handle) && !empty($title)) { return true;
+            if (!empty($handle) && !empty($title)) {
+                return true;
             }
 
             return false;
@@ -1061,7 +1066,8 @@ namespace Idno\Entities {
         function saveDataFromInput()
         {
 
-            if (!$this->canEdit()) { return false;
+            if (!$this->canEdit()) {
+                return false;
             }
 
             $profile = \Idno\Core\Idno::site()->currentPage()->getInput('profile');

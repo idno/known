@@ -56,7 +56,7 @@ namespace IdnoPlugins\Like {
         function getTitleFromURL($Url)
         {
             $str = \Idno\Core\Webservice::file_get_contents($Url);
-            if(strlen($str) > 0){
+            if (strlen($str) > 0) {
                 if ($result = preg_match("#<title>(.*?)</title>#siu", $str, $title)) {
                     return html_entity_decode($title[1], ENT_QUOTES | ENT_XML1, 'UTF-8');
                 }
@@ -138,7 +138,7 @@ namespace IdnoPlugins\Like {
             }
 
             $body = trim($body);
-            if(filter_var($body, FILTER_VALIDATE_URL) || filter_var($bookmarkof, FILTER_VALIDATE_URL) || filter_var($likeof, FILTER_VALIDATE_URL) || filter_var($repostof, FILTER_VALIDATE_URL)){
+            if (filter_var($body, FILTER_VALIDATE_URL) || filter_var($bookmarkof, FILTER_VALIDATE_URL) || filter_var($likeof, FILTER_VALIDATE_URL) || filter_var($repostof, FILTER_VALIDATE_URL)) {
                 if (!empty($body) || !empty($bookmarkof) || !empty($likeof) || !empty($repostof)) {
                     $this->body = $body;
                     if (!empty($bookmarkof)) {

@@ -20,6 +20,9 @@
         <exclude name="Squiz.Functions.GlobalFunction.Found"/>
         <exclude name="Zend.NamingConventions.ValidVariableName.ContainsNumbers"/>
         <exclude name="Zend.NamingConventions.ValidVariableName.MemberVarNotCamelCaps"/>
+        <exclude name="Zend.NamingConventions.ValidVariableName.PrivateNoUnderscore"/>
+        <exclude name="Zend.NamingConventions.ValidVariableName.PublicHasUnderscore"/>
+        <exclude name="Internal.NoCodeFound"/>
     </rule>
 
     <rule ref="Generic.WhiteSpace.ScopeIndent">

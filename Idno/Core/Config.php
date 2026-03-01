@@ -89,7 +89,8 @@ namespace Idno\Core {
 
         function __isset($name)
         {
-            if (!empty($this->config[$name])) { return true;
+            if (!empty($this->config[$name])) {
+                return true;
             }
 
             return false;
@@ -101,7 +102,8 @@ namespace Idno\Core {
          */
         function load()
         {
-            if (empty($config)) { $config = \Idno\Core\Idno::site()->db()->getAnyRecord('config');
+            if (empty($config)) {
+                $config = \Idno\Core\Idno::site()->db()->getAnyRecord('config');
             }
             if ($config) {
                 $this->default_config = false;
@@ -134,9 +136,11 @@ namespace Idno\Core {
                 }
             } else {
                 // If we don't have a saved config, this is a new site. Set some plugin defaults
-                if (!is_array($this->config)) { $this->config = [];
+                if (!is_array($this->config)) {
+                    $this->config = [];
                 }
-                if (!is_array($this->config['plugins'])) { $this->config['plugins'] = [];
+                if (!is_array($this->config['plugins'])) {
+                    $this->config['plugins'] = [];
                 }
                 $this->config['plugins'][] = 'Status';
                 $this->config['plugins'][] = 'Text';
@@ -262,7 +266,8 @@ namespace Idno\Core {
                 }
 
                 // Perform some sanity checks on some user contributed settings
-                if (isset($this->ini_config['uploadpath'])) { $this->ini_config['uploadpath'] = rtrim($this->ini_config['uploadpath'], ' /') . '/'; // End trailing slash insanity once and for all
+                if (isset($this->ini_config['uploadpath'])) {
+                    $this->ini_config['uploadpath'] = rtrim($this->ini_config['uploadpath'], ' /') . '/'; // End trailing slash insanity once and for all
                 }
                 unset($this->ini_config['path']); // Path should always be derived
                 unset($this->ini_config['host']); // Host should always come from URL

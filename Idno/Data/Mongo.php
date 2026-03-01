@@ -227,7 +227,8 @@ namespace Idno\Data {
                     // Attempt to prevent double encoding (open question: can this be done better?)
                     $encoded = false;
                     foreach (array_values(self::$ESCAPE_SEQUENCES) as $esc) {
-                        if (strpos($k, $esc)!==false) {$encoded = true; error_log("Is encoded");
+                        if (strpos($k, $esc)!==false) {
+                            $encoded = true; error_log("Is encoded");
                         }
                     }
 
@@ -294,7 +295,8 @@ namespace Idno\Data {
                     $orig_k = $k;
                     $k          = str_replace(array_values(self::$ESCAPE_SEQUENCES), array_keys(self::$ESCAPE_SEQUENCES), $k);
                     $obj[$k] = $this->unsanitizeFields($v);
-                    if ($k!=$orig_k) { unset($obj[$orig_k]);
+                    if ($k!=$orig_k) {
+                        unset($obj[$orig_k]);
                     }
                 }
             } else if (is_array($obj)) {
@@ -303,7 +305,8 @@ namespace Idno\Data {
                     $orig_k = $k;
                     $k          = str_replace(array_values(self::$ESCAPE_SEQUENCES), array_keys(self::$ESCAPE_SEQUENCES), $k);
                     $result[$k] = $this->unsanitizeFields($v);
-                    if ($k!=$orig_k) { unset($obj[$orig_k]);
+                    if ($k!=$orig_k) {
+                        unset($obj[$orig_k]);
                     }
                 }
 
@@ -475,7 +478,8 @@ namespace Idno\Data {
                 if ($result && count($iterator)) {
                     return $this->unsanitizeFields($iterator);
                 }
-            } catch (\Exception $e) { die($e->getMessage());
+            } catch (\Exception $e) {
+                throw new \Exception($e->getMessage());
                 return false;
             }
 
@@ -583,7 +587,8 @@ namespace Idno\Data {
          */
         function deleteAllRecords($collection)
         {
-            if (empty($collection)) { return false;
+            if (empty($collection)) {
+                return false;
             }
             return $this->database->$collection->drop();
         }

@@ -41,7 +41,7 @@ namespace IdnoPlugins\Styles\Pages {
             $css = trim(strip_tags($css));
 
             $styles                             = array('css' => $css);
-            
+
             \Idno\Core\Idno::site()->config()->styles = $styles;
             \Idno\Core\Idno::site()->config()->save();
             $this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'admin/styles/');

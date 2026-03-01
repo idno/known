@@ -41,13 +41,17 @@ namespace Idno\Entities {
          */
         function canRead($user_id = '')
         {
-            if (empty($user_id)) { $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
+            if (empty($user_id)) {
+                $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
             }
-            if ($this->getOwnerID() == $user_id) { return true;
+            if ($this->getOwnerID() == $user_id) {
+                return true;
             }
-            if ($this->isMember($user_id)) { return true;
+            if ($this->isMember($user_id)) {
+                return true;
             }
-            if ($this->access == 'PUBLIC') { return true;
+            if ($this->access == 'PUBLIC') {
+                return true;
             }
 
             return false;
@@ -62,7 +66,8 @@ namespace Idno\Entities {
          */
         function isMember($user_id = '', $access = 'read')
         {
-            if (empty($user_id)) { $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
+            if (empty($user_id)) {
+                $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
             }
             if (!empty($this->$access) && is_array($this->$access) && (array_search($user_id, $this->$access) !== false)) {
                 return true;
@@ -80,11 +85,14 @@ namespace Idno\Entities {
          */
         function canPublish($user_id = '')
         {
-            if (empty($user_id)) { $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
+            if (empty($user_id)) {
+                $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
             }
-            if ($this->getOwnerID() == $user_id) { return true;
+            if ($this->getOwnerID() == $user_id) {
+                return true;
             }
-            if ($this->isMember($user_id, 'write')) { return true;
+            if ($this->isMember($user_id, 'write')) {
+                return true;
             }
 
             return false;
@@ -118,11 +126,14 @@ namespace Idno\Entities {
          */
         function canEdit($user_id = '')
         {
-            if (empty($user_id)) { $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
+            if (empty($user_id)) {
+                $user_id = \Idno\Core\Idno::site()->session()->currentUser()->uuid;
             }
-            if ($this->getOwnerID() == $user_id) { return true;
+            if ($this->getOwnerID() == $user_id) {
+                return true;
             }
-            if ($this->isMember($user_id, 'admin')) { return true;
+            if ($this->isMember($user_id, 'admin')) {
+                return true;
             }
 
             return false;

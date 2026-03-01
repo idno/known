@@ -72,13 +72,16 @@ namespace Idno\Core\Templating {
             }
             $components = parse_url($url);
             $url_var_array = [];
-            if (!empty($components['query'])) { parse_str($components['query'], $url_var_array);
+            if (!empty($components['query'])) {
+                parse_str($components['query'], $url_var_array);
             }
-            if (!empty($url_var_array[$variable_name])) { unset($url_var_array[$variable_name]);
+            if (!empty($url_var_array[$variable_name])) {
+                unset($url_var_array[$variable_name]);
             }
             $components['query'] = http_build_query($url_var_array);
             $url                 = $components['scheme'] . '://' . $components['host'] . (!empty($components['port']) ? ':' . $components['port'] : '') . $components['path'];
-            if (!empty($components['query'])) { $url .= '?' . $components['query'];
+            if (!empty($components['query'])) {
+                $url .= '?' . $components['query'];
             }
 
             return $url;
@@ -102,7 +105,8 @@ namespace Idno\Core\Templating {
             $url_var_array[$variable_name] = $value;
             $components['query']           = http_build_query($url_var_array);
             $url                           = $components['scheme'] . '://' . $components['host'] . (!empty($components['port']) ? ':' . $components['port'] : '') . $components['path'];
-            if (!empty($components['query'])) { $url .= '?' . $components['query'];
+            if (!empty($components['query'])) {
+                $url .= '?' . $components['query'];
             }
 
             return $url;
@@ -134,7 +138,8 @@ namespace Idno\Core\Templating {
                 $url_var_array[$variable_name] = $variable_value;
                 $components['query']           = http_build_query($url_var_array);
                 $url                           = $components['scheme'] . '://' . $components['host'] . (!empty($components['port']) ? ':' . $components['port'] : '') . $components['path'];
-                if (!empty($components['query'])) { $url .= '?' . $components['query'];
+                if (!empty($components['query'])) {
+                    $url .= '?' . $components['query'];
                 }
                 if ($blank_scheme) {
                     $url = str_replace($components['scheme'] . ':', '', $url);
@@ -146,7 +151,7 @@ namespace Idno\Core\Templating {
 
         /**
          * Returns the URL variable with name $variable_name if it exists; otherwise null.
-         * 
+         *
          * @param  string $variable_name
          * @return string
          */
@@ -154,12 +159,12 @@ namespace Idno\Core\Templating {
         {
             $url = $url ?: $this->getCurrentURL();
             $query = parse_url($url, PHP_URL_QUERY);
-            
+
             if ($query) {
                 parse_str($query, $url_var_array);
                 return $url_var_array[$variable_name] ?? null;
             }
-            
+
             return null;
         }
 
