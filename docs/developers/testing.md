@@ -22,16 +22,12 @@ Idno includes a PHP Codesniffer ruleset.
 
 ## Running style tests on your local machine
 
-First, make sure you've got the known phpcs package installed. If you using the git checkout, you should have already got this installed via composer, but if not do a ```composer update```.
+The code style rules are defined in `phpcs.xml` in the project root. To run the style tests, from the Idno root directory simply run:
 
-A special set of Idno code style rules is included with this package. To test against these rules, run the following from the Idno root directory:
-
-```vendor/squizlabs/php_codesniffer/bin/phpcs --standard=vendor/mapkyca/known-phpcs/configuration.xml --extensions=php .```
+```vendor/bin/phpcs```
 
 PHP Code Sniffer works with individual folders, also. For example, to test the core `Idno` engine folder, you can run:
 
-```vendor/squizlabs/php_codesniffer/bin/phpcs --standard=vendor/mapkyca/known-phpcs/configuration.xml --extensions=php Idno```
+```vendor/bin/phpcs Idno```
 
-The codebase is in the process of being brought in line with these rules, and will be integrated with our continuous integration testing once this has been completed.
-
-Contents of the `external` folder are exempt from these rules and will not be tested. 
+Contents of the `external` and `vendor` folders are exempt from these rules and will not be tested.

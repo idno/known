@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "679f06d44349fb1ab21b0333aea73644",
+    "content-hash": "7e2dfcbfe1fa628672b30a6221859343",
     "packages": [
         {
             "name": "brick/math",
@@ -5154,99 +5154,6 @@
             "time": "2013-01-29T21:29:14+00:00"
         },
         {
-            "name": "mapkyca/known-language-tools",
-            "version": "1.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mapkyca/known-language-tools.git",
-                "reference": "a1598353b83d814b41aa96eb3c3dd26e317a6982"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/known-language-tools/zipball/a1598353b83d814b41aa96eb3c3dd26e317a6982",
-                "reference": "a1598353b83d814b41aa96eb3c3dd26e317a6982",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-only"
-            ],
-            "authors": [
-                {
-                    "name": "Marcus Povey",
-                    "email": "marcus@marcus-povey.co.uk",
-                    "homepage": "https://www.marcus-povey.co.uk",
-                    "role": "Developer"
-                }
-            ],
-            "description": "I18N dev tools for Known",
-            "homepage": "https://github.com/mapkyca/known-language-tools/",
-            "keywords": [
-                "i18n",
-                "indieweb",
-                "internationalisation",
-                "known"
-            ],
-            "support": {
-                "issues": "https://github.com/mapkyca/known-language-tools/issues",
-                "source": "https://github.com/mapkyca/known-language-tools/tree/master"
-            },
-            "time": "2020-01-11T09:54:37+00:00"
-        },
-        {
-            "name": "mapkyca/known-phpcs",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mapkyca/known-phpcs.git",
-                "reference": "227009f853de625875ec9d1eb506b30638b3f824"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/known-phpcs/zipball/227009f853de625875ec9d1eb506b30638b3f824",
-                "reference": "227009f853de625875ec9d1eb506b30638b3f824",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0",
-                "squizlabs/php_codesniffer": "^3.4"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-only"
-            ],
-            "authors": [
-                {
-                    "name": "Marcus Povey",
-                    "email": "marcus@marcus-povey.co.uk",
-                    "homepage": "https://www.marcus-povey.co.uk",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Ben Werdmuller",
-                    "email": "ben@benwerd.com",
-                    "homepage": "https://werd.io",
-                    "role": "Developer"
-                }
-            ],
-            "description": "PHPCS Coding standards for Known",
-            "homepage": "https://withknown.com",
-            "keywords": [
-                "i18n",
-                "known"
-            ],
-            "support": {
-                "issues": "https://github.com/mapkyca/known-phpcs/issues",
-                "source": "https://github.com/mapkyca/known-phpcs/tree/master"
-            },
-            "time": "2019-03-15T22:46:10+00:00"
-        },
-        {
             "name": "mapkyca/mapkyca-known-docker",
             "version": "1.1.2",
             "source": {
@@ -7085,11 +6992,11 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.1.0",
+        "php": ">=8.2.0",
         "ext-curl": "*",
         "ext-date": "*",
         "ext-dom": "*",
@@ -7105,6 +7012,6 @@
         "ext-openssl": "*",
         "ext-gettext": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }
