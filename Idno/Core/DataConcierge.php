@@ -124,6 +124,21 @@ namespace Idno\Core {
         }
 
         /**
+         * Check if the database connection is still alive and reconnect
+         * if it has timed out.  Long-running processes (e.g. the async
+         * event queue worker) may hold a connection open for longer than
+         * the server's wait_timeout, causing "MySQL server has gone away"
+         * (error 2006) on the next query.
+         *
+         * The default implementation is a no-op; database backends that
+         * use persistent connections should override this.
+         */
+        function reconnectIfNeeded()
+        {
+            // No-op by default — backends override as needed.
+        }
+
+        /**
          * Saves a record to the specified database collection
          *
          * @param  string $collection

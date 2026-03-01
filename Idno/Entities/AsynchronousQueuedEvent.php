@@ -8,13 +8,13 @@ namespace Idno\Entities {
     class AsynchronousQueuedEvent extends \Idno\Entities\BaseObject
     {
 
-        public function save($add_to_feed = false, $feed_verb = 'post')
+        public function save($overrideAccess = false)
         {
             if (empty($this->queue)) {
                 $this->queue = 'default';
             }
 
-            return parent::save($add_to_feed, $feed_verb);
+            return parent::save($overrideAccess);
         }
 
         public static function getPendingFromQueue($queue = 'default', $limit = 10, $offset = 0)
