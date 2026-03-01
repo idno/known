@@ -86,6 +86,22 @@ namespace Idno\Core\Bonita {
         function draw($templateName, $returnBlank = true)
         {
             $templateName = preg_replace('/^_[A-Z0-9\/]+/i', '', $templateName);
+
+            // Reject template names with path traversal sequences or invalid characters
+            if (strpos($templateName, '..') !== false) {
+                if ($returnBlank) {
+                    return '';
+                }
+                return false;
+            }
+            // Only allow alphanumeric characters, forward slashes, hyphens, and underscores
+            if (!preg_match('/^[a-zA-Z0-9\/_-]+$/', $templateName)) {
+                if ($returnBlank) {
+                    return '';
+                }
+                return false;
+            }
+
             if (!empty($templateName)) {
 
                 // Add the Bonita base path to our additional paths list
@@ -230,6 +246,9 @@ namespace Idno\Core\Bonita {
         function setTemplateType($templateType)
         {
             $templateType = preg_replace('/^_[A-Z0-9\/]+/i', '', $templateType);
+            if (strpos($templateType, '..') !== false || !preg_match('/^[a-zA-Z0-9\/_-]+$/', $templateType)) {
+                return false;
+            }
             if ($this->templateTypeExists($templateType)) {
                 $this->templateType = $templateType;
                 return true;
@@ -246,6 +265,9 @@ namespace Idno\Core\Bonita {
         function templateTypeExists($templateType)
         {
             $templateType = preg_replace('/^_[A-Z0-9\/]+/i', '', $templateType);
+            if (strpos($templateType, '..') !== false || !preg_match('/^[a-zA-Z0-9\/_-]+$/', $templateType)) {
+                return false;
+            }
             if (!empty($templateType)) {
                 $paths = \Idno\Core\Bonita\Main::getPaths();
                 foreach ($paths as $basepath) {
