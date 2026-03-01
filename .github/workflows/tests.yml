@@ -24,7 +24,7 @@ jobs:
         run: composer install --prefer-dist --no-progress
 
       - name: Run phpcs
-        run: vendor/bin/phpcs --standard=vendor/mapkyca/known-phpcs/configuration.xml --extensions=php Idno/ IdnoPlugins/ Tests/
+        run: vendor/bin/phpcs
 
   phpunit:
     name: PHPUnit (${{ matrix.db }})
@@ -86,46 +86,41 @@ jobs:
       - name: Set up htaccess
         run: cp warmup/webserver-configs/htaccess.dist .htaccess
 
-      - name: Start Apache with PHP-FPM
+      - name: Start Apache with PHP
         run: |
-          # Configure PHP-FPM to listen on port 9000
-          sudo cp Tests/build/www.conf /etc/php/8.2/fpm/pool.d/www.conf
-          sudo sed -i 's/user = www-data/user = runner/' /etc/php/8.2/fpm/pool.d/www.conf
-          sudo sed -i 's/group = www-data/group = runner/' /etc/php/8.2/fpm/pool.d/www.conf
+          # Run Apache as the runner user (same approach as Travis CI)
+          sudo sed -i 's/export APACHE_RUN_USER=www-data/export APACHE_RUN_USER=runner/' /etc/apache2/envvars
+          sudo sed -i 's/export APACHE_RUN_GROUP=www-data/export APACHE_RUN_GROUP=runner/' /etc/apache2/envvars
 
-          # Enable required Apache modules
-          sudo a2enmod rewrite actions proxy_fcgi alias headers
+          # Enable required Apache modules (including mod_access_compat for
+          # the Order/Allow/Deny directives in .htaccess)
+          sudo a2enmod rewrite headers access_compat
 
-          # Write vhost pointing at the checkout directory
-          sudo tee /etc/apache2/sites-available/000-default.conf > /dev/null <<'VHOST'
-          <VirtualHost *:80>
+          # Write vhost pointing at the checkout directory using mod_php
+          echo '<VirtualHost *:80>
             ServerName localhost
             DocumentRoot ${{ github.workspace }}
-
             <Directory "${{ github.workspace }}">
               Options FollowSymLinks MultiViews
               AllowOverride All
               Require all granted
             </Directory>
-
-            <FilesMatch \.php$>
-              SetHandler "proxy:fcgi://127.0.0.1:9000"
-            </FilesMatch>
-
             ErrorLog ${{ github.workspace }}/apache-error.log
             CustomLog ${{ github.workspace }}/apache-access.log combined
-          </VirtualHost>
-          VHOST
+          </VirtualHost>' | sudo tee /etc/apache2/sites-available/000-default.conf > /dev/null
 
-          # Fix ownership so Apache/FPM can read the files
-          sudo chown -R runner:runner ${{ github.workspace }}
+          # Make the workspace traversable
+          sudo chmod 755 /home/runner /home/runner/work
 
-          # Restart services
-          sudo systemctl restart php8.2-fpm
+          # Restart Apache
           sudo systemctl restart apache2
 
           # Verify the server is responding
-          curl -s -o /dev/null -w "%{http_code}" http://localhost/ || true
+          curl -sI http://localhost/ || true
 
       - name: Run PHPUnit
         run: vendor/bin/phpunit
+
+      - name: Show Apache error log on failure
+        if: failure()
+        run: cat ${{ github.workspace }}/apache-error.log 2>/dev/null || true
