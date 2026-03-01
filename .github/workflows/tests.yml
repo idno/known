@@ -24,7 +24,7 @@ jobs:
         run: composer install --prefer-dist --no-progress
 
       - name: Run phpcs
-        run: vendor/bin/phpcs
+        run: vendor/bin/phpcs --standard=vendor/mapkyca/known-phpcs/configuration.xml --extensions=php Idno/ IdnoPlugins/ Tests/
 
   phpunit:
     name: PHPUnit (${{ matrix.db }})
@@ -85,6 +85,47 @@ jobs:
 
       - name: Set up htaccess
         run: cp warmup/webserver-configs/htaccess.dist .htaccess
+
+      - name: Start Apache with PHP-FPM
+        run: |
+          # Configure PHP-FPM to listen on port 9000
+          sudo cp Tests/build/www.conf /etc/php/8.2/fpm/pool.d/www.conf
+          sudo sed -i 's/user = www-data/user = runner/' /etc/php/8.2/fpm/pool.d/www.conf
+          sudo sed -i 's/group = www-data/group = runner/' /etc/php/8.2/fpm/pool.d/www.conf
+
+          # Enable required Apache modules
+          sudo a2enmod rewrite actions proxy_fcgi alias headers
+
+          # Write vhost pointing at the checkout directory
+          sudo tee /etc/apache2/sites-available/000-default.conf > /dev/null <<'VHOST'
+          <VirtualHost *:80>
+            ServerName localhost
+            DocumentRoot ${{ github.workspace }}
+
+            <Directory "${{ github.workspace }}">
+              Options FollowSymLinks MultiViews
+              AllowOverride All
+              Require all granted
+            </Directory>
+
+            <FilesMatch \.php$>
+              SetHandler "proxy:fcgi://127.0.0.1:9000"
+            </FilesMatch>
+
+            ErrorLog ${{ github.workspace }}/apache-error.log
+            CustomLog ${{ github.workspace }}/apache-access.log combined
+          </VirtualHost>
+          VHOST
+
+          # Fix ownership so Apache/FPM can read the files
+          sudo chown -R runner:runner ${{ github.workspace }}
+
+          # Restart services
+          sudo systemctl restart php8.2-fpm
+          sudo systemctl restart apache2
+
+          # Verify the server is responding
+          curl -s -o /dev/null -w "%{http_code}" http://localhost/ || true
 
       - name: Run PHPUnit
         run: vendor/bin/phpunit
