@@ -1,6 +1,6 @@
 {
     "name": "Idno",
-    "version": "1.6.2",
+    "version": "1.6.4",
     "devDependencies": {
         "@babel/cli": "^7.14.8",
         "@babel/core": "^7.15.0",
