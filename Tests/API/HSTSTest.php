@@ -3,9 +3,8 @@
 namespace Tests\API {
 
     /**
-     * Test HSTS handling on webservice calls
-     *
-     * @TODO: mock endpoints rather than having them call real sites; what if the user really does have HSTS headers on localhost?
+     * Test HSTS handling on webservice calls using synthetic headers
+     * so tests do not depend on external websites being reachable.
      */
     class HSTSTest extends \Tests\IdnoTestCase
     {
@@ -16,36 +15,39 @@ namespace Tests\API {
             // Tidy up
             if ($cache = \Idno\Core\Idno::site()->cache()) {
                  $cache->delete(parse_url('http://localhost', PHP_URL_HOST));
-                 $cache->delete(parse_url('http://mapkyca.com', PHP_URL_HOST));
+                 $cache->delete(parse_url('http://example.com', PHP_URL_HOST));
             }
 
         }
 
         /**
-         * Test that the specified endpoint doesn't have HSTS headers
+         * Test that a URL without HSTS headers is not detected as HSTS
          */
         function testNoHSTS()
         {
 
-            $result = \Idno\Core\Webservice::get('http://localhost');
+            // Feed headers that do NOT contain Strict-Transport-Security
+            \Idno\Core\Webservice::checkForHSTSHeader(
+                'http://localhost',
+                ["HTTP/1.1 200 OK", "Content-Type: text/html"]
+            );
 
             $this->assertFalse(\Idno\Core\Webservice::isHSTS('http://localhost'), 'Should have detected that http://localhost does not have HSTS headers.');
 
         }
 
         /**
-         * Test that the specified endpoint has HSTS headers
-         *
-         * @TODO: fix this so it doesn't depend on a particular website being online
+         * Test that HSTS headers are detected and cached correctly
          */
         function testHSTS()
         {
-            // Call HTTPS endpoint (twice, first will fail)
-            $result = \Idno\Core\Webservice::get('http://mapkyca.com');
-            $result = \Idno\Core\Webservice::get('http://mapkyca.com');
+            // Feed a synthetic Strict-Transport-Security header
+            \Idno\Core\Webservice::checkForHSTSHeader(
+                'http://example.com',
+                ["HTTP/1.1 200 OK", "Strict-Transport-Security: max-age=31536000; includeSubDomains"]
+            );
 
-            // Check storage
-            $this->assertTrue(\Idno\Core\Webservice::isHSTS('http://mapkyca.com'), 'Should have detected that http://mapkyca.com has HSTS headers.');
+            $this->assertTrue(\Idno\Core\Webservice::isHSTS('http://example.com'), 'Should have detected HSTS headers from the synthetic response.');
 
         }
 
@@ -54,7 +56,7 @@ namespace Tests\API {
 
             if ($cache = \Idno\Core\Idno::site()->cache()) {
                  $cache->delete(parse_url('http://localhost', PHP_URL_HOST));
-                 $cache->delete(parse_url('http://mapkyca.com', PHP_URL_HOST));
+                 $cache->delete(parse_url('http://example.com', PHP_URL_HOST));
             }
         }
 
