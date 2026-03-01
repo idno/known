@@ -69,6 +69,9 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
 
+      - name: Install system packages
+        run: sudo apt-get update && sudo apt-get install -y libapache2-mod-php8.2 libxml2-utils
+
       - name: Configure MySQL database
         if: matrix.db == 'mysql'
         run: |
@@ -86,17 +89,17 @@ jobs:
       - name: Set up htaccess
         run: cp warmup/webserver-configs/htaccess.dist .htaccess
 
-      - name: Start Apache with PHP
+      - name: Start Apache with mod_php
         run: |
+          # Enable the PHP module and required Apache modules
+          sudo a2dismod mpm_event 2>/dev/null || true
+          sudo a2enmod mpm_prefork php8.2 rewrite headers access_compat
+
           # Run Apache as the runner user (same approach as Travis CI)
           sudo sed -i 's/export APACHE_RUN_USER=www-data/export APACHE_RUN_USER=runner/' /etc/apache2/envvars
           sudo sed -i 's/export APACHE_RUN_GROUP=www-data/export APACHE_RUN_GROUP=runner/' /etc/apache2/envvars
 
-          # Enable required Apache modules (including mod_access_compat for
-          # the Order/Allow/Deny directives in .htaccess)
-          sudo a2enmod rewrite headers access_compat
-
-          # Write vhost pointing at the checkout directory using mod_php
+          # Write vhost pointing at the checkout directory
           echo '<VirtualHost *:80>
             ServerName localhost
             DocumentRoot ${{ github.workspace }}
@@ -115,8 +118,10 @@ jobs:
           # Restart Apache
           sudo systemctl restart apache2
 
-          # Verify the server is responding
-          curl -sI http://localhost/ || true
+          # Verify PHP is working through Apache
+          echo '<?php phpinfo();' > ${{ github.workspace }}/phpinfo_test.php
+          curl -s http://localhost/phpinfo_test.php | head -5
+          rm ${{ github.workspace }}/phpinfo_test.php
 
       - name: Run PHPUnit
         run: vendor/bin/phpunit
