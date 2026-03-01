@@ -64,18 +64,15 @@ module.exports = function (grunt) {
 
     // Build your language file
     grunt.registerTask('build-lang', '', function(){
-	
+
 	const { execSync } = require('child_process');
-	
-	var pot = grunt.config.get('pkg.name').toLowerCase() + '.pot';
-	
-	console.log("Building language file as ./languages/" + pot);
-	
-	execSync('touch ./languages/' + pot); // Make sure it exists, if we're going to remove (for broken builds)
-	execSync('rm ./languages/' + pot); // Remove existing
-	
-	execSync('find . -type f -regex ".*\.php" | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/' + pot); 
-	
+
+	var name = grunt.config.get('pkg.name').toLowerCase();
+
+	console.log("Building language file for " + name);
+
+	execSync('php ../../idno.php build-lang theme:' + name, {stdio: 'inherit'});
+
     });
 
 };

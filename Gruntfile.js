@@ -206,15 +206,8 @@ module.exports = function (grunt) {
     const {execSync} = require('child_process');
     /*jshint ignore:end*/
 
-    var pot = grunt.config.get('pkg.name').toLowerCase() + '.pot';
-    
-    console.log("Building language file as ./languages/" + pot);
-    
-    execSync('touch ./languages/source/' + pot); // Make sure it exists, if we're going to remove (for broken builds)
-    execSync('rm ./languages/source/' + pot); // Remove existing
-
-    execSync('find ./Idno ./templates -type f -regex ".*\.php" | sort | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from idno core
-    execSync('echo ./idno.php | php vendor/mapkyca/known-language-tools/buildpot.php >> ./languages/source/' + pot); // Build from console
+    console.log("Building language files...");
+    execSync('php idno.php build-lang all', {stdio: 'inherit'});
   });
 
   // Default task(s).
