@@ -63,6 +63,7 @@ IdnoPlugins/
 !IdnoPlugins/ActivityPub
 
 ConsolePlugins/*
+!ConsolePlugins/BuildLanguage
 !ConsolePlugins/Export
 !ConsolePlugins/GhostExport
 !ConsolePlugins/EventQueueService

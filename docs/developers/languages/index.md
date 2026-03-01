@@ -14,26 +14,34 @@ translations to your code.
 
 ### Creating .POT file
 
-The first step, after you've used ```\Idno\Core\Idno::site()->language()->_()``` to write your strings, is to generate a POT template 
-translation file. 
+The first step, after you've used ```\Idno\Core\Idno::site()->language()->_()``` to write your strings, is to generate a POT template
+translation file.
 
-To do this:
-
-* add the repository ``` mapkyca/known-language-tools ``` as a dev dependency in composer:
+From the Idno project root, run:
 
 ```bash
-composer require mapkyca/known-language-tools --dev
+# Extract strings for core Idno
+php idno.php build-lang core
+
+# Extract strings for a specific plugin
+php idno.php build-lang plugin:Status
+
+# Extract strings for a specific theme
+php idno.php build-lang theme:Cherwell
+
+# Extract strings for everything (core + all plugins + all themes)
+php idno.php build-lang all
 ```
 
-* Copy and rename the Sample.Gruntfile.js to your project's directory (where your Main.php is)
-* Create or modify your ```package.json``` to include your plugin's name (usually the namespace/directory of your Main.php
-* Create a ```languages``` directory
-* Execute ``` grunt build-lang ```
+This will parse all PHP files in the target and extract translatable strings into the appropriate ```.pot``` file.
 
-This will parse all your plugin's PHP files and extract translatable strings.
+The ```build-lang``` command uses PHP's built-in tokenizer to reliably find all ```->_()``` and ```->esc_()``` method calls.
 
 !!! note "Note"
-    If you have added a new translation string to Idno's core code or templates, you should use the Grunt ```build-lang``` task in Idno's project root to update the ```idno.pot``` file.
+    You can also run ```grunt build-lang``` from the project root or from any plugin/theme directory, which will invoke the same command.
+
+!!! note "Note"
+    If you have added a new translation string to Idno's core code or templates, run ```php idno.php build-lang core``` to update the ```idno.pot``` file.
 
 
 ### Creating your translation
