@@ -30,6 +30,11 @@ namespace ConsolePlugins\EventQueueService {
             }
 
             do {
+                // Long-running workers can outlive MySQL's wait_timeout,
+                // causing "MySQL server has gone away" on the next query.
+                // Re-establish the connection if it has dropped.
+                Idno::site()->db()->reconnectIfNeeded();
+
                 $pending = AsynchronousQueuedEvent::getPendingFromQueue($queue, 50, 0);
 
                 if (!empty($pending)) {

@@ -19,12 +19,7 @@ namespace Idno\Data {
         {
 
             try {
-                $connection_string = 'mysql:host=' . $this->dbhost . ';dbname=' . $this->dbname . ';charset=utf8';
-                if (!empty($this->dbport)) {
-                    $connection_string .= ';port=' . $this->dbport;
-                }
-                $this->client = new \PDO($connection_string, $this->dbuser, $this->dbpass, array(\PDO::MYSQL_ATTR_LOCAL_INFILE => 1));
-                $this->client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+                $this->client = $this->createPDOConnection();
             } catch (\Exception $e) {
                 error_log($e->getMessage());
                 if (!empty(\Idno\Core\Idno::site()->config()->forward_on_empty)) {
@@ -36,7 +31,7 @@ namespace Idno\Data {
 
                     if (\Idno\Core\Idno::site()->config()->debug) {
                         $message = '<p>' . $e->getMessage() . '</p>';
-                        $message .= '<p>' . $connection_string . '</p>';
+                        $message .= '<p>' . $this->buildConnectionString() . '</p>';
                     }
                     error_log($e->getMessage());
                     include \Idno\Core\Idno::site()->config()->path . '/statics/db.php';
@@ -47,6 +42,48 @@ namespace Idno\Data {
             $this->database = $this->dbname;
             $this->checkAndUpgradeSchema();
 
+        }
+
+        /**
+         * Build the PDO connection string for this MySQL instance.
+         *
+         * @return string
+         */
+        private function buildConnectionString()
+        {
+            $connection_string = 'mysql:host=' . $this->dbhost . ';dbname=' . $this->dbname . ';charset=utf8';
+            if (!empty($this->dbport)) {
+                $connection_string .= ';port=' . $this->dbport;
+            }
+            return $connection_string;
+        }
+
+        /**
+         * Create a new PDO connection using the stored credentials.
+         *
+         * @return \PDO
+         */
+        private function createPDOConnection()
+        {
+            $client = new \PDO($this->buildConnectionString(), $this->dbuser, $this->dbpass, array(\PDO::MYSQL_ATTR_LOCAL_INFILE => 1));
+            $client->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            return $client;
+        }
+
+        /**
+         * Check if the MySQL connection is still alive and reconnect if
+         * it has timed out.  This prevents "MySQL server has gone away"
+         * (error 2006) in long-running processes like the async event
+         * queue worker.
+         */
+        function reconnectIfNeeded()
+        {
+            try {
+                $this->client->query('SELECT 1');
+            } catch (\Exception $e) {
+                error_log('MySQL connection lost, reconnecting: ' . $e->getMessage());
+                $this->client = $this->createPDOConnection();
+            }
         }
 
         /**
