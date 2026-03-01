@@ -24,7 +24,11 @@ jobs:
         run: composer install --prefer-dist --no-progress
 
       - name: Run phpcs
-        run: vendor/bin/phpcs
+        run: >-
+          vendor/bin/phpcs
+          --standard=vendor/mapkyca/known-phpcs/configuration.xml
+          --extensions=php
+          Idno/ IdnoPlugins/ Tests/
 
   phpunit:
     name: PHPUnit (${{ matrix.db }})
