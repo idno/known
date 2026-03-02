@@ -1,6 +1,6 @@
 # Idno: a social publishing platform
 
-![Idno - A social publishing platform](https://idno.co/img/home/screens.png)
+![Idno - A social publishing platform](https://withknown.com/img/home/screens.png)
 
 ## Installation 
 
