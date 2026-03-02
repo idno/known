@@ -146,7 +146,7 @@ class AsynchronousQueue extends EventQueue
 
         if ($events = \Idno\Entities\AsynchronousQueuedEvent::get($search)) {
 
-            foreach($events as $event) {
+            foreach ($events as $event) {
 
                 \Idno\Core\Idno::site()->logging()->debug("AsynchronousQueue::gc($timeago) removing " . $event->getID() . " - {$event->event} in queue {$event->queue}, completed " . date('r', $event->completedTs));
                 $event->delete();

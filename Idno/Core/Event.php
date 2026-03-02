@@ -73,7 +73,8 @@ namespace Idno\Core {
 
         function __isset($name)
         {
-            if (!empty($this->attributes[$name])) { return true;
+            if (!empty($this->attributes[$name])) {
+                return true;
             }
 
             return false;

@@ -33,7 +33,7 @@
             <?php
 
             if (!empty(\Idno\Core\Idno::site()->config()->webhook_syndication)) {
-                foreach(\Idno\Core\Idno::site()->config()->webhook_syndication as $webhook) {
+                foreach (\Idno\Core\Idno::site()->config()->webhook_syndication as $webhook) {
                     if (!empty($webhook['title']) && !empty($webhook['url'])) {
 
                         ?>
@@ -80,14 +80,14 @@
         <div id="field_template" style="display:none">
             <div class="row">
                 <div class="col-md-4">
-		    <input type="text" value="" name="titles[]" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_('Name of this webhook'); ?>" class="form-control">
-		</div>
+            <input type="text" value="" name="titles[]" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_('Name of this webhook'); ?>" class="form-control">
+        </div>
                 <div class="col-md-5">
-		    <input type="text" value="" name="webhooks[]" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_('Webhook URL'); ?>"  class="form-control">
-		</div>
+            <input type="text" value="" name="webhooks[]" placeholder="<?php echo \Idno\Core\Idno::site()->language()->_('Webhook URL'); ?>"  class="form-control">
+        </div>
                 <div class="col-md-3" style="margin-top: 0.75em">
-		    <small><a href="#" onclick="$(this).closest('.row').remove(); return false;"><i class="fa fa-times"></i> <?php echo \Idno\Core\Idno::site()->language()->_('Remove this Webhook'); ?></a></small>
-		</div>
+            <small><a href="#" onclick="$(this).closest('.row').remove(); return false;"><i class="fa fa-times"></i> <?php echo \Idno\Core\Idno::site()->language()->_('Remove this Webhook'); ?></a></small>
+        </div>
             </div>
         </div>
 

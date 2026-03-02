@@ -9,8 +9,15 @@ class EndpointTest extends \Tests\IdnoTestCase
 {
     protected $toDelete = [];
 
+    function setUp(): void
+    {
+        // Log in so that publish() -> save() passes the canEdit() check
+        \Idno\Core\Idno::site()->session()->logUserOn($this->user());
+    }
+
     function tearDown(): void
     {
+        \Idno\Core\Idno::site()->session()->logUserOff();
         foreach ($this->toDelete as $entity) {
             $entity->delete();
         }

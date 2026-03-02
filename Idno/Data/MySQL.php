@@ -92,7 +92,8 @@ namespace Idno\Data {
         function checkAndUpgradeSchema()
         {
             $versions = $this->getVersions();
-            if (!$versions) { $versions = [(object)['label' => 'schema', 'value' => 0]];
+            if (!$versions) {
+                $versions = [(object)['label' => 'schema', 'value' => 0]];
             }
             if ($versions) {
                 foreach ($versions as $version) {
@@ -142,7 +143,8 @@ namespace Idno\Data {
 
                                 } catch (\Exception $e) {
                                     error_log($e->getMessage());
-                                    if ($client->inTransaction()) { $client->rollback();
+                                    if ($client->inTransaction()) {
+                                        $client->rollback();
                                     }
                                 }
                             }
@@ -547,7 +549,8 @@ namespace Idno\Data {
                                     $notstring = "`{$collection}`.`$key` not in (";
                                     $i         = 0;
                                     foreach ($value['$not']['$in'] as $val) {
-                                        if ($i > 0) { $notstring .= ', ';
+                                        if ($i > 0) {
+                                            $notstring .= ', ';
                                         }
                                         $notstring .= ":nonmdvalue{$non_md_variables}";
                                         $variables[":nonmdvalue{$non_md_variables}"] = $val;
@@ -561,7 +564,8 @@ namespace Idno\Data {
                                     $variables[":name{$metadata_joins}"] = $key;
                                     $i                                   = 0;
                                     foreach ($value['$not']['$in'] as $val) {
-                                        if ($i > 0) { $notstring .= ', ';
+                                        if ($i > 0) {
+                                            $notstring .= ', ';
                                         }
                                         $notstring .= ":nonmdvalue{$non_md_variables}";
                                         $variables[":nonmdvalue{$non_md_variables}"] = $val;
@@ -590,7 +594,8 @@ namespace Idno\Data {
                                 $instring = "`{$collection}`.`$key` in (";
                                 $i        = 0;
                                 foreach ($value['$in'] as $val) {
-                                    if ($i > 0) { $instring .= ', ';
+                                    if ($i > 0) {
+                                        $instring .= ', ';
                                     }
                                     $instring .= ":nonmdvalue{$non_md_variables}";
                                     $variables[":nonmdvalue{$non_md_variables}"] = $val;
@@ -604,7 +609,8 @@ namespace Idno\Data {
                                 $variables[":name{$metadata_joins}"] = $key;
                                 $i                                   = 0;
                                 foreach ($value['$in'] as $val) {
-                                    if ($i > 0) { $instring .= ', ';
+                                    if ($i > 0) {
+                                        $instring .= ', ';
                                     }
                                     $instring .= ":nonmdvalue{$non_md_variables}";
                                     $variables[":nonmdvalue{$non_md_variables}"] = $val;
@@ -841,7 +847,8 @@ namespace Idno\Data {
         function deleteAllRecords($collection)
         {
             try {
-                if (empty($collection)) { return false;
+                if (empty($collection)) {
+                    return false;
                 }
                 $collection = $this->sanitiseCollection($collection);
 

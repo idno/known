@@ -3,7 +3,7 @@
 <form action="<?php echo $vars['object']->getURL() ?>" method="post">
     <div class="row">
         <div class="col-md-8 col-md-offset-2 edit-pane">
-        <h4>
+            <h4>
                 <?php
 
                 if (empty($vars['object']->_id)) {
@@ -12,19 +12,19 @@
                     ?><?php echo \Idno\Core\Idno::site()->language()->_('Edit Location'); ?><?php
                 }
                 ?>
-        </h4>
+            </h4>
             <div id="geoplaceholder">
                 <p style="text-align: center; color: #4c93cb;">
                     <?php echo \Idno\Core\Idno::site()->language()->_('Hang tight ... searching for your location.'); ?>
                 </p>
 
                 <div class="geospinner">
-            <div class="rect1"></div>
-            <div class="rect2"></div>
-            <div class="rect3"></div>
-            <div class="rect4"></div>
-            <div class="rect5"></div>
-        </div>
+                    <div class="rect1"></div>
+                    <div class="rect2"></div>
+                    <div class="rect3"></div>
+                    <div class="rect4"></div>
+                    <div class="rect5"></div>
+                </div>
             </div>
             <div id="geofields" class="map" style="display:none">
                 <div class="geolocation content-form">
@@ -76,7 +76,7 @@
                 'placeholder' => '',
                 'label' => \Idno\Core\Idno::site()->language()->_('Description')
             ])->draw('forms/input/richtext')?>
-            
+
             <div class="anonymity">
                 <p>
                     <label for="anonymity">
@@ -84,9 +84,9 @@
                     </label>
                     <input name="anonymity" type="checkbox" data-toggle="toggle" data-onstyle="info" data-on="Yes" data-off="No"  data-toggle="tooltip" data-placement="top" title="<?= \Idno\Core\Idno::site()->language()->_('When selected, your precise location will only be shown to logged out users after 24 hours have passed'); ?>"
                        value="Yes" name="single_user" <?php if ($vars['object']->anonymity == 'Yes') echo 'checked'; ?>>
-            
+
             </div>
-            
+
             <?php if (empty($vars['object']->_id)) {
                 echo $this->__(['name' => 'forward-to', 'value' => \Idno\Core\Idno::site()->config()->getDisplayURL() . 'content/all/'])->draw('forms/input/hidden');
             } ?>
@@ -97,10 +97,12 @@
             <p class="button-bar ">
                <input type="button" class="btn btn-cancel" value="<?php echo \Idno\Core\Idno::site()->language()->_('Cancel'); ?>" onclick="hideContentCreateForm();"/>
                 <?php echo \Idno\Core\Idno::site()->actions()->signForm('/checkin/edit') ?>
-                <input type="submit" class="btn btn-primary" value="<?php if (empty($vars['object']->_id)) { ?><?php echo \Idno\Core\Idno::site()->language()->_('Publish'); ?><?php
-} else {
-                                                                        ?><?php echo \Idno\Core\Idno::site()->language()->_('Save'); ?><?php
-                                                                    } ?>"/>
+                <input type="submit" class="btn btn-primary" value="<?php
+                if (empty($vars['object']->_id)) {
+                    ?><?php echo \Idno\Core\Idno::site()->language()->_('Publish'); ?><?php
+                } else {
+                    ?><?php echo \Idno\Core\Idno::site()->language()->_('Save'); ?><?php
+                } ?>"/>
 
             </p>
         </div>

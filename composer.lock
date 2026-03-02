@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "679f06d44349fb1ab21b0333aea73644",
+    "content-hash": "41a1b8e75aa3892eacf4b6fa9ec85041",
     "packages": [
         {
             "name": "brick/math",
@@ -1152,47 +1152,6 @@
             "time": "2024-04-03T07:32:53+00:00"
         },
         {
-            "name": "mapkyca/known-mongo-php-library",
-            "version": "1.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mapkyca/known-mongo-php-library.git",
-                "reference": "fcdda3b6c63522704641af9d4d0027cc8d0b97a3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/known-mongo-php-library/zipball/fcdda3b6c63522704641af9d4d0027cc8d0b97a3",
-                "reference": "fcdda3b6c63522704641af9d4d0027cc8d0b97a3",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.5"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/functions.php"
-                ],
-                "psr-4": {
-                    "MongoDB\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "description": "Known version of the mongo php libray, in its own repo since no versioned build in packageist seems to work",
-            "keywords": [
-                "known",
-                "mongo"
-            ],
-            "support": {
-                "issues": "https://github.com/mapkyca/known-mongo-php-library/issues",
-                "source": "https://github.com/mapkyca/known-mongo-php-library/tree/1.0.3"
-            },
-            "time": "2021-01-23T21:06:30+00:00"
-        },
-        {
             "name": "mapkyca/mrclay_autop_known",
             "version": "v1.0.0",
             "source": {
@@ -1412,6 +1371,82 @@
                 "source": "https://github.com/microformats/php-mf2/tree/v0.5.0"
             },
             "time": "2022-02-10T01:05:27+00:00"
+        },
+        {
+            "name": "mongodb/mongodb",
+            "version": "1.21.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mongodb/mongo-php-library.git",
+                "reference": "b8f569ec52542d2f1bfca88286f20d14a7f72536"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mongodb/mongo-php-library/zipball/b8f569ec52542d2f1bfca88286f20d14a7f72536",
+                "reference": "b8f569ec52542d2f1bfca88286f20d14a7f72536",
+                "shasum": ""
+            },
+            "require": {
+                "composer-runtime-api": "^2.0",
+                "ext-mongodb": "^1.21.0",
+                "php": "^8.1",
+                "psr/log": "^1.1.4|^2|^3"
+            },
+            "replace": {
+                "mongodb/builder": "*"
+            },
+            "require-dev": {
+                "doctrine/coding-standard": "^12.0",
+                "phpunit/phpunit": "^10.5.35",
+                "rector/rector": "^2.1.4",
+                "squizlabs/php_codesniffer": "^3.7",
+                "vimeo/psalm": "6.5.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/functions.php"
+                ],
+                "psr-4": {
+                    "MongoDB\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Andreas Braun",
+                    "email": "andreas.braun@mongodb.com"
+                },
+                {
+                    "name": "Jeremy Mikola",
+                    "email": "jmikola@gmail.com"
+                },
+                {
+                    "name": "Jérôme Tamarelle",
+                    "email": "jerome.tamarelle@mongodb.com"
+                }
+            ],
+            "description": "MongoDB driver library",
+            "homepage": "https://jira.mongodb.org/browse/PHPLIB",
+            "keywords": [
+                "database",
+                "driver",
+                "mongodb",
+                "persistence"
+            ],
+            "support": {
+                "issues": "https://github.com/mongodb/mongo-php-library/issues",
+                "source": "https://github.com/mongodb/mongo-php-library/tree/1.21.3"
+            },
+            "time": "2025-09-22T12:34:29+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -3918,16 +3953,16 @@
         },
         {
             "name": "symfony/polyfill-php80",
-            "version": "v1.31.0",
+            "version": "v1.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php80.git",
-                "reference": "60328e362d4c2c802a54fcbf04f9d3fb892b4cf8"
+                "reference": "0cc9dd0f17f61d8131e7df6b84bd344899fe2608"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/60328e362d4c2c802a54fcbf04f9d3fb892b4cf8",
-                "reference": "60328e362d4c2c802a54fcbf04f9d3fb892b4cf8",
+                "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/0cc9dd0f17f61d8131e7df6b84bd344899fe2608",
+                "reference": "0cc9dd0f17f61d8131e7df6b84bd344899fe2608",
                 "shasum": ""
             },
             "require": {
@@ -3978,7 +4013,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php80/tree/v1.31.0"
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.33.0"
             },
             "funding": [
                 {
@@ -3990,15 +4025,19 @@
                     "type": "github"
                 },
                 {
+                    "url": "https://github.com/nicolas-grekas",
+                    "type": "github"
+                },
+                {
                     "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-09-09T11:45:10+00:00"
+            "time": "2025-01-02T08:10:11+00:00"
         },
         {
             "name": "symfony/polyfill-php81",
-            "version": "v1.31.0",
+            "version": "v1.33.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-php81.git",
@@ -4054,7 +4093,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-php81/tree/v1.31.0"
+                "source": "https://github.com/symfony/polyfill-php81/tree/v1.33.0"
             },
             "funding": [
                 {
@@ -4063,6 +4102,10 @@
                 },
                 {
                     "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://github.com/nicolas-grekas",
                     "type": "github"
                 },
                 {
@@ -5152,99 +5195,6 @@
                 "source": "https://github.com/jakubledl/dissect/tree/v1.0.1"
             },
             "time": "2013-01-29T21:29:14+00:00"
-        },
-        {
-            "name": "mapkyca/known-language-tools",
-            "version": "1.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mapkyca/known-language-tools.git",
-                "reference": "a1598353b83d814b41aa96eb3c3dd26e317a6982"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/known-language-tools/zipball/a1598353b83d814b41aa96eb3c3dd26e317a6982",
-                "reference": "a1598353b83d814b41aa96eb3c3dd26e317a6982",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-only"
-            ],
-            "authors": [
-                {
-                    "name": "Marcus Povey",
-                    "email": "marcus@marcus-povey.co.uk",
-                    "homepage": "https://www.marcus-povey.co.uk",
-                    "role": "Developer"
-                }
-            ],
-            "description": "I18N dev tools for Known",
-            "homepage": "https://github.com/mapkyca/known-language-tools/",
-            "keywords": [
-                "i18n",
-                "indieweb",
-                "internationalisation",
-                "known"
-            ],
-            "support": {
-                "issues": "https://github.com/mapkyca/known-language-tools/issues",
-                "source": "https://github.com/mapkyca/known-language-tools/tree/master"
-            },
-            "time": "2020-01-11T09:54:37+00:00"
-        },
-        {
-            "name": "mapkyca/known-phpcs",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/mapkyca/known-phpcs.git",
-                "reference": "227009f853de625875ec9d1eb506b30638b3f824"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/mapkyca/known-phpcs/zipball/227009f853de625875ec9d1eb506b30638b3f824",
-                "reference": "227009f853de625875ec9d1eb506b30638b3f824",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.0",
-                "squizlabs/php_codesniffer": "^3.4"
-            },
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-only"
-            ],
-            "authors": [
-                {
-                    "name": "Marcus Povey",
-                    "email": "marcus@marcus-povey.co.uk",
-                    "homepage": "https://www.marcus-povey.co.uk",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Ben Werdmuller",
-                    "email": "ben@benwerd.com",
-                    "homepage": "https://werd.io",
-                    "role": "Developer"
-                }
-            ],
-            "description": "PHPCS Coding standards for Known",
-            "homepage": "https://withknown.com",
-            "keywords": [
-                "i18n",
-                "known"
-            ],
-            "support": {
-                "issues": "https://github.com/mapkyca/known-phpcs/issues",
-                "source": "https://github.com/mapkyca/known-phpcs/tree/master"
-            },
-            "time": "2019-03-15T22:46:10+00:00"
         },
         {
             "name": "mapkyca/mapkyca-known-docker",
@@ -7085,11 +7035,11 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.1.0",
+        "php": ">=8.2.0",
         "ext-curl": "*",
         "ext-date": "*",
         "ext-dom": "*",
@@ -7105,6 +7055,6 @@
         "ext-openssl": "*",
         "ext-gettext": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.6.0"
 }

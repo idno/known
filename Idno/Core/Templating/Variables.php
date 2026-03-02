@@ -86,9 +86,11 @@ namespace Idno\Core\Templating {
                 $vars['title_className'] = ' class="p-name"';
             }
 
-            if (empty($vars['title'])) { $vars['title'] = '';
+            if (empty($vars['title'])) {
+                $vars['title'] = '';
             }
-            if (empty($vars['body'])) { $vars['body'] = '';
+            if (empty($vars['body'])) {
+                $vars['body'] = '';
             }
 
             return $this->__($vars);

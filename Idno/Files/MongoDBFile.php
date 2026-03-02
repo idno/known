@@ -64,7 +64,7 @@ namespace Idno\Files {
          */
         function getResource()
         {
-            $resource = $this->bucket->openDownloadStream(new \MongoDB\BSON\ObjectID($this->_id));
+            $resource = $this->bucket->openDownloadStream(new \MongoDB\BSON\ObjectId($this->_id));
 
             return $resource;
         }
@@ -75,7 +75,7 @@ namespace Idno\Files {
         function delete()
         {
             try {
-                return $this->bucket->delete(new \MongoDB\BSON\ObjectID($this->_id));
+                return $this->bucket->delete(new \MongoDB\BSON\ObjectId($this->_id));
             } catch (\Exception $e) {
                 \Idno\Core\site()->logging()->debug($e->getMessage());
             }
@@ -91,7 +91,7 @@ namespace Idno\Files {
         {
             try {
                 if ($out = fopen($path, 'wb')) {
-                    $this->bucket->downloadToStream(new \MongoDB\BSON\ObjectID($this->_id), $out);
+                    $this->bucket->downloadToStream(new \MongoDB\BSON\ObjectId($this->_id), $out);
 
                     fclose($out);
 

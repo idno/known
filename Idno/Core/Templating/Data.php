@@ -29,7 +29,8 @@ namespace Idno\Core\Templating {
          */
         function getDataForObjectType($objectType)
         {
-            if (!empty($this->object_data[$objectType])) { return $this->object_data[$objectType];
+            if (!empty($this->object_data[$objectType])) {
+                return $this->object_data[$objectType];
             }
             return [];
         }
@@ -44,7 +45,7 @@ namespace Idno\Core\Templating {
         {
             $attributes = [];
             if ($data = $this->getDataForObjectType($objectType)) {
-                foreach($data as $label => $value) {
+                foreach ($data as $label => $value) {
                     $attributes[] = 'data-' . $label . '="'.addslashes($value).'"';
                 }
             }

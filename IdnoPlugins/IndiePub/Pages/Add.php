@@ -5,7 +5,8 @@ namespace IdnoPlugins\IndiePub\Pages;
 use Idno\Core\Idno;
 use Idno\Common\Page;
 
-class Add extends Page {
+class Add extends Page
+{
 
     function postContent()
     {

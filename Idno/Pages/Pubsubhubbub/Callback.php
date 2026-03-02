@@ -65,7 +65,8 @@ namespace Idno\Pages\Pubsubhubbub {
 
             // Since we've overloaded post, we need to parse the arguments
             $arguments = func_get_args();
-            if (!empty($arguments)) { $this->arguments = $arguments;
+            if (!empty($arguments)) {
+                $this->arguments = $arguments;
             }
 
             // Find users

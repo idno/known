@@ -11,7 +11,7 @@ namespace Tests\Pages {
             exec("curl -L --silent '".\Idno\Core\Idno::site()->config()->getDisplayURL()."?_t=rss' | xmllint --noout - 2>&1", $output);
 
             if (!empty($output)) {
-                var_export($output);
+                // Output contains unexpected content
 
                 // Hack to handle travis' old build environment
                 foreach ($output as $k => $v) {

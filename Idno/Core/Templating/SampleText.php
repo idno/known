@@ -40,7 +40,8 @@ namespace Idno\Core\Templating {
             $formatted_text = explode(' ', $formatted_text);
             $formatted_text = array_slice($formatted_text, 0, $words);
             $formatted_text = implode(' ', $formatted_text);
-            if (strlen($formatted_text) < strlen($text)) { $formatted_text .= ' ...';
+            if (strlen($formatted_text) < strlen($text)) {
+                $formatted_text .= ' ...';
             }
             return $formatted_text;
         }

@@ -42,10 +42,10 @@ namespace IdnoPlugins\Media {
             }
 
             if ($media = Media::get($search, [], 9999, 0)) {
-                foreach($media as $post) {
+                foreach ($media as $post) {
                     /* @var Media $post */
                     if ($attachments = $post->getAttachments()) {
-                        foreach($attachments as $attachment) {
+                        foreach ($attachments as $attachment) {
                             $total += $attachment['length'];
                         }
                     }

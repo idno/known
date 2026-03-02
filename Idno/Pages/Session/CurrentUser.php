@@ -24,7 +24,8 @@ namespace Idno\Pages\Session {
         function getContent()
         {
             $user = \Idno\Core\Idno::site()->session()->currentUser();
-            if (empty($user)) { $this->noContent();
+            if (empty($user)) {
+                $this->noContent();
             }
 
             $this->setPermalink(); // This is a permalink

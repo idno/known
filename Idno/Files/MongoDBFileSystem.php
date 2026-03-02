@@ -25,7 +25,7 @@ namespace Idno\Files {
                 $_id = $_id['_id'];
             }
 
-            $result = $this->gridfs_object->find(['_id' => new \MongoDB\BSON\ObjectID($_id)], ['limit' => 1]);
+            $result = $this->gridfs_object->find(['_id' => new \MongoDB\BSON\ObjectId($_id)], ['limit' => 1]);
             if ($array = iterator_to_array($result)) {
 
                 $data = \Idno\Core\site()->db()->unsanitizeFields($array[0]);

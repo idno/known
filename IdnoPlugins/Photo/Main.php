@@ -46,11 +46,11 @@ namespace IdnoPlugins\Photo {
             }
 
             if ($photos = Photo::get($search, [], 9999, 0)) {
-                foreach($photos as $photo) {
+                foreach ($photos as $photo) {
                     /* @var Photo $photo */
                     if ($photo instanceof Photo) {
                         if ($attachments = $photo->getAttachments()) {
-                            foreach($attachments as $attachment) {
+                            foreach ($attachments as $attachment) {
                                 $total += $attachment['length'];
                             }
                         }

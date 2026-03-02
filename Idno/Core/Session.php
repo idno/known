@@ -103,14 +103,17 @@ namespace Idno\Core {
 
                     if (empty($object) || empty($this->user)
                         || !($object instanceof User) || !($this->user instanceof User)
-                    ) { return;
+                    ) {
+                        return;
                     }
 
-                    if ($object->getUUID() != $this->user->getUUID()) { return;
+                    if ($object->getUUID() != $this->user->getUUID()) {
+                        return;
                     }
 
                     if (!empty($_SESSION['user_uuid'])) {
-                        if ($object->getUUID() != $_SESSION['user_uuid']) { return;
+                        if ($object->getUUID() != $_SESSION['user_uuid']) {
+                            return;
                         }
                     }
 
@@ -502,7 +505,8 @@ namespace Idno\Core {
                 }
 
                 $user = \Idno\Entities\User::getByHandle($apiUsername);
-                if (empty($user)) { $user = \Idno\Entities\User::getByEmail($apiUsername);
+                if (empty($user)) {
+                    $user = \Idno\Entities\User::getByEmail($apiUsername);
                 }
                 if (!empty($user)) {
                     \Idno\Core\Idno::site()->logging()->debug("API auth found user by username: {$apiUsername} - " . $user->getName());

@@ -111,7 +111,8 @@ namespace Idno\Pages\Entity {
                 }
             }
 
-            if (empty($object)) { $this->forward(); // TODO: 404
+            if (empty($object)) {
+                $this->forward(); // TODO: 404
             }
             if ($object->saveDataFromInput()) {
                 $this->forward($object->getDisplayURL());
@@ -129,7 +130,8 @@ namespace Idno\Pages\Entity {
                     $object = \Idno\Common\Entity::getBySlug($this->arguments[0]);
                 }
             }
-            if (empty($object)) { $this->forward(); // TODO: 404
+            if (empty($object)) {
+                $this->forward(); // TODO: 404
             }
             if ($object->delete()) {
                 \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->esc_('%s was deleted.', [$object->getTitle()]));

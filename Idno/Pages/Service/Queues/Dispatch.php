@@ -17,7 +17,8 @@ namespace Idno\Pages\Service\Queues {
             if (!empty($this->arguments[0])) {
                 $object = \Idno\Common\Entity::getByID($this->arguments[0]);
             }
-            if (empty($object)) { $this->noContent();
+            if (empty($object)) {
+                $this->noContent();
             }
 
             $eventqueue = \Idno\Core\Idno::site()->queue();

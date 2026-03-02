@@ -1180,7 +1180,7 @@ namespace Idno\Common {
             $hash_tags_array = [];
             if (!empty($hash_tags)) {
                 if (is_array($hash_tags)) {
-                    foreach( $hash_tags as $hash_tag ) {
+                    foreach ($hash_tags as $hash_tag) {
                         $hash_tag_obj = (object) [
                             'type' => 'Hashtag',
                             'href' => \Idno\Core\Idno::site()->config()->url . 'tag/' . ltrim($hash_tag, '#'),
@@ -1299,7 +1299,7 @@ namespace Idno\Common {
                     foreach ($images as $image) {
                         if ($source = $image->getAttribute('src')) {
                             $src[] = $source;
-                            if ($total > 0 && sizeof($src) >= $total) {
+                            if ($total > 0 && count($src) >= $total) {
                                 return $src;
                             }
                         }
@@ -1382,7 +1382,7 @@ namespace Idno\Common {
                 if ($paras = $doc->getElementsByTagName('p')) {
                     foreach ($paras as $para) {
                         $src[] = $doc->saveHTML($para);
-                        if ($total > 0 && sizeof($src) >= $total) {
+                        if ($total > 0 && count($src) >= $total) {
                             return $src;
                         }
                     }
@@ -2042,7 +2042,7 @@ namespace Idno\Common {
                 $rssItem->appendChild($page->createElement('geo:long', $item->long));
             }
             if ($attachments = $item->getAttachments()) {
-                foreach($attachments as $attachment) {
+                foreach ($attachments as $attachment) {
                     if (!empty($attachment['url'])) { // Only include attachments with set URLs
                         $enclosureItem = $page->createElement('enclosure');
                         $enclosureItem->setAttribute('url', $attachment['url']);
@@ -2053,7 +2053,7 @@ namespace Idno\Common {
                 }
             }
             if ($tags = $item->getTags()) {
-                foreach($tags as $tag) {
+                foreach ($tags as $tag) {
                     $tagItem = $page->createElement('category', $tag);
                     $rssItem->appendChild($tagItem);
                 }
@@ -2075,11 +2075,11 @@ namespace Idno\Common {
                             );
                             $wpComment->appendChild(
                                 $page->createElement('wp:comment_author',
-                                    htmlspecialchars(!empty($annotation['owner_name']) ? $annotation['owner_name'] : 'Anonymous'))
+                                htmlspecialchars(!empty($annotation['owner_name']) ? $annotation['owner_name'] : 'Anonymous'))
                             );
                             $wpComment->appendChild(
                                 $page->createElement('wp:comment_author_url',
-                                    htmlspecialchars(!empty($annotation['owner_url']) ? $annotation['owner_url'] : ''))
+                                htmlspecialchars(!empty($annotation['owner_url']) ? $annotation['owner_url'] : ''))
                             );
 
                             $commentContent = $page->createElement('wp:comment_content');
@@ -2581,7 +2581,7 @@ namespace Idno\Common {
 
             // Add extra fields
             if (!empty($extra_fields)) {
-                foreach($extra_fields as $extra_field_name => $extra_field_value) {
+                foreach ($extra_fields as $extra_field_name => $extra_field_value) {
                     $annotation[$extra_field_name] = $extra_field_value;
                 }
             }
@@ -2713,7 +2713,7 @@ namespace Idno\Common {
         function countAnnotations($subtype)
         {
             if (!empty($this->annotations) && is_array($this->annotations) && !empty($this->annotations[$subtype])) {
-                return sizeof($this->annotations[$subtype]);
+                return count($this->annotations[$subtype]);
             }
 
             return 0;

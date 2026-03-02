@@ -19,7 +19,8 @@ namespace Idno\Pages\User {
             if (!empty($this->arguments[0])) {
                 $user = \Idno\Entities\User::getByHandle($this->arguments[0]);
             }
-            if (empty($user)) { $this->forward(); // TODO: 404
+            if (empty($user)) {
+                $this->forward(); // TODO: 404
             }
             if (!$user->canEdit()) {
                 $this->deniedContent();

@@ -14,7 +14,7 @@ web hosting provider.
 
 ### Installing
 
-Idno is under active development and requires PHP 8.1+ with selected extensions, together with a supported database backend. You can find detailed installation instructions here: <http://docs.idno.co/en/latest/install/index.html>
+Idno is under active development and requires PHP 8.2+ with selected extensions, together with a supported database backend. You can find detailed installation instructions here: <http://docs.idno.co/en/latest/install/index.html>
 
 #### Installing from packages
 

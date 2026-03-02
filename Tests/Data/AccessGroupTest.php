@@ -66,7 +66,6 @@ namespace Tests\Data {
             // Check that A can
             $b = $this->swapUser($a);
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
-            var_export($tmp);
             $this->assertNotEmpty($tmp, 'User B should be able to access an object with an access group they are a part of.');
 
             // Check Admin can always read
@@ -106,7 +105,6 @@ namespace Tests\Data {
             // Check that A can
             $b = $this->swapUser($a);
             $tmp = \Idno\Entities\GenericDataItem::getByUUID($obj->getUUID());
-            var_export($tmp);
             $this->assertNotEmpty($tmp, 'User A should be able to access the specified object because they have access.');
 
             // Check Admin can always read

@@ -64,9 +64,10 @@ if ($title == 'Untitled') {
                     <label>
                         <?php echo \Idno\Core\Idno::site()->language()->_('Parent category'); ?></label><br>
                     <select name="category" class="selectpicker">
-                        <option <?php if ($vars['category'] == 'No Category') {
+                        <option <?php
+                        if ($vars['category'] == 'No Category') {
                             echo 'selected';
-} ?>><?php echo \Idno\Core\Idno::site()->language()->_('No Category'); ?>
+                        } ?>><?php echo \Idno\Core\Idno::site()->language()->_('No Category'); ?>
                         </option>
                         <?php
 
@@ -74,9 +75,10 @@ if ($title == 'Untitled') {
                             foreach ($vars['categories'] as $category) {
 
                                 ?>
-                                    <option <?php if ($category == $vars['category']) {
+                                    <option <?php
+                                    if ($category == $vars['category']) {
                                         echo 'selected';
-} ?>><?php echo htmlspecialchars($category) ?></option>
+                                    } ?>><?php echo htmlspecialchars($category) ?></option>
                                 <?php
 
                             }

@@ -161,7 +161,8 @@ namespace Idno\Entities\Reader {
         {
             $props = array();
             if ($prop == "1") {
-                if (isset($mfs[0])) { return $mfs[0];
+                if (isset($mfs[0])) {
+                    return $mfs[0];
                 }
 
                 return null;

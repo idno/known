@@ -1,0 +1,131 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: ['*']
+  push:
+    branches: [dev, stable]
+
+jobs:
+  phpcs:
+    name: PHP CodeSniffer
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: composer
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-mongodb
+
+      - name: Run phpcs
+        run: vendor/bin/phpcs -n
+
+  phpunit:
+    name: PHPUnit (${{ matrix.db }})
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        db: [mysql, mongo]
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: known_unittest
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+      mongo:
+        image: mongo:6
+        ports:
+          - 27017:27017
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: >-
+            curl, dom, gd, json, libxml, mbstring, pdo, pdo_mysql,
+            session, simplexml, openssl, gettext, mongodb-1.21.0
+          tools: composer
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Install system packages
+        run: sudo apt-get update && sudo apt-get install -y libapache2-mod-php8.2 libxml2-utils
+
+      - name: Configure MySQL database
+        if: matrix.db == 'mysql'
+        run: |
+          mysql -h 127.0.0.1 -uroot -e "GRANT ALL ON known_unittest.* TO 'root'@'%';"
+          mysql -h 127.0.0.1 -uroot known_unittest < warmup/schemas/mysql/mysql.sql
+          cp Tests/build/config_mysql.ini configuration/config.ini
+          sed -i "s/dbuser = 'travis'/dbuser = 'root'/" configuration/config.ini
+          sed -i "s/dbhost = 'localhost'/dbhost = '127.0.0.1'/" configuration/config.ini
+
+      - name: Configure MongoDB
+        if: matrix.db == 'mongo'
+        run: |
+          cp Tests/build/config_default.ini configuration/config.ini
+
+      - name: Set up htaccess
+        run: cp warmup/webserver-configs/htaccess.dist .htaccess
+
+      - name: Start Apache with mod_php
+        run: |
+          # Enable the PHP module and required Apache modules
+          sudo a2dismod mpm_event 2>/dev/null || true
+          sudo a2enmod mpm_prefork php8.2 rewrite headers access_compat
+
+          # Run Apache as the runner user (same approach as Travis CI)
+          sudo sed -i 's/export APACHE_RUN_USER=www-data/export APACHE_RUN_USER=runner/' /etc/apache2/envvars
+          sudo sed -i 's/export APACHE_RUN_GROUP=www-data/export APACHE_RUN_GROUP=runner/' /etc/apache2/envvars
+
+          # Write vhost pointing at the checkout directory
+          echo '<VirtualHost *:80>
+            ServerName localhost
+            DocumentRoot ${{ github.workspace }}
+            <Directory "${{ github.workspace }}">
+              Options FollowSymLinks MultiViews
+              AllowOverride All
+              Require all granted
+            </Directory>
+            ErrorLog ${{ github.workspace }}/apache-error.log
+            CustomLog ${{ github.workspace }}/apache-access.log combined
+          </VirtualHost>' | sudo tee /etc/apache2/sites-available/000-default.conf > /dev/null
+
+          # Make the workspace traversable
+          sudo chmod 755 /home/runner /home/runner/work
+
+          # Restart Apache
+          sudo systemctl restart apache2
+
+          # Verify PHP is working through Apache
+          echo '<?php phpinfo();' > ${{ github.workspace }}/phpinfo_test.php
+          curl -s http://localhost/phpinfo_test.php | head -5
+          rm ${{ github.workspace }}/phpinfo_test.php
+
+      - name: Run PHPUnit
+        run: vendor/bin/phpunit
+
+      - name: Show Apache error log on failure
+        if: failure()
+        run: cat ${{ github.workspace }}/apache-error.log 2>/dev/null || true
