@@ -77,7 +77,7 @@ namespace Idno\Data {
                         ]
                     )
                 );
-            } catch (\MongoConnectionException $e) {
+            } catch (\MongoDB\Driver\Exception\Exception $e) {
                 http_response_code(500);
                 $message = '<p>Unfortunately we couldn\'t connect to the database:</p><p>' . $e->getMessage() . '</p>';
                 exit;
@@ -101,7 +101,7 @@ namespace Idno\Data {
                     try {
                         // See if your mongo driver has https://github.com/mongodb/mongo-php-driver/issues/270
                         $a = [
-                        '_id' => new \MongoDB\BSON\ObjectID('000000000000000000000001'),
+                        '_id' => new \MongoDB\BSON\ObjectId('000000000000000000000001'),
                         'test' => 1,
                         'aa' => [
                             'b' => 1,
@@ -188,7 +188,7 @@ namespace Idno\Data {
                 }
 
                 // Store
-                if ($result = $collection_obj->insertOne($array, array('w' => 1))) {
+                if ($result = $collection_obj->insertOne($array)) {
 
                     if ($result->isAcknowledged() && ($result->getInsertedCount() > 0)) {
 
@@ -321,11 +321,11 @@ namespace Idno\Data {
          * Process the ID appropriately
          *
          * @param  $id
-         * @return \MongoDB\BSON\ObjectID
+         * @return \MongoDB\BSON\ObjectId
          */
         function processID($id)
         {
-            return new \MongoDB\BSON\ObjectID($id);
+            return new \MongoDB\BSON\ObjectId($id);
         }
 
         /**
@@ -345,7 +345,7 @@ namespace Idno\Data {
          */
         function getRecord($id, $collection = 'entities')
         {
-            $raw = $this->database->$collection->findOne(array("_id" => new \MongoDB\BSON\ObjectID($id)));
+            $raw = $this->database->$collection->findOne(array("_id" => new \MongoDB\BSON\ObjectId($id)));
 
             return $this->unsanitizeFields($raw);
         }
@@ -455,25 +455,28 @@ namespace Idno\Data {
         function getRecords($fields, $parameters, $limit, $offset, $collection = 'entities')
         {
             try {
-                // Make search case insensitive
-                $fieldscopy = $fields;
+                // Build projection from fields, making string values case insensitive
+                $projection = [];
                 foreach ($fields as $key => $value) {
                     if (is_string($value)) {
-                        $val              = new \MongoRegex("/{$value}/i");
-                        $fieldscopy[$key] = $val;
+                        $projection[$key] = new \MongoDB\BSON\Regex($value, "i");
+                    } else {
+                        $projection[$key] = $value;
                     }
                 }
-                $fields = $fieldscopy;
 
-                if (empty($fields)) {
-                    $fields = [];
+                $options = [
+                    'limit' => (int) $limit,
+                    'skip' => (int) $offset,
+                    'sort' => ['created' => -1],
+                ];
+
+                if (!empty($projection)) {
+                    $options['projection'] = $projection;
                 }
-                $fields['limit'] = (int) $limit;
-                $fields['skip'] = (int) $offset;
-                $fields['sort'] = array('created' => -1);
 
                 $result = $this->database->$collection
-                    ->find($parameters, $fields);
+                    ->find($parameters, $options);
 
                 $iterator = iterator_to_array($result);
                 if ($result && count($iterator)) {
@@ -563,7 +566,7 @@ namespace Idno\Data {
          */
         function countRecords($parameters, $collection = 'entities')
         {
-            if ($result = $this->database->$collection->count($parameters)) {
+            if ($result = $this->database->$collection->countDocuments($parameters)) {
                 return (int)$result;
             }
 
@@ -578,7 +581,7 @@ namespace Idno\Data {
          */
         function deleteRecord($id, $collection = 'entities')
         {
-            return $this->database->$collection->deleteOne(array("_id" => new \MongoDB\BSON\ObjectID($id)));
+            return $this->database->$collection->deleteOne(array("_id" => new \MongoDB\BSON\ObjectId($id)));
         }
 
         /**
