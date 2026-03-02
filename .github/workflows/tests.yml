@@ -63,7 +63,7 @@ jobs:
           php-version: '8.2'
           extensions: >-
             curl, dom, gd, json, libxml, mbstring, pdo, pdo_mysql,
-            session, simplexml, openssl, gettext, mongodb-1.21.0
+            session, simplexml, openssl, gettext, mongodb-2.1.0
           tools: composer
 
       - name: Install dependencies
