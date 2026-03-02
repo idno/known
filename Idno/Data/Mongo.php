@@ -606,7 +606,7 @@ namespace Idno\Data {
          */
         function getFilesystem()
         {
-            if ($grid = new \Idno\Files\MongoDBFileSystem($this->database)) {
+            if ($grid = new \Idno\Files\MongoDBFileSystem($this->client->getManager(), $this->dbname)) {
                 return $grid;
             }
 

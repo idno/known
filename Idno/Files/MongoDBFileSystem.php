@@ -5,11 +5,17 @@ namespace Idno\Files {
     class MongoDBFileSystem extends FileSystem
     {
 
+        private $manager;
+        private $dbname;
+
         private $gridfs_object;
 
-        public function __construct(\MongoDB\Database $database)
+        public function __construct($manager, $dbname)
         {
-            $this->gridfs_object = new \MongoDB\GridFS\Bucket($database);
+            $this->manager = $manager;
+            $this->dbname = $dbname;
+
+            $this->gridfs_object = new \MongoDB\GridFS\Bucket($this->manager, $this->dbname);
         }
 
         public function findOne($_id)
