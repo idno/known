@@ -1,18 +1,8 @@
-[![Build Status](https://travis-ci.org/idno/idno.svg?branch=master)](https://travis-ci.org/idno/idno)
+# Idno: a social publishing platform
 
-# Idno: a social group platform
-
-![Idno - A social group platform](https://idno.co/img/home/screens.png)
+![Idno - A social publishing platform](https://idno.co/img/home/screens.png)
 
 ## Installation 
-
-### One-click Idno sites
-
-If you want to install on your own web space, we recommend [Reclaim Hosting](https://portal.reclaimhosting.com/aff.php?aff=013),
-which includes one-click Idno installation. Idno is also known to work on [DreamHost](https://dreamhost.com), a high-quality
-web hosting provider.
-
-### Installing
 
 Idno is under active development and requires PHP 8.2+ with selected extensions, together with a supported database backend. You can find detailed installation instructions here: <http://docs.idno.co/en/latest/install/index.html>
 
