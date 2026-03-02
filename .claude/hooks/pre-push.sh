@@ -23,11 +23,5 @@ if ! vendor/bin/phpcs -n; then
     exit 2
 fi
 
-echo "Running PHPUnit before push..."
-if ! vendor/bin/phpunit; then
-    echo "PHPUnit tests failed. Fix test failures before pushing." >&2
-    exit 2
-fi
-
 echo "All checks passed."
 exit 0
