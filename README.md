@@ -34,10 +34,10 @@ Enabling the **asynchronous queue** moves all of that into a background worker.
 The web request just drops an event into the database and returns immediately;
 the worker picks it up and processes it separately.
 
-> **This is required for ActivityPub.** Follow-accept delivery,
-> post distribution to followers, and update/delete propagation are all
-> dispatched through the queue. If the worker is not running, those events
-> sit in the database unprocessed and remote servers will never receive them.
+**This is required for ActivityPub.** Follow-accept delivery,
+post distribution to followers, and update/delete propagation are all
+dispatched through the queue. If the worker is not running, those events
+sit in the database unprocessed and remote servers will never receive them.
 
 #### 1. Enable the async queue
 
