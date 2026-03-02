@@ -21,7 +21,7 @@ jobs:
           tools: composer
 
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress
+        run: composer install --prefer-dist --no-progress --ignore-platform-req=ext-mongodb
 
       - name: Run phpcs
         run: vendor/bin/phpcs -n
@@ -63,7 +63,7 @@ jobs:
           php-version: '8.2'
           extensions: >-
             curl, dom, gd, json, libxml, mbstring, pdo, pdo_mysql,
-            session, simplexml, openssl, gettext, mongodb
+            session, simplexml, openssl, gettext, mongodb-1.21.0
           tools: composer
 
       - name: Install dependencies
