@@ -51,7 +51,6 @@
         "npm-asset/tinymce--tinymce-jquery": "2.1.0",
         "npm-asset/vanilla-fitvids": "1.2.0",
         "idno/mentionjs": "^1.0",
-        "mongodb/mongodb": "^2.0",
         "indieweb/mention-client": "^1.2.1",
         "twig/twig": "3.18.0",
         "masterminds/html5": "^2.7",
@@ -94,6 +93,9 @@
         "unused": [
             "masterminds/html5"
         ]
+    },
+    "suggest": {
+        "mongodb/mongodb": "Required for MongoDB storage support (^2.0)"
     },
     "funding": [
         {
