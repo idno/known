@@ -3,23 +3,23 @@
 namespace IdnoPlugins\StandardSiteSync\Pages;
 
 use Idno\Common\Page;
+use IdnoPlugins\StandardSiteSync\Main;
 
 /**
- * Disconnect from AT Protocol PDS.
- * Route: /admin/standardsitesync/disconnect
+ * Disconnect the current user from their AT Protocol PDS.
+ * Route: /account/settings/standardsitesync/disconnect
  */
 class Disconnect extends Page
 {
 
     function postContent()
     {
-        $this->adminGatekeeper();
+        $this->gatekeeper();
 
-        \Idno\Core\Idno::site()->config()->standardsitesync_session = [];
-        \Idno\Core\Idno::site()->config()->standardsitesync_enabled = false;
-        \Idno\Core\Idno::site()->config()->save();
+        $user = \Idno\Core\Idno::site()->session()->currentUser();
+        Main::saveATProtoSessionForUser($user, []);
 
         \Idno\Core\Idno::site()->session()->addMessage('Disconnected from AT Protocol PDS.');
-        $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/standardsitesync/');
+        $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/settings/standardsitesync/');
     }
 }

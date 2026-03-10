@@ -3,11 +3,17 @@
 namespace IdnoPlugins\StandardSiteSync\Pages;
 
 use Idno\Common\Page;
+use Idno\Entities\User;
+use IdnoPlugins\StandardSiteSync\Main;
 
 /**
  * Serves the .well-known/site.standard.publication endpoint.
  * Returns the AT-URI of the publication record, confirming the link
  * between this domain and the publication on the PDS.
+ *
+ * Looks for the first admin user with a connected PDS, then falls back
+ * to any connected user.
+ *
  * Route: /.well-known/site.standard.publication
  */
 class WellKnownPublication extends Page
@@ -15,15 +21,41 @@ class WellKnownPublication extends Page
 
     function getContent()
     {
-        $session = \Idno\Core\Idno::site()->config()->standardsitesync_session ?? [];
+        $did = null;
 
-        if (empty($session['did'])) {
+        // Try admin users first
+        $admins = User::get(['admin' => true], [], 100, 0);
+        if (!empty($admins)) {
+            foreach ($admins as $admin) {
+                if (Main::isUserConnected($admin)) {
+                    $session = Main::getATProtoSessionForUser($admin);
+                    $did = $session['did'];
+                    break;
+                }
+            }
+        }
+
+        // Fall back to any connected user
+        if (empty($did)) {
+            $users = User::get([], [], 100, 0);
+            if (!empty($users)) {
+                foreach ($users as $user) {
+                    if (Main::isUserConnected($user)) {
+                        $session = Main::getATProtoSessionForUser($user);
+                        $did = $session['did'];
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (empty($did)) {
             $this->setResponse(404);
             echo 'No AT Protocol publication configured.';
             exit;
         }
 
-        $atUri = 'at://' . $session['did'] . '/site.standard.publication/self';
+        $atUri = 'at://' . $did . '/site.standard.publication/self';
 
         header('Content-Type: text/plain');
         header('Cache-Control: public, max-age=3600');

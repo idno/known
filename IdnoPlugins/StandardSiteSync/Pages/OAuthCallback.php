@@ -4,34 +4,37 @@ namespace IdnoPlugins\StandardSiteSync\Pages;
 
 use Idno\Common\Page;
 use IdnoPlugins\StandardSiteSync\ATProtoClient;
+use IdnoPlugins\StandardSiteSync\Main;
 
 /**
  * OAuth callback handler for AT Protocol authorization.
- * Route: /admin/standardsitesync/callback
+ * Stores the session on the current user entity.
+ * Route: /account/settings/standardsitesync/callback
  */
 class OAuthCallback extends Page
 {
 
     function getContent()
     {
-        $this->adminGatekeeper();
+        $this->gatekeeper();
 
         $code = $this->getInput('code');
         $state = $this->getInput('state');
         $error = $this->getInput('error');
+        $settingsUrl = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/settings/standardsitesync/';
 
         if (!empty($error)) {
             $errorDesc = $this->getInput('error_description');
             \Idno\Core\Idno::site()->session()->addErrorMessage(
                 'Authentication denied: ' . ($errorDesc ?: $error)
             );
-            $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/standardsitesync/');
+            $this->forward($settingsUrl);
             return;
         }
 
         if (empty($code)) {
             \Idno\Core\Idno::site()->session()->addErrorMessage('No authorization code received.');
-            $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/standardsitesync/');
+            $this->forward($settingsUrl);
             return;
         }
 
@@ -40,15 +43,19 @@ class OAuthCallback extends Page
         unset($_SESSION['standardsitesync_pending_auth']);
 
         if (empty($pendingAuth)) {
-            \Idno\Core\Idno::site()->session()->addErrorMessage('Authentication session expired. Please try again.');
-            $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/standardsitesync/');
+            \Idno\Core\Idno::site()->session()->addErrorMessage(
+                'Authentication session expired. Please try again.'
+            );
+            $this->forward($settingsUrl);
             return;
         }
 
         // Verify state
         if ($state !== $pendingAuth['state']) {
-            \Idno\Core\Idno::site()->session()->addErrorMessage('Invalid authentication state. Please try again.');
-            $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/standardsitesync/');
+            \Idno\Core\Idno::site()->session()->addErrorMessage(
+                'Invalid authentication state. Please try again.'
+            );
+            $this->forward($settingsUrl);
             return;
         }
 
@@ -56,20 +63,22 @@ class OAuthCallback extends Page
             // Exchange code for tokens
             $session = ATProtoClient::completeOAuthFlow($code, $pendingAuth);
 
-            // Save the session
-            \Idno\Core\Idno::site()->config()->standardsitesync_session = $session;
-            \Idno\Core\Idno::site()->config()->save();
+            // Save the session on the current user
+            $user = \Idno\Core\Idno::site()->session()->currentUser();
+            Main::saveATProtoSessionForUser($user, $session);
 
             \Idno\Core\Idno::site()->session()->addMessage(
                 'Successfully connected to your AT Protocol PDS (' . $session['did'] . ').'
             );
         } catch (\Exception $e) {
-            \Idno\Core\Idno::site()->logging()->error('StandardSiteSync: OAuth callback failed: ' . $e->getMessage());
+            \Idno\Core\Idno::site()->logging()->error(
+                'StandardSiteSync: OAuth callback failed: ' . $e->getMessage()
+            );
             \Idno\Core\Idno::site()->session()->addErrorMessage(
                 'Authentication failed: ' . $e->getMessage()
             );
         }
 
-        $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/standardsitesync/');
+        $this->forward($settingsUrl);
     }
 }

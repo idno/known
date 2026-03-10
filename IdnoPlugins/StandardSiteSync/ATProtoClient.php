@@ -242,7 +242,7 @@ class ATProtoClient
      */
     public static function getCallbackUrl(): string
     {
-        return \Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/standardsitesync/callback';
+        return \Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/settings/standardsitesync/callback';
     }
 
     /**

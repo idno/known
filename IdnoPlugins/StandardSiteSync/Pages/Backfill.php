@@ -5,22 +5,26 @@ namespace IdnoPlugins\StandardSiteSync\Pages;
 use Idno\Common\Page;
 use Idno\Common\Entity;
 use IdnoPlugins\StandardSiteSync\ATProtoClient;
+use IdnoPlugins\StandardSiteSync\Main;
 
 /**
- * Backfill all existing content to the AT Protocol PDS.
- * Route: /admin/standardsitesync/backfill
+ * Backfill the current user's content to their AT Protocol PDS.
+ * Route: /account/settings/standardsitesync/backfill
  */
 class Backfill extends Page
 {
 
     function postContent()
     {
-        $this->adminGatekeeper();
+        $this->gatekeeper();
 
-        $session = \Idno\Core\Idno::site()->config()->standardsitesync_session ?? [];
+        $user = \Idno\Core\Idno::site()->session()->currentUser();
+        $session = Main::getATProtoSessionForUser($user);
+        $settingsUrl = \Idno\Core\Idno::site()->config()->getDisplayURL() . 'account/settings/standardsitesync/';
+
         if (empty($session['access_token']) || empty($session['did'])) {
             \Idno\Core\Idno::site()->session()->addErrorMessage('Not connected to an AT Protocol PDS.');
-            $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/standardsitesync/');
+            $this->forward($settingsUrl);
             return;
         }
 
@@ -28,20 +32,23 @@ class Backfill extends Page
         try {
             $client = new ATProtoClient($session);
             $client->putPublication();
-            \Idno\Core\Idno::site()->config()->standardsitesync_session = $client->getSession();
-            \Idno\Core\Idno::site()->config()->save();
+            Main::saveATProtoSessionForUser($user, $client->getSession());
         } catch (\Exception $e) {
-            \Idno\Core\Idno::site()->logging()->error('StandardSiteSync: Failed to create publication for backfill: ' . $e->getMessage());
-            \Idno\Core\Idno::site()->session()->addErrorMessage('Failed to create publication record: ' . $e->getMessage());
-            $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/standardsitesync/');
+            \Idno\Core\Idno::site()->logging()->error(
+                'StandardSiteSync: Failed to create publication for backfill: ' . $e->getMessage()
+            );
+            \Idno\Core\Idno::site()->session()->addErrorMessage(
+                'Failed to create publication record: ' . $e->getMessage()
+            );
+            $this->forward($settingsUrl);
             return;
         }
 
-        // Fetch all published, public content entities
-        // Exclude non-content entity types
+        // Fetch this user's published, public content entities
         $entities = Entity::get(
             [
                 'publish_status' => 'published',
+                'owner'          => $user->getUUID(),
             ],
             [],
             PHP_INT_MAX,
@@ -50,7 +57,7 @@ class Backfill extends Page
 
         if (empty($entities)) {
             \Idno\Core\Idno::site()->session()->addMessage('No content found to backfill.');
-            $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/standardsitesync/');
+            $this->forward($settingsUrl);
             return;
         }
 
@@ -70,21 +77,18 @@ class Backfill extends Page
             if (method_exists($entity, 'isPublic') && !$entity->isPublic()) continue;
 
             if ($useAsync) {
-                // Queue each entity for async backfill
                 $queue->enqueue('default', 'standardsitesync/backfill', [
                     'entity_id' => $entity->getID(),
-                ]);
+                ], $user->getUUID());
             } else {
                 // Synchronous fallback: sync directly
                 try {
-                    $client = new ATProtoClient(
-                        \Idno\Core\Idno::site()->config()->standardsitesync_session ?? []
-                    );
+                    $latestSession = Main::getATProtoSessionForUser($user);
+                    $client = new ATProtoClient($latestSession);
 
                     if (!$client->documentExists($entity)) {
                         $client->putDocument($entity);
-                        \Idno\Core\Idno::site()->config()->standardsitesync_session = $client->getSession();
-                        \Idno\Core\Idno::site()->config()->save();
+                        Main::saveATProtoSessionForUser($user, $client->getSession());
                     }
                 } catch (\Exception $e) {
                     \Idno\Core\Idno::site()->logging()->error(
@@ -106,6 +110,6 @@ class Backfill extends Page
             );
         }
 
-        $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/standardsitesync/');
+        $this->forward($settingsUrl);
     }
 }

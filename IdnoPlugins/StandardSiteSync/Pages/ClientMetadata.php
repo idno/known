@@ -20,7 +20,7 @@ class ClientMetadata extends Page
             'client_id'                      => $siteUrl . 'standardsitesync/client-metadata.json',
             'client_name'                    => \Idno\Core\Idno::site()->config()->getTitle() . ' - StandardSiteSync',
             'client_uri'                     => $siteUrl,
-            'redirect_uris'                  => [$siteUrl . 'admin/standardsitesync/callback'],
+            'redirect_uris'                  => [$siteUrl . 'account/settings/standardsitesync/callback'],
             'scope'                          => 'atproto transition:generic',
             'grant_types'                    => ['authorization_code', 'refresh_token'],
             'response_types'                 => ['code'],
