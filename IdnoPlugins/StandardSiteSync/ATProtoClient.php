@@ -810,7 +810,7 @@ class ATProtoClient
     {
         $hex = unpack('H*', $der)[1];
         // DER: 30 <len> 02 <len_r> <r> 02 <len_s> <s>
-        $pos = 4; // skip 30 <len>
+        $pos = 6; // skip 30 <len> 02 (SEQUENCE tag, length, INTEGER tag)
 
         // R
         $rLen = hexdec(substr($hex, $pos, 2)) * 2;
@@ -819,7 +819,7 @@ class ATProtoClient
         $pos += $rLen;
 
         // S
-        $pos += 2; // skip 02
+        $pos += 2; // skip 02 (INTEGER tag)
         $sLen = hexdec(substr($hex, $pos, 2)) * 2;
         $pos += 2;
         $s = substr($hex, $pos, $sLen);
