@@ -709,7 +709,10 @@ class ATProtoClient
             'description' => $entity->getDescription(),
             'site'        => $publicationUri,
             'path'        => $path,
-            'content'     => $htmlContent,
+            'content'     => [
+                '$type' => 'co.idno.html',
+                'html'  => $htmlContent,
+            ],
             'publishedAt' => date(\DateTime::RFC3339, $entity->created),
         ];
 

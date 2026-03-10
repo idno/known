@@ -78,6 +78,12 @@ class Main extends Plugin
             'account/menu/items',
             'standardsitesync/account/menu'
         );
+
+        // Add <link rel="site.standard.document"> to entity permalink pages
+        \Idno\Core\Idno::site()->template()->extendTemplate(
+            'shell/head',
+            'standardsitesync/head'
+        );
     }
 
     public function registerEventHooks()
