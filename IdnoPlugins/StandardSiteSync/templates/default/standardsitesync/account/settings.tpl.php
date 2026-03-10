@@ -30,7 +30,10 @@
                 <?php echo \Idno\Core\Idno::site()->language()->_('New posts you publish will automatically be synced. You don\'t need to do anything else.'); ?>
             </p>
 
-            <dl class="dl-horizontal" style="margin-top: 1em;">
+            <p style="margin-top: 1em;">
+                <a href="#" onclick="var el = document.getElementById('standardsitesync-details'); el.style.display = el.style.display === 'none' ? 'block' : 'none'; this.textContent = el.style.display === 'none' ? '<?php echo \Idno\Core\Idno::site()->language()->_('Show technical details'); ?>' : '<?php echo \Idno\Core\Idno::site()->language()->_('Hide technical details'); ?>'; return false;"><?php echo \Idno\Core\Idno::site()->language()->_('Show technical details'); ?></a>
+            </p>
+            <dl id="standardsitesync-details" class="dl-horizontal" style="display: none;">
                 <dt><?php echo \Idno\Core\Idno::site()->language()->_('Your identity'); ?></dt>
                 <dd><code><?php echo htmlspecialchars($vars['did'])?></code></dd>
                 <dt><?php echo \Idno\Core\Idno::site()->language()->_('Server'); ?></dt>
