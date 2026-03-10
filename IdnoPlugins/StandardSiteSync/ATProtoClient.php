@@ -200,7 +200,8 @@ class ATProtoClient
         string $httpUri,
         ?string $nonce = null,
         ?string $accessToken = null
-    ): string {
+    ): string
+    {
         $header = [
             'typ' => 'dpop+jwt',
             'alg' => 'ES256',
