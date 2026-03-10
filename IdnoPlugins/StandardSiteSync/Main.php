@@ -286,6 +286,12 @@ class Main extends Plugin
             $result = $client->putDocument($entity);
             $this->saveATProtoSessionForUser($user, $client->getSession());
 
+            // Store the AT-URI on the entity so we can emit a <link> tag
+            if (!empty($result['uri'])) {
+                $entity->standardsitesync_uri = $result['uri'];
+                $entity->save();
+            }
+
             \Idno\Core\Idno::site()->logging()->debug(
                 'StandardSiteSync: Synced entity ' . $entity->getID() . ' -> ' . ($result['uri'] ?? 'unknown')
             );
