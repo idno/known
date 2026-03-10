@@ -706,18 +706,12 @@ class ATProtoClient
         $record = [
             '$type'       => 'site.standard.document',
             'title'       => $entity->getTitle(),
+            'description' => $entity->getDescription(),
             'site'        => $publicationUri,
             'path'        => $path,
             'content'     => $htmlContent,
-            'textContent' => $textContent,
             'publishedAt' => date(\DateTime::RFC3339, $entity->created),
-            'createdAt'   => date(\DateTime::RFC3339),
         ];
-
-        // Include updated time if available
-        if (!empty($entity->updated) && $entity->updated !== $entity->created) {
-            $record['updatedAt'] = date(\DateTime::RFC3339, $entity->updated);
-        }
 
         return $this->xrpcPost('com.atproto.repo.putRecord', [
             'repo'       => $this->session['did'],
