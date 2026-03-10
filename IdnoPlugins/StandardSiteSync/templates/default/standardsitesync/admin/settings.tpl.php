@@ -18,7 +18,9 @@
                 <?php echo \Idno\Core\Idno::site()->actions()->signForm('/admin/standardsitesync/') ?>
                 <div class="checkbox">
                     <label>
-                        <input type="checkbox" name="sync_enabled" value="1" <?php if (!empty($vars['sync_enabled'])) echo 'checked'; ?>>
+                        <input type="checkbox" name="sync_enabled" value="1" <?php if (!empty($vars['sync_enabled'])) {
+                            echo 'checked';
+                                                                             } ?>>
                         <?php echo \Idno\Core\Idno::site()->language()->_('Enable standard.site sync'); ?>
                     </label>
                 </div>

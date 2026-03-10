@@ -12,8 +12,7 @@ use Idno\Common\Page;
  */
 class Admin extends Page
 {
-
-    function getContent()
+    public function getContent()
     {
         $this->adminGatekeeper();
 
@@ -36,7 +35,7 @@ class Admin extends Page
         )->drawPage();
     }
 
-    function postContent()
+    public function postContent()
     {
         $this->adminGatekeeper();
 

@@ -9,7 +9,6 @@
         </p>
 
         <?php if (empty($vars['sync_enabled'])) { ?>
-
         <div class="well">
             <p>
                 <?php echo \Idno\Core\Idno::site()->language()->_('Standard.site sync is currently disabled by the site administrator.'); ?>
@@ -17,13 +16,11 @@
         </div>
 
         <?php } else { ?>
-
         <!-- Connection Status -->
         <div class="well">
             <h3><?php echo \Idno\Core\Idno::site()->language()->_('Connection'); ?></h3>
 
             <?php if (!empty($vars['connected'])) { ?>
-
                 <p>
                     <span class="label label-success"><?php echo \Idno\Core\Idno::site()->language()->_('Connected'); ?></span>
                 </p>
@@ -46,7 +43,6 @@
                 </form>
 
             <?php } else { ?>
-
                 <p>
                     <span class="label label-default"><?php echo \Idno\Core\Idno::site()->language()->_('Not connected'); ?></span>
                 </p>
@@ -70,8 +66,7 @@
             <?php } ?>
         </div>
 
-        <?php if (!empty($vars['connected'])) { ?>
-
+            <?php if (!empty($vars['connected'])) { ?>
         <!-- Backfill -->
         <div class="well">
             <h3><?php echo \Idno\Core\Idno::site()->language()->_('Backfill Existing Content'); ?></h3>
@@ -85,7 +80,7 @@
             </form>
         </div>
 
-        <?php } ?>
+            <?php } ?>
 
         <?php } ?>
 

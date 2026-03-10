@@ -11,8 +11,7 @@ use Idno\Common\Page;
  */
 class ClientMetadata extends Page
 {
-
-    function getContent()
+    public function getContent()
     {
         $siteUrl = \Idno\Core\Idno::site()->config()->getDisplayURL();
 

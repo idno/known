@@ -12,8 +12,7 @@ use IdnoPlugins\StandardSiteSync\ATProtoClient;
  */
 class UserSettings extends Page
 {
-
-    function getContent()
+    public function getContent()
     {
         $this->gatekeeper();
 
@@ -42,7 +41,7 @@ class UserSettings extends Page
         )->drawPage();
     }
 
-    function postContent()
+    public function postContent()
     {
         $this->gatekeeper();
 

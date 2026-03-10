@@ -13,8 +13,7 @@ use IdnoPlugins\StandardSiteSync\Main;
  */
 class OAuthCallback extends Page
 {
-
-    function getContent()
+    public function getContent()
     {
         $this->gatekeeper();
 

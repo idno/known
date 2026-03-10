@@ -17,12 +17,11 @@ use Idno\Entities\User;
  */
 class Main extends Plugin
 {
-
-    function registerTranslations()
+    public function registerTranslations()
     {
     }
 
-    function registerPages()
+    public function registerPages()
     {
         // Admin settings (site-wide enable/disable)
         \Idno\Core\Idno::site()->routes()->addRoute(
@@ -75,7 +74,7 @@ class Main extends Plugin
         );
     }
 
-    function registerEventHooks()
+    public function registerEventHooks()
     {
 
         // -------------------------------------------------------
@@ -86,13 +85,19 @@ class Main extends Plugin
             $eventdata = $event->data();
             $object = $eventdata['object'];
 
-            if (!$this->shouldSync($object)) return;
+            if (!$this->shouldSync($object)) {
+                return;
+            }
 
             $user = $object->getOwner();
-            if (!$user || !($user instanceof User)) return;
+            if (!$user || !($user instanceof User)) {
+                return;
+            }
 
             $session = $this->getATProtoSessionForUser($user);
-            if (empty($session)) return;
+            if (empty($session)) {
+                return;
+            }
 
             $this->syncEntity($object, $session, $user);
         });
@@ -105,13 +110,19 @@ class Main extends Plugin
             $eventdata = $event->data();
             $object = $eventdata['object'];
 
-            if (!$this->shouldSync($object)) return;
+            if (!$this->shouldSync($object)) {
+                return;
+            }
 
             $user = $object->getOwner();
-            if (!$user || !($user instanceof User)) return;
+            if (!$user || !($user instanceof User)) {
+                return;
+            }
 
             $session = $this->getATProtoSessionForUser($user);
-            if (empty($session)) return;
+            if (empty($session)) {
+                return;
+            }
 
             $this->syncEntity($object, $session, $user);
         });
@@ -124,13 +135,19 @@ class Main extends Plugin
             $eventdata = $event->data();
             $object = $eventdata['object'];
 
-            if (!$this->shouldSync($object)) return;
+            if (!$this->shouldSync($object)) {
+                return;
+            }
 
             $user = $object->getOwner();
-            if (!$user || !($user instanceof User)) return;
+            if (!$user || !($user instanceof User)) {
+                return;
+            }
 
             $session = $this->getATProtoSessionForUser($user);
-            if (empty($session)) return;
+            if (empty($session)) {
+                return;
+            }
 
             try {
                 $client = new ATProtoClient($session);
@@ -171,7 +188,9 @@ class Main extends Plugin
                 }
 
                 $user = $entity->getOwner();
-                if (!$user || !($user instanceof User)) return;
+                if (!$user || !($user instanceof User)) {
+                    return;
+                }
 
                 $session = $this->getATProtoSessionForUser($user);
                 if (empty($session)) {
@@ -192,22 +211,36 @@ class Main extends Plugin
     private function shouldSync($object): bool
     {
         // Skip non-content entities
-        if ($object instanceof User) return false;
-        if ($object instanceof \Idno\Entities\AsynchronousQueuedEvent) return false;
+        if ($object instanceof User) {
+            return false;
+        }
+        if ($object instanceof \Idno\Entities\AsynchronousQueuedEvent) {
+            return false;
+        }
 
         // Must be a content entity
-        if (!($object instanceof \Idno\Common\Entity)) return false;
+        if (!($object instanceof \Idno\Common\Entity)) {
+            return false;
+        }
 
         // Only sync public, published content
-        if (method_exists($object, 'isPublic') && !$object->isPublic()) return false;
-        if (method_exists($object, 'getPublishStatus') && $object->getPublishStatus() !== 'published') return false;
+        if (method_exists($object, 'isPublic') && !$object->isPublic()) {
+            return false;
+        }
+        if (method_exists($object, 'getPublishStatus') && $object->getPublishStatus() !== 'published') {
+            return false;
+        }
 
         // Must have a real content type
         $type = $object->getActivityStreamsObjectType();
-        if (empty($type) || $type === 'entity') return false;
+        if (empty($type) || $type === 'entity') {
+            return false;
+        }
 
         // Check if sync is enabled site-wide
-        if (empty(\Idno\Core\Idno::site()->config()->standardsitesync_enabled)) return false;
+        if (empty(\Idno\Core\Idno::site()->config()->standardsitesync_enabled)) {
+            return false;
+        }
 
         return true;
     }
@@ -225,8 +258,7 @@ class Main extends Plugin
         array $session,
         User $user,
         bool $skipExisting = false
-    ): void
-    {
+    ): void {
         try {
             $client = new ATProtoClient($session);
 

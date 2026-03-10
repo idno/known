@@ -14,7 +14,6 @@ namespace IdnoPlugins\StandardSiteSync;
  */
 class ATProtoClient
 {
-
     /** @var array Session data (tokens, DID, PDS URL, DPoP keys, nonces) */
     private $session;
 
@@ -101,8 +100,10 @@ class ATProtoClient
         }
 
         foreach ($doc['service'] as $svc) {
-            if (($svc['id'] ?? '') === '#atproto_pds' ||
-                ($svc['type'] ?? '') === 'AtprotoPersonalDataServer') {
+            if (
+                ($svc['id'] ?? '') === '#atproto_pds' ||
+                ($svc['type'] ?? '') === 'AtprotoPersonalDataServer'
+            ) {
                 return rtrim($svc['serviceEndpoint'], '/');
             }
         }
@@ -199,8 +200,7 @@ class ATProtoClient
         string $httpUri,
         ?string $nonce = null,
         ?string $accessToken = null
-    ): string
-    {
+    ): string {
         $header = [
             'typ' => 'dpop+jwt',
             'alg' => 'ES256',

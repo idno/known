@@ -13,8 +13,7 @@ use IdnoPlugins\StandardSiteSync\Main;
  */
 class Backfill extends Page
 {
-
-    function postContent()
+    public function postContent()
     {
         $this->gatekeeper();
 
@@ -67,14 +66,22 @@ class Backfill extends Page
 
         foreach ($entities as $entity) {
             // Skip non-content entities
-            if ($entity instanceof \Idno\Entities\User) continue;
-            if ($entity instanceof \Idno\Entities\AsynchronousQueuedEvent) continue;
+            if ($entity instanceof \Idno\Entities\User) {
+                continue;
+            }
+            if ($entity instanceof \Idno\Entities\AsynchronousQueuedEvent) {
+                continue;
+            }
 
             $type = $entity->getActivityStreamsObjectType();
-            if (empty($type) || $type === 'entity') continue;
+            if (empty($type) || $type === 'entity') {
+                continue;
+            }
 
             // Only sync public content
-            if (method_exists($entity, 'isPublic') && !$entity->isPublic()) continue;
+            if (method_exists($entity, 'isPublic') && !$entity->isPublic()) {
+                continue;
+            }
 
             if ($useAsync) {
                 $queue->enqueue('default', 'standardsitesync/backfill', [

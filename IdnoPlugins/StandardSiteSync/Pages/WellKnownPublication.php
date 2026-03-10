@@ -18,8 +18,7 @@ use IdnoPlugins\StandardSiteSync\Main;
  */
 class WellKnownPublication extends Page
 {
-
-    function getContent()
+    public function getContent()
     {
         $did = null;
 

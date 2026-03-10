@@ -11,8 +11,7 @@ use IdnoPlugins\StandardSiteSync\Main;
  */
 class Disconnect extends Page
 {
-
-    function postContent()
+    public function postContent()
     {
         $this->gatekeeper();
 
