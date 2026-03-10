@@ -72,6 +72,12 @@ class Main extends Plugin
             'admin/menu/items',
             'standardsitesync/admin/menu'
         );
+
+        // Account settings menu item
+        \Idno\Core\Idno::site()->template()->extendTemplate(
+            'account/menu/items',
+            'standardsitesync/account/menu'
+        );
     }
 
     public function registerEventHooks()
