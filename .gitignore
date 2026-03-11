@@ -61,6 +61,7 @@ IdnoPlugins/
 !IdnoPlugins/Text
 !IdnoPlugins/Webhooks
 !IdnoPlugins/ActivityPub
+!IdnoPlugins/StandardSiteSync
 
 ConsolePlugins/*
 !ConsolePlugins/BuildLanguage
