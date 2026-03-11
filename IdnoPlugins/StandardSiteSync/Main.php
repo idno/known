@@ -354,8 +354,7 @@ class Main extends Plugin
         array $session,
         User $user,
         bool $skipExisting = false
-    ): void
-    {
+    ): void {
         $entityId = $entity->getID();
 
         try {
