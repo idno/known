@@ -2047,14 +2047,6 @@ textarea.form-control {
   margin-top: 20px;
 }
 
-/* Legacy unfurled-url wrapper (edit form JS previews) */
-div.unfurled-url {
-  margin-bottom: 10px;
-}
-div.unfurled-url .link-preview-card {
-  margin-top: 0;
-}
-
 /* Shim to hide settings menu in content before it can be removed */
 .settings-content ul.nav {
   display: none;

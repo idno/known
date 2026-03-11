@@ -13,6 +13,6 @@ if (!empty($vars['object']->tags)) {
 if (!empty($vars['object']->link_preview) && empty($vars['object']->hide_preview)) {
     echo $this->__(['preview' => $vars['object']->link_preview])->draw('entity/LinkPreviewCard');
 } elseif (!substr_count(strtolower($vars['object']->body), '<img')) {
-    // Fall back to JS-based embed/unfurl if no cached preview yet
+    // Embed known media types (YouTube, Vimeo, etc.) — no JS unfurl fallback
     echo $this->draw('entity/content/embed');
 }

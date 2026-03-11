@@ -57,7 +57,6 @@ module.exports = function (grunt) {
 	      'js/src/classes/Security.js',
 	      'js/src/classes/Logger.js',
 	      'js/src/lib/Idno.js',
-	      'js/src/classes/Unfurl.js',
 	      'js/src/classes/Image.js',
 	      'js/src/lib/Image.js',
 	      'js/src/classes/Template.js',
