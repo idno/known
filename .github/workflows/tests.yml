@@ -17,7 +17,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: '8.3'
           tools: composer
 
       - name: Install dependencies
@@ -27,12 +27,13 @@ jobs:
         run: vendor/bin/phpcs -n
 
   phpunit:
-    name: PHPUnit (${{ matrix.db }})
+    name: PHPUnit (PHP ${{ matrix.php }} / ${{ matrix.db }})
     runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
       matrix:
+        php: ['8.3', '8.4', '8.5']
         db: [mysql, mongo]
 
     services:
@@ -60,7 +61,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2'
+          php-version: ${{ matrix.php }}
           extensions: >-
             curl, dom, gd, json, libxml, mbstring, pdo, pdo_mysql,
             session, simplexml, openssl, gettext, mongodb-2.1.0
@@ -70,7 +71,7 @@ jobs:
         run: composer install --prefer-dist --no-progress
 
       - name: Install system packages
-        run: sudo apt-get update && sudo apt-get install -y libapache2-mod-php8.2 libxml2-utils
+        run: sudo apt-get update && sudo apt-get install -y libapache2-mod-php${{ matrix.php }} libxml2-utils
 
       - name: Configure MySQL database
         if: matrix.db == 'mysql'
@@ -93,7 +94,7 @@ jobs:
         run: |
           # Enable the PHP module and required Apache modules
           sudo a2dismod mpm_event 2>/dev/null || true
-          sudo a2enmod mpm_prefork php8.2 rewrite headers access_compat
+          sudo a2enmod mpm_prefork php${{ matrix.php }} rewrite headers access_compat
 
           # Run Apache as the runner user (same approach as Travis CI)
           sudo sed -i 's/export APACHE_RUN_USER=www-data/export APACHE_RUN_USER=runner/' /etc/apache2/envvars
