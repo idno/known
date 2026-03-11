@@ -31,7 +31,6 @@ Unfurl.fetch = function (url, callback) {
  * @returns array
  */
 Unfurl.getUrls = function (text) {
-    console.log(text);
     var urlRegex = new RegExp('(https?:\/\/[^\\s]+)', "gi");
 
     return text.match(urlRegex);
@@ -201,8 +200,13 @@ Unfurl.unfurl = function (control) {
 
 
 Unfurl.unfurlAll = function () {
+    // Only unfurl divs that don't already have content (e.g. in edit forms).
+    // Server-side rendered link previews don't use this path.
     $('div.unfurl').each(function () {
-	Unfurl.unfurl($(this));
+	var el = $(this);
+	if (el.attr('data-url') && el.children().length === 0) {
+	    Unfurl.unfurl(el);
+	}
     });
 };
 

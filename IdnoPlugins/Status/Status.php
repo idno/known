@@ -128,6 +128,15 @@ namespace IdnoPlugins\Status {
                         ]);
                     }
 
+                    // Queue link preview fetching for the first URL in the body
+                    $firstUrl = self::extractFirstUrl($body);
+                    if (!empty($firstUrl)) {
+                        \Idno\Core\Idno::site()->queue()->enqueue('default', 'linkpreview/fetch', [
+                            'entity_id' => (string) $this->_id,
+                            'url' => $firstUrl,
+                        ]);
+                    }
+
                     return true;
                 }
             } else {
@@ -136,6 +145,21 @@ namespace IdnoPlugins\Status {
 
             return false;
 
+        }
+
+        /**
+         * Extract the first HTTP(S) URL from text
+         * @param string $text
+         * @return string|null
+         */
+        public static function extractFirstUrl($text)
+        {
+            if (preg_match('/(?<!=)(?<!["\'])((ht|f)tps?:\/\/[^\s<>"\']+)/i', $text, $matches)) {
+                // Strip trailing punctuation
+                $url = rtrim($matches[1], '.,!?;:)');
+                return $url;
+            }
+            return null;
         }
 
         function deleteData()
