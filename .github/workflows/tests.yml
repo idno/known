@@ -64,11 +64,15 @@ jobs:
           php-version: ${{ matrix.php }}
           extensions: >-
             curl, dom, gd, json, libxml, mbstring, pdo, pdo_mysql,
-            session, simplexml, openssl, gettext, mongodb-2.1.0
+            session, simplexml, openssl, gettext, mongodb
           tools: composer
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress
+
+      - name: Install MongoDB library
+        if: matrix.db == 'mongo'
+        run: composer require mongodb/mongodb --no-interaction
 
       - name: Install system packages
         run: sudo apt-get update && sudo apt-get install -y libapache2-mod-php${{ matrix.php }} libxml2-utils
