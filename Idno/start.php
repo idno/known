@@ -135,4 +135,5 @@
     $webfinger    = new Idno\Core\Webfinger();
     $webmention   = new Idno\Core\Webmention();
     $pubsubhubbub = new Idno\Core\PubSubHubbub();
+    $linkpreview  = new Idno\Core\LinkPreview();
 
