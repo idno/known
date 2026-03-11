@@ -17,6 +17,9 @@ use Idno\Entities\User;
  */
 class Main extends Plugin
 {
+    /** @var array Entity IDs currently being synced (re-entrancy guard) */
+    private static $syncingEntities = [];
+
     public function registerTranslations()
     {
     }
@@ -90,7 +93,7 @@ class Main extends Plugin
     {
 
         // -------------------------------------------------------
-        // Sync new content to PDS on save
+        // Sync new content to PDS on save (via queue)
         // -------------------------------------------------------
         \Idno\Core\Idno::site()->events()->addListener('saved', function (\Idno\Core\Event $event) {
 
@@ -101,21 +104,30 @@ class Main extends Plugin
                 return;
             }
 
+            // Prevent infinite loop: syncEntity saves the AT-URI back
+            // on the entity, which triggers 'saved' again.
+            if (in_array($object->getID(), self::$syncingEntities)) {
+                return;
+            }
+
             $user = $object->getOwner();
             if (!$user || !($user instanceof User)) {
                 return;
             }
 
-            $session = $this->getATProtoSessionForUser($user);
-            if (empty($session)) {
+            if (empty($this->getATProtoSessionForUser($user))) {
                 return;
             }
 
-            $this->syncEntity($object, $session, $user);
+            \Idno\Core\Idno::site()->queue()->enqueue(
+                'default',
+                'standardsitesync/sync',
+                ['object' => $object]
+            );
         });
 
         // -------------------------------------------------------
-        // Sync updates to PDS
+        // Sync updates to PDS (via queue)
         // -------------------------------------------------------
         \Idno\Core\Idno::site()->events()->addListener('updated', function (\Idno\Core\Event $event) {
 
@@ -126,21 +138,28 @@ class Main extends Plugin
                 return;
             }
 
+            if (in_array($object->getID(), self::$syncingEntities)) {
+                return;
+            }
+
             $user = $object->getOwner();
             if (!$user || !($user instanceof User)) {
                 return;
             }
 
-            $session = $this->getATProtoSessionForUser($user);
-            if (empty($session)) {
+            if (empty($this->getATProtoSessionForUser($user))) {
                 return;
             }
 
-            $this->syncEntity($object, $session, $user);
+            \Idno\Core\Idno::site()->queue()->enqueue(
+                'default',
+                'standardsitesync/sync',
+                ['object' => $object]
+            );
         });
 
         // -------------------------------------------------------
-        // Delete from PDS when content is deleted
+        // Delete from PDS when content is deleted (via queue)
         // -------------------------------------------------------
         \Idno\Core\Idno::site()->events()->addListener('delete', function (\Idno\Core\Event $event) {
 
@@ -156,23 +175,15 @@ class Main extends Plugin
                 return;
             }
 
-            $session = $this->getATProtoSessionForUser($user);
-            if (empty($session)) {
+            if (empty($this->getATProtoSessionForUser($user))) {
                 return;
             }
 
-            try {
-                $client = new ATProtoClient($session);
-                $client->deleteDocument($object);
-                $this->saveATProtoSessionForUser($user, $client->getSession());
-                \Idno\Core\Idno::site()->logging()->debug(
-                    'StandardSiteSync: Deleted document for entity ' . $object->getID()
-                );
-            } catch (\Exception $e) {
-                \Idno\Core\Idno::site()->logging()->error(
-                    'StandardSiteSync: Error deleting document: ' . $e->getMessage()
-                );
-            }
+            \Idno\Core\Idno::site()->queue()->enqueue(
+                'default',
+                'standardsitesync/delete',
+                ['object' => $object]
+            );
         });
 
         // -------------------------------------------------------
@@ -213,6 +224,79 @@ class Main extends Plugin
                 }
 
                 $this->syncEntity($entity, $session, $user, true);
+            }
+        );
+
+        // -------------------------------------------------------
+        // Handle queued sync events
+        // -------------------------------------------------------
+        \Idno\Core\Idno::site()->events()->addListener(
+            'standardsitesync/sync',
+            function (\Idno\Core\Event $event) {
+
+                $data = $event->data();
+                $object = $data['object'] ?? null;
+
+                if (empty($object) || !($object instanceof \Idno\Common\Entity)) {
+                    \Idno\Core\Idno::site()->logging()->warning(
+                        'StandardSiteSync: Sync event missing valid object'
+                    );
+                    return;
+                }
+
+                $user = $object->getOwner();
+                if (!$user || !($user instanceof User)) {
+                    return;
+                }
+
+                $session = $this->getATProtoSessionForUser($user);
+                if (empty($session)) {
+                    return;
+                }
+
+                $this->syncEntity($object, $session, $user);
+            }
+        );
+
+        // -------------------------------------------------------
+        // Handle queued delete events
+        // -------------------------------------------------------
+        \Idno\Core\Idno::site()->events()->addListener(
+            'standardsitesync/delete',
+            function (\Idno\Core\Event $event) {
+
+                $data = $event->data();
+                $object = $data['object'] ?? null;
+
+                if (empty($object) || !($object instanceof \Idno\Common\Entity)) {
+                    \Idno\Core\Idno::site()->logging()->warning(
+                        'StandardSiteSync: Delete event missing valid object'
+                    );
+                    return;
+                }
+
+                $user = $object->getOwner();
+                if (!$user || !($user instanceof User)) {
+                    return;
+                }
+
+                $session = $this->getATProtoSessionForUser($user);
+                if (empty($session)) {
+                    return;
+                }
+
+                try {
+                    $client = new ATProtoClient($session);
+                    $client->deleteDocument($object);
+                    $this->saveATProtoSessionForUser($user, $client->getSession());
+                    \Idno\Core\Idno::site()->logging()->debug(
+                        'StandardSiteSync: Deleted document for entity ' . $object->getID()
+                    );
+                } catch (\Exception $e) {
+                    \Idno\Core\Idno::site()->logging()->error(
+                        'StandardSiteSync: Error deleting document: ' . $e->getMessage()
+                    );
+                }
             }
         );
     }
@@ -272,12 +356,14 @@ class Main extends Plugin
         bool $skipExisting = false
     ): void
     {
+        $entityId = $entity->getID();
+
         try {
             $client = new ATProtoClient($session);
 
             if ($skipExisting && $client->documentExists($entity)) {
                 \Idno\Core\Idno::site()->logging()->debug(
-                    'StandardSiteSync: Skipping already-synced entity ' . $entity->getID()
+                    'StandardSiteSync: Skipping already-synced entity ' . $entityId
                 );
                 $this->saveATProtoSessionForUser($user, $client->getSession());
                 return;
@@ -286,18 +372,25 @@ class Main extends Plugin
             $result = $client->putDocument($entity);
             $this->saveATProtoSessionForUser($user, $client->getSession());
 
-            // Store the AT-URI on the entity so we can emit a <link> tag
-            if (!empty($result['uri'])) {
-                $entity->standardsitesync_uri = $result['uri'];
-                $entity->save();
+            // Store the AT-URI on the entity so we can emit a <link> tag.
+            // Use a re-entrancy guard so the save() here does not trigger
+            // another sync via the 'saved' event listener.
+            if (!empty($result['uri']) && ($entity->standardsitesync_uri ?? null) !== $result['uri']) {
+                self::$syncingEntities[] = $entityId;
+                try {
+                    $entity->standardsitesync_uri = $result['uri'];
+                    $entity->save();
+                } finally {
+                    self::$syncingEntities = array_diff(self::$syncingEntities, [$entityId]);
+                }
             }
 
             \Idno\Core\Idno::site()->logging()->debug(
-                'StandardSiteSync: Synced entity ' . $entity->getID() . ' -> ' . ($result['uri'] ?? 'unknown')
+                'StandardSiteSync: Synced entity ' . $entityId . ' -> ' . ($result['uri'] ?? 'unknown')
             );
         } catch (\Exception $e) {
             \Idno\Core\Idno::site()->logging()->error(
-                'StandardSiteSync: Error syncing entity ' . $entity->getID() . ': ' . $e->getMessage()
+                'StandardSiteSync: Error syncing entity ' . $entityId . ': ' . $e->getMessage()
             );
         }
     }
