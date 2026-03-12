@@ -4,6 +4,8 @@
 Idno/.idea/.name
 .scannerwork
 
+composer.lock
+
 .env
 
 .vagrant
