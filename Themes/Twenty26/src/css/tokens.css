@@ -1,0 +1,42 @@
+@theme {
+  /* Colors */
+  --color-bg: #f3f4f6;
+  --color-surface: #ffffff;
+  --color-border: #e5e7eb;
+  --color-border-subtle: #f0f0f0;
+  --color-text: #374151;
+  --color-text-strong: #111111;
+  --color-text-muted: #9ca3af;
+  --color-text-secondary: #6b7280;
+  --color-primary: #111111;
+  --color-primary-text: #ffffff;
+
+  /* Spacing */
+  --spacing-card: 1.5rem;
+  --spacing-gap: 0.75rem;
+  --spacing-section: 1rem;
+
+  /* Border radius */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-sans: -apple-system, system-ui, sans-serif;
+  --font-size-sm: 0.8125rem;
+  --font-size-base: 0.9375rem;
+  --font-size-lg: 1.125rem;
+  --font-size-title: 1.75rem;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.15);
+
+  /* Admin */
+  --color-admin-bg: #111111;
+  --color-admin-text: rgba(255, 255, 255, 0.5);
+  --color-admin-text-active: rgba(255, 255, 255, 0.9);
+  --color-admin-divider: rgba(255, 255, 255, 0.08);
+}

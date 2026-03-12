@@ -1,0 +1,4 @@
+@import "tailwindcss";
+@import "./tokens.css";
+@source "../../templates/";
+@source "../../../../IdnoPlugins/*/templates/modern/";
