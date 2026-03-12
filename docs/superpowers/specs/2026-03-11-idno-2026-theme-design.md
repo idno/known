@@ -4,30 +4,43 @@
 
 Replace Idno's Bootstrap 3 frontend with a modern, polished UI built on Tailwind CSS. The new look ships as a theme called "Idno 2026" under `Themes/2026/`, using the existing theme override system. The admin panel also gets the Tailwind treatment. Existing themes and plugin templates continue to load Bootstrap as they always have — no shim, no emulation.
 
-This theme is designed as the future default. When the time comes, promoting it to core means moving templates from `Themes/2026/` into `templates/default/`.
+This theme is designed as the future default. It introduces a `modern` template type that coexists with `default`, with automatic fallback. When the time comes, promoting it to core means making `modern` the primary template type and moving plugin templates into their respective plugin directories.
 
 ## Architecture
 
-### Approach: Theme-Only (minimal core changes)
+### Approach: New `modern` template type + theme
 
-Everything lives under `Themes/2026/`. The theme uses the existing template override mechanisms — `theme.ini` extensions, prepends, and template path overrides — to swap out shell templates, entity templates, and admin templates. No changes to core rendering code.
+The theme introduces a new template type called `modern` alongside the existing `default`, `json`, `activitypub`, etc. Template types in Idno control which set of templates is used for rendering, with automatic fallback to `default` when a specific template doesn't exist in the active type.
 
-Three small additions to core PHP classes support the theme but are not theme-specific — they extend the plugin API for all themes:
+**How it works:**
+
+1. The theme's `Controller.php` calls `setTemplateType('modern')` during initialization
+2. All theme templates live under `templates/modern/` (not `templates/default/`)
+3. Bundled plugins (Text, Status, Photo, etc.) each get `templates/modern/` directories with Tailwind-styled edit and display templates
+4. If a plugin hasn't been updated (e.g., a third-party plugin), the template resolver automatically falls back to `templates/default/` — the old Bootstrap template renders. It won't look perfect but remains functional.
+5. Plugins migrate to `modern` at their own pace by adding a `templates/modern/` directory
+
+This is the same mechanism used by `json`, `activitypub`, `email`, etc. — `templateTypeExists()` validates the type exists, `draw()` searches the active type first and falls back to `default`. No new core rendering code needed.
+
+**Core changes (minimal):**
+
 - `ContentType::getDescription()` — short description for content type pickers
 - Plugin base class `getAdminIcon()` — Lucide icon name for admin navigation
 - UI exposure of the existing `publish_status` draft system
+- `templates/modern/` directory in core (can be empty/`.gitkeep`) to register the template type. Alternatively, the theme's own `templates/modern/` is sufficient since `templateTypeExists()` checks all registered paths.
 
-- **New theme + admin**: Load Tailwind CSS, Alpine.js, Tiptap. No Bootstrap, no jQuery.
-- **Old themes/plugins**: Load Bootstrap CSS/JS as they always have. No Tailwind.
+**Asset loading:**
 
-The template system handles this naturally: the shell templates control what CSS/JS gets loaded. The new theme replaces `shell/bootstrap.tpl.php` with an empty file (preventing Bootstrap from loading) and provides its own shell that loads the modern stack.
+- **New theme (`modern` type)**: Shell templates load Tailwind CSS, Alpine.js, Tiptap. No Bootstrap, no jQuery.
+- **Old themes/plugins (`default` type)**: Load Bootstrap CSS/JS as they always have. No Tailwind.
+- **Fallback templates**: When a `default` template renders inside the `modern` shell, it gets the modern CSS context. Bootstrap-specific classes won't be styled, but basic HTML form elements still work. This is acceptable graceful degradation.
 
 ### Theme directory structure
 
 ```
 Themes/2026/
 ├── theme.ini                      # Template replacements and extensions
-├── Controller.php                 # Theme initialization
+├── Controller.php                 # Theme initialization — sets template type to 'modern'
 ├── preview.png                    # Theme selector preview image
 ├── package.json                   # Node dependencies
 ├── vite.config.js                 # Vite build configuration
@@ -60,7 +73,7 @@ Themes/2026/
 │   ├── modern.min.js
 │   └── modern.min.js.map
 ├── templates/
-│   └── default/
+│   └── modern/                    # 'modern' template type — fallback to 'default' is automatic
 │       ├── shell.tpl.php          # Full page shell (Tailwind + Alpine)
 │       ├── shell/
 │       │   ├── bootstrap.tpl.php  # Empty file — prevents Bootstrap loading
@@ -97,6 +110,38 @@ Themes/2026/
 └── LICENSE-lucide.txt             # Lucide icons ISC license
 ```
 
+### Plugin template structure (bundled plugins)
+
+Each bundled plugin gets a `templates/modern/` directory alongside its existing `templates/default/`:
+
+```
+IdnoPlugins/Text/
+├── templates/
+│   ├── default/                   # Existing Bootstrap templates (unchanged)
+│   │   └── entity/Entry/
+│   │       ├── edit.tpl.php
+│   │       └── ...
+│   └── modern/                    # New Tailwind templates
+│       └── entity/Entry/
+│           ├── edit.tpl.php       # Tiptap-based article editor
+│           └── ...
+
+IdnoPlugins/Status/
+├── templates/
+│   ├── default/
+│   │   └── entity/Idno/Status/
+│   │       ├── edit.tpl.php
+│   │       └── ...
+│   └── modern/
+│       └── entity/Idno/Status/
+│           ├── edit.tpl.php       # Modern status compose form
+│           └── ...
+
+# Same pattern for Photo, Event, Checkin, Like, etc.
+```
+
+Third-party plugins that don't provide `templates/modern/` automatically fall back to their `templates/default/` templates — functional but Bootstrap-styled.
+
 ## Build System
 
 ### Vite (new theme)
@@ -105,7 +150,7 @@ Vite handles the new theme's assets inside `Themes/2026/`:
 
 - **Input**: `src/css/main.css` and `src/js/main.js`
 - **Output**: `dist/modern.min.css` and `dist/modern.min.js`
-- **Tailwind** scans `Themes/2026/templates/` for class usage, purging unused utilities
+- **Tailwind** scans `Themes/2026/templates/` and `IdnoPlugins/*/templates/modern/` for class usage, purging unused utilities
 - **Development**: `cd Themes/2026 && npm run dev` (Vite watch mode)
 - **Production**: `npm run build` outputs to `dist/`, which is committed to the repo so the theme works without Node.js in production. The project `.gitignore` must not exclude `Themes/2026/dist/`.
 
@@ -391,7 +436,7 @@ The following logic from `js/src/` is ported to the new bundle, rewritten to rem
 3. Each type shows: Lucide icon (via `getIconName()`), name (via `getTitle()`), and short description (via `getDescription()`)
 4. Content types are **fully dynamic** — populated from installed plugins via the `ContentType` registry. Any plugin that registers a `ContentType` subclass automatically appears in the picker. The theme does not hardcode any content types.
 5. Selecting a type transitions the modal to the compose form for that type
-6. If a plugin provides a content type but no Idno 2026-specific edit template, the existing Bootstrap-based edit template is rendered within the modal's content area — it won't look perfectly styled but will remain functional
+6. If a plugin provides a content type but no `templates/modern/` edit template, the template resolver falls back to `templates/default/` — the Bootstrap-styled form renders within the modal's content area. It won't look perfectly styled but remains functional. This is the natural template type fallback mechanism.
 
 ### Compose form (general pattern)
 
@@ -429,7 +474,7 @@ The core codebase already has a `publish_status` field on entities with `setPubl
 - "Save Draft" button sets `publish_status` to `'draft'` and saves without triggering webmentions/syndication
 - "Publish" button sets `publish_status` to `'published'` and triggers webmentions/syndication
 - Drafts are accessible via `/drafts/` — a new page listing the current user's draft entries, linked from the left nav (visible only to the logged-in author)
-- The drafts page template is added to the theme: `templates/default/drafts.tpl.php`
+- The drafts page template is added to the theme: `templates/modern/drafts.tpl.php`
 
 ### ContentType API additions
 
@@ -547,8 +592,9 @@ Every content type (Status, Article, Photo, Event, Checkin, Like) is a plugin th
 
 A third-party plugin that adds a new content type (e.g., a Podcast plugin) will:
 - Appear in the content type picker automatically (with default icon and no description unless it overrides `getIconName()` and `getDescription()`)
-- Have its edit template rendered in the compose modal (Bootstrap-styled if the plugin hasn't provided an Idno 2026-specific template — functional but unstyled)
+- Have its edit template rendered in the compose modal — if the plugin provides `templates/modern/` templates, those are used; otherwise the resolver falls back to `templates/default/` (Bootstrap-styled, functional but visually inconsistent)
 - Have its display template rendered in the feed (same graceful degradation)
+- **Migration path for third-party plugins**: Add a `templates/modern/` directory with Tailwind-styled templates using `idno-` component classes. No other changes needed — the template type system handles the rest.
 
 ### Admin navigation is plugin-extensible
 
@@ -567,28 +613,34 @@ Plugins register their own CSS and JS via `Page::getAssets()`. The new shell tem
 
 These are loaded alongside the theme's own assets, so plugin styles and scripts continue to work.
 
-### Template override pattern for plugins
+### Template type as the plugin migration path
 
-Plugin developers who want their templates to look native in the Idno 2026 theme can provide theme-specific template overrides in their plugin directory. The template path resolution (plugin path registered via `additionalPath()`) handles this automatically — no special theme awareness needed.
+Plugin developers who want their templates to look native in the Idno 2026 theme add a `templates/modern/` directory to their plugin. The template type resolution handles the rest:
+
+1. When `modern` is the active template type, the resolver looks for `templates/modern/{templateName}.tpl.php` first
+2. If found (in any registered path — theme, plugin, or core), it's used
+3. If not found, falls back to `templates/default/{templateName}.tpl.php`
+
+This means plugins can migrate one template at a time. A plugin might provide a `modern` version of its edit form but let the display template fall back to `default`. No all-or-nothing migration required.
 
 ## Backwards Compatibility
 
 ### No shim, no emulation
 
-- Old themes continue to load Bootstrap 3 CSS/JS via the unmodified core templates
-- Old plugins that register their own templates continue to work — their templates render with Bootstrap as before
-- The Idno 2026 theme only affects templates it explicitly replaces
-- Plugin templates that aren't overridden by the theme will render with whatever CSS the current shell loads — plugin developers who want their templates to look right in both Bootstrap and Tailwind contexts should provide theme-specific template overrides
+- Old themes continue to use the `default` template type and load Bootstrap 3 CSS/JS via the unmodified core templates
+- Old plugins that only provide `templates/default/` continue to work — their `default` templates are used as fallback when the `modern` type doesn't have a match
+- When a `default` template renders inside the `modern` shell (Tailwind context), Bootstrap-specific classes won't be styled, but native HTML form elements, links, and buttons remain functional
+- The Idno 2026 theme only affects rendering when the `modern` template type is active
 
 ### Migration path to core default
 
-When ready to promote Idno 2026 to the default:
+When ready to promote the `modern` template type to be the primary:
 
-1. Move templates from `Themes/2026/templates/` to `templates/default/`
+1. Move `modern` plugin templates into the core template directory structure
 2. Move build config and `src/` to project root
 3. Update asset paths in shell templates
-4. Bootstrap-based themes become the ones that need to override the shell to load Bootstrap instead
-5. The current `Themes/2026/` structure is designed to make this migration straightforward
+4. Make `modern` the default template type (or rename it to `default` and rename the current `default` to `legacy`)
+5. The `modern` template type and per-plugin migration pattern is designed to make this transition incremental
 
 ## Dependencies (new)
 
