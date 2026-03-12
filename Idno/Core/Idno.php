@@ -282,8 +282,6 @@ namespace Idno\Core {
             $this->routes()->addRoute('/service/db/optimise/?', '\Idno\Pages\Service\Db\Optimise');
             $this->routes()->addRoute('/service/vendor/messages/?', '\Idno\Pages\Service\Vendor\Messages');
             $this->routes()->addRoute('/service/security/csrftoken/?', '\Idno\Pages\Service\Security\CSRFToken');
-            $this->routes()->addRoute('/service/web/unfurl/?', '\Idno\Pages\Service\Web\UrlUnfurl');
-            $this->routes()->addRoute('/service/web/unfurl/remove/:id/?', '\Idno\Pages\Service\Web\RemovePreview');
             $this->routes()->addRoute('/service/system/log/?', '\Idno\Pages\Service\System\Log');
             $this->routes()->addRoute('/service/geo/geocoder/?', '\Idno\Pages\Service\Geo\Geocoder');
             // Shared inbox route is registered by the ActivityPub plugin

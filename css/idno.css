@@ -1976,48 +1976,75 @@ textarea.form-control {
 }
 
 /**
- Skinning the Unfurled object
+ Link preview card (Medium-style)
  */
-div.unfurled-url {
-  margin-bottom: 10px;
-}
-div.unfurled-url .basics {
-  border: #ddd dotted 1px;
-  height: 17rem;
+.link-preview-card {
+  display: block;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
   overflow: hidden;
-  padding: 1rem;
+  text-decoration: none;
+  color: inherit;
+  margin: 1rem 0;
+  transition: background-color 0.15s ease, box-shadow 0.15s ease;
 }
-div.unfurled-url .basics h2 {
-  font-size: 1.4em;
-  margin-top: 1rem;
-  padding-left: 0.5rem;
+.link-preview-card:hover {
+  background-color: #fafafa;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+  color: inherit;
 }
-div.unfurled-url .basics .byline {
-  text-transform: uppercase;
-}
-div.unfurled-url .basics .image {
-  float: left;
-  height: 15rem;
-  margin-right: 1rem;
-  width: 15rem;
-}
-div.unfurled-url .basics .image img {
-  height: 100%;
-  object-fit: cover;
+.link-preview-image {
   width: 100%;
-}
-div.unfurled-url .basics .text {
-  margin-left: 1rem;
-}
-div.unfurled-url .basics blockquote {
-  border-left: 0;
-  height: 8rem;
+  max-height: 280px;
   overflow: hidden;
-  padding-left: 0;
+  background: #f0f0f0;
 }
-
-.idno-entry div.unfurled-url {
-  margin-top: 30px;
+.link-preview-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  max-height: 280px;
+}
+.link-preview-content {
+  padding: 14px 16px;
+}
+.link-preview-title {
+  font-size: 1.1em;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #1a1a1a;
+  margin-bottom: 4px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.link-preview-description {
+  font-size: 0.9em;
+  line-height: 1.5;
+  color: #6b6b6b;
+  margin-bottom: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.link-preview-domain {
+  font-size: 0.8em;
+  color: #999;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  text-transform: lowercase;
+}
+.link-preview-domain svg {
+  flex-shrink: 0;
+  opacity: 0.6;
+}
+.idno-entry .link-preview-card {
+  margin-top: 20px;
 }
 
 /* Shim to hide settings menu in content before it can be removed */
