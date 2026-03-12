@@ -11,11 +11,6 @@
   --color-primary: #111111;
   --color-primary-text: #ffffff;
 
-  /* Spacing */
-  --spacing-card: 1.5rem;
-  --spacing-gap: 0.75rem;
-  --spacing-section: 1rem;
-
   /* Border radius */
   --radius-sm: 0.5rem;
   --radius-md: 0.75rem;
@@ -39,4 +34,15 @@
   --color-admin-text: rgba(255, 255, 255, 0.5);
   --color-admin-text-active: rgba(255, 255, 255, 0.9);
   --color-admin-divider: rgba(255, 255, 255, 0.08);
+}
+
+/*
+ * Spacing tokens are defined outside @theme to prevent Tailwind 4 from
+ * generating h-card / h-entry / h-feed utility classes that conflict
+ * with IndieWeb microformat class names (h-card, h-entry, h-feed, etc.).
+ */
+:root {
+  --spacing-card: 1.5rem;
+  --spacing-gap: 0.75rem;
+  --spacing-section: 1rem;
 }

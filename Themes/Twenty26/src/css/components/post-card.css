@@ -69,6 +69,7 @@
 
   .idno-entry-footer {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: 1rem;
     margin-top: var(--spacing-section);

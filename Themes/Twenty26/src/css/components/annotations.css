@@ -65,6 +65,7 @@
 
   /* Annotations list container (class set by content/end.tpl.php) */
   .idno-annotations {
+    width: 100%;
     margin-top: var(--spacing-section);
     padding-top: var(--spacing-section);
     border-top: 1px solid var(--color-border-subtle);
@@ -72,6 +73,7 @@
 
   /* Comment form */
   .idno-comment-form {
+    width: 100%;
     display: flex;
     gap: var(--spacing-gap);
     margin-top: var(--spacing-section);
@@ -129,6 +131,7 @@
 
   /* Syndication links */
   .idno-syndication-links {
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
