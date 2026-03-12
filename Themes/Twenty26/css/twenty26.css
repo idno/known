@@ -515,7 +515,8 @@
     color: inherit;
   }
   .idno-entry-byline .idno-entry-author {
-    color: var(--color-text-strong);
+    color: var(--color-text-muted);
+    font-weight: 400;
     text-decoration: none;
   }
   .idno-entry-byline .idno-entry-author:hover {
@@ -525,6 +526,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
+    margin-left: auto;
   }
   .idno-entry-title {
     font-size: var(--font-size-title);
