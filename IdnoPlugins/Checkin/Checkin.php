@@ -163,6 +163,13 @@ namespace IdnoPlugins\Checkin {
                 $this->setAccess($access);
                 $this->tags = $tags;
                 $this->anonymity = ($anonymity == 'Yes' ? 'Yes' : false);
+
+                // Make publish status aware
+                $publish_status = \Idno\Core\Idno::site()->currentPage()->getInput('publish_status', 'published');
+                if (!empty($publish_status)) {
+                    $this->setPublishStatus($publish_status);
+                }
+
                 if ($this->publish($new)) {
                     if ($new && $access == 'PUBLIC') {
                         \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
