@@ -39,8 +39,11 @@ New CSS is minimal: one `.idno-access-dropdown` component in `forms.css`. Everyt
 
 ### What the override does
 
-- Keeps all PHP logic identical: `$access` resolution, `$id_code` generation, `show_privacy` check, `AccessGroup::get()`, `documentFormControl()`
+- Keeps all PHP logic identical: `$access` resolution, `$id_code` generation, `show_privacy` check, `AccessGroup::get()`
+- `documentFormControl()` remains **outside** the `if/else` conditional, exactly as the default — it always runs regardless of whether the dropdown is rendered
+- Wraps the dropdown in `<div class="access-control-block">` to preserve the existing wrapper class (may be referenced by JS/CSS elsewhere)
 - Replaces Bootstrap `btn-group` + `dropdown-toggle` + `dropdown-menu` with an Alpine.js component using `x-data`, `x-show`, `@click.away`
+- **Alpine.js fully replaces** the existing `.acl-ctrl-option` / `data-acl` JS event bindings. The Alpine click handler directly sets `document.getElementById('access-control-id-{id_code}').value` when an option is selected. No need to preserve `acl-ctrl-option` class or `data-acl` attributes.
 - Replaces Font Awesome icons with inline SVGs:
   - `fa-globe` → globe SVG (circle + meridian lines)
   - `fa-group` → users SVG (two person silhouettes)
@@ -50,8 +53,14 @@ New CSS is minimal: one `.idno-access-dropdown` component in `forms.css`. Everyt
 - Trigger button uses `idno-access-trigger` class
 - Menu panel uses `idno-access-menu` class, pops upward
 - Each option uses `idno-access-option` class with checkmark SVG for active state
-- Alpine.js state manages: `open` (boolean), `selected` (access value), `label` (display text)
-- Clicking an option updates the hidden input value and closes the menu
+- Alpine.js state manages: `open` (boolean), `selected` (access value), `label` (display text), `icon` (which SVG to show)
+- **Initial state derived from PHP `$access`**: PHP maps the access value to the correct initial label and icon:
+  - `PUBLIC` → label "Public", globe icon
+  - `SITE` → label "Members only", users icon
+  - Current user UUID → label "Private", lock icon
+  - Custom AccessGroup UUID → label from `$acl->title`, cog icon (or users icon for FOLLOWING type)
+  - This fixes a bug in the default where the trigger always shows "Public" regardless of actual access value
+- Clicking an option updates the hidden input value, updates the trigger label/icon, and closes the menu
 - Chevron SVG on the trigger button
 
 ### New CSS needed
@@ -73,8 +82,12 @@ New CSS is minimal: one `.idno-access-dropdown` component in `forms.css`. Everyt
   transition: border-color 0.15s;
 }
 .idno-access-trigger:hover {
-  border-color: #d1d5db;
+  border-color: var(--color-text-muted);
   color: var(--color-text);
+}
+.idno-access-trigger:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 .idno-access-trigger svg { width: 14px; height: 14px; }
 .idno-access-trigger .chevron { width: 10px; height: 10px; opacity: 0.4; }
@@ -107,6 +120,7 @@ New CSS is minimal: one `.idno-access-dropdown` component in `forms.css`. Everyt
   text-align: left;
 }
 .idno-access-option:hover { background: var(--color-bg); }
+.idno-access-option:focus-visible { background: var(--color-bg); outline: none; }
 .idno-access-option.active {
   background: var(--color-bg);
   font-weight: 600;
@@ -137,7 +151,7 @@ New CSS is minimal: one `.idno-access-dropdown` component in `forms.css`. Everyt
 - Replaces class `form-control` with `idno-textarea`
 - Final class string: `bodyInput mentionable idno-textarea {$class}`
 - Keeps all attributes: name, placeholder, style (height), id, required
-- Keeps `documentFormControl()` call and var cleanup
+- Keeps `documentFormControl()` call (note: the default passes `$name` not `$vars['name']` — this relies on Bonita variable extraction; replicate as-is) and var cleanup
 
 ### No new CSS needed
 
@@ -195,7 +209,7 @@ New CSS is minimal: one `.idno-access-dropdown` component in `forms.css`. Everyt
 
 - Keeps all PHP logic identical: `$fields_and_defaults`, blank-default, multiple handling, id generation, attribute loop, options iteration, documentFormControl, var cleanup
 - Replaces class `input` with `idno-select`
-- Final class string: `idno-select {$vars['class']}` (or `idno-select input-select` as fallback)
+- Final class string: `idno-select {$vars['class']}` (or just `idno-select` as fallback — drop the Bootstrap-era `input-select` fallback)
 
 ### No new CSS needed
 
@@ -227,7 +241,8 @@ New CSS is minimal: one `.idno-access-dropdown` component in `forms.css`. Everyt
 ### What the override does
 
 - Keeps all PHP logic identical: id generation, multiple detection, hide-existing, attachment iteration, URL resolution, URL patching, URL sanitization, createLink for delete, preview area, file input delegation
-- Replaces `btn btn-primary btn-file` with `idno-btn idno-btn-ghost` (full-width, centered)
+- Replaces the `<span class="btn btn-primary btn-file">` wrapper with a `<label class="idno-btn idno-btn-ghost">` (full-width, centered). The `<label>` wraps the hidden file input directly, so clicking it opens the file picker without needing the Bootstrap `btn-file` CSS trick (which positioned a transparent file input over the button). The file input gets `style="display:none"` and the label's `for` attribute targets the input's id.
+- Updates the class passed to the nested file input: replaces `'input-file form-control col-md-9'` with `'input-file'` to remove Bootstrap classes that would leak through
 - Replaces `fa fa-camera` with inline camera SVG (viewBox 0 0 24 24, camera body + lens circle)
 - Replaces `fa fa-trash-o` in delete link with inline trash SVG (viewBox 0 0 24 24, lid + can body)
 - Delete button positioned as overlay on existing photo (absolute positioning, dark semi-transparent background, white icon, red on hover)
@@ -263,6 +278,10 @@ New CSS is minimal: one `.idno-access-dropdown` component in `forms.css`. Everyt
 }
 .idno-image-delete:hover {
   background: rgba(220,38,38,0.8);
+}
+.idno-image-delete:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 2px;
 }
 .idno-image-delete svg {
   width: 14px;
