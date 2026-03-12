@@ -22,6 +22,8 @@ The theme introduces a new template type called `modern` alongside the existing 
 
 This is the same mechanism used by `json`, `activitypub`, `email`, etc. — `templateTypeExists()` validates the type exists, `draw()` searches the active type first and falls back to `default`. No new core rendering code needed.
 
+**Coexistence with other template types:** The theme sets `modern` during init, but `autodetectTemplateType()` runs on each request and overrides based on Accept headers (`application/activity+json` → `activitypub`, `application/json` → `json`, etc.) and the `_t` query parameter. ActivityPub, RSS, JSON, and other output formats continue to work exactly as before — the theme's `modern` type only applies to normal HTML page loads.
+
 **Core changes (minimal):**
 
 - `ContentType::getDescription()` — short description for content type pickers
