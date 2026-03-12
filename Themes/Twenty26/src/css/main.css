@@ -9,5 +9,6 @@
 @import "./components/editor.css";
 @import "./components/profile.css";
 @import "./components/admin.css";
+@import "./components/annotations.css";
 @source "../../templates/";
 @source "../../../../IdnoPlugins/*/templates/modern/";
