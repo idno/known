@@ -31,21 +31,21 @@ Themes/2026/
 ├── preview.png                    # Theme selector preview image
 ├── package.json                   # Node dependencies
 ├── vite.config.js                 # Vite build configuration
-├── tailwind.config.js             # Tailwind configuration
+├── postcss.config.js              # PostCSS configuration (Tailwind v4 plugin)
 ├── src/
 │   ├── css/
-│   │   ├── main.css               # Tailwind directives + component imports
-│   │   └── components/            # Component class definitions
-│   │       ├── layout.css         # Page shell, grid, spacing
-│   │       ├── navigation.css     # Left nav, mobile bottom bar
-│   │       ├── post-card.css      # Feed items, entry display
-│   │       ├── forms.css          # Inputs, textareas, selects
-│   │       ├── buttons.css        # Button variants
-│   │       ├── modal.css          # Compose modal, dialogs
-│   │       ├── editor.css         # Tiptap editor styling
-│   │       ├── profile.css        # User profile pages
-│   │       ├── admin.css          # Admin panel styles
-│   │       └── utilities.css      # One-off helpers
+│   │   ├── main.css               # Entry point: @import "tailwindcss", tokens, components
+│   │   ├── tokens.css             # @theme layer: design tokens (colors, spacing, radii, typography)
+│   │   └── components/            # @layer components: semantic Idno classes
+│   │       ├── layout.css         # .idno-shell, .idno-grid, .idno-container
+│   │       ├── navigation.css     # .idno-nav, .idno-nav-item, .idno-nav-icon
+│   │       ├── post-card.css      # .idno-entry, .idno-entry-header, .idno-entry-body
+│   │       ├── forms.css          # .idno-input, .idno-select, .idno-textarea
+│   │       ├── buttons.css        # .idno-btn, .idno-btn-primary, .idno-btn-ghost
+│   │       ├── modal.css          # .idno-modal, .idno-modal-header, .idno-modal-body
+│   │       ├── editor.css         # .idno-editor, .idno-toolbar
+│   │       ├── profile.css        # .idno-profile, .idno-profile-header
+│   │       └── admin.css          # .idno-admin-shell, .idno-admin-sidebar, .idno-admin-content
 │   └── js/
 │       ├── main.js                # Alpine.js init + module imports
 │       └── modules/
@@ -115,44 +115,193 @@ Grunt continues to build `css/idno.css` and `js/idno.min.js` for Bootstrap-based
 
 ## CSS Architecture
 
-### Component classes with `@apply`
+### Three-layer design system (Tailwind v4)
 
-Tailwind utility classes are composed into semantic component classes using `@apply`. This keeps templates readable and makes the system accessible to plugin/theme developers who don't need deep Tailwind knowledge.
+The CSS architecture uses Tailwind v4's native `@theme`, `@layer`, and cascade layer features to create a proper design system with a stable API for plugin and theme developers. No `@apply` — component classes use plain CSS referencing design tokens.
 
-**Entry point** — `src/css/main.css`:
+#### Layer 1: Design Tokens (`@theme`)
 
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+Design tokens define Idno's visual vocabulary as CSS custom properties. This is where future themes do most of their customization — override token values and everything downstream responds.
 
-@import './components/layout.css';
-@import './components/navigation.css';
-@import './components/post-card.css';
-/* ... etc */
-```
-
-**Component file example** — `src/css/components/post-card.css`:
+**`src/css/tokens.css`:**
 
 ```css
-.post-card {
-  @apply bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-4;
-}
-.post-card-header {
-  @apply flex items-center gap-3 mb-3;
-}
-.post-card-avatar {
-  @apply w-10 h-10 rounded-full object-cover;
-}
-.post-card-meta {
-  @apply text-sm text-gray-500;
-}
-.post-card-body {
-  @apply prose prose-sm max-w-none;
+@theme {
+  /* Colors */
+  --color-bg: #f3f4f6;
+  --color-surface: #ffffff;
+  --color-border: #e5e7eb;
+  --color-border-subtle: #f0f0f0;
+  --color-text: #374151;
+  --color-text-strong: #111111;
+  --color-text-muted: #9ca3af;
+  --color-text-secondary: #6b7280;
+  --color-primary: #111111;
+  --color-primary-text: #ffffff;
+
+  /* Spacing */
+  --spacing-card: 1.5rem;      /* 24px — internal card padding */
+  --spacing-gap: 0.75rem;      /* 12px — gap between elements */
+  --spacing-section: 1rem;     /* 16px — between sections */
+
+  /* Border radius */
+  --radius-sm: 0.5rem;         /* 8px */
+  --radius-md: 0.75rem;        /* 12px */
+  --radius-lg: 1rem;           /* 16px */
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-sans: -apple-system, system-ui, sans-serif;
+  --font-size-sm: 0.8125rem;   /* 13px */
+  --font-size-base: 0.9375rem; /* 15px */
+  --font-size-lg: 1.125rem;    /* 18px */
+  --font-size-title: 1.75rem;  /* 28px */
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+  --shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.15);
+
+  /* Admin */
+  --color-admin-bg: #111111;
+  --color-admin-text: rgba(255, 255, 255, 0.5);
+  --color-admin-text-active: rgba(255, 255, 255, 0.9);
+  --color-admin-divider: rgba(255, 255, 255, 0.08);
 }
 ```
 
-**Hybrid usage**: Tailwind utilities may be used directly in templates for one-off layout concerns (e.g., a specific `mt-4` or `flex`), but reusable visual patterns are always defined as component classes.
+#### Layer 2: Component Classes (`@layer components`)
+
+Semantic classes that plugin authors use in templates. Written in plain CSS referencing token variables. This is the **stable API** — documented as the contract between core, themes, and plugins. All component classes use the `idno-` prefix to avoid collisions.
+
+**`src/css/components/post-card.css`:**
+
+```css
+@layer components {
+  .idno-entry {
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-subtle);
+    padding: var(--spacing-card);
+    margin-bottom: var(--spacing-gap);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .idno-entry-header {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-gap);
+    margin-bottom: var(--spacing-gap);
+  }
+
+  .idno-entry-avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+  }
+
+  .idno-entry-author {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-text-strong);
+  }
+
+  .idno-entry-meta {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .idno-entry-body {
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+}
+```
+
+**`src/css/components/buttons.css`:**
+
+```css
+@layer components {
+  .idno-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+  }
+
+  .idno-btn-primary {
+    background: var(--color-primary);
+    color: var(--color-primary-text);
+  }
+
+  .idno-btn-ghost {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+  }
+}
+```
+
+#### Layer 3: Tailwind Utilities
+
+Tailwind's generated utility classes sit on top for one-off adjustments in templates. Because Tailwind v4 uses native CSS cascade layers, utilities automatically win over component classes in specificity — a plugin can use `.idno-entry` for the base and add `mt-4` or `text-sm` for local tweaks without specificity conflicts.
+
+#### Entry point — `src/css/main.css`
+
+```css
+@import "tailwindcss";
+@import "./tokens.css";
+@import "./components/layout.css";
+@import "./components/navigation.css";
+@import "./components/post-card.css";
+@import "./components/forms.css";
+@import "./components/buttons.css";
+@import "./components/modal.css";
+@import "./components/editor.css";
+@import "./components/profile.css";
+@import "./components/admin.css";
+```
+
+#### Theming via token overrides
+
+Future themes that want to customize the Idno 2026 look can override just the token values. For example, a dark mode variant only needs to change the token layer:
+
+```css
+@theme {
+  --color-bg: #0f0f0f;
+  --color-surface: #1a1a1a;
+  --color-border: #2a2a2a;
+  --color-text: #e5e5e5;
+  --color-text-strong: #ffffff;
+  /* ... */
+}
+```
+
+All component classes automatically respond — no CSS rewriting needed.
+
+#### Plugin developer experience
+
+Plugin authors use the `idno-` prefixed component classes in their templates. They don't need to know Tailwind. The classes are documented and stable:
+
+```html
+<div class="idno-entry h-entry">
+  <div class="idno-entry-header p-author h-card">
+    <img class="idno-entry-avatar u-photo" src="..." />
+    <span class="idno-entry-author p-name">Name</span>
+  </div>
+  <div class="idno-entry-body e-content">Content</div>
+</div>
+```
+
+For one-off adjustments, Tailwind utilities can be mixed in: `class="idno-entry mt-4"` — utilities always win due to cascade layers.
 
 ## JavaScript Architecture
 
@@ -340,18 +489,18 @@ All templates MUST preserve full microformats2 markup. Styling classes are cosme
 ### Template example
 
 ```html
-<article class="post-card h-entry">
-  <div class="post-card-header p-author h-card">
+<article class="idno-entry h-entry">
+  <div class="idno-entry-header p-author h-card">
     <a href="..." class="u-url">
-      <img class="post-card-avatar u-photo" src="..." alt="..." />
+      <img class="idno-entry-avatar u-photo" src="..." alt="..." />
     </a>
-    <a href="..." class="post-card-author p-name u-url">Author Name</a>
+    <a href="..." class="idno-entry-author p-name u-url">Author Name</a>
   </div>
-  <div class="post-card-body e-content">
+  <div class="idno-entry-body e-content">
     Content here
   </div>
-  <footer class="post-card-footer">
-    <a class="post-card-permalink u-url" href="..." rel="permalink">
+  <footer class="idno-entry-footer">
+    <a class="idno-entry-permalink u-url" href="..." rel="permalink">
       <time class="dt-published" datetime="2026-03-11T10:00:00+00:00">
         March 11, 2026
       </time>
@@ -383,7 +532,7 @@ When ready to promote Idno 2026 to the default:
 
 | Dependency | Version | License | Purpose |
 |-----------|---------|---------|---------|
-| Tailwind CSS | 3.x | MIT | Utility CSS framework (v3 chosen for stable `@apply` support; v4 changed config model and has known `@apply` issues) |
+| Tailwind CSS | 4.x | MIT | Utility CSS framework (v4 for native `@theme`, `@layer`, and cascade layer support) |
 | Alpine.js | 3.x | MIT | Lightweight reactive JS |
 | Tiptap | 2.x | MIT | Headless rich text editor (ProseMirror) |
 | Lucide | latest | ISC | Icon library |
