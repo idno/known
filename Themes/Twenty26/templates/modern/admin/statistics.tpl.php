@@ -1,6 +1,4 @@
-<?php
-    ob_start();
-?>
+<h1 class="idno-admin-page-title"><?= \Idno\Core\Idno::site()->language()->_('Statistics') ?></h1>
     <p class="idno-admin-description">
         <?= \Idno\Core\Idno::site()->language()->_('This page provides you with information and statistics about your Idno site.') ?>
     </p>
@@ -20,10 +18,3 @@
         }
     }
     ?>
-<?php
-    $content = ob_get_clean();
-    echo $this->__([
-        'body' => $content,
-        'title' => \Idno\Core\Idno::site()->language()->_('Statistics')
-    ])->draw('admin/shell');
-?>

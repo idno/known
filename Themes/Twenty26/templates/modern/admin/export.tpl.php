@@ -1,6 +1,4 @@
-<?php
-    ob_start();
-?>
+<h1 class="idno-admin-page-title"><?= \Idno\Core\Idno::site()->language()->_('Export') ?></h1>
     <p class="idno-admin-description">
         <?= \Idno\Core\Idno::site()->language()->_('Export your published Idno content as an RSS file. You can import this file into Idno or WordPress.') ?>
     </p>
@@ -41,10 +39,3 @@
             <?= \Idno\Core\Idno::site()->actions()->signForm(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'admin/export/wxr') ?>
         </form>
     </div>
-<?php
-    $content = ob_get_clean();
-    echo $this->__([
-        'body' => $content,
-        'title' => \Idno\Core\Idno::site()->language()->_('Export Content')
-    ])->draw('admin/shell');
-?>

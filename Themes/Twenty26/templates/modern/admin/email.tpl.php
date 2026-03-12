@@ -1,6 +1,4 @@
-<?php
-    ob_start();
-?>
+<h1 class="idno-admin-page-title"><?= \Idno\Core\Idno::site()->language()->_('Email') ?></h1>
     <p class="idno-admin-description">
         <?= \Idno\Core\Idno::site()->language()->_("Idno tries to send email using your server's default email settings. If you'd like it to do something else - for example, if you'd like to send email using an external provider - enter the new SMTP settings below.") ?>
     </p>
@@ -108,10 +106,3 @@
         </form>
     </div>
     <?php } ?>
-<?php
-    $content = ob_get_clean();
-    echo $this->__([
-        'body' => $content,
-        'title' => \Idno\Core\Idno::site()->language()->_('Email Settings')
-    ])->draw('admin/shell');
-?>

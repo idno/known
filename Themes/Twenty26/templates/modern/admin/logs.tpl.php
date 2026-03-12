@@ -1,6 +1,4 @@
-<?php
-    ob_start();
-?>
+<h1 class="idno-admin-page-title"><?= \Idno\Core\Idno::site()->language()->_('Logs') ?></h1>
     <p class="idno-admin-description">
         <?= \Idno\Core\Idno::site()->language()->_('This page provides you with captured PHP logs. These contain sensitive information, so be very careful how you disclose the information and to whom.') ?>
     </p>
@@ -35,10 +33,3 @@
         });
     });
 </script>
-<?php
-    $content = ob_get_clean();
-    echo $this->__([
-        'body' => $content,
-        'title' => \Idno\Core\Idno::site()->language()->_('Log Capture')
-    ])->draw('admin/shell');
-?>

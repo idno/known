@@ -1,6 +1,4 @@
-<?php
-    ob_start();
-?>
+<h1 class="idno-admin-page-title"><?= \Idno\Core\Idno::site()->language()->_('Import') ?></h1>
     <p class="idno-admin-description">
         <?= \Idno\Core\Idno::site()->language()->_('Import your content from other sites into Idno. All imported content will be treated as a post, with a title and body content.') ?>
     </p>
@@ -58,10 +56,3 @@
             </div>
         </form>
     </div>
-<?php
-    $content = ob_get_clean();
-    echo $this->__([
-        'body' => $content,
-        'title' => \Idno\Core\Idno::site()->language()->_('Import Content')
-    ])->draw('admin/shell');
-?>

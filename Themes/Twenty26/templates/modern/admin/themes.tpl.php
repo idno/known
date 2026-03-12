@@ -1,6 +1,4 @@
-<?php
-    ob_start();
-?>
+<h1 class="idno-admin-page-title"><?= \Idno\Core\Idno::site()->language()->_('Themes') ?></h1>
     <p class="idno-admin-description">
         <?= \Idno\Core\Idno::site()->language()->_('Themes allow you to change the way your site looks. The following themes are installed.') ?>
     </p>
@@ -26,10 +24,3 @@
         }
     }
     ?>
-<?php
-    $content = ob_get_clean();
-    echo $this->__([
-        'body' => $content,
-        'title' => \Idno\Core\Idno::site()->language()->_('Themes')
-    ])->draw('admin/shell');
-?>

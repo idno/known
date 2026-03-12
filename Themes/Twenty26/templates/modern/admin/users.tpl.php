@@ -1,6 +1,4 @@
-<?php
-    ob_start();
-?>
+<h1 class="idno-admin-page-title"><?= \Idno\Core\Idno::site()->language()->_('Users') ?></h1>
     <p class="idno-admin-description">
         <?= \Idno\Core\Idno::site()->language()->_('View the users registered for your site, and invite new users to join.') ?>
     </p>
@@ -114,10 +112,3 @@
     <?php } ?>
 
     <?= $this->draw('admin/users/extensions') ?>
-<?php
-    $content = ob_get_clean();
-    echo $this->__([
-        'body' => $content,
-        'title' => \Idno\Core\Idno::site()->language()->_('Users')
-    ])->draw('admin/shell');
-?>

@@ -1,6 +1,4 @@
-<?php
-    ob_start();
-?>
+<h1 class="idno-admin-page-title"><?= \Idno\Core\Idno::site()->language()->_('Site Settings') ?></h1>
     <?= $this->draw('admin/home/description') ?>
 
     <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>admin/" class="admin" method="post">
@@ -145,10 +143,3 @@
         <?= $this->draw('admin/home/footer/settings') ?>
 
     </form>
-<?php
-    $content = ob_get_clean();
-    echo $this->__([
-        'body' => $content,
-        'title' => \Idno\Core\Idno::site()->language()->_('Site Settings')
-    ])->draw('admin/shell');
-?>
