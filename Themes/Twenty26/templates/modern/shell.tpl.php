@@ -45,6 +45,7 @@
     </div>
     <?= $template->draw('shell/aftercontainer') ?>
     <?= $template->draw('shell/contentfooter') ?>
+    <?= $template->draw('shell/search') ?>
     <?= $template->draw('shell/compose') ?>
 <?php
     echo $template->draw('shell/assets');
