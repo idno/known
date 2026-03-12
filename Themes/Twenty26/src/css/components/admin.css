@@ -198,6 +198,131 @@
     margin-bottom: 1.5rem;
   }
 
+  /* Bootstrap form compatibility within admin/account shells */
+  .admin-template .form-control,
+  .account-template .form-control {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    background: var(--color-surface);
+  }
+
+  .admin-template .form-control:focus,
+  .account-template .form-control:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.1);
+  }
+
+  .admin-template select.form-control,
+  .account-template select.form-control {
+    appearance: auto;
+  }
+
+  .admin-template .form-group,
+  .account-template .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .admin-template label,
+  .account-template label {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    display: block;
+    font-size: var(--font-size-sm);
+  }
+
+  .admin-template .btn-primary,
+  .account-template .btn-primary {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .admin-template .btn-primary:hover,
+  .account-template .btn-primary:hover {
+    opacity: 0.9;
+  }
+
+  .admin-template .btn-default,
+  .account-template .btn-default {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .admin-template .btn-default:hover,
+  .account-template .btn-default:hover {
+    background: var(--color-bg);
+  }
+
+  .admin-template .btn-danger,
+  .account-template .btn-danger {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .admin-template .well,
+  .account-template .well {
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-subtle);
+    padding: var(--spacing-card);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--spacing-gap);
+  }
+
+  .admin-template .explanation,
+  .account-template .explanation,
+  .admin-template .config-desc,
+  .account-template .config-desc {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+  }
+
+  .admin-template .row,
+  .account-template .row {
+    margin-bottom: 1rem;
+  }
+
+  .admin-template h2,
+  .account-template h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text-strong);
+    margin-bottom: 0.75rem;
+  }
+
+  .admin-template h3,
+  .account-template h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-strong);
+    margin-bottom: 0.5rem;
+  }
+
   /* Plugin menu item normalization — plugins contribute <li><a> markup */
   .idno-admin-nav li {
     list-style: none;

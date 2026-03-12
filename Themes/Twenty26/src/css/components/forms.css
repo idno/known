@@ -49,6 +49,10 @@
     margin-top: 0.25rem;
   }
 
+  .idno-form-actions {
+    padding-top: 0.5rem;
+  }
+
   .idno-checkbox-group {
     display: flex;
     align-items: center;
