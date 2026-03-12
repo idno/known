@@ -27,6 +27,24 @@ Admin and account settings each get their own self-contained shell template that
 
 This means a theme overriding `shell/nav`, `shell/css`, or `shell/footerjavascript` has zero effect on admin or account settings pages.
 
+### What the new shells must replicate from `shell/*`
+
+The current `settings-shell.tpl.php` draws ~15 `shell/*` subtemplates. The new self-contained shells need to replicate only the essential ones:
+
+**Must include (hardcoded directly):**
+- CSS loading — `<link>` to `Themes/Twenty26/dist/modern.min.css`
+- JS loading — `<script>` to `Themes/Twenty26/dist/modern.min.js` (Alpine.js + modules)
+- Messages — flash messages / alerts (draw `shell/messages` or inline equivalent)
+- Form data — CSRF tokens and form helpers (draw `shell/form-data`)
+- Basic metatags — charset, viewport
+
+**Intentionally dropped (not needed for admin/settings):**
+- `shell/nav` — no main site navigation in admin/settings
+- `shell/opengraph`, `shell/structured-data`, `shell/dublincore` — admin pages aren't indexed
+- `shell/syndication`, `shell/activitypub` — not relevant
+- `shell/monetization`, `shell/amp` — not relevant
+- `shell/bootstrap` — legacy CSS/JS not used by Twenty26
+
 ### Shell Override Registration
 
 Change the `addUrlShellOverride` calls to use dedicated shells:
@@ -59,6 +77,9 @@ addUrlShellOverride('account', 'account-shell');
 **Remove:**
 - `Themes/Twenty26/templates/modern/admin/shell.tpl.php` — body wrapper that causes double-rendering
 - `Themes/Twenty26/templates/modern/settings-shell.tpl.php` — replaced by the two dedicated shells
+
+**Update:**
+- All Twenty26 admin page templates (`admin/home.tpl.php`, `admin/plugins.tpl.php`, `admin/users.tpl.php`, `admin/themes.tpl.php`, `admin/email.tpl.php`, `admin/import.tpl.php`, `admin/export.tpl.php`, `admin/logs.tpl.php`, `admin/statistics.tpl.php`) — remove any `draw('admin/shell')` wrapper calls, since the new `admin-shell.tpl.php` page shell provides the sidebar directly. These templates should render only their content, not a layout wrapper.
 
 ## Admin Shell
 
@@ -203,39 +224,36 @@ Plugins contribute `<li><a href="...">Label</a></li>` (old Bootstrap pattern). T
 
 ### CSS Adaptation
 
-Style `<li>` children within the nav containers to visually match native nav items:
+Style `<li>` children within the nav containers to visually match native nav items. The CSS properties below should match whatever the `.idno-admin-nav-item` and `.idno-account-nav-item` classes use — the exact values will be determined during implementation from the existing `admin.css` design tokens:
 
 ```css
-/* Admin nav — normalize plugin <li> items */
+/* Admin nav — normalize plugin <li> items to match .idno-admin-nav-item */
 .idno-admin-nav li {
   list-style: none;
 }
 .idno-admin-nav li a {
-  /* Same visual properties as .idno-admin-nav-item */
-  display: flex;
-  align-items: center;
-  gap: var(--space-2);
-  padding: var(--space-2) var(--space-3);
-  color: var(--color-slate-400);
-  font-size: var(--text-sm);
-  border-radius: var(--radius-md);
-  text-decoration: none;
+  /* Mirror .idno-admin-nav-item properties exactly */
 }
 .idno-admin-nav li a:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--color-slate-200);
+  /* Mirror .idno-admin-nav-item:hover */
 }
 .idno-admin-nav li.active a {
-  background: rgba(255, 255, 255, 0.12);
-  color: var(--color-slate-100);
-  font-weight: 500;
+  /* Mirror .idno-admin-nav-item.active */
 }
 
-/* Account nav — same pattern, light theme */
-.idno-account-nav li { list-style: none; }
-.idno-account-nav li a { /* match .idno-account-nav-item */ }
-.idno-account-nav li a:hover { /* light hover */ }
-.idno-account-nav li.active a { /* blue active state */ }
+/* Account nav — normalize plugin <li> items to match .idno-account-nav-item */
+.idno-account-nav li {
+  list-style: none;
+}
+.idno-account-nav li a {
+  /* Mirror .idno-account-nav-item properties exactly */
+}
+.idno-account-nav li a:hover {
+  /* Mirror .idno-account-nav-item:hover */
+}
+.idno-account-nav li.active a {
+  /* Mirror .idno-account-nav-item.active */
+}
 ```
 
 ### Plugin Admin Page Content
@@ -246,7 +264,11 @@ Plugin pages (e.g., ActivityPub admin) set `$t->body` and call `$t->drawPage()`.
 
 ### Existing Admin CSS (`admin.css`)
 
-Already contains `.idno-admin-shell`, `.idno-admin-sidebar`, `.idno-admin-nav`, `.idno-admin-nav-item`, `.idno-admin-main`, `.idno-admin-content` styles. These need minor updates to work as the page shell rather than a body wrapper (remove the negative margin hack).
+Already contains `.idno-admin-shell`, `.idno-admin-sidebar`, `.idno-admin-nav`, `.idno-admin-nav-item`, `.idno-admin-main`, `.idno-admin-content` styles. These need minor updates:
+
+- Remove the `margin-left: -14rem` inline style hack from the old `admin/shell.tpl.php` (goes away when that template is deleted)
+- Keep `.idno-admin-sidebar { width: 14rem }` and `.idno-admin-main { margin-left: 14rem }` — these correctly position the fixed sidebar and offset content
+- The new `admin-shell.tpl.php` uses these classes directly as the page layout, so no negative margin compensation is needed
 
 ### New Account CSS
 
@@ -266,7 +288,10 @@ Add to existing `admin.css` or create `account.css`:
 Both admin and account pages use existing form classes from `forms.css`:
 - `.idno-input`, `.idno-textarea`, `.idno-select` for form controls
 - `.idno-label` for labels
-- `.idno-button` for buttons
+
+Button styles in `buttons.css`: `.idno-btn-primary` and `.idno-btn-ghost` already exist. Additional button variants to add:
+- `.idno-btn-enable` — green solid button (plugin enable)
+- `.idno-btn-disable` — outline button with red hover state (plugin disable)
 
 The settings-card component (`.idno-admin-card` or new `.idno-settings-card`) wraps form groups with a white background, border, and border-radius.
 
@@ -293,6 +318,14 @@ Two one-line changes:
 - The CSS build system — just adding to existing component files
 - `admin/menu.tpl.php` — already works with the new structure
 - Template extension points — `admin/menu/items` and `account/menu/items` unchanged
+
+## Responsive Behavior
+
+The admin sidebar already has a `@media (max-width: 768px)` rule in `admin.css` that converts it to a bottom bar on mobile. The account settings shell should follow the same pattern: on viewports narrower than 768px, the account sidebar collapses to a horizontal scrollable nav bar at the top of the content area, with the "Account" header hidden and nav items displayed in a row.
+
+## Build System Note
+
+The CSS build uses Tailwind v4 via PostCSS (`@tailwindcss/postcss` in `postcss.config.js`). There is no separate `tailwind.config.js` — Tailwind configuration is handled via CSS directives in `main.css`. The build tool is Vite (`vite.config.js`). New CSS component files need to be imported in `main.css`.
 
 ## Visual Reference
 
