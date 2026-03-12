@@ -39,7 +39,7 @@ namespace Idno\Core {
             Idno::site()->routes()->addRoute('/account/export/wxr/?', '\Idno\Pages\Account\Export\WXR');
 
             // Override the page shell
-            Idno::site()->template()->addUrlShellOverride('account', 'settings-shell');
+            Idno::site()->template()->addUrlShellOverride('account', 'account-shell');
 
         }
 
