@@ -1,0 +1,93 @@
+@layer components {
+  .idno-input,
+  .idno-select,
+  .idno-textarea {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    background: var(--color-surface);
+    transition: border-color 0.15s;
+  }
+
+  .idno-input:focus,
+  .idno-select:focus,
+  .idno-textarea:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.1);
+  }
+
+  .idno-input::placeholder,
+  .idno-textarea::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  .idno-textarea {
+    resize: vertical;
+    min-height: 6rem;
+  }
+
+  .idno-label {
+    display: block;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-text-strong);
+    margin-bottom: 0.375rem;
+  }
+
+  .idno-form-group {
+    margin-bottom: var(--spacing-section);
+  }
+
+  .idno-form-help {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+  }
+
+  .idno-checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .idno-tag-input {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    padding: 0.375rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background: var(--color-surface);
+    min-height: 2.5rem;
+    align-items: center;
+  }
+
+  .idno-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.5rem;
+    background: var(--color-bg);
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+  }
+
+  .idno-tag-remove {
+    cursor: pointer;
+    opacity: 0.5;
+    background: none;
+    border: none;
+    padding: 0;
+    line-height: 1;
+  }
+
+  .idno-tag-remove:hover {
+    opacity: 1;
+  }
+}

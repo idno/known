@@ -1,0 +1,61 @@
+@layer components {
+  .idno-profile {
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-subtle);
+    padding: var(--spacing-card);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--spacing-gap);
+  }
+
+  .idno-profile-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: var(--spacing-section);
+  }
+
+  .idno-profile-avatar {
+    width: 4rem;
+    height: 4rem;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+  }
+
+  .idno-profile-name {
+    font-size: var(--font-size-title);
+    font-weight: 700;
+    color: var(--color-text-strong);
+  }
+
+  .idno-profile-handle {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .idno-profile-bio {
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+    line-height: 1.5;
+    margin-bottom: var(--spacing-section);
+  }
+
+  .idno-profile-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    font-size: var(--font-size-sm);
+  }
+
+  .idno-profile-links a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .idno-profile-links a:hover {
+    color: var(--color-text-strong);
+  }
+}

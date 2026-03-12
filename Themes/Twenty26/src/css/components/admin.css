@@ -1,0 +1,176 @@
+@layer components {
+  .idno-admin-shell {
+    display: flex;
+    min-height: 100vh;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+  }
+
+  .idno-admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 14rem;
+    height: 100vh;
+    background: var(--color-admin-bg);
+    padding: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    z-index: 40;
+  }
+
+  .idno-admin-logo {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--color-admin-text-active);
+    text-decoration: none;
+    padding: 0 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .idno-admin-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    padding: 0 0.75rem;
+    flex: 1;
+    list-style: none;
+    margin: 0;
+  }
+
+  .idno-admin-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.625rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-admin-text);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .idno-admin-nav-item:hover {
+    color: var(--color-admin-text-active);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .idno-admin-nav-item[aria-current="page"],
+  .idno-admin-nav-item.active {
+    color: var(--color-admin-text-active);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .idno-admin-nav-item svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex-shrink: 0;
+  }
+
+  .idno-admin-nav-divider {
+    height: 1px;
+    background: var(--color-admin-divider);
+    margin: 0.5rem 0.625rem;
+  }
+
+  .idno-admin-nav-section {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-admin-text);
+    opacity: 0.6;
+    padding: 0.75rem 0.625rem 0.25rem;
+  }
+
+  .idno-admin-main {
+    margin-left: 14rem;
+    flex: 1;
+    background: var(--color-bg);
+    padding: 2rem;
+    min-height: 100vh;
+  }
+
+  .idno-admin-content {
+    max-width: 52rem;
+  }
+
+  .idno-admin-page-title {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--color-text-strong);
+    margin-bottom: 1.5rem;
+  }
+
+  .idno-admin-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-subtle);
+    padding: var(--spacing-card);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--spacing-gap);
+  }
+
+  .idno-admin-card-title {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--color-text-strong);
+    margin-bottom: var(--spacing-gap);
+  }
+
+  .idno-admin-stat {
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .idno-admin-stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-text-strong);
+  }
+
+  .idno-admin-stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+  }
+}
+
+@media (max-width: 768px) {
+  @layer components {
+    .idno-admin-sidebar {
+      position: fixed;
+      bottom: 0;
+      top: auto;
+      width: 100%;
+      height: auto;
+      flex-direction: row;
+      padding: 0.5rem;
+      overflow-x: auto;
+    }
+
+    .idno-admin-nav {
+      flex-direction: row;
+      padding: 0;
+    }
+
+    .idno-admin-main {
+      margin-left: 0;
+      margin-bottom: 3.5rem;
+      padding: 1rem;
+    }
+
+    .idno-admin-logo {
+      display: none;
+    }
+
+    .idno-admin-nav-divider {
+      width: 1px;
+      height: 1.5rem;
+      margin: 0 0.25rem;
+    }
+  }
+}

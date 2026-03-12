@@ -1,0 +1,59 @@
+@layer components {
+  .idno-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    transition: background 0.15s, opacity 0.15s;
+  }
+
+  .idno-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .idno-btn-primary {
+    background: var(--color-primary);
+    color: var(--color-primary-text);
+  }
+
+  .idno-btn-primary:hover:not(:disabled) {
+    opacity: 0.9;
+  }
+
+  .idno-btn-ghost {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+  }
+
+  .idno-btn-ghost:hover:not(:disabled) {
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .idno-btn-danger {
+    background: #dc2626;
+    color: #ffffff;
+  }
+
+  .idno-btn-danger:hover:not(:disabled) {
+    background: #b91c1c;
+  }
+
+  .idno-btn-sm {
+    padding: 0.25rem 0.75rem;
+    font-size: var(--font-size-sm);
+  }
+
+  .idno-btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: var(--font-size-base);
+  }
+}
