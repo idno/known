@@ -56,4 +56,25 @@
     padding: 0.75rem 1.5rem;
     font-size: var(--font-size-base);
   }
+
+  .idno-btn-enable {
+    background: #16a34a;
+    color: #ffffff;
+  }
+
+  .idno-btn-enable:hover:not(:disabled) {
+    background: #15803d;
+  }
+
+  .idno-btn-disable {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+  }
+
+  .idno-btn-disable:hover:not(:disabled) {
+    border-color: #dc2626;
+    color: #dc2626;
+    background: rgba(220, 38, 38, 0.04);
+  }
 }
