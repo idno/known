@@ -55,7 +55,6 @@
 
   .idno-entry-byline .idno-entry-author {
     color: var(--color-text-strong);
-    font-weight: 600;
     text-decoration: none;
   }
 
