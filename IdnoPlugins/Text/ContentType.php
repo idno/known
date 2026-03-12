@@ -11,6 +11,16 @@ namespace IdnoPlugins\Text {
         public $logo = '<i class="icon-align-left"></i>';
         public $indieWebContentType = array('article','entry');
 
+        function getDescription()
+        {
+            return 'Long-form post';
+        }
+
+        function getIconName()
+        {
+            return 'newspaper';
+        }
+
     }
 
 }

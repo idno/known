@@ -10,6 +10,16 @@ namespace IdnoPlugins\Checkin {
         public $entity_class = 'IdnoPlugins\\Checkin\\Checkin';
         public $indieWebContentType = array('checkin');
 
+        function getDescription()
+        {
+            return 'Share location';
+        }
+
+        function getIconName()
+        {
+            return 'map-pin';
+        }
+
     }
 
 }

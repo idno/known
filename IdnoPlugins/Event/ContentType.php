@@ -11,6 +11,16 @@ namespace IdnoPlugins\Event {
         public $logo = '<i class="icon-calendar"></i>';
         public $indieWebContentType = array('event');
 
+        function getDescription()
+        {
+            return 'Date & location';
+        }
+
+        function getIconName()
+        {
+            return 'calendar';
+        }
+
     }
 
 }

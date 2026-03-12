@@ -10,6 +10,16 @@ namespace IdnoPlugins\Status {
         public $entity_class = 'IdnoPlugins\\Status\\Status';
         public $indieWebContentType = array('note');
 
+        function getDescription()
+        {
+            return 'Short update';
+        }
+
+        function getIconName()
+        {
+            return 'message-square';
+        }
+
     }
 
 }
