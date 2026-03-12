@@ -15,8 +15,8 @@ namespace Idno\Pages\Session {
         function getContent()
         {
 
-            // If we're somehow here but logged in, move to the front page if we're viewing with the regular template
-            if (\Idno\Core\Idno::site()->session()->isLoggedOn() && \Idno\Core\Idno::site()->template()->getTemplateType() == 'default') {
+            // If we're somehow here but logged in, move to the front page if we're viewing with an HTML template
+            if (\Idno\Core\Idno::site()->session()->isLoggedOn() && in_array(\Idno\Core\Idno::site()->template()->getTemplateType(), ['default', 'modern'])) {
 
                 $fwd = $this->getInput('fwd'); // Forward to a new page?
                 if (empty($fwd)) {
@@ -40,7 +40,7 @@ namespace Idno\Pages\Session {
             ];
 
             // If user is logged in and we got this far, this is an api login so lets return a user api token (#2240)
-            if (\Idno\Core\Idno::site()->session()->isLoggedOn() && \Idno\Core\Idno::site()->template()->getTemplateType() != 'default' && $this->isSSL()) {
+            if (\Idno\Core\Idno::site()->session()->isLoggedOn() && !in_array(\Idno\Core\Idno::site()->template()->getTemplateType(), ['default', 'modern']) && $this->isSSL()) {
                 $user = \Idno\Core\Idno::site()->session()->currentUser();
                 $vars['api-token'] = $user->getAPIkey();
             }
