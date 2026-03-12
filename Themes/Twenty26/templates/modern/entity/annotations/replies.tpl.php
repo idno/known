@@ -8,16 +8,17 @@ if (!empty($vars['annotations']) && is_array($vars['annotations'])) {
     foreach ($vars['annotations'] as $locallink => $annotation) {
         $permalink = $annotation['permalink'] ? $annotation['permalink'] : $locallink;
 ?>
-    <div class="idno-entry h-cite" style="padding:var(--spacing-gap);background:var(--color-bg);border-radius:var(--radius-sm);margin-top:var(--spacing-gap)">
-        <div class="idno-entry-header">
-            <?php if (!empty($annotation['owner_image'])) { ?>
-            <a href="<?= htmlspecialchars($annotation['owner_url']) ?>" class="u-url">
-                <img class="idno-entry-avatar u-photo" src="<?= htmlspecialchars($annotation['owner_image']) ?>"
-                     alt="<?= htmlspecialchars($annotation['owner_name']) ?>" />
-            </a>
-            <?php } ?>
+    <div class="idno-annotation h-cite">
+        <?php if (!empty($annotation['owner_image'])) { ?>
+        <a href="<?= htmlspecialchars($annotation['owner_url']) ?>" class="u-url">
+            <img class="idno-annotation-avatar u-photo"
+                 src="<?= htmlspecialchars($annotation['owner_image']) ?>"
+                 alt="<?= htmlspecialchars($annotation['owner_name']) ?>" />
+        </a>
+        <?php } ?>
+        <div class="idno-annotation-content">
             <div>
-                <a href="<?= htmlspecialchars($annotation['owner_url']) ?>" class="idno-entry-author p-name u-url p-author h-card">
+                <a href="<?= htmlspecialchars($annotation['owner_url']) ?>" class="p-name u-url p-author h-card" rel="nofollow" style="font-weight:600;color:var(--color-text-strong)">
                     <?= htmlspecialchars($annotation['owner_name']) ?>
                 </a>
                 <span class="idno-entry-meta">
@@ -28,17 +29,17 @@ if (!empty($vars['annotations']) && is_array($vars['annotations'])) {
                     </a>
                 </span>
             </div>
+            <?php if (!empty($annotation['content'])) { ?>
+            <div class="e-content" style="margin-top:0.25rem">
+                <?= $this->autop($this->parseURLs(strip_tags($annotation['content']), 'rel="nofollow"')) ?>
+            </div>
+            <?php } ?>
+            <?php if (!empty($permalink)) { ?>
+            <a href="<?= htmlspecialchars($permalink) ?>" class="u-url idno-entry-meta" rel="nofollow">
+                <?= parse_url($permalink, PHP_URL_HOST) ?>
+            </a>
+            <?php } ?>
         </div>
-        <?php if (!empty($annotation['content'])) { ?>
-        <div class="idno-entry-body e-content" style="margin-top:var(--spacing-gap)">
-            <?= $this->autop($this->parseURLs(strip_tags($annotation['content']), 'rel="nofollow"')) ?>
-        </div>
-        <?php } ?>
-        <?php if (!empty($permalink)) { ?>
-        <a href="<?= htmlspecialchars($permalink) ?>" class="u-url idno-entry-meta" style="margin-top:0.25rem;display:inline-block" rel="nofollow">
-            <?= parse_url($permalink, PHP_URL_HOST) ?>
-        </a>
-        <?php } ?>
         <?php
             $this->annotation_permalink = $locallink;
             if ($vars['object']->canEditAnnotation($annotation)) {
