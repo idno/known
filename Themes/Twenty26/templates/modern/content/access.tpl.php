@@ -67,7 +67,7 @@ if (!empty(\Idno\Core\Idno::site()->config()->show_privacy) || $access != 'PUBLI
                     <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
                 </button>
 
-                <div class="idno-access-menu" x-show="open" @click.away="open = false" x-cloak>
+                <div class="idno-access-menu" x-show="open" @click.outside="open = false" x-cloak>
                     <?php foreach ($access_options as $opt) { ?>
                     <button type="button"
                             class="idno-access-option"
