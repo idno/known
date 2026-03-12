@@ -38,6 +38,7 @@
     flex-wrap: wrap;
     align-items: baseline;
     gap: 0.25rem 1rem;
+    width: 100%;
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
     margin-top: var(--spacing-section);
