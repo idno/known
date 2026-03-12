@@ -17,11 +17,14 @@ Three small changes to complete the user-facing Twenty26 experience:
 **New files:**
 - `Themes/Twenty26/templates/modern/account/login.tpl.php`
 - `Themes/Twenty26/templates/modern/shell/search.tpl.php`
+- `Themes/Twenty26/templates/modern/forms/link.tpl.php` — vanilla JS override of the default jQuery-based link form
 
 **Modified files:**
 - `Themes/Twenty26/templates/modern/shell/nav.tpl.php` — add logout link and search modal trigger
+- `Themes/Twenty26/templates/modern/shell.tpl.php` — add `shell/search` draw call
+- `Themes/Twenty26/src/css/components/navigation.css` — add button reset for `.idno-nav-item` on `<button>` elements
 
-**No CSS changes.** All styling uses existing classes: `idno-editor`, `idno-form-field`, `idno-input`, `idno-btn`, `idno-btn-primary`, `idno-nav-item`, `idno-nav-icon`, `idno-modal-overlay`, `idno-modal`, `idno-modal-header`, `idno-modal-body`, `idno-modal-close`, `idno-modal-title`.
+**Styling** uses existing classes: `idno-editor`, `idno-form-field`, `idno-input`, `idno-btn`, `idno-btn-primary`, `idno-nav-item`, `idno-nav-icon`, `idno-modal-overlay`, `idno-modal`, `idno-modal-header`, `idno-modal-body`, `idno-modal-close`, `idno-modal-title`. One small CSS addition for button resets in the nav (see section 3).
 
 **No JS module changes.** Alpine.js logic is inline in the templates.
 
@@ -58,14 +61,16 @@ Uses `idno-editor` card with constrained width, centered:
 <div style="max-width:24rem;margin:2rem auto">
     <div class="idno-editor" style="text-align:center">
         <h4 class="idno-editor-heading">
-            <?php echo \Idno\Core\Idno::site()->language()->_('Welcome back!'); ?>
+            <?= \Idno\Core\Idno::site()->language()->_('Welcome back!') ?>
         </h4>
-        <form action="..." method="post">
+        <form action="<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>session/login" method="post">
             <!-- fields -->
         </form>
     </div>
 </div>
 ```
+
+**Edge case:** If a logged-in user visits `/session/login`, the `Login.php` handler already redirects them to the homepage (line 19). No template-level handling needed.
 
 ### Form fields
 
@@ -112,24 +117,28 @@ Log out        ← new
 
 ### Implementation
 
-Uses `\Idno\Core\Idno::site()->actions()->createLink()` which generates a hidden form with CSRF token and a link that submits it on click. This is the same pattern as the default logout template.
+Uses `\Idno\Core\Idno::site()->actions()->createLink()` which generates a hidden form with CSRF token and a link that submits it on click.
+
+**jQuery dependency:** The default `forms/link.tpl.php` template generates `onclick="$('#formId').submit()"` — jQuery syntax. Since Twenty26 does not load jQuery (it uses Alpine.js instead), we need a modern override at `Themes/Twenty26/templates/modern/forms/link.tpl.php` that replaces `$('#...')` with `document.getElementById('...').submit()`. This is a one-line change in the onclick handler — the rest of the template is identical.
 
 ```php
 <?php if (!empty($user)) { ?>
 <li>
-    <?php echo \Idno\Core\Idno::site()->actions()->createLink(
+    <?= \Idno\Core\Idno::site()->actions()->createLink(
         \Idno\Core\Idno::site()->config()->getDisplayURL() . 'session/logout',
         '<svg class="idno-nav-icon" ...>...</svg><span class="idno-nav-label">'
             . \Idno\Core\Idno::site()->language()->_('Log out')
             . '</span>',
         [],
         ['class' => 'idno-nav-item']
-    ); ?>
+    ) ?>
 </li>
 <?php } ?>
 ```
 
-The `createLink()` method generates an `<a>` tag with the provided class and a hidden `<form>` that POSTs to `session/logout` with CSRF protection. No custom JS needed.
+### Nav placement
+
+The logout `<li>` is placed as the last item inside `<ul class="idno-nav-items">`, after Settings (admin-only) or after Drafts (non-admin). Since it's inside the `if (!empty($user))` block, it only appears when logged in. The New Post `<button>` remains outside the `<ul>` at the bottom of the nav.
 
 **Icon:** Lucide "log-out" icon (inline SVG), matching the style of other nav icons.
 
@@ -153,26 +162,29 @@ Drawn by `shell.tpl.php` alongside the compose modal. Uses existing `idno-modal-
 <div x-data="{ open: false, query: '' }"
      x-show="open"
      x-cloak
-     @open-search.window="open = true; $nextTick(() => $refs.searchInput.focus())"
-     @keydown.escape.window="open = false"
+     x-on:open-search.window="open = true; $nextTick(() => $refs.searchInput.focus())"
+     x-on:keydown.escape.window="open = false"
      class="idno-modal-overlay">
-    <div class="idno-modal" style="max-width:32rem" @click.outside="open = false">
+    <div class="idno-modal" style="max-width:32rem" x-on:click.outside="open = false">
         <div class="idno-modal-header">
-            <h3 class="idno-modal-title">Search</h3>
-            <button type="button" class="idno-modal-close" @click="open = false"><!-- X SVG --></button>
+            <h3 class="idno-modal-title"><?= \Idno\Core\Idno::site()->language()->_('Search') ?></h3>
+            <button type="button" class="idno-modal-close" x-on:click="open = false"><!-- X SVG --></button>
         </div>
         <div class="idno-modal-body">
-            <form @submit.prevent="if (query.trim()) window.location.href = '/?q=' + encodeURIComponent(query.trim())"
+            <form x-on:submit.prevent="if (query.trim()) window.location.href = '/?q=' + encodeURIComponent(query.trim())"
                   style="display:flex;gap:0.5rem">
                 <input type="search" x-model="query" x-ref="searchInput"
                        class="idno-input" style="flex:1"
-                       placeholder="Search posts...">
-                <button type="submit" class="idno-btn idno-btn-primary">Search</button>
+                       aria-label="<?= \Idno\Core\Idno::site()->language()->_('Search') ?>"
+                       placeholder="<?= \Idno\Core\Idno::site()->language()->_('Search posts...') ?>">
+                <button type="submit" class="idno-btn idno-btn-primary"><?= \Idno\Core\Idno::site()->language()->_('Search') ?></button>
             </form>
         </div>
     </div>
 </div>
 ```
+
+Uses `x-on:` prefix (long form) to match the existing compose modal convention.
 
 ### Nav trigger change
 
@@ -180,14 +192,29 @@ The Search nav item in `nav.tpl.php` changes from a link to a button that dispat
 
 ```php
 <li>
-    <button type="button" class="idno-nav-item" @click="$dispatch('open-search')">
+    <button type="button" class="idno-nav-item" x-on:click="$dispatch('open-search')">
         <svg class="idno-nav-icon" ...><!-- search icon --></svg>
-        <span class="idno-nav-label">Search</span>
+        <span class="idno-nav-label"><?= \Idno\Core\Idno::site()->language()->_('Search') ?></span>
     </button>
 </li>
 ```
 
-Styling note: the `idno-nav-item` class already handles both `<a>` and `<button>` elements — it uses flex layout, padding, and color transitions that work on any element. The `<button>` just needs `background:none;border:none;width:100%;text-align:left;cursor:pointer;font:inherit` to reset default button styles (add these as inline styles or a small addition to the nav CSS).
+### Button reset CSS
+
+Add to `navigation.css` — a `button.idno-nav-item` reset so buttons render identically to links:
+
+```css
+button.idno-nav-item {
+    background: none;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font: inherit;
+}
+```
+
+This is the only CSS change in this spec.
 
 ### Shell integration
 
