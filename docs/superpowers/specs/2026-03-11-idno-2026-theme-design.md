@@ -10,7 +10,7 @@ This theme is designed as the future default. When the time comes, promoting it 
 
 ### Approach: Theme-Only (minimal core changes)
 
-Everything lives under `Themes/2026/`. The theme uses the existing template override mechanisms — `theme.ini` extensions, replacements, and prepends — to swap out shell templates, entity templates, and admin templates. No changes to core rendering code.
+Everything lives under `Themes/2026/`. The theme uses the existing template override mechanisms — `theme.ini` extensions, prepends, and template path overrides — to swap out shell templates, entity templates, and admin templates. No changes to core rendering code.
 
 Three small additions to core PHP classes support the theme but are not theme-specific — they extend the plugin API for all themes:
 - `ContentType::getDescription()` — short description for content type pickers
@@ -342,7 +342,7 @@ The following logic from `js/src/` is ported to the new bundle, rewritten to rem
 ### Aesthetic: Clean Minimal
 
 - White cards on light gray background (`#f3f4f6`)
-- Subtle borders (`border-gray-100`) and minimal shadows (`shadow-sm`)
+- Subtle borders and minimal shadows (token-driven via `--color-border-subtle` and `--shadow-sm`)
 - Generous whitespace
 - System font stack: `-apple-system, system-ui, sans-serif`
 - Content-focused with minimal chrome
@@ -536,6 +536,6 @@ When ready to promote Idno 2026 to the default:
 | Alpine.js | 3.x | MIT | Lightweight reactive JS |
 | Tiptap | 2.x | MIT | Headless rich text editor (ProseMirror) |
 | Lucide | latest | ISC | Icon library |
-| Vite | 5.x | MIT | Build tool |
+| Vite | 5.x+ | MIT | Build tool |
 
 All dependencies are MIT or ISC licensed.
