@@ -1,36 +1,45 @@
-import { Editor } from '@tiptap/core';
-import StarterKit from '@tiptap/starter-kit';
-import Link from '@tiptap/extension-link';
-import Image from '@tiptap/extension-image';
-import Placeholder from '@tiptap/extension-placeholder';
-import CodeBlock from '@tiptap/extension-code-block';
+import Alpine from 'alpinejs';
+import { createEditor } from './editor-core.js';
 
-export function createEditor(element, options = {}) {
-    const { content = '', placeholder = 'Write something...', onChange } = options;
+// Rename the current editor.js to editor-core.js, then this file registers the Alpine component:
+Alpine.data('tiptapEditor', (uniqueId) => ({
+    editor: null,
 
-    const editor = new Editor({
-        element,
-        extensions: [
-            StarterKit.configure({
-                codeBlock: false,
-            }),
-            Link.configure({
-                openOnClick: false,
-                HTMLAttributes: {
-                    rel: 'noopener noreferrer',
-                },
-            }),
-            Image,
-            Placeholder.configure({ placeholder }),
-            CodeBlock,
-        ],
-        content,
-        onUpdate({ editor }) {
-            if (onChange) {
-                onChange(editor.getHTML());
+    init() {
+        const container = document.getElementById(`${uniqueId}-editor`);
+        const textarea = document.getElementById(uniqueId);
+
+        this.editor = createEditor(container, {
+            content: textarea.value,
+            onChange: (html) => {
+                textarea.value = html;
+            },
+        });
+    },
+
+    toggleLink() {
+        if (this.editor.isActive('link')) {
+            this.editor.chain().focus().unsetLink().run();
+        } else {
+            const url = prompt('Enter URL');
+            if (url) {
+                this.editor.chain().focus().setLink({ href: url }).run();
             }
-        },
-    });
+        }
+    },
 
-    return editor;
-}
+    addImage() {
+        const url = prompt('Enter image URL');
+        if (url) {
+            this.editor.chain().focus().setImage({ src: url }).run();
+        }
+    },
+
+    setHeading(value) {
+        if (value === 'paragraph') {
+            this.editor.chain().focus().setParagraph().run();
+        } else {
+            this.editor.chain().focus().toggleHeading({ level: parseInt(value) }).run();
+        }
+    },
+}));
