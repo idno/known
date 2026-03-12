@@ -420,4 +420,9 @@ class Main extends Plugin
         $session = self::getATProtoSessionForUser($user);
         return !empty($session['access_token']) && !empty($session['did']);
     }
+
+    function getAdminIcon()
+    {
+        return 'refresh-cw';
+    }
 }

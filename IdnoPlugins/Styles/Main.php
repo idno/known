@@ -27,6 +27,11 @@ namespace IdnoPlugins\Styles {
                 )
             );
         }
+
+        function getAdminIcon()
+        {
+            return 'palette';
+        }
     }
 
 }

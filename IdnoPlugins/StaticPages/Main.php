@@ -282,6 +282,11 @@ namespace IdnoPlugins\StaticPages {
 
         }
 
+        function getAdminIcon()
+        {
+            return 'file';
+        }
+
     }
 
 }

@@ -38,6 +38,11 @@ namespace IdnoPlugins\Event {
                 )
             );
         }
+
+        function getAdminIcon()
+        {
+            return 'calendar';
+        }
     }
 
 }
