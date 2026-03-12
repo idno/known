@@ -49,7 +49,15 @@ if (!empty(\Idno\Core\Idno::site()->config()->show_privacy) || $access != 'PUBLI
         <div class="access-control-block">
             <input type="hidden" name="access" id="access-control-id-<?php echo $id_code; ?>" value="<?php echo htmlspecialchars($access); ?>"/>
 
-            <div class="idno-access-dropdown" x-data="{ open: false, selected: <?php echo json_encode($access); ?>, label: <?php echo json_encode($initial_label); ?>, icon: <?php echo json_encode($initial_icon); ?> }">
+            <?php
+            $alpine_data = htmlspecialchars(json_encode([
+                'open' => false,
+                'selected' => $access,
+                'label' => $initial_label,
+                'icon' => $initial_icon,
+            ]), ENT_QUOTES, 'UTF-8');
+            ?>
+            <div class="idno-access-dropdown" x-data="<?php echo $alpine_data; ?>">
                 <button type="button" class="idno-access-trigger" @click="open = !open">
                     <template x-if="icon === 'globe'">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -68,11 +76,15 @@ if (!empty(\Idno\Core\Idno::site()->config()->show_privacy) || $access != 'PUBLI
                 </button>
 
                 <div class="idno-access-menu" x-show="open" @click.outside="open = false" x-cloak>
-                    <?php foreach ($access_options as $opt) { ?>
+                    <?php foreach ($access_options as $opt) {
+                        $esc_value = htmlspecialchars(json_encode($opt['value']), ENT_QUOTES, 'UTF-8');
+                        $esc_label = htmlspecialchars(json_encode($opt['label']), ENT_QUOTES, 'UTF-8');
+                        $esc_icon = htmlspecialchars(json_encode($opt['icon']), ENT_QUOTES, 'UTF-8');
+                    ?>
                     <button type="button"
                             class="idno-access-option"
-                            :class="{ 'active': selected === <?php echo json_encode($opt['value']); ?> }"
-                            @click="selected = <?php echo json_encode($opt['value']); ?>; label = <?php echo json_encode($opt['label']); ?>; icon = <?php echo json_encode($opt['icon']); ?>; document.getElementById('access-control-id-<?php echo $id_code; ?>').value = <?php echo json_encode($opt['value']); ?>; open = false">
+                            :class="{ 'active': selected === <?php echo $esc_value; ?> }"
+                            @click="selected = <?php echo $esc_value; ?>; label = <?php echo $esc_label; ?>; icon = <?php echo $esc_icon; ?>; document.getElementById('access-control-id-<?php echo $id_code; ?>').value = <?php echo $esc_value; ?>; open = false">
                         <?php if ($opt['icon'] === 'globe') { ?>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
                         <?php } elseif ($opt['icon'] === 'users') { ?>
@@ -83,7 +95,7 @@ if (!empty(\Idno\Core\Idno::site()->config()->show_privacy) || $access != 'PUBLI
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
                         <?php } ?>
                         <?php echo htmlspecialchars($opt['label']); ?>
-                        <svg class="check" x-show="selected === <?php echo json_encode($opt['value']); ?>" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                        <svg class="check" x-show="selected === <?php echo $esc_value; ?>" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
                     </button>
                     <?php } ?>
                 </div>
