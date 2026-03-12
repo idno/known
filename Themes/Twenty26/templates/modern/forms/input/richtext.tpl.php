@@ -5,7 +5,7 @@
     $placeholder = !empty($vars['placeholder']) ? $vars['placeholder'] : \Idno\Core\Idno::site()->language()->_('Write something...');
     $required = !empty($vars['required']);
 ?>
-<div class="idno-editor" x-data="tiptapEditor('<?= $unique_id ?>')" x-init="init()">
+<div class="idno-editor" x-data="tiptapEditor('<?= $unique_id ?>')">
     <div class="idno-editor-toolbar">
         <button type="button" class="idno-editor-toolbar-btn" title="Bold" x-on:click="editor.chain().focus().toggleBold().run()" :class="{ 'active': editor?.isActive('bold') }">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12h9a4 4 0 0 1 0 8H7a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h7a4 4 0 0 1 0 8"/></svg>
