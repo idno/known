@@ -86,6 +86,29 @@ namespace Idno\Common {
         }
 
         /**
+         * Returns a short human-readable description for the content type picker.
+         * Override in plugin ContentType subclasses.
+         *
+         * @return string
+         */
+        function getDescription()
+        {
+            return '';
+        }
+
+        /**
+         * Returns a Lucide icon name string for the content type picker.
+         * Separate from getIcon() which returns rendered HTML.
+         * Override in plugin ContentType subclasses.
+         *
+         * @return string
+         */
+        function getIconName()
+        {
+            return 'file-text';
+        }
+
+        /**
          * Retrieves the name of the entity class associated with this content type
          *
          * @param  bool $convert_slashes If set to true, converts \ slashes to / (false by default)
