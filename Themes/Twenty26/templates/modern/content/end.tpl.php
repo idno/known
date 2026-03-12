@@ -21,32 +21,23 @@ if (!empty($owner)) {
 
     ?>
 
-        <div class="idno-entry-permalink">
-            <p>
-                <a href="<?= $owner->getDisplayURL() ?>"><?= htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8') ?></a> <?= \Idno\Core\Idno::site()->language()->_('published this') ?>
-                <a class="u-url" href="<?= $vars['object']->getDisplayURL() ?>" rel="permalink"><time class="dt-published"
+        <div class="idno-entry-meta">
+            <span class="idno-entry-byline">
+                <a href="<?= $owner->getDisplayURL() ?>" class="idno-entry-author"><?= htmlentities(strip_tags($owner->getTitle()), ENT_QUOTES, 'UTF-8') ?></a>
+                <?= \Idno\Core\Idno::site()->language()->_('published this') ?>
+                <a class="u-url idno-entry-permalink" href="<?= $vars['object']->getDisplayURL() ?>" rel="permalink"><time class="dt-published"
                           datetime="<?= date(DATE_ATOM, $vars['object']->created) ?>"><?= date('d F Y', $vars['object']->created) ?></time></a>
-            <?php
-
-            if ($vars['object']->access != 'PUBLIC') {
-                ?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.875rem;height:0.875rem;display:inline;vertical-align:middle"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><?php
-            }
-
-            ?>
+                <?php if ($vars['object']->access != 'PUBLIC') { ?>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:0.875rem;height:0.875rem;display:inline;vertical-align:middle"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <?php } ?>
+            </span>
+            <span class="idno-entry-actions">
                 <?= $this->draw('content/edit') ?>
                 <?= $this->draw('content/end/links') ?>
-                <?php
-
-                if (\Idno\Core\Idno::site()->currentPage()->isPermalink() && \Idno\Core\Idno::site()->config()->indieweb_citation) {
-
-                    ?>
-                        <span class="idno-entry-citation"><?= $vars['object']->getCitation() ?></span>
-                    <?php
-
-                }
-
-                ?>
-            </p>
+            </span>
+            <?php if (\Idno\Core\Idno::site()->currentPage()->isPermalink() && \Idno\Core\Idno::site()->config()->indieweb_citation) { ?>
+                <span class="idno-entry-citation"><?= $vars['object']->getCitation() ?></span>
+            <?php } ?>
         </div>
         <div class="idno-entry-interactions">
         <span class="idno-entry-action">

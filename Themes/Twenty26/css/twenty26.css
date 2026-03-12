@@ -498,8 +498,34 @@
     text-decoration: underline;
   }
   .idno-entry-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.25rem 1rem;
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
+    margin-top: var(--spacing-section);
+    padding-top: var(--spacing-gap);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+  .idno-entry-byline {
+    display: inline;
+  }
+  .idno-entry-byline a {
+    color: inherit;
+  }
+  .idno-entry-byline .idno-entry-author {
+    color: var(--color-text-strong);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .idno-entry-byline .idno-entry-author:hover {
+    text-decoration: underline;
+  }
+  .idno-entry-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
   }
   .idno-entry-title {
     font-size: var(--font-size-title);
