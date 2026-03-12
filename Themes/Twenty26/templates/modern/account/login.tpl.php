@@ -1,3 +1,12 @@
+<?php
+    // Core Login.php only auto-forwards logged-in users when templateType == 'default'.
+    // Twenty26 uses 'modern', so we handle the redirect here.
+    if (\Idno\Core\Idno::site()->session()->isLoggedOn()) {
+        $fwd = !empty($vars['fwd']) ? $vars['fwd'] : \Idno\Core\Idno::site()->config()->getDisplayURL();
+        header('Location: ' . $fwd);
+        exit;
+    }
+?>
 <div style="max-width:24rem;margin:2rem auto">
     <div class="idno-editor" style="text-align:center">
         <h4 class="idno-editor-heading">
