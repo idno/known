@@ -388,9 +388,10 @@ The following logic from `js/src/` is ported to the new bundle, rewritten to rem
 
 1. User clicks "New Post" button in left nav
 2. Modal opens with a 2-column grid of content types
-3. Each type shows: colored icon, name, and short description
-4. Content types are dynamic — populated from installed plugins via the `ContentType` registry
+3. Each type shows: Lucide icon (via `getIconName()`), name (via `getTitle()`), and short description (via `getDescription()`)
+4. Content types are **fully dynamic** — populated from installed plugins via the `ContentType` registry. Any plugin that registers a `ContentType` subclass automatically appears in the picker. The theme does not hardcode any content types.
 5. Selecting a type transitions the modal to the compose form for that type
+6. If a plugin provides a content type but no Idno 2026-specific edit template, the existing Bootstrap-based edit template is rendered within the modal's content area — it won't look perfectly styled but will remain functional
 
 ### Compose form (general pattern)
 
@@ -430,13 +431,14 @@ The core codebase already has a `publish_status` field on entities with `setPubl
 - Drafts are accessible via `/drafts/` — a new page listing the current user's draft entries, linked from the left nav (visible only to the logged-in author)
 - The drafts page template is added to the theme: `templates/default/drafts.tpl.php`
 
-### ContentType `getDescription()` method
+### ContentType API additions
 
-Add a `getDescription()` method to the `ContentType` base class:
+Two new methods on the `ContentType` base class (`Idno/Common/ContentType.php`):
 
-- Returns a short string describing the content type (e.g., "Short update", "Long-form post")
-- Default implementation returns an empty string
-- The new post modal displays the description below the content type name
+**`getDescription()`** — short human-readable description for the content type picker:
+
+- Returns a string (e.g., "Short update", "Long-form post")
+- Default implementation returns an empty string (picker shows name only for third-party types that don't override this)
 - Populated for all bundled plugins:
   - **Status**: "Short update"
   - **Text/Article**: "Long-form post"
@@ -445,14 +447,40 @@ Add a `getDescription()` method to the `ContentType` base class:
   - **Checkin**: "Share location"
   - **Like/Bookmark**: "Save a link"
 
-### Plugin `getAdminIcon()` method
-
-Add a `getAdminIcon()` method to the plugin base class:
+**`getIconName()`** — Lucide icon name for the content type picker:
 
 - Returns a Lucide icon name as a string (e.g., `'message-square'`, `'image'`, `'calendar'`)
-- Default implementation returns a generic icon (e.g., `'box'`) for plugins that don't define one
+- Default implementation returns `'file-text'` — a sensible generic for any content type
+- This is separate from the existing `getIcon()` method, which returns rendered HTML from a template. `getIconName()` returns just the icon identifier string so the theme can render it however it wants.
+- Populated for all bundled plugins:
+  - **Status**: `'message-square'`
+  - **Text/Article**: `'newspaper'`
+  - **Photo**: `'image'`
+  - **Event**: `'calendar'`
+  - **Checkin**: `'map-pin'`
+  - **Like/Bookmark**: `'bookmark'`
+
+Third-party plugins that don't implement these methods get the defaults (no description, generic icon) and still appear in the picker.
+
+### Plugin `getAdminIcon()` method
+
+Add a `getAdminIcon()` method to the plugin base class (`Idno/Common/Plugin.php`):
+
+- Returns a Lucide icon name as a string (e.g., `'message-square'`, `'image'`, `'calendar'`)
+- Default implementation returns `'box'` — a generic "plugin" icon
 - The admin nav template renders the icon by name from the Lucide set
 - Populated for all bundled plugins with appropriate icons
+
+### Admin menu plugin extensibility
+
+Currently, plugins inject admin menu items by extending the `admin/menu/items` template with raw `<li>` HTML. The new admin nav template must preserve this extension point:
+
+- The new `admin/menu.tpl.php` continues to call `$this->draw('admin/menu/items')` at the appropriate position in the sidebar
+- Plugin-injected menu items that use the old HTML format (Bootstrap `<li>` tags with Fork Awesome icons) will render inside the dark sidebar but won't match the Tailwind styling. This is acceptable — the items remain functional.
+- Plugins that want their admin menu items to look native in the Idno 2026 theme should:
+  1. Override `getAdminIcon()` to return a Lucide icon name
+  2. Provide a theme-specific `admin/menu/items` extension template that uses `idno-` classes
+- The admin nav template also iterates over registered plugins and renders icons from `getAdminIcon()` for the core navigation items. Plugin-added items via `admin/menu/items` appear in a separate "Plugins" section of the sidebar.
 
 ## Microformats — Hard Constraint
 
@@ -508,6 +536,40 @@ All templates MUST preserve full microformats2 markup. Styling classes are cosme
   </footer>
 </article>
 ```
+
+## Plugin Extensibility
+
+Idno's architecture is plugin-driven. Content types, admin pages, and UI elements are all added by plugins. The Idno 2026 theme must handle plugins gracefully — both bundled ones and unknown third-party ones.
+
+### Content types are plugins
+
+Every content type (Status, Article, Photo, Event, Checkin, Like) is a plugin that registers a `ContentType` subclass. The new post modal, feed rendering, and entity display **never hardcode content types**. They always iterate over whatever `ContentType` instances are registered.
+
+A third-party plugin that adds a new content type (e.g., a Podcast plugin) will:
+- Appear in the content type picker automatically (with default icon and no description unless it overrides `getIconName()` and `getDescription()`)
+- Have its edit template rendered in the compose modal (Bootstrap-styled if the plugin hasn't provided an Idno 2026-specific template — functional but unstyled)
+- Have its display template rendered in the feed (same graceful degradation)
+
+### Admin navigation is plugin-extensible
+
+Plugins add admin menu items by extending the `admin/menu/items` template. The new admin nav must:
+- Continue calling `$this->draw('admin/menu/items')` so plugin-added items appear
+- Render plugin-added items in a distinct section of the sidebar (after the core items, with a divider)
+- Fall back to the `'box'` icon for plugins that don't implement `getAdminIcon()`
+- Accept that plugin-injected HTML may not match the dark sidebar styling — functional but visually inconsistent is acceptable; plugins can provide theme-specific overrides
+
+### Shell templates and plugin assets
+
+Plugins register their own CSS and JS via `Page::getAssets()`. The new shell templates must continue to render plugin-registered assets:
+- `$this->draw('shell/head')` extensions from plugins (meta tags, additional CSS)
+- Plugin CSS via `site()->currentPage()->getAssets('css')`
+- Plugin JS via `site()->currentPage()->getAssets('js')`
+
+These are loaded alongside the theme's own assets, so plugin styles and scripts continue to work.
+
+### Template override pattern for plugins
+
+Plugin developers who want their templates to look native in the Idno 2026 theme can provide theme-specific template overrides in their plugin directory. The template path resolution (plugin path registered via `additionalPath()`) handles this automatically — no special theme awareness needed.
 
 ## Backwards Compatibility
 
