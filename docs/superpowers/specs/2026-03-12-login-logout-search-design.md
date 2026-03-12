@@ -119,7 +119,7 @@ Log out        ← new
 
 Uses `\Idno\Core\Idno::site()->actions()->createLink()` which generates a hidden form with CSRF token and a link that submits it on click.
 
-**jQuery dependency:** The default `forms/link.tpl.php` template generates `onclick="$('#formId').submit()"` — jQuery syntax. Since Twenty26 does not load jQuery (it uses Alpine.js instead), we need a modern override at `Themes/Twenty26/templates/modern/forms/link.tpl.php` that replaces `$('#...')` with `document.getElementById('...').submit()`. This is a one-line change in the onclick handler — the rest of the template is identical.
+**jQuery dependency:** The default `forms/link.tpl.php` template generates `onclick="$('#formId').submit()"` — jQuery syntax. Since Twenty26 does not load jQuery (it uses Alpine.js instead), we need a modern override at `Themes/Twenty26/templates/modern/forms/link.tpl.php` that replaces `$('#...')` with `document.getElementById('...').submit()`. There are two code paths in the default template (one with a `confirm()` dialog, one without) — both need the jQuery-to-vanilla-JS replacement. The rest of the template is identical.
 
 ```php
 <?php if (!empty($user)) { ?>
@@ -218,7 +218,7 @@ This is the only CSS change in this spec.
 
 ### Shell integration
 
-Add `<?php echo $template->draw('shell/search'); ?>` to `shell.tpl.php`, next to the existing compose modal draw call.
+Add `<?= $template->draw('shell/search') ?>` to `shell.tpl.php`, immediately before the existing `<?= $template->draw('shell/compose') ?>` line.
 
 ### What we're NOT doing
 
