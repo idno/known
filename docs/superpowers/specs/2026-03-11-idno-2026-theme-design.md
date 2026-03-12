@@ -8,9 +8,14 @@ This theme is designed as the future default. When the time comes, promoting it 
 
 ## Architecture
 
-### Approach: Theme-Only (no core changes)
+### Approach: Theme-Only (minimal core changes)
 
-Everything lives under `Themes/2026/`. The theme uses the existing template override mechanisms — `theme.ini` extensions, replacements, and prepends — to swap out shell templates, entity templates, and admin templates. Zero changes to core rendering code.
+Everything lives under `Themes/2026/`. The theme uses the existing template override mechanisms — `theme.ini` extensions, replacements, and prepends — to swap out shell templates, entity templates, and admin templates. No changes to core rendering code.
+
+Three small additions to core PHP classes support the theme but are not theme-specific — they extend the plugin API for all themes:
+- `ContentType::getDescription()` — short description for content type pickers
+- Plugin base class `getAdminIcon()` — Lucide icon name for admin navigation
+- UI exposure of the existing `publish_status` draft system
 
 - **New theme + admin**: Load Tailwind CSS, Alpine.js, Tiptap. No Bootstrap, no jQuery.
 - **Old themes/plugins**: Load Bootstrap CSS/JS as they always have. No Tailwind.
@@ -76,6 +81,7 @@ Themes/2026/
 │       ├── forms/
 │       │   └── input/
 │       │       └── richtext.tpl.php  # Tiptap editor (replaces TinyMCE)
+│       ├── drafts.tpl.php           # User's draft entries list
 │       └── admin/
 │           ├── shell.tpl.php      # Admin shell with dark sidebar
 │           ├── menu.tpl.php       # Admin nav with Lucide icons
@@ -101,7 +107,7 @@ Vite handles the new theme's assets inside `Themes/2026/`:
 - **Output**: `dist/modern.min.css` and `dist/modern.min.js`
 - **Tailwind** scans `Themes/2026/templates/` for class usage, purging unused utilities
 - **Development**: `cd Themes/2026 && npm run dev` (Vite watch mode)
-- **Production**: `npm run build` outputs to `dist/`, which is committed to the repo so the theme works without Node.js in production
+- **Production**: `npm run build` outputs to `dist/`, which is committed to the repo so the theme works without Node.js in production. The project `.gitignore` must not exclude `Themes/2026/dist/`.
 
 ### Grunt (legacy — untouched)
 
@@ -207,7 +213,8 @@ The following logic from `js/src/` is ported to the new bundle, rewritten to rem
 **Desktop:**
 - Left sidebar with icons + labels, flat on the background (no card/container)
 - Logo/wordmark at top
-- Nav items: Home, Notifications, Profile, Search, Settings
+- Nav items: Home, Profile, Search, Settings
+- Note: Notifications is not included — Idno does not currently have a notifications system. This can be added in a future iteration.
 - "New Post" button at bottom of nav
 - Active item highlighted with subtle background
 - Main feed area centered, max-width constrained
@@ -220,7 +227,8 @@ The following logic from `js/src/` is ported to the new bundle, rewritten to rem
 
 - Dark (`#111`) left sidebar, clearly distinguishing admin from public site
 - Icons + labels for all admin sections
-- Sections: Dashboard, Site Settings, Themes, Plugins, Users, Email (divider) Statistics, Logs, Import/Export
+- Sections: Dashboard, Themes, Plugins, Users, Email (divider) Statistics, Logs, Import/Export
+- Note: "Site Settings" maps to the existing `/admin/` home page (`home.tpl.php`), not a separate settings page
 - "Back to site" link at bottom of sidebar
 - Main content area on light background with cards for settings groups
 - Dashboard shows stats cards (posts, users, webmentions) and recent activity feed
@@ -259,19 +267,19 @@ The following logic from `js/src/` is ported to the new bundle, rewritten to rem
   - Code block, Horizontal rule
 - Rich text editing area below toolbar
 - All settings inline below editor (tags, visibility, in-reply-to, syndicate-to)
-- Autosave every 10 seconds (matching current behavior)
+- Autosave every 10 seconds, using localStorage (matching current `Template.autoSave()` behavior from `js/src/`). The existing autosave logic persists form field values by element ID and restores on page load. The new module ports this pattern without jQuery.
 
 ## New Features Required
 
-### Draft/publish status system
+### Draft UI (exposing existing system)
 
-The current codebase does not have a draft system. This design includes Save Draft and Publish as distinct actions:
+The core codebase already has a `publish_status` field on entities with `setPublishStatus()` and `getPublishStatus()` methods supporting `'published'`, `'draft'`, and `'scheduled'` values. However, the current UI does not fully expose this. This design surfaces the existing draft system in the new compose flow:
 
-- Entries gain a `publish_status` field: `'draft'` or `'published'`
-- Draft entries are only visible to their author
 - The compose form shows current status as a badge ("Draft" / "Published")
-- Drafts appear in a filtered view on the author's profile or a dedicated drafts page
-- Publishing a draft makes it visible according to its access control settings and triggers webmentions/syndication
+- "Save Draft" button sets `publish_status` to `'draft'` and saves without triggering webmentions/syndication
+- "Publish" button sets `publish_status` to `'published'` and triggers webmentions/syndication
+- Drafts are accessible via `/drafts/` — a new page listing the current user's draft entries, linked from the left nav (visible only to the logged-in author)
+- The drafts page template is added to the theme: `templates/default/drafts.tpl.php`
 
 ### ContentType `getDescription()` method
 
@@ -375,7 +383,7 @@ When ready to promote Idno 2026 to the default:
 
 | Dependency | Version | License | Purpose |
 |-----------|---------|---------|---------|
-| Tailwind CSS | 3.x | MIT | Utility CSS framework |
+| Tailwind CSS | 3.x | MIT | Utility CSS framework (v3 chosen for stable `@apply` support; v4 changed config model and has known `@apply` issues) |
 | Alpine.js | 3.x | MIT | Lightweight reactive JS |
 | Tiptap | 2.x | MIT | Headless rich text editor (ProseMirror) |
 | Lucide | latest | ISC | Icon library |
