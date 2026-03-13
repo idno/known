@@ -7,8 +7,14 @@ if (!empty($vars['annotations']) && is_array($vars['annotations'])) {
     );
     foreach ($vars['annotations'] as $locallink => $annotation) {
         $permalink = $annotation['permalink'] ? $annotation['permalink'] : $locallink;
+        // Anchor ID for this annotation, derived from the local link hash
+        $anchorId = 'annotation-' . basename(parse_url($locallink, PHP_URL_PATH));
+        // For direct comments (permalink is a local annotation URL), link to the anchor;
+        // for webmentions, link to the source post
+        $isLocalAnnotation = preg_match('#/annotations/[a-f0-9]+$#', $permalink);
+        $dateHref = $isLocalAnnotation ? '#' . $anchorId : $permalink;
 ?>
-    <div class="idno-annotation h-cite">
+    <div class="idno-annotation h-cite" id="<?= htmlspecialchars($anchorId) ?>">
         <?php if (!empty($annotation['owner_image'])) { ?>
         <a href="<?= htmlspecialchars($annotation['owner_url']) ?>" class="u-url">
             <img class="idno-annotation-avatar u-photo"
@@ -22,7 +28,7 @@ if (!empty($vars['annotations']) && is_array($vars['annotations'])) {
                     <?= htmlspecialchars($annotation['owner_name']) ?>
                 </a>
                 <span class="idno-entry-meta">
-                    <a href="<?= htmlspecialchars($permalink) ?>" rel="nofollow" class="u-url">
+                    <a href="<?= htmlspecialchars($dateHref) ?>" rel="nofollow" class="u-url">
                         <time class="dt-published" datetime="<?= date(DATE_ATOM, $annotation['time']) ?>">
                             <?= date('M j, Y', $annotation['time']) ?>
                         </time>
@@ -34,7 +40,7 @@ if (!empty($vars['annotations']) && is_array($vars['annotations'])) {
                 <?= $this->autop($this->parseURLs(strip_tags($annotation['content']), 'rel="nofollow"')) ?>
             </div>
             <?php } ?>
-            <?php if (!empty($permalink)) { ?>
+            <?php if (!empty($permalink) && !$isLocalAnnotation) { ?>
             <div class="idno-annotation-source">
                 via <a href="<?= htmlspecialchars($permalink) ?>" class="u-url" rel="nofollow">
                     <?= parse_url($permalink, PHP_URL_HOST) ?>
