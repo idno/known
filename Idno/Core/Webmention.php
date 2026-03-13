@@ -169,6 +169,22 @@ namespace Idno\Core {
                 }
             }
 
+            // If no items found at top level, check inside h-feed children
+            if (count($items) == 0) {
+                foreach ($mf2['items'] as $item) {
+                    if (isset($item['type']) && in_array('h-feed', $item['type']) && !empty($item['children'])) {
+                        foreach ($item['children'] as $child) {
+                            foreach ($types as $type) {
+                                if (isset($child['type']) && in_array($type, $child['type'])) {
+                                    $items[] = $child;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             // if there is only one h-entry on the page, then it's primary
             if (count($items) == 1) {
                 return $items[0];
