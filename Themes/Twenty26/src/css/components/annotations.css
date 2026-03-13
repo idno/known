@@ -36,6 +36,21 @@
     text-decoration: underline;
   }
 
+  .idno-annotation-source {
+    margin-top: 0.375rem;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .idno-annotation-content .idno-annotation-source a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .idno-annotation-content .idno-annotation-source a:hover {
+    text-decoration: underline;
+  }
+
   .idno-annotation-section {
     padding-top: var(--spacing-section);
     margin-bottom: 0.25rem;

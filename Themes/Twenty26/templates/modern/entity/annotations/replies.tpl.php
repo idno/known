@@ -35,9 +35,11 @@ if (!empty($vars['annotations']) && is_array($vars['annotations'])) {
             </div>
             <?php } ?>
             <?php if (!empty($permalink)) { ?>
-            <a href="<?= htmlspecialchars($permalink) ?>" class="u-url idno-entry-meta" rel="nofollow">
-                <?= parse_url($permalink, PHP_URL_HOST) ?>
-            </a>
+            <div class="idno-annotation-source">
+                via <a href="<?= htmlspecialchars($permalink) ?>" class="u-url" rel="nofollow">
+                    <?= parse_url($permalink, PHP_URL_HOST) ?>
+                </a>
+            </div>
             <?php } ?>
         </div>
         <?php
