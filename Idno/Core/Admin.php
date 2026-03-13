@@ -37,7 +37,7 @@ namespace Idno\Core {
             }
 
             // Override the page shell
-            \Idno\Core\Idno::site()->template()->addUrlShellOverride('admin', 'admin-shell');
+            \Idno\Core\Idno::site()->template()->addUrlShellOverride('admin', 'settings-shell');
         }
 
         /**

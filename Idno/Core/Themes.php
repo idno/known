@@ -33,9 +33,6 @@ namespace Idno\Core {
                         \Idno\Core\Bonita\Main::additionalPath(site()->config()->path . '/Themes/' . $this->theme);
                         $config = parse_ini_file(\Idno\Core\Idno::site()->config()->path . '/Themes/' . $this->theme . '/theme.ini', true);
                     }
-                } else if (file_exists(\Idno\Core\Idno::site()->config()->path . '/Themes/' . $this->theme . '/theme.ini')) {
-                    \Idno\Core\Bonita\Main::additionalPath(site()->config()->path . '/Themes/' . $this->theme);
-                    $config = parse_ini_file(\Idno\Core\Idno::site()->config()->path . '/Themes/' . $this->theme . '/theme.ini', true);
                 }
                 if (!empty($config)) {
                     if (!empty($config['extensions'])) {
