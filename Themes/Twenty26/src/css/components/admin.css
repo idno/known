@@ -198,6 +198,215 @@
     margin-bottom: 1.5rem;
   }
 
+  /* Admin list items (invitations, blocked emails) */
+  .idno-admin-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .idno-admin-list-item:last-child {
+    border-bottom: none;
+  }
+
+  /* User rows (loaded via AJAX into admin users) */
+  .idno-user-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .idno-user-row:last-child {
+    border-bottom: none;
+  }
+
+  .idno-user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .idno-user-avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .idno-user-details {
+    min-width: 0;
+  }
+
+  .idno-user-name {
+    font-weight: 600;
+    color: var(--color-text-strong);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .idno-user-name:hover {
+    text-decoration: underline;
+  }
+
+  .idno-user-handle {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-left: 0.25rem;
+  }
+
+  .idno-user-email {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .idno-user-meta {
+    display: flex;
+    gap: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .idno-user-meta-item {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    min-width: 5rem;
+  }
+
+  .idno-user-meta-item strong {
+    display: block;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.125rem;
+  }
+
+  .idno-user-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .idno-user-action-link {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+  }
+
+  .idno-user-action-link:hover {
+    color: var(--color-text-strong);
+    text-decoration: underline;
+  }
+
+  .idno-user-action-danger {
+    color: var(--color-text-muted);
+  }
+
+  .idno-user-action-danger:hover {
+    color: #dc2626;
+  }
+
+  /* Pagination disabled state */
+  .pagination-disabled a {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  /* User search results — default template outputs Bootstrap grid */
+  .admin-template .users-search .results .row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+    margin-bottom: 0;
+  }
+
+  .admin-template .users-search .results .row:last-child {
+    border-bottom: none;
+  }
+
+  .admin-template .users-search .results .user-tbl {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .admin-template .users-search .results .user-tbl img {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+  }
+
+  .admin-template .users-search .results .user-tbl a {
+    color: var(--color-text-strong);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .admin-template .users-search .results .user-tbl a:hover {
+    text-decoration: underline;
+  }
+
+  /* Override Bootstrap cols to flex inside admin */
+  .admin-template .users-search .results [class*="col-"] {
+    width: auto;
+    float: none;
+    padding: 0;
+  }
+
+  .admin-template .users-search .results .col-sm-4 {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .admin-template .users-search .results .col-sm-2 {
+    flex-shrink: 0;
+    min-width: 7rem;
+  }
+
+  /* File input styling */
+  .admin-template input[type="file"],
+  .account-template input[type="file"] {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    background: var(--color-surface);
+    cursor: pointer;
+  }
+
+  .admin-template input[type="file"]::file-selector-button,
+  .account-template input[type="file"]::file-selector-button {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0.25rem 0.75rem;
+    margin-right: 0.75rem;
+    font-size: var(--font-size-sm);
+    font-family: var(--font-sans);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .admin-template input[type="file"]::file-selector-button:hover,
+  .account-template input[type="file"]::file-selector-button:hover {
+    background: var(--color-border-subtle);
+  }
+
   /* Bootstrap form compatibility within admin/account shells */
   .admin-template .form-control,
   .account-template .form-control {

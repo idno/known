@@ -25,7 +25,7 @@
 
     <div class="idno-form-group">
         <label><?php echo \Idno\Core\Idno::site()->language()->_('Your API key'); ?></label>
-        <form id="apikey_form"><?php echo $t->__(['action' => '/account/settings/tools/'])->draw('forms/token')?>
+        <form id="apikey_form"><?php echo $this->__(['action' => '/account/settings/tools/'])->draw('forms/token')?>
             <input type="text" id="apikey" class="idno-input" name="apikey" value="Click to show" readonly>
         </form>
         <?php
@@ -38,7 +38,7 @@
 </div>
 
 <script>
-    $(document).ready(function() {
+    jQuery(document).ready(function($) {
         $('#apikey').click(function() {
             var ctrl = $(this);
 
