@@ -38,18 +38,19 @@
 </div>
 
 <script>
-    jQuery(document).ready(function($) {
-        $('#apikey').click(function() {
-            var ctrl = $(this);
-
-            $.ajax('<?php echo \Idno\Core\Idno::site()->currentPage()->currentUrl(); ?>', {
-                dataType: 'json',
-                data: $('#apikey_form').serialize(),
-                success: function(data) {
-                    ctrl.val(data);
-                    $('#apikey-revoke').fadeIn();
-                }
+    document.addEventListener('DOMContentLoaded', function() {
+        var input = document.getElementById('apikey');
+        if (!input) return;
+        input.addEventListener('click', function() {
+            var form = document.getElementById('apikey_form');
+            var params = new URLSearchParams(new FormData(form)).toString();
+            fetch('<?php echo \Idno\Core\Idno::site()->currentPage()->currentUrl(); ?>?' + params, {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
             })
+            .then(function(r) { return r.json(); })
+            .then(function(data) {
+                input.value = data;
+            });
         });
     });
 </script>

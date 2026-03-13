@@ -10,7 +10,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= htmlspecialchars(\Idno\Core\Idno::site()->config()->getTitle()) ?> — Admin</title>
     <link rel="stylesheet" href="<?= \Idno\Core\Idno::site()->config()->getStaticURL() ?>Themes/Twenty26/dist/modern.min.css">
-    <script src="<?= \Idno\Core\Idno::site()->config()->getStaticURL() ?>vendor/npm-asset/jquery/dist/jquery.min.js"></script>
 <?php
     // Render any plugin-registered CSS assets
     if ($assets = \Idno\Core\Idno::site()->currentPage()->getAssets('css')) {

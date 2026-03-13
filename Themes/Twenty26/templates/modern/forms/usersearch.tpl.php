@@ -17,29 +17,35 @@ if (empty($vars['render-template'])) {
     $vars['render-template'] = 'forms/components/usersearch/user';
 }
 ?>
-<div id="<?= $vars['id'] ?>" class="users-search <?php if (!empty($vars['class'])) echo $vars['class']; ?>">
-    <form action="<?= $vars['source-url'] ?>">
+<div id="<?= $vars['id'] ?>" class="users-search <?php if (!empty($vars['class'])) echo $vars['class']; ?>"
+     x-data="userSearch('<?= $vars['source-url'] ?>', '<?= $vars['render-template'] ?>')"
+     x-init="search()">
+    <form @submit.prevent="search()" x-ref="form">
         <div style="display: flex; gap: 0.5rem; margin-bottom: 1rem;">
             <input name="query" type="text" class="idno-input" style="flex: 1;"
                    placeholder="<?= \Idno\Core\Idno::site()->language()->_('Search by name, email address, or username') ?>"
-                   aria-describedby="search">
+                   @change="search()"
+                   x-model="query">
             <button type="submit" class="idno-btn-primary">
                 <?= $this->__(['icon' => 'search'])->draw('shell/icon') ?>
             </button>
-            <?= $this->__(['name' => 'template', 'value' => $vars['render-template']])->draw('forms/input/hidden') ?>
-            <?= $this->__(['name' => 'sort', 'value' => 'created'])->draw('forms/input/hidden') ?>
-            <?= $this->__(['name' => 'order', 'value' => 'desc'])->draw('forms/input/hidden') ?>
-            <?= $this->__(['name' => 'offset', 'value' => 0])->draw('forms/input/hidden') ?>
-            <?= $this->__(['name' => 'limit', 'value' => 100])->draw('forms/input/hidden') ?>
-            <?= $this->__(['name' => 'count'])->draw('forms/input/hidden') ?>
+            <input type="hidden" name="template" value="<?= $vars['render-template'] ?>">
+            <input type="hidden" name="sort" value="created">
+            <input type="hidden" name="order" value="desc">
+            <input type="hidden" name="offset" x-bind:value="offset">
+            <input type="hidden" name="limit" value="100">
         </div>
     </form>
 
-    <div class="results pane"></div>
+    <div class="results pane" x-html="resultsHtml"></div>
 
     <div class="pager" style="display: flex; gap: 1rem; margin-top: 0.75rem;">
-        <span class="newer pagination-disabled"><a href="#" title="Previous" rel="prev" style="font-size: var(--font-size-sm); color: var(--color-text-secondary); text-decoration: none;">&laquo; <?= \Idno\Core\Idno::site()->language()->_('Prev') ?></a></span>
-        <span class="older pagination-disabled"><a href="#" title="Next" rel="next" style="font-size: var(--font-size-sm); color: var(--color-text-secondary); text-decoration: none;"><?= \Idno\Core\Idno::site()->language()->_('Next') ?> &raquo;</a></span>
+        <span :class="{ 'pagination-disabled': offset <= 0 }">
+            <a href="#" @click.prevent="prevPage()" style="font-size: var(--font-size-sm); color: var(--color-text-secondary); text-decoration: none;">&laquo; <?= \Idno\Core\Idno::site()->language()->_('Prev') ?></a>
+        </span>
+        <span :class="{ 'pagination-disabled': offset + limit >= totalCount }">
+            <a href="#" @click.prevent="nextPage()" style="font-size: var(--font-size-sm); color: var(--color-text-secondary); text-decoration: none;"><?= \Idno\Core\Idno::site()->language()->_('Next') ?> &raquo;</a>
+        </span>
     </div>
 </div>
 <?php
@@ -49,63 +55,47 @@ foreach (['source-url', 'control-id', 'render-template', 'name', 'id'] as $varia
 ?>
 
 <script>
-    var form = $('#<?= $vars['id'] ?>');
-    var form_actual = form.find('form');
-    var query = form.find("input[name='query']");
+    document.addEventListener('alpine:init', function() {
+        Alpine.data('userSearch', function(sourceUrl, renderTemplate) {
+            return {
+                query: '',
+                offset: 0,
+                limit: 100,
+                totalCount: 0,
+                resultsHtml: '',
 
-    function executeSearch(form) {
-        var query = form.find("input[name='query']");
-        $.ajax({
-            type: "GET",
-            data: form.serialize(),
-            url: form.attr('action'),
-            success: function (data) {
-                var count = form.find("input[name='count']");
-                var offset = parseInt(form.find("input[name='offset']").val());
-                var limit = parseInt(form.find("input[name='limit']").val());
+                search() {
+                    var self = this;
+                    var params = new URLSearchParams({
+                        query: this.query,
+                        template: renderTemplate,
+                        sort: 'created',
+                        order: 'desc',
+                        offset: this.offset,
+                        limit: this.limit
+                    });
+                    fetch(sourceUrl + '?' + params.toString())
+                    .then(function(r) { return r.json(); })
+                    .then(function(data) {
+                        self.totalCount = data.count || 0;
+                        self.resultsHtml = data.rendered || '';
+                    });
+                },
 
-                count.val(data.count);
-                form.closest('div').find('.results').html(data.rendered);
+                prevPage() {
+                    if (this.offset > 0) {
+                        this.offset = Math.max(0, this.offset - this.limit);
+                        this.search();
+                    }
+                },
 
-                // Handle pagination
-                form.closest('div').find('.pager span').addClass('pagination-disabled');
-                if (offset > 0)
-                    form.closest('div').find('.pager span.newer').removeClass('pagination-disabled');
-                if (offset + limit <= data.count) {
-                    form.closest('div').find('.pager span.older').removeClass('pagination-disabled');
+                nextPage() {
+                    if (this.offset + this.limit < this.totalCount) {
+                        this.offset += this.limit;
+                        this.search();
+                    }
                 }
-            }
+            };
         });
-    }
-
-    executeSearch(form_actual); // Load initial
-
-    // Pagination
-    $('.pager a').click(function (e) {
-        e.preventDefault();
-
-        var offset = parseInt(form.find("input[name='offset']").val());
-        var limit = parseInt(form.find("input[name='limit']").val());
-        var count = parseInt(form.find("input[name='count']").val());
-
-        if ($(this).attr('rel') == 'prev') {
-            if (offset > 0)
-                form.find("input[name='offset']").val(offset - limit);
-        } else {
-            if (offset + limit <= count) {
-                form.find("input[name='offset']").val(offset + limit);
-            }
-        }
-
-        executeSearch(form_actual);
-    });
-
-    query.change(function () {
-        form_actual.submit();
-    });
-
-    form_actual.submit(function(e) {
-        e.preventDefault();
-        executeSearch(form_actual);
     });
 </script>
