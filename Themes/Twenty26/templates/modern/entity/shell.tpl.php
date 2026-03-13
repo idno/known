@@ -38,9 +38,18 @@ if ($object) {
                             if ($replies > 0) {
                                 echo (sizeof($inreplyto) > 2 && $replies < sizeof($inreplyto) - 1) ? ', ' : ' and ';
                             }
+                            $linkText = parse_url($inreplytolink, PHP_URL_HOST);
+                            if (\Idno\Common\Entity::isLocalUUID($inreplytolink)) {
+                                if ($replyTarget = \Idno\Common\Entity::getByURL($inreplytolink)) {
+                                    $targetTitle = $replyTarget->getTitle();
+                                    if (!empty($targetTitle)) {
+                                        $linkText = $targetTitle;
+                                    }
+                                }
+                            }
                             ?>
-                            <a href="<?= $inreplytolink ?>" rel="in-reply-to" class="u-in-reply-to">
-                                <?= parse_url($inreplytolink, PHP_URL_HOST) ?>
+                            <a href="<?= htmlspecialchars($inreplytolink) ?>" rel="in-reply-to" class="u-in-reply-to">
+                                <?= htmlspecialchars($linkText) ?>
                             </a>
                             <?php
                             $replies++;
