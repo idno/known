@@ -40,7 +40,7 @@ if (!empty($vars['annotations']) && is_array($vars['annotations'])) {
                 <?= $this->autop($this->parseURLs(strip_tags($annotation['content']), 'rel="nofollow"')) ?>
             </div>
             <?php } ?>
-            <?php if (!empty($permalink)) { ?>
+            <?php if (!empty($permalink) && !$isLocalAnnotation) { ?>
             <div class="idno-annotation-source">
                 via <a href="<?= htmlspecialchars($permalink) ?>" class="u-url" rel="nofollow">
                     <?= parse_url($permalink, PHP_URL_HOST) ?>
