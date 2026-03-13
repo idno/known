@@ -41,6 +41,8 @@ test.php
 /*/.DS_Store
 
 /codedocs/
+/docs/superpowers/
+.superpowers
 
 config.ini
 *.json
