@@ -23,6 +23,11 @@ namespace IdnoPlugins\Text {
             );
         }
 
+        function getAdminIcon()
+        {
+            return 'newspaper';
+        }
+
     }
 
 }

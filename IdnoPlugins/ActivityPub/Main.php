@@ -217,4 +217,9 @@ class Main extends Plugin
             Delivery::deliver($user, $data['activity'], $data['inbox']);
         });
     }
+
+    function getAdminIcon()
+    {
+        return 'globe';
+    }
 }

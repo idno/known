@@ -1,0 +1,190 @@
+@layer components {
+  /* Annotation rows (likes, shares, mentions, rsvps) */
+  .idno-annotation {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--spacing-gap);
+    padding: 0.5rem 0;
+  }
+
+  .idno-annotation + .idno-annotation {
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .idno-annotation-avatar {
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .idno-annotation-content {
+    flex: 1;
+    min-width: 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    line-height: 1.4;
+  }
+
+  .idno-annotation-content a {
+    color: var(--color-text-strong);
+    text-decoration: none;
+  }
+
+  .idno-annotation-content a:hover {
+    text-decoration: underline;
+  }
+
+  .idno-annotation-section {
+    padding-top: var(--spacing-section);
+    margin-bottom: 0.25rem;
+  }
+
+  .idno-annotation-section h4 {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--color-text-strong);
+    margin: 0;
+  }
+
+  .idno-annotation-delete {
+    font-size: var(--font-size-sm);
+    flex-shrink: 0;
+  }
+
+  .idno-annotation-delete a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .idno-annotation-delete a:hover {
+    color: #dc2626;
+  }
+
+  /* Annotations list container (class set by content/end.tpl.php) */
+  .idno-annotations {
+    width: 100%;
+    margin-top: var(--spacing-section);
+    padding-top: var(--spacing-section);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  /* Comment form */
+  .idno-comment-form {
+    width: 100%;
+    display: flex;
+    gap: var(--spacing-gap);
+    margin-top: var(--spacing-section);
+    padding-top: var(--spacing-section);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+
+  .idno-comment-form form {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .idno-comment-form .idno-textarea {
+    min-height: 4rem;
+  }
+
+  .idno-comment-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 0.5rem;
+  }
+
+  /* Content type filter bar */
+  .idno-content-type-bar {
+    display: flex;
+    gap: 0.25rem;
+    margin-bottom: var(--spacing-section);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .idno-content-type-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .idno-content-type-tab:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--color-text-strong);
+  }
+
+  .idno-content-type-tab.active {
+    background: var(--color-primary);
+    color: var(--color-primary-text);
+  }
+
+  /* Syndication links */
+  .idno-syndication-links {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    font-size: var(--font-size-sm);
+  }
+
+  .idno-syndication-links a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .idno-syndication-links a:hover {
+    color: var(--color-text-strong);
+    text-decoration: underline;
+  }
+
+  /* Pagination */
+  .idno-pagination {
+    margin-top: var(--spacing-section);
+    padding-top: var(--spacing-section);
+  }
+
+  .idno-pagination ul {
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .idno-pagination li a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .idno-pagination li a:hover {
+    background: rgba(0, 0, 0, 0.04);
+    color: var(--color-text-strong);
+  }
+
+  .idno-pagination li.pagination-disabled a {
+    color: var(--color-text-muted);
+    opacity: 0.4;
+    pointer-events: none;
+  }
+}

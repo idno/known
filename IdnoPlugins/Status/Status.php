@@ -119,6 +119,13 @@ namespace IdnoPlugins\Status {
                     }
                 }
                 $this->setAccess($access);
+
+                // Make publish status aware
+                $publish_status = \Idno\Core\Idno::site()->currentPage()->getInput('publish_status', 'published');
+                if (!empty($publish_status)) {
+                    $this->setPublishStatus($publish_status);
+                }
+
                 if ($this->publish($new)) {
 
                     if ($this->getAccess() == 'PUBLIC') {

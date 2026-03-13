@@ -1,0 +1,755 @@
+@layer components {
+  .idno-admin-shell {
+    display: flex;
+    min-height: 100vh;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+  }
+
+  .idno-admin-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 14rem;
+    height: 100vh;
+    background: var(--color-admin-bg);
+    padding: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    z-index: 40;
+  }
+
+  .idno-admin-logo {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--color-admin-text-active);
+    text-decoration: none;
+    padding: 0 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .idno-admin-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    padding: 0 0.75rem;
+    flex: 1;
+    list-style: none;
+    margin: 0;
+  }
+
+  .idno-admin-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.625rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-admin-text);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .idno-admin-nav-item:hover {
+    color: var(--color-admin-text-active);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .idno-admin-nav-item[aria-current="page"],
+  .idno-admin-nav-item.active {
+    color: var(--color-admin-text-active);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .idno-admin-nav-item svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex-shrink: 0;
+  }
+
+  .idno-admin-nav-divider {
+    height: 1px;
+    background: var(--color-admin-divider);
+    margin: 0.5rem 0.625rem;
+  }
+
+  .idno-admin-nav-section {
+    font-size: 0.6875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-admin-text);
+    opacity: 0.6;
+    padding: 0.75rem 0.625rem 0.25rem;
+  }
+
+  .idno-admin-main {
+    margin-left: 14rem;
+    flex: 1;
+    background: var(--color-bg);
+    padding: 2rem;
+    min-height: 100vh;
+  }
+
+  .idno-admin-content {
+    max-width: 52rem;
+  }
+
+  .idno-admin-page-title {
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: var(--color-text-strong);
+    margin-bottom: 1.5rem;
+  }
+
+  .idno-admin-card {
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-subtle);
+    padding: var(--spacing-card);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--spacing-gap);
+  }
+
+  .idno-admin-card-title {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--color-text-strong);
+    margin-bottom: var(--spacing-gap);
+  }
+
+  .idno-admin-stat {
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .idno-admin-stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-text-strong);
+  }
+
+  .idno-admin-stat-label {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-top: 0.25rem;
+  }
+
+  /* Plugin list */
+  .idno-plugin-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .idno-plugin-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .idno-plugin-name {
+    font-weight: 600;
+    color: var(--color-text-strong);
+  }
+
+  .idno-plugin-version {
+    font-weight: 400;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .idno-plugin-author {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-top: 0.125rem;
+  }
+
+  .idno-plugin-author a {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+  }
+
+  .idno-plugin-author a:hover {
+    text-decoration: underline;
+  }
+
+  .idno-plugin-description {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin-top: 0.375rem;
+  }
+
+  .idno-plugin-action {
+    flex-shrink: 0;
+  }
+
+  .idno-plugin-always-on {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    font-style: italic;
+  }
+
+  .idno-admin-description {
+    color: var(--color-text-secondary);
+    margin-bottom: 1.5rem;
+  }
+
+  /* Admin list items (invitations, blocked emails) */
+  .idno-admin-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .idno-admin-list-item:last-child {
+    border-bottom: none;
+  }
+
+  /* User rows (loaded via AJAX into admin users) */
+  .idno-user-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .idno-user-row:last-child {
+    border-bottom: none;
+  }
+
+  .idno-user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .idno-user-avatar {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .idno-user-details {
+    min-width: 0;
+  }
+
+  .idno-user-name {
+    font-weight: 600;
+    color: var(--color-text-strong);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+  }
+
+  .idno-user-name:hover {
+    text-decoration: underline;
+  }
+
+  .idno-user-handle {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    margin-left: 0.25rem;
+  }
+
+  .idno-user-email {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+
+  .idno-user-meta {
+    display: flex;
+    gap: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .idno-user-meta-item {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    min-width: 5rem;
+  }
+
+  .idno-user-meta-item strong {
+    display: block;
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.125rem;
+  }
+
+  .idno-user-actions {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .idno-user-action-link {
+    font-size: 0.75rem;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+  }
+
+  .idno-user-action-link:hover {
+    color: var(--color-text-strong);
+    text-decoration: underline;
+  }
+
+  .idno-user-action-danger {
+    color: var(--color-text-muted);
+  }
+
+  .idno-user-action-danger:hover {
+    color: #dc2626;
+  }
+
+  /* Pagination disabled state */
+  .pagination-disabled a {
+    opacity: 0.3;
+    pointer-events: none;
+  }
+
+  /* User search results — default template outputs Bootstrap grid */
+  .admin-template .users-search .results .row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+    margin-bottom: 0;
+  }
+
+  .admin-template .users-search .results .row:last-child {
+    border-bottom: none;
+  }
+
+  .admin-template .users-search .results .user-tbl {
+    margin: 0;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .admin-template .users-search .results .user-tbl img {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-full);
+    object-fit: cover;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+  }
+
+  .admin-template .users-search .results .user-tbl a {
+    color: var(--color-text-strong);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .admin-template .users-search .results .user-tbl a:hover {
+    text-decoration: underline;
+  }
+
+  /* Override Bootstrap cols to flex inside admin */
+  .admin-template .users-search .results [class*="col-"] {
+    width: auto;
+    float: none;
+    padding: 0;
+  }
+
+  .admin-template .users-search .results .col-sm-4 {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .admin-template .users-search .results .col-sm-2 {
+    flex-shrink: 0;
+    min-width: 7rem;
+  }
+
+  /* File input styling */
+  .admin-template input[type="file"],
+  .account-template input[type="file"] {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    background: var(--color-surface);
+    cursor: pointer;
+  }
+
+  .admin-template input[type="file"]::file-selector-button,
+  .account-template input[type="file"]::file-selector-button {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0.25rem 0.75rem;
+    margin-right: 0.75rem;
+    font-size: var(--font-size-sm);
+    font-family: var(--font-sans);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .admin-template input[type="file"]::file-selector-button:hover,
+  .account-template input[type="file"]::file-selector-button:hover {
+    background: var(--color-border-subtle);
+  }
+
+  /* Bootstrap form compatibility within admin/account shells */
+  .admin-template .form-control,
+  .account-template .form-control {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-base);
+    font-family: var(--font-sans);
+    color: var(--color-text);
+    background: var(--color-surface);
+  }
+
+  .admin-template .form-control:focus,
+  .account-template .form-control:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(17, 17, 17, 0.1);
+  }
+
+  .admin-template select.form-control,
+  .account-template select.form-control {
+    appearance: auto;
+  }
+
+  .admin-template .form-group,
+  .account-template .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .admin-template label,
+  .account-template label {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    display: block;
+    font-size: var(--font-size-sm);
+  }
+
+  .admin-template .btn-primary,
+  .account-template .btn-primary {
+    background: var(--color-primary);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+
+  .admin-template .btn-primary:hover,
+  .account-template .btn-primary:hover {
+    opacity: 0.9;
+  }
+
+  .admin-template .btn-default,
+  .account-template .btn-default {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .admin-template .btn-default:hover,
+  .account-template .btn-default:hover {
+    background: var(--color-bg);
+  }
+
+  .admin-template .btn-danger,
+  .account-template .btn-danger {
+    background: #dc2626;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .admin-template .well,
+  .account-template .well {
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-subtle);
+    padding: var(--spacing-card);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: var(--spacing-gap);
+  }
+
+  .admin-template .explanation,
+  .account-template .explanation,
+  .admin-template .config-desc,
+  .account-template .config-desc {
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+  }
+
+  .admin-template .row,
+  .account-template .row {
+    margin-bottom: 1rem;
+  }
+
+  .admin-template h2,
+  .account-template h2 {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text-strong);
+    margin-bottom: 0.75rem;
+  }
+
+  .admin-template h3,
+  .account-template h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-strong);
+    margin-bottom: 0.5rem;
+  }
+
+  /* Plugin menu item normalization — plugins contribute <li><a> markup */
+  .idno-admin-nav li {
+    list-style: none;
+  }
+
+  .idno-admin-nav li a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.625rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-admin-text);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .idno-admin-nav li a:hover {
+    color: var(--color-admin-text-active);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .idno-admin-nav li.active a {
+    color: var(--color-admin-text-active);
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+@media (max-width: 768px) {
+  @layer components {
+    .idno-admin-sidebar {
+      position: fixed;
+      bottom: 0;
+      top: auto;
+      width: 100%;
+      height: auto;
+      flex-direction: row;
+      padding: 0.5rem;
+      overflow-x: auto;
+    }
+
+    .idno-admin-nav {
+      flex-direction: row;
+      padding: 0;
+    }
+
+    .idno-admin-main {
+      margin-left: 0;
+      margin-bottom: 3.5rem;
+      padding: 1rem;
+    }
+
+    .idno-admin-logo {
+      display: none;
+    }
+
+    .idno-admin-nav-divider {
+      width: 1px;
+      height: 1.5rem;
+      margin: 0 0.25rem;
+    }
+  }
+}
+
+/* ── Account Settings Shell ── */
+@layer components {
+  .idno-account-shell {
+    display: flex;
+    min-height: 100vh;
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+  }
+
+  .idno-account-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 14rem;
+    height: 100vh;
+    background: var(--color-surface);
+    border-right: 1px solid var(--color-border);
+    padding: 1.5rem 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    z-index: 40;
+  }
+
+  .idno-account-header {
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    color: var(--color-text-strong);
+    padding: 0 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .idno-account-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    padding: 0 0.75rem;
+    flex: 1;
+    list-style: none;
+    margin: 0;
+  }
+
+  .idno-account-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.625rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .idno-account-nav-item:hover {
+    color: var(--color-text-strong);
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .idno-account-nav-item[aria-current="page"],
+  .idno-account-nav-item.active {
+    color: var(--color-primary);
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .idno-account-nav-item svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    flex-shrink: 0;
+  }
+
+  .idno-account-back {
+    margin-top: auto;
+    padding: 0 0.75rem;
+    border-top: 1px solid var(--color-border);
+    padding-top: 0.75rem;
+  }
+
+  .idno-account-main {
+    margin-left: 14rem;
+    flex: 1;
+    background: var(--color-bg);
+    padding: 2rem;
+    min-height: 100vh;
+  }
+
+  .idno-account-content {
+    max-width: 52rem;
+  }
+
+  /* Plugin menu item normalization — plugins contribute <li><a> markup */
+  .idno-account-nav li {
+    list-style: none;
+  }
+
+  .idno-account-nav li a {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.625rem;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: color 0.15s, background 0.15s;
+  }
+
+  .idno-account-nav li a:hover {
+    color: var(--color-text-strong);
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .idno-account-nav li.active a {
+    color: var(--color-primary);
+    background: rgba(0, 0, 0, 0.04);
+  }
+}
+
+@media (max-width: 768px) {
+  @layer components {
+    .idno-account-sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      flex-direction: row;
+      padding: 0.5rem;
+      overflow-x: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .idno-account-nav {
+      flex-direction: row;
+      padding: 0;
+    }
+
+    .idno-account-main {
+      margin-left: 0;
+      margin-top: 3.5rem;
+      padding: 1rem;
+    }
+
+    .idno-account-header {
+      display: none;
+    }
+
+    .idno-account-back {
+      display: none;
+    }
+  }
+}

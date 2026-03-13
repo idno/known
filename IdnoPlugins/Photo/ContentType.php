@@ -10,6 +10,16 @@ namespace IdnoPlugins\Photo {
         public $entity_class = 'IdnoPlugins\\Photo\\Photo';
         public $indieWebContentType = array('photo','picture');
 
+        function getDescription()
+        {
+            return 'Image post';
+        }
+
+        function getIconName()
+        {
+            return 'image';
+        }
+
     }
 
 }

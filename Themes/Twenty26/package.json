@@ -1,0 +1,26 @@
+{
+  "name": "idno-2026-theme",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "vite": "^6.0.0",
+    "tailwindcss": "^4.0.0",
+    "@tailwindcss/postcss": "^4.0.0"
+  },
+  "dependencies": {
+    "alpinejs": "^3.14.0",
+    "@tiptap/core": "^2.6.0",
+    "@tiptap/starter-kit": "^2.6.0",
+    "@tiptap/extension-link": "^2.6.0",
+    "@tiptap/extension-image": "^2.6.0",
+    "@tiptap/extension-placeholder": "^2.6.0",
+    "@tiptap/extension-code-block": "^2.6.0",
+    "@tiptap/pm": "^2.6.0",
+    "lucide": "^0.460.0"
+  }
+}

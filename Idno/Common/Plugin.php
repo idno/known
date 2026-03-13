@@ -93,6 +93,17 @@ namespace Idno\Common {
 
             return $manifest['version'];
         }
+
+        /**
+         * Returns a Lucide icon name for the admin navigation sidebar.
+         * Override in plugin subclasses to provide a custom icon.
+         *
+         * @return string
+         */
+        function getAdminIcon()
+        {
+            return 'box';
+        }
     }
 
 }

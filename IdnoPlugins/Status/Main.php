@@ -32,6 +32,11 @@ namespace IdnoPlugins\Status {
             );
         }
 
+        function getAdminIcon()
+        {
+            return 'message-square';
+        }
+
     }
 
 }

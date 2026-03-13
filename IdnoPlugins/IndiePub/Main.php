@@ -82,6 +82,10 @@ namespace IdnoPlugins\IndiePub {
             return false;
         }
 
+        function getAdminIcon()
+        {
+            return 'send';
+        }
 
     }
 

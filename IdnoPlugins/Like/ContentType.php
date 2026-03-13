@@ -10,6 +10,16 @@ namespace IdnoPlugins\Like {
         public $entity_class = 'IdnoPlugins\\Like\\Like';
         public $indieWebContentType = array('bookmark','like','repost');
 
+        function getDescription()
+        {
+            return 'Save a link';
+        }
+
+        function getIconName()
+        {
+            return 'bookmark';
+        }
+
     }
 
 }

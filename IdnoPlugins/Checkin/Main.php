@@ -22,6 +22,11 @@ namespace IdnoPlugins\Checkin {
                 )
             );
         }
+
+        function getAdminIcon()
+        {
+            return 'map-pin';
+        }
     }
 
 }

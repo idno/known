@@ -54,6 +54,11 @@ namespace IdnoPlugins\Media {
 
             return $total;
         }
+
+        function getAdminIcon()
+        {
+            return 'film';
+        }
     }
 }
 

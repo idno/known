@@ -1,0 +1,71 @@
+@layer components {
+  .idno-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 50;
+    padding: 1rem;
+  }
+
+  .idno-modal {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-modal);
+    width: 100%;
+    max-width: 40rem;
+    max-height: 90vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .idno-modal-lg {
+    max-width: 52rem;
+  }
+
+  .idno-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem var(--spacing-card);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .idno-modal-title {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--color-text-strong);
+  }
+
+  .idno-modal-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    padding: 0.25rem;
+    border-radius: var(--radius-sm);
+  }
+
+  .idno-modal-close:hover {
+    color: var(--color-text-strong);
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .idno-modal-body {
+    padding: var(--spacing-card);
+    flex: 1;
+    overflow-y: auto;
+  }
+
+  .idno-modal-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 1rem var(--spacing-card);
+    border-top: 1px solid var(--color-border-subtle);
+  }
+}

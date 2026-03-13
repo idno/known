@@ -62,6 +62,11 @@ namespace IdnoPlugins\Photo {
 
         }
 
+        function getAdminIcon()
+        {
+            return 'image';
+        }
+
     }
 
 }

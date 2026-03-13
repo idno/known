@@ -29,6 +29,11 @@ namespace IdnoPlugins\Bridgy {
             );
         }
 
+        function getAdminIcon()
+        {
+            return 'share-2';
+        }
+
     }
 
 }

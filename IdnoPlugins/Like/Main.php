@@ -22,6 +22,11 @@ namespace IdnoPlugins\Like {
                 )
             );
         }
+
+        function getAdminIcon()
+        {
+            return 'bookmark';
+        }
     }
 
 }

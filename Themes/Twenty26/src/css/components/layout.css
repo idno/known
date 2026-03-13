@@ -1,0 +1,64 @@
+@layer components {
+  .idno-shell {
+    display: flex;
+    min-height: 100vh;
+    background: var(--color-bg);
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    color: var(--color-text);
+  }
+
+  .idno-nav-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 14rem;
+    height: 100vh;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    z-index: 40;
+  }
+
+  .idno-main {
+    margin-left: 14rem;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 2rem 1rem;
+  }
+
+  .idno-feed {
+    width: 100%;
+    max-width: 38rem;
+  }
+
+  .idno-grid {
+    display: grid;
+    gap: var(--spacing-gap);
+  }
+}
+
+@media (max-width: 768px) {
+  @layer components {
+    .idno-nav-sidebar {
+      position: fixed;
+      top: auto;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 0.5rem;
+      background: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .idno-main {
+      margin-left: 0;
+      margin-bottom: 3.5rem;
+      padding: 1rem 0.5rem;
+    }
+  }
+}

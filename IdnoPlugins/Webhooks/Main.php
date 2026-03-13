@@ -96,6 +96,11 @@ namespace IdnoPlugins\Webhooks {
             return false;
         }
 
+        function getAdminIcon()
+        {
+            return 'webhook';
+        }
+
     }
 
 }
