@@ -25,7 +25,7 @@ if (empty($vars['feed_view'])) {
         <?php } ?>
     <?php
 }
-
+?>
 <div class="idno-entry-body e-content entry-content">
 <?php
     echo $this->__(['value' => $vars['object']->body, 'object' => $vars['object'], 'rel' => $rel])->draw('forms/output/richtext') . $tags;
