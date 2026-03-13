@@ -26,17 +26,6 @@ if (empty($vars['feed_view'])) {
     <?php
 }
 
-if (empty($vars['feed_view']) && empty($vars['object']->notime)) {
-    ?>
-        <p class="idno-entry-meta">
-            <span><?php
-                $minutes = $vars['object']->getReadingTimeInMinutes();
-                echo \Idno\Core\Idno::site()->language()->_('%d min read', [$minutes]);
-            ?></span>
-        </p>
-    <?php
-}
-?>
 <div class="idno-entry-body e-content entry-content">
 <?php
     echo $this->__(['value' => $vars['object']->body, 'object' => $vars['object'], 'rel' => $rel])->draw('forms/output/richtext') . $tags;
