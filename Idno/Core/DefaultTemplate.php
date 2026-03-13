@@ -301,8 +301,6 @@ namespace Idno\Core {
                 } else if ($page->isAcceptedContentType('application/ld+json; profile="https://www.w3.org/ns/activitystreams"') ||
                     $page->isAcceptedContentType('application/activity+json')) {
                     site()->template()->setTemplateType('activitypub');
-                } else {
-                    site()->template()->setTemplateType('default');
                 }
             }
         }
