@@ -17,7 +17,7 @@
     foreach ($vars['pages'] as $category => $pages) {
         $categories[$category] = count($pages);
     }
-?>
+    ?>
 
 <div class="idno-admin-card">
     <h2 class="idno-admin-card-title"><?= \Idno\Core\Idno::site()->language()->_('All Pages') ?></h2>
@@ -33,7 +33,7 @@
         <?php foreach ($vars['pages'] as $category => $pages) {
             if (!empty($pages)) { ?>
         <tbody class="sortable-pages" data-category="<?= htmlspecialchars($category) ?>">
-            <?php foreach ($pages as $page) { ?>
+                <?php foreach ($pages as $page) { ?>
             <tr draggable="true" data-page-id="<?= $page->getID() ?>" style="border-bottom:1px solid var(--color-border,#e5e7eb);cursor:grab;"
                 ondragstart="this.style.opacity='0.4'; event.dataTransfer.setData('text/plain', this.dataset.pageId); event.dataTransfer.effectAllowed='move';"
                 ondragend="this.style.opacity='1';"
@@ -76,9 +76,9 @@
                     </span>
                 </td>
             </tr>
-            <?php } ?>
+                <?php } ?>
         </tbody>
-        <?php }
+            <?php }
         } ?>
     </table>
 </div>
@@ -119,15 +119,19 @@
             <?php foreach ($categories as $category => $count) {
                 $uniqueId = md5($category . rand(0, 999));
                 $isNoCategory = ($category === 'No Category');
-            ?>
-            <tr <?php if (!$isNoCategory) { ?>draggable="true" data-category="<?= htmlspecialchars($category) ?>"
+                ?>
+            <tr <?php
+            if (!$isNoCategory) {
+                ?>draggable="true" data-category="<?= htmlspecialchars($category) ?>"
                 style="border-bottom:1px solid var(--color-border,#e5e7eb);cursor:grab;"
                 ondragstart="this.style.opacity='0.4'; event.dataTransfer.setData('text/plain', this.dataset.category); event.dataTransfer.effectAllowed='move';"
                 ondragend="this.style.opacity='1';"
                 ondragover="event.preventDefault(); this.style.borderTop='2px solid var(--color-primary,#2563eb)';"
                 ondragleave="this.style.borderTop='';"
-                ondrop="event.preventDefault(); this.style.borderTop=''; handleCategoryDrop(event, this);"
-            <?php } else { ?>style="border-bottom:1px solid var(--color-border,#e5e7eb);"<?php } ?>
+                ondrop="event.preventDefault(); this.style.borderTop=''; handleCategoryDrop(event, this);"<?php
+            } else {
+                ?>style="border-bottom:1px solid var(--color-border,#e5e7eb);"<?php
+            } ?>
                 x-data="{ editing: false }">
                 <td style="padding:0.5rem;color:var(--color-muted,#9ca3af);"><?php if (!$isNoCategory) echo '⋮⋮'; ?></td>
                 <td style="padding:0.5rem;">

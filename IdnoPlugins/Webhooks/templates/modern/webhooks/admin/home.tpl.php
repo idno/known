@@ -17,20 +17,20 @@
 <?php
     // Prepare initial webhooks data for Alpine
     $existingWebhooks = [];
-    if (!empty(\Idno\Core\Idno::site()->config()->webhook_syndication)) {
-        foreach (\Idno\Core\Idno::site()->config()->webhook_syndication as $webhook) {
-            if (!empty($webhook['title']) || !empty($webhook['url'])) {
-                $existingWebhooks[] = [
-                    'title' => $webhook['title'] ?? '',
-                    'url' => $webhook['url'] ?? ''
-                ];
-            }
+if (!empty(\Idno\Core\Idno::site()->config()->webhook_syndication)) {
+    foreach (\Idno\Core\Idno::site()->config()->webhook_syndication as $webhook) {
+        if (!empty($webhook['title']) || !empty($webhook['url'])) {
+            $existingWebhooks[] = [
+                'title' => $webhook['title'] ?? '',
+                'url' => $webhook['url'] ?? ''
+            ];
         }
     }
+}
     // Always have at least one empty row
-    if (empty($existingWebhooks)) {
-        $existingWebhooks[] = ['title' => '', 'url' => ''];
-    }
+if (empty($existingWebhooks)) {
+    $existingWebhooks[] = ['title' => '', 'url' => ''];
+}
 ?>
 
 <div class="idno-admin-card" x-data="{ webhooks: <?= htmlspecialchars(json_encode($existingWebhooks), ENT_QUOTES) ?> }">
