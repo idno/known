@@ -8,6 +8,14 @@ if ($object) {
         <article class="idno-entry <?= $object->getMicroformats2ObjectType() ?> idno-<?= $object->getContentTypeCategorySlug() ?>"
             <?= $this->getDataHTMLAttributesForObjectType($object->getActivityStreamsObjectType()) ?>>
 
+            <?php if ($object->getPublishStatus() === 'draft') { ?>
+            <div class="idno-draft-banner">
+                <?= $this->__(['icon' => 'file-edit', 'class' => 'idno-draft-banner-icon'])->draw('shell/icon') ?>
+                <?= \Idno\Core\Idno::site()->language()->_('Draft') ?>
+                <span class="idno-draft-banner-hint">&mdash; <?= \Idno\Core\Idno::site()->language()->_('only visible to you') ?></span>
+            </div>
+            <?php } ?>
+
             <div class="idno-entry-header p-author h-card">
                 <a href="<?= $owner->getDisplayURL() ?>" class="u-url">
                     <img class="idno-entry-avatar u-photo" src="<?= $owner->getIcon() ?>"

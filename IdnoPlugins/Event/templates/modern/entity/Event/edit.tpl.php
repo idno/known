@@ -9,6 +9,9 @@
                 echo \Idno\Core\Idno::site()->language()->_('New Event');
             } else {
                 echo \Idno\Core\Idno::site()->language()->_('Edit Event');
+                if ($vars['object']->getPublishStatus() === 'draft') {
+                    echo ' <span class="idno-badge-draft">' . \Idno\Core\Idno::site()->language()->_('Draft') . '</span>';
+                }
             }
             ?>
         </h4>
@@ -119,6 +122,9 @@
             <button type="submit" class="idno-btn idno-btn-ghost" name="publish_status" value="draft">
                 <?= \Idno\Core\Idno::site()->language()->_('Save as Draft') ?>
             </button>
+            <a href="<?= !empty($vars['object']->_id) ? $vars['object']->getDisplayURL() : \Idno\Core\Idno::site()->config()->getDisplayURL() ?>" class="idno-btn idno-btn-ghost">
+                <?= \Idno\Core\Idno::site()->language()->_('Cancel') ?>
+            </a>
         </div>
 
     </div>

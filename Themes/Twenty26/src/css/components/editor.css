@@ -202,4 +202,83 @@
   .idno-editor-subtitle::placeholder {
     color: var(--color-text-muted);
   }
+
+  /* Reply-to toggle section */
+  .idno-reply-section {
+    margin-bottom: var(--spacing-section);
+  }
+
+  .idno-reply-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    background: var(--color-bg);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .idno-reply-toggle:hover {
+    border-color: var(--color-border-strong);
+    color: var(--color-text-strong);
+  }
+
+  .idno-reply-toggle.active {
+    border-color: var(--color-primary);
+    color: var(--color-primary);
+    background: var(--color-primary-subtle, var(--color-bg));
+  }
+
+  .idno-reply-toggle-icon {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  .idno-reply-input {
+    margin-top: var(--spacing-section);
+  }
+
+  /* Draft badge (inline in headings) */
+  .idno-badge-draft {
+    display: inline-block;
+    font-size: var(--font-size-xs);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.125rem 0.5rem;
+    border-radius: var(--radius-full);
+    background: var(--color-warning-subtle, #fef3c7);
+    color: var(--color-warning-strong, #92400e);
+    vertical-align: middle;
+    margin-left: 0.375rem;
+  }
+
+  /* Draft banner (post view) */
+  .idno-draft-banner {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: var(--spacing-gap);
+    border-radius: var(--radius-sm);
+    background: var(--color-warning-subtle, #fef3c7);
+    color: var(--color-warning-strong, #92400e);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+  }
+
+  .idno-draft-banner-icon {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+
+  .idno-draft-banner-hint {
+    font-weight: 400;
+    opacity: 0.75;
+  }
 }

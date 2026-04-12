@@ -8,6 +8,9 @@
                 echo \Idno\Core\Idno::site()->language()->_('New Bookmark');
             } else {
                 echo \Idno\Core\Idno::site()->language()->_('Edit Bookmark');
+                if ($vars['object']->getPublishStatus() === 'draft') {
+                    echo ' <span class="idno-badge-draft">' . \Idno\Core\Idno::site()->language()->_('Draft') . '</span>';
+                }
             }
             ?>
         </h4>
@@ -90,6 +93,9 @@
             <button type="submit" class="idno-btn idno-btn-ghost" name="publish_status" value="draft">
                 <?= \Idno\Core\Idno::site()->language()->_('Save as Draft') ?>
             </button>
+            <a href="<?= !empty($vars['object']->_id) ? $vars['object']->getDisplayURL() : \Idno\Core\Idno::site()->config()->getDisplayURL() ?>" class="idno-btn idno-btn-ghost">
+                <?= \Idno\Core\Idno::site()->language()->_('Cancel') ?>
+            </a>
         </div>
 
     </div>
@@ -97,38 +103,36 @@
 </form>
 <?php echo $this->draw('entity/edit/footer'); ?>
 <script>
-
-    $(document).ready(function () {
-
-        $('.bookmark-url').change(function () {
-
-            if ($('.bookmark-url').val() != "") {
-                $('.bookmark-title-spinner').show();
-                $.ajax({
-                    dataType: "json",
-                    url: "<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>like/callback/",
-                    data: {
-                        url: $('.bookmark-url').val()
-                    },
-                    success: function (data) {
-                        $('.bookmark-title').val(data.value);
-                        $('.bookmark-spinner-container').html(" ");
-                        $('.bookmark-title-container').show();
-
-                        var unfurl = $('.bookmark-url').closest('form').find('.unfurl');
-                        unfurl.attr('data-url', $('.bookmark-url').val());
-                        Unfurl.unfurl(unfurl);
-
-                    },
-                    error: function () {
-                        $('.bookmark-spinner-container').html(" ");
-                        $('.bookmark-title-container').show();
-                    }
-                });
-            }
-
-        });
-
-    })
-
+    document.addEventListener('DOMContentLoaded', function () {
+        var urlInput = document.querySelector('.bookmark-url');
+        if (urlInput) {
+            urlInput.addEventListener('change', function () {
+                if (urlInput.value) {
+                    var spinner = document.querySelector('.bookmark-title-spinner');
+                    if (spinner) spinner.style.display = '';
+                    fetch('<?= \Idno\Core\Idno::site()->config()->getDisplayURL() ?>like/callback/?url=' + encodeURIComponent(urlInput.value))
+                        .then(function(r) { return r.json(); })
+                        .then(function(data) {
+                            var title = document.querySelector('.bookmark-title');
+                            if (title) title.value = data.value;
+                            var spinnerContainer = document.querySelector('.bookmark-spinner-container');
+                            if (spinnerContainer) spinnerContainer.innerHTML = ' ';
+                            var titleContainer = document.querySelector('.bookmark-title-container');
+                            if (titleContainer) titleContainer.style.display = '';
+                            var unfurl = urlInput.closest('form').querySelector('.unfurl');
+                            if (unfurl && typeof Unfurl !== 'undefined') {
+                                unfurl.setAttribute('data-url', urlInput.value);
+                                Unfurl.unfurl(unfurl);
+                            }
+                        })
+                        .catch(function() {
+                            var spinnerContainer = document.querySelector('.bookmark-spinner-container');
+                            if (spinnerContainer) spinnerContainer.innerHTML = ' ';
+                            var titleContainer = document.querySelector('.bookmark-title-container');
+                            if (titleContainer) titleContainer.style.display = '';
+                        });
+                }
+            });
+        }
+    });
 </script>

@@ -12,13 +12,13 @@ namespace Themes\Twenty26\Pages {
             $count = 25; // Paginate at 25 drafts per page
             $offset = (int) $this->getInput('offset', 0);
 
-            $drafts = \Idno\Common\Entity::get(
+            $drafts = \Idno\Common\Entity::getFromAll(
                 ['publish_status' => 'draft', 'owner' => $user->getUUID()],
                 [],
                 $count,
                 $offset
             );
-            $total = \Idno\Common\Entity::count(
+            $total = \Idno\Common\Entity::countFromAll(
                 ['publish_status' => 'draft', 'owner' => $user->getUUID()]
             );
 
