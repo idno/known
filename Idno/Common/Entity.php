@@ -581,6 +581,22 @@ namespace Idno\Common {
         }
 
         /**
+         * Saves this entity as a draft without publishing or syndicating.
+         * Sets publish_status to 'draft' and persists to the database.
+         *
+         * @return bool True if the draft was saved successfully
+         */
+        function saveAsDraft()
+        {
+            $this->setPublishStatus('draft');
+            if ($this->save()) {
+                return true;
+            }
+
+            return false;
+        }
+
+        /**
          * Set the published status of this object, for use with searches.
          * @param string $status The status, default "published". Other values may be "draft" or "scheduled".
          */

@@ -79,17 +79,20 @@ namespace IdnoPlugins\Event {
 
                 $this->setAccess($access);
 
-                // Make publish status aware
                 $publish_status = \Idno\Core\Idno::site()->currentPage()->getInput('publish_status', 'published');
-                if (!empty($publish_status)) {
-                    $this->setPublishStatus($publish_status);
-                }
 
-                if ($this->publish($new)) {
-                    if ($this->getAccess() == 'PUBLIC') {
-                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
+                if ($publish_status === 'draft') {
+                    if ($this->saveAsDraft()) {
+                        return true;
                     }
-                    return true;
+                } else {
+                    $this->setPublishStatus('published');
+                    if ($this->publish($new)) {
+                        if ($this->getAccess() == 'PUBLIC') {
+                            \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()));
+                        }
+                        return true;
+                    }
                 }
             } else {
                 \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('You can\'t save an event with no description.'));

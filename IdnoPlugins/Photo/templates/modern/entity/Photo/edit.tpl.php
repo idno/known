@@ -19,6 +19,9 @@
                         echo \Idno\Core\Idno::site()->language()->_('New Photo');
                     } else {
                         echo \Idno\Core\Idno::site()->language()->_('Edit Photo');
+                        if ($vars['object']->getPublishStatus() === 'draft') {
+                            echo ' <span class="idno-badge-draft">' . \Idno\Core\Idno::site()->language()->_('Draft') . '</span>';
+                        }
                     }
                     ?>
                 </h4>
@@ -79,19 +82,24 @@
                     <button type="submit" class="idno-btn idno-btn-ghost" name="publish_status" value="draft">
                         <?= \Idno\Core\Idno::site()->language()->_('Save as Draft') ?>
                     </button>
+                    <a href="<?= !empty($vars['object']->_id) ? $vars['object']->getDisplayURL() : \Idno\Core\Idno::site()->config()->getDisplayURL() ?>" class="idno-btn idno-btn-ghost">
+                        <?= \Idno\Core\Idno::site()->language()->_('Cancel') ?>
+                    </a>
                 </div>
 
         </div>
     </form>
 <script>
-    $(document).ready(function () {
-        $('.idno-photo-files input').change(function(){
-            var number = parseInt($(this).closest('div.idno-image-file').attr('data-number'));
-            number = number + 1;
-            console.log("Showing item " + number);
-            $('.idno-photo-files .idno-image-file[data-number='+number.toString()+']').show();
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.idno-photo-files input').forEach(function(input) {
+            input.addEventListener('change', function() {
+                var imageFile = this.closest('div.idno-image-file');
+                var number = parseInt(imageFile.getAttribute('data-number')) + 1;
+                var next = document.querySelector('.idno-photo-files .idno-image-file[data-number="' + number + '"]');
+                if (next) next.style.display = '';
+            });
         });
-    } );
+    });
 </script>
 
 <?php echo $this->draw('entity/edit/footer');

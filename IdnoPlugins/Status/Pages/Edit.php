@@ -59,8 +59,13 @@ namespace IdnoPlugins\Status\Pages {
             }
 
             if ($object->saveDataFromInput()) {
-                $forward = $this->getInput('forward-to', $object->getDisplayURL());
-                $this->forward($forward);
+                if ($object->getPublishStatus() === 'draft') {
+                    \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('Your draft has been saved.'));
+                    $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'drafts/');
+                } else {
+                    $forward = $this->getInput('forward-to', $object->getDisplayURL());
+                    $this->forward($forward);
+                }
             }
 
         }

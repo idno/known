@@ -65,10 +65,13 @@ namespace IdnoPlugins\Text\Pages {
 
             if ($object->saveDataFromInput()) {
                 (new \Idno\Core\Autosave())->clearContext('entry');
-                //$this->forward(\Idno\Core\Idno::site()->config()->getURL() . 'content/all/');
-                //$this->forward($object->getDisplayURL());
-                $forward = $this->getInput('forward-to', $object->getDisplayURL());
-                $this->forward($forward);
+                if ($object->getPublishStatus() === 'draft') {
+                    \Idno\Core\Idno::site()->session()->addMessage(\Idno\Core\Idno::site()->language()->_('Your draft has been saved.'));
+                    $this->forward(\Idno\Core\Idno::site()->config()->getDisplayURL() . 'drafts/');
+                } else {
+                    $forward = $this->getInput('forward-to', $object->getDisplayURL());
+                    $this->forward($forward);
+                }
             }
 
         }

@@ -109,6 +109,11 @@ namespace IdnoPlugins\Text {
                 $this->short_description = \Idno\Core\Idno::site()->currentPage()->getInput('subtitle');
 
                 $inreplyto = \Idno\Core\Idno::site()->currentPage()->getInput('inreplyto');
+                if (is_array($inreplyto)) {
+                    $inreplyto = array_values(array_filter($inreplyto, function ($v) {
+                        return !empty(trim($v));
+                    }));
+                }
                 $this->inreplyto = $inreplyto;
 
                 // TODO fetch syndicated reply targets asynchronously (or maybe on-demand, when syndicating?)
@@ -126,11 +131,7 @@ namespace IdnoPlugins\Text {
                 $access      = \Idno\Core\Idno::site()->currentPage()->getInput('access');
                 $this->setAccess($access);
 
-                // Make Entry publish status aware
                 $publish_status = \Idno\Core\Idno::site()->currentPage()->getInput('publish_status', 'published');
-                if (!empty($publish_status)) {
-                    $this->setPublishStatus($publish_status);
-                }
 
                 if ($time = \Idno\Core\Idno::site()->currentPage()->getInput('created')) {
                     if ($time = strtotime($time)) {
@@ -138,16 +139,24 @@ namespace IdnoPlugins\Text {
                     }
                 }
 
-                if ($this->publish($new)) {
-
-                    $autosave = new Autosave();
-                    $autosave->clearContext('entry');
-
-                    if ($this->getAccess() == 'PUBLIC') {
-                        \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
+                if ($publish_status === 'draft') {
+                    if ($this->saveAsDraft()) {
+                        (new Autosave())->clearContext('entry');
+                        return true;
                     }
+                } else {
+                    $this->setPublishStatus('published');
+                    if ($this->publish($new)) {
 
-                    return true;
+                        $autosave = new Autosave();
+                        $autosave->clearContext('entry');
+
+                        if ($this->getAccess() == 'PUBLIC') {
+                            \Idno\Core\Webmention::pingMentions($this->getURL(), \Idno\Core\Idno::site()->template()->parseURLs($this->getTitle() . ' ' . $this->getDescription()));
+                        }
+
+                        return true;
+                    }
                 }
             } else {
                 \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language()->_('You can\'t save an empty entry.'));

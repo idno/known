@@ -90,6 +90,11 @@ namespace IdnoPlugins\Status {
             }
             $body      = \Idno\Core\Idno::site()->currentPage()->getInput('body');
             $inreplyto = \Idno\Core\Idno::site()->currentPage()->getInput('inreplyto');
+            if (is_array($inreplyto)) {
+                $inreplyto = array_values(array_filter($inreplyto, function ($v) {
+                    return !empty(trim($v));
+                }));
+            }
             $tags      = \Idno\Core\Idno::site()->currentPage()->getInput('tags');
             $access    = \Idno\Core\Idno::site()->currentPage()->getInput('access');
 
@@ -120,22 +125,25 @@ namespace IdnoPlugins\Status {
                 }
                 $this->setAccess($access);
 
-                // Make publish status aware
                 $publish_status = \Idno\Core\Idno::site()->currentPage()->getInput('publish_status', 'published');
-                if (!empty($publish_status)) {
-                    $this->setPublishStatus($publish_status);
-                }
 
-                if ($this->publish($new)) {
-
-                    if ($this->getAccess() == 'PUBLIC') {
-                        \Idno\Core\Idno::site()->queue()->enqueue('default', 'webmention/sendall', [
-                            'source' => $this->getURL(),
-                            'text' => \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()),
-                        ]);
+                if ($publish_status === 'draft') {
+                    if ($this->saveAsDraft()) {
+                        return true;
                     }
+                } else {
+                    $this->setPublishStatus('published');
+                    if ($this->publish($new)) {
 
-                    return true;
+                        if ($this->getAccess() == 'PUBLIC') {
+                            \Idno\Core\Idno::site()->queue()->enqueue('default', 'webmention/sendall', [
+                                'source' => $this->getURL(),
+                                'text' => \Idno\Core\Idno::site()->template()->parseURLs($this->getDescription()),
+                            ]);
+                        }
+
+                        return true;
+                    }
                 }
             } else {
                 \Idno\Core\Idno::site()->session()->addErrorMessage(\Idno\Core\Idno::site()->language('You can\'t save an empty status update.'));

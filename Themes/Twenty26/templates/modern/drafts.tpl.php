@@ -16,7 +16,7 @@
                     <div class="idno-entry-meta">
                         <?= date('M j, Y g:ia', $draft->updated) ?>
                         &middot;
-                        <?= htmlspecialchars($draft->getContentType()) ?>
+                        <?= htmlspecialchars($draft->getContentTypeCategoryTitle()) ?>
                     </div>
                 </div>
                 <a href="<?= $draft->getEditURL() ?>" class="idno-btn idno-btn-ghost idno-btn-sm">
