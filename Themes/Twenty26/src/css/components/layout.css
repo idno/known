@@ -1,28 +1,34 @@
 @layer components {
+  body {
+    background: var(--color-bg);
+  }
+
   .idno-shell {
     display: flex;
+    justify-content: center;
+    max-width: 66rem;
+    margin: 0 auto;
     min-height: 100vh;
-    background: var(--color-bg);
     font-family: var(--font-sans);
     font-size: var(--font-size-base);
     color: var(--color-text);
   }
 
   .idno-nav-sidebar {
-    position: fixed;
+    position: sticky;
     top: 0;
-    left: 0;
+    align-self: flex-start;
     width: 14rem;
     height: 100vh;
     padding: 1.5rem 1rem;
     display: flex;
     flex-direction: column;
-    z-index: 40;
+    flex-shrink: 0;
   }
 
   .idno-main {
-    margin-left: 14rem;
     flex: 1;
+    min-width: 0;
     display: flex;
     justify-content: center;
     padding: 2rem 1rem;
@@ -33,12 +39,33 @@
     max-width: 38rem;
   }
 
+  .idno-spacer {
+    width: 14rem;
+    flex-shrink: 0;
+  }
+
   .idno-grid {
     display: grid;
     gap: var(--spacing-gap);
   }
 }
 
+/* Medium: icons-only nav */
+@media (min-width: 769px) and (max-width: 1099px) {
+  @layer components {
+    .idno-nav-sidebar {
+      width: 4rem;
+      padding: 1.5rem 0.5rem;
+      align-items: center;
+    }
+
+    .idno-spacer {
+      width: 4rem;
+    }
+  }
+}
+
+/* Mobile: bottom bar */
 @media (max-width: 768px) {
   @layer components {
     .idno-nav-sidebar {
@@ -53,12 +80,16 @@
       padding: 0.5rem;
       background: var(--color-surface);
       border-top: 1px solid var(--color-border);
+      z-index: 40;
     }
 
     .idno-main {
-      margin-left: 0;
       margin-bottom: 3.5rem;
       padding: 1rem 0.5rem;
+    }
+
+    .idno-spacer {
+      display: none;
     }
   }
 }

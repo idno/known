@@ -80,6 +80,44 @@
   }
 }
 
+/* Medium: icons-only nav */
+@media (min-width: 769px) and (max-width: 1099px) {
+  @layer components {
+    .idno-nav-logo {
+      width: 2.5rem;
+      overflow: hidden;
+      white-space: nowrap;
+      text-align: center;
+      padding: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .idno-nav-label {
+      display: none;
+    }
+
+    .idno-nav-item {
+      justify-content: center;
+      padding: 0.625rem;
+      gap: 0;
+    }
+
+    .idno-nav-icon {
+      width: 1.375rem;
+      height: 1.375rem;
+    }
+
+    .idno-nav-btn {
+      padding: 0.625rem;
+      gap: 0;
+    }
+
+    .idno-nav-btn .idno-nav-label {
+      display: none;
+    }
+  }
+}
+
 @media (max-width: 768px) {
   @layer components {
     .idno-nav-items {

@@ -42,6 +42,7 @@
                 ?>
             </div>
         </main>
+        <div class="idno-spacer" aria-hidden="true"></div>
     </div>
     <?= $template->draw('shell/aftercontainer') ?>
     <?= $template->draw('shell/contentfooter') ?>
