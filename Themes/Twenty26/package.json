@@ -14,12 +14,12 @@
   },
   "dependencies": {
     "alpinejs": "^3.14.0",
-    "@tiptap/core": "^2.6.0",
-    "@tiptap/starter-kit": "^2.6.0",
-    "@tiptap/extension-link": "^2.6.0",
-    "@tiptap/extension-image": "^2.6.0",
-    "@tiptap/extension-placeholder": "^2.6.0",
-    "@tiptap/extension-code-block": "^2.6.0",
+    "@tiptap/core": "^3.31.0",
+    "@tiptap/starter-kit": "^3.31.0",
+    "@tiptap/extension-link": "^3.31.0",
+    "@tiptap/extension-image": "^3.31.0",
+    "@tiptap/extension-placeholder": "^3.31.0",
+    "@tiptap/extension-code-block": "^3.31.0",
     "@tiptap/pm": "^2.6.0",
     "lucide": "^0.460.0"
   }
