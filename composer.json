@@ -48,7 +48,7 @@
         "npm-asset/exif-js": "2.3.0",
         "npm-asset/jquery": "3.7.1",
         "npm-asset/mediaelement": "7.0.5",
-        "npm-asset/tinymce--tinymce-jquery": "2.1.0",
+        "npm-asset/tinymce--tinymce-jquery": "2.3.0-patch20260601035826560",
         "npm-asset/vanilla-fitvids": "^1.1",
         "idno/mentionjs": "^1.0",
         "indieweb/mention-client": "^1.2.1",
